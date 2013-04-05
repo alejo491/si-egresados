@@ -1,0 +1,28 @@
+﻿@model AplicacionBase.Models.Survey
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Encuesta</h2>
+
+<h3>Está seguro que desea eliminar la encuesta?</h3>
+<fieldset>
+    <legend>Encuesta</legend>
+
+    <div class="display-label">Nombre</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Objetivo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Aim)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" /> |
+        @Html.ActionLink("Volver", "Index")
+    </p>
+}

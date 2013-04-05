@@ -1,0 +1,43 @@
+﻿@model AplicacionBase.Models.AnswerChoice
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Esta seguro que desea eliminar esta opcion?</h3>
+<fieldset>
+    <legend>OpcionesdeRespuesta</legend>
+
+    <div class="display-label">Pregunta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Question.Type)
+    </div>
+
+    <div class="display-label">Enunciado</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sentence)
+    </div>
+
+    <div class="display-label">ValorN</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumericValue)
+    </div>
+
+    <div class="display-label">Tipo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">AnswerNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AnswerNumber)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" /> |
+        @Html.ActionLink("Regresar", "Index", new { oid = Model.IdQuestion })
+    </p>
+}

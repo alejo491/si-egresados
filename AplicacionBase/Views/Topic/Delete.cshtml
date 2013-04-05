@@ -1,0 +1,24 @@
+﻿@model AplicacionBase.Models.Topic
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar</h2>
+
+<h3>¿Está seguro de eliminar este tema?</h3>
+<fieldset>
+    <legend>Tema</legend>
+
+    <div class="display-label">Descipcion</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" /> |
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+}
+

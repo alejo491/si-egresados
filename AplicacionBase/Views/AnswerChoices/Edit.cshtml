@@ -1,0 +1,68 @@
+﻿@model AplicacionBase.Models.AnswerChoice
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ViewData["oid"]
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>OpcionesdeRespuesta</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.HiddenFor(model => model.IdQuestion, "Pregunta")
+        </div>
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.IdQuestion, "" + ViewData["oid"])
+        
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sentence)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sentence)
+            @Html.ValidationMessageFor(model => model.Sentence)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumericValue)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumericValue)
+            @Html.ValidationMessageFor(model => model.NumericValue)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Type)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Type)
+            @Html.ValidationMessageFor(model => model.Type)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AnswerNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AnswerNumber)
+            @Html.ValidationMessageFor(model => model.AnswerNumber)
+        </div>
+
+        <p>
+            <input type="submit" value="Guardar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index", new { oid = Model.IdQuestion })
+</div>
