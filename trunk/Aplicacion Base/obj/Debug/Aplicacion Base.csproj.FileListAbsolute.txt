@@ -1,7 +1,0 @@
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\bin\Aplicacion Base.dll
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\bin\Aplicacion Base.pdb
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\bin\EntityFramework.dll
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\bin\EntityFramework.xml
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\obj\Debug\Aplicacion Base.dll
-C:\Users\Luis Ordoñez\Desktop\Aplicacion Base\Aplicacion Base\obj\Debug\Aplicacion Base.pdb

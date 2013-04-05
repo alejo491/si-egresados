@@ -1,0 +1,43 @@
+﻿@model AplicacionBase.Models.Question
+
+@{
+    ViewBag.Title = "Eliminar Pregunta";
+}
+
+<h2>Eliminar Pregunta</h2>
+
+<h3>¿Está Seguro de Eliminarlo?</h3>
+<fieldset>
+    <legend>Pregunta</legend>
+
+    <div class="display-label">Topic</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Topic.Description)
+    </div>
+
+    <div class="display-label">Tipo de Pregunta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">Enunciado de la Pregunta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sentence)
+    </div>
+
+    <div class="display-label">AnswerNumber de Pregunta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.QuestionNumber)
+    </div>
+
+    <div class="display-label">Es Obligatorio</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsObligatory)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Borrar Pregunta" /> |
+        @Html.ActionLink("Regresar al Listar", "Index")
+    </p>
+}

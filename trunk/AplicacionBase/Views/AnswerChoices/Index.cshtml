@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AplicacionBase.Models.AnswerChoice>
+
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<p>
+    @Html.ActionLink("Crear", "Create", new { oid = @ViewData["oid"] })
+</p>
+<table>
+    <tr>
+        <th>
+            Pregunta
+        </th>
+        <th>
+            Enunciado
+        </th>
+        <th>
+            Valor Numérico
+        </th>
+        <th>
+            Tipo
+        </th>
+        <th>
+            Número
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    if (item.IdQuestion.Equals(@Html.ViewData["oid"]))
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Question.Sentence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sentence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumericValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnswerNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+    }
+}
+
+</table>

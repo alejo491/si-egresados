@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AplicacionBase.Models.Question>
+
+@{
+    ViewBag.Title = "Listar Pregunta";
+}
+
+<h2>Listar Pregunta</h2>
+
+<p>
+    @Html.ActionLink("Crear Pregunta", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Tema
+        </th>
+        <th>
+            Tipo de Pregunta
+        </th>
+        <th>
+            Enunciado de la Pregunta
+        </th>
+        <th>
+            AnswerNumber de Pregunta
+        </th>
+        <th>
+            Es Obligatorio
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Topic.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sentence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuestionNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsObligatory)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
+            @Html.ActionLink("Crear Opciones Respuesta", "../AnswerChoices", new { oid=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

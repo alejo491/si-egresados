@@ -1,0 +1,40 @@
+﻿@model IEnumerable<AplicacionBase.Models.SurveysTopic>
+
+@{
+    ViewBag.Title = "Agregar temas a encuesta";
+}
+
+<h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>
+
+<p>
+    @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  Model.First().IdSurveys})
+</p>
+<table>
+    <tr>       
+        <th>
+            Tema
+        </th>
+        <th>
+            Numero de tema
+        </th>
+        <th>
+            Acciones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Topic.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }) |
+            @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic })
+        </td>
+    </tr>
+}
+
+</table>
