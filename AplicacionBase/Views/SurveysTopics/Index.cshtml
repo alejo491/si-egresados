@@ -7,7 +7,7 @@
 <h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>
 
 <p>
-    @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  Model.First().IdSurveys})
+    @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  ViewBag.Encuesta.Id})
 </p>
 <table>
     <tr>       

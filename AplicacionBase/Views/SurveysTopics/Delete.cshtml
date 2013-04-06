@@ -8,19 +8,19 @@
 
 <h3>¿Está seguro que desea borrar el tema de la encuesta?</h3>
 <fieldset>
-    <legend>Encuestas y temas</legend>
+    <legend>Borrar</legend>
 
-    <div class="display-label">Survey</div>
+    <div class="display-label"><legend>Encuesta</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Survey.Name)
     </div>
 
-    <div class="display-label">Topic</div>
+    <div class="display-label"><legend>Tema</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Topic.Description)
     </div>
 
-    <div class="display-label">TopicNumber</div>
+    <div class="display-label"><legend>Orden</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TopicNumber)
     </div>

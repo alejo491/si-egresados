@@ -12,10 +12,10 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>SurveysTopic</legend>
+        <legend>Asociar tema</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdSurveys, "Survey")
+            <strong>@Html.LabelFor(model => model.IdSurveys, "Encuesta")</strong>
         </div>
         <div class="editor-field">
             @ViewBag.survey.Name
@@ -23,15 +23,18 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdTopic, "Topic")
+            <strong> @Html.LabelFor(model => model.IdTopic, "Tema")</strong>
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdTopic", String.Empty)
+            @Html.DropDownList("IdTopic", String.Empty)            
             @Html.ValidationMessageFor(model => model.IdTopic)
+            <div class="validation-summary-errors">
+                @TempData["Error"]
+            </div>
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.TopicNumber)
+            <strong> @Html.LabelFor(model => model.TopicNumber)</strong>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.TopicNumber)
@@ -39,7 +42,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Guardas" />
+            <input type="submit" value="Guardar" />
         </p>
     </fieldset>
 }
