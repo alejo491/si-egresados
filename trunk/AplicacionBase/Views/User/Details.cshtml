@@ -1,0 +1,55 @@
+﻿@model AplicacionBase.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend>Usuario @ViewBag.UserName</legend>
+
+    <div class="display-label">PhoneNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhoneNumber)
+    </div>
+
+    <div class="display-label">FirstNames</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstNames)
+    </div>
+
+    <div class="display-label">LastNames</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastNames)
+    </div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">CellphoneNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CellphoneNumber)
+    </div>
+
+    <div class="display-label">BirthDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BirthDate)
+    </div>
+
+    <div class="display-label">Gender</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">MaritalStatus</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MaritalStatus)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Editar ", new { id=Model.Id }) |
+    @Html.ActionLink("Regresar al Inicio", "Index")
+</p>
