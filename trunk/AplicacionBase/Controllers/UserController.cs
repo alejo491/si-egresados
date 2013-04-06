@@ -10,7 +10,7 @@ using System.Web.Security;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
-{ 
+{
     public class UserController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -41,7 +41,7 @@ namespace AplicacionBase.Controllers
             ViewBag.UserName = HttpContext.User.Identity.Name;
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName");
             return View();
-        } 
+        }
 
         //
         // POST: /User/Create
@@ -67,17 +67,17 @@ namespace AplicacionBase.Controllers
             if (ModelState.IsValid && !g.Equals(System.Guid.Empty))
             {
                 //string nombre = HttpContext.cu .User.Identity
-                
+
                 user.Id = g;
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
-        
+
         //
         // GET: /User/Edit/5
 
@@ -103,14 +103,14 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
-       
+
         public ActionResult Edit(Guid id)
         {
             User user = db.Users.Find(id);
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
-        
+
 
         //
         // POST: /User/Edit/5
@@ -131,7 +131,7 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /User/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             User user = db.Users.Find(id);
@@ -143,7 +143,7 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             User user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
