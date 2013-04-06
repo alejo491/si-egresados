@@ -16,7 +16,7 @@
         <legend>Encuestas y temas</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdSurveys, "Survey")
+            <strong> @Html.LabelFor(model => model.IdSurveys, "Encuesta") </strong>
         </div>
         <div class="editor-field">
             @ViewBag.survey.Name
@@ -24,7 +24,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdTopic, "Topic")
+            <strong>@Html.LabelFor(model => model.IdTopic, "Tema")   </strong>
         </div>
         <div class="editor-field">
             @ViewBag.topic.Description
@@ -32,7 +32,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.TopicNumber)
+            <strong>@Html.LabelFor(model => model.TopicNumber)</strong>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.TopicNumber)

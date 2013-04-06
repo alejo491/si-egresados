@@ -24,12 +24,12 @@ namespace AplicacionBase.Controllers
             if (id != Guid.Empty && id != null)
             {
                 var surveystopics =
-                    db.SurveysTopics.Include(s => s.Survey).Include(s => s.Topic).Where(s => s.IdSurveys == id);
+                    db.SurveysTopics.Include(s => s.Survey).Include(s => s.Topic).Where(s => s.IdSurveys == id).OrderBy(s=> s.TopicNumber);
 
                 Survey auxsurvey = (Survey) db.Surveys.Find(id);
                 if (auxsurvey != null)
                 {
-                    
+                   
                     ViewBag.Encuesta = auxsurvey;
                     return View(surveystopics.ToList());
                 }
@@ -54,9 +54,19 @@ namespace AplicacionBase.Controllers
         /// <returns>Un ActionResult con la vista y formulario para asociar la encuesta</returns>
         public ActionResult Create(Guid? id)
         {
-            ViewBag.survey = (Survey) db.Surveys.Find(id);
-            ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description");
-            return View();
+            var auxsurvey = (Survey) db.Surveys.Find(id);
+            if (auxsurvey != null)
+            {
+                ViewBag.survey = auxsurvey;
+                ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
         } 
 
         //
@@ -74,14 +84,28 @@ namespace AplicacionBase.Controllers
             if (ModelState.IsValid && ((Survey) db.Surveys.Find(id) != null))
             {
                 surveystopic.IdSurveys = id;
-                db.SurveysTopics.Add(surveystopic);
-                db.SaveChanges();
-                return RedirectToAction("Index", new {id = surveystopic.IdSurveys});  
+                if (db.SurveysTopics.Find(surveystopic.IdSurveys, surveystopic.IdTopic) == null)
+                {
+                    db.SurveysTopics.Add(surveystopic);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new {id = surveystopic.IdSurveys});
+                }
+                else
+                {
+                    TempData["Error"] = "Este tema ya esta asociado a esta encuesta";
+                    var auxsurvey = (Survey)db.Surveys.Find(id);
+                    ViewBag.survey = auxsurvey;
+                    ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description");
+                    return View();
+                }
+
             }
 
-            ViewBag.IdSurveys = new SelectList(db.Surveys, "Id", "Name", surveystopic.IdSurveys);
-            ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", surveystopic.IdTopic);
-            return View(surveystopic);
+            var auxsurvey2 = (Survey)db.Surveys.Find(id);
+            ViewBag.survey = auxsurvey2;
+            ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description");
+            return View();
+            
         }
         
 
@@ -102,6 +126,7 @@ namespace AplicacionBase.Controllers
                 if (survey != null && topic != null)
                 {
                     ViewBag.survey = survey;
+                    
                     ViewBag.topic = topic;
                     return View(surveystopic);
                 }
@@ -201,6 +226,8 @@ namespace AplicacionBase.Controllers
             }
             return Json(true);
         }
+
+        
 
         
     }
