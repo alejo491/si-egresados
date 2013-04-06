@@ -6,11 +6,33 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using AplicacionBase.Models;
+using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace AplicacionBase.Controllers
 {
     public class AccountController : Controller
     {
+        [HttpGet]
+        public ActionResult FacebookLogin(string token)
+        {
+            WebClient client = new WebClient();
+            string JsonResult = client.DownloadString(string.Concat(
+                   "https://graph.facebook.com/me?access_token=", token));
+            // Json.Net is really helpful if you have to deal
+            // with Json from .Net http://json.codeplex.com/
+            JObject jsonUserInfo = JObject.Parse(JsonResult);
+            // you can get more user's info here. Please refer to:
+            //     http://developers.facebook.com/docs/reference/api/user/
+            string username = jsonUserInfo.Value<string>("username");
+            string email = jsonUserInfo.Value<string>("email");
+            string locale = jsonUserInfo.Value<string>("locale");
+            string facebook_userID = jsonUserInfo.Value<string>("id");
+
+            // store user's information here...
+            FormsAuthentication.SetAuthCookie(username, true);
+            return RedirectToAction("Index", "Home");
+        }
 
         //
         // GET: /Account/LogOn
