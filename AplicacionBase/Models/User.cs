@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AplicacionBase.Models
 {
@@ -18,14 +20,38 @@ namespace AplicacionBase.Models
         }
 
         public System.Guid Id { get; set; }
+
+        [DisplayName("Telefono")]
+        [RegularExpression(@"[0-9]{7,10}", ErrorMessage = " No tiene el formato de Telefono")]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        [DisplayName("Nombres")]
+        [RegularExpression(@"[A-Za-zÒ—·ÈÌÛ˙¡…Õ”⁄\s]*", ErrorMessage = "El formato es incorrecto")]
         public string FirstNames { get; set; }
+
+        [Required]
+        [DisplayName("Apellidos")]
+        [RegularExpression(@"[A-Za-zÒ—·ÈÌÛ˙¡…Õ”⁄\s]*", ErrorMessage = "El formato es incorrecto")]
         public string LastNames { get; set; }
+
+        [DisplayName("Direccion")]
         public string Address { get; set; }
+
+        [DisplayName("Celular")]
+        [RegularExpression(@"[0-9]{10}", ErrorMessage = "El formato es incorrecto")]
         public string CellphoneNumber { get; set; }
+
+        [DisplayName("Fecha de Nacimiento  (AAAA/MM/DD)")]
+        //[RegularExpression(@"[0-9]d{4}\/\[0-9]d{2}\/\[0-9]d{2}", ErrorMessage = "El formato es incorrecto (AAAA/MM/DD)")]
         public Nullable<System.DateTime> BirthDate { get; set; }
+
+        [DisplayName("Genero")]
         public string Gender { get; set; }
+
+        [DisplayName("Estado Civil")]
         public string MaritalStatus { get; set; }
+
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
