@@ -4,10 +4,12 @@
     ViewBag.Title = "Listar";
 }
 
-<h2>Listar</h2>
+<h2>Opciones de Respuesta de la Pregunta</h2>
+@ViewBag.Question.Sentence
+
 
 <p>
-    @Html.ActionLink("Crear", "Create", new { oid = @ViewData["oid"] })
+    @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { oid = ViewBag.Question.Id })
 </p>
 <table>
     <tr>
@@ -31,8 +33,7 @@
 
 @foreach (var item in Model)
 {
-    if (item.IdQuestion.Equals(@Html.ViewData["oid"]))
-    {
+   
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Question.Sentence)
@@ -55,7 +56,7 @@
             @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
         </td>
     </tr>
-    }
+    
 }
 
 </table>

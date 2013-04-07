@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AplicacionBase.Models
 {
@@ -10,12 +11,34 @@ namespace AplicacionBase.Models
             this.Answers = new List<Answer>();
         }
 
+        [Display(Name = "Id Opción")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public System.Guid Id { get; set; }
+
+        [Display(Name = "Id Pregunta")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public System.Guid IdQuestion { get; set; }
+
+        [Display(Name = "Enunciado de la Opción")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [DataType(DataType.MultilineText)]
         public string Sentence { get; set; }
+
+        [Display(Name = "Valor de Opción")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
         public decimal NumericValue { get; set; }
+
+        [Display(Name = "Tipo de Opción")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        //[DataType(DataType.)]
         public string Type { get; set; }
+
+        [Display(Name = "Número de Orden de Opción")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
         public decimal AnswerNumber { get; set; }
+
         public virtual Question Question { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
     }
