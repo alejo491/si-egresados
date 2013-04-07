@@ -6,6 +6,9 @@
 
 <h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>
 
+<div class="validation-summary-success">
+    @TempData["Success"]
+</div>
 <p>
     @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  ViewBag.Encuesta.Id})
 </p>
