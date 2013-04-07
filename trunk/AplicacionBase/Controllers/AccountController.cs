@@ -60,7 +60,7 @@ namespace AplicacionBase.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Verify");
                     }
                 }
                 else
