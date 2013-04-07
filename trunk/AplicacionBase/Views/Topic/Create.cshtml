@@ -1,7 +1,7 @@
 ﻿@model AplicacionBase.Models.Topic
 
 @{
-    ViewBag.Title = "Agregar ";
+    ViewBag.Title = "Agregar Tema";
 }
 
 <h2>Agregar Tema</h2>
@@ -15,7 +15,7 @@
         <legend>Tema</legend>
 
         <div class="editor-label">
-            *@Html.LabelFor(model => model.Description)
+            @Html.LabelFor(model => model.Description)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Description)
