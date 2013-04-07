@@ -13,7 +13,6 @@ namespace AplicacionBase.Models
 
         [Display(Name = "Orden")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
-        [Remote("ExisteNumero", "SurveysTopics", HttpMethod = "POST", ErrorMessage = "Ese numero ya esta asignado a otro tema, escoja otro")]
         public decimal TopicNumber { get; set; }        
         public virtual Survey Survey { get; set; }
         public virtual Topic Topic { get; set; }

@@ -84,15 +84,25 @@ namespace AplicacionBase.Controllers
             if (ModelState.IsValid && ((Survey) db.Surveys.Find(id) != null))
             {
                 surveystopic.IdSurveys = id;
-                if (db.SurveysTopics.Find(surveystopic.IdSurveys, surveystopic.IdTopic) == null)
+                var b = db.SurveysTopics.Find(surveystopic.IdSurveys, surveystopic.IdTopic);
+                bool existeNumero = ExisteNumero(surveystopic.TopicNumber, id, surveystopic.IdTopic);
+                if ( b == null && existeNumero )
                 {
                     db.SurveysTopics.Add(surveystopic);
                     db.SaveChanges();
+                    TempData["Success"] = "Se ha agregado el tema a la encuesta correctamente";
                     return RedirectToAction("Index", new {id = surveystopic.IdSurveys});
                 }
                 else
                 {
-                    TempData["Error"] = "Este tema ya esta asociado a esta encuesta";
+                    if (b!= null)
+                    {
+                        TempData["Error"] = "Este tema ya esta asociado a esta encuesta";                                                
+                    }
+                    if (!existeNumero)
+                    {
+                        TempData["Error2"] = "Ya existe un tema con ese numero asignado para esta encuesta";
+                    }
                     var auxsurvey = (Survey)db.Surveys.Find(id);
                     ViewBag.survey = auxsurvey;
                     ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description");
@@ -153,18 +163,46 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Edit(Guid ids, Guid idt, SurveysTopic surveystopic)
         {
-
-            if (ModelState.IsValid && ((Survey)db.Surveys.Find(ids) != null) && ((Topic)db.Topics.Find(idt) != null))
+            
+            if (ModelState.IsValid && ((Survey) db.Surveys.Find(ids) != null) && ((Topic) db.Topics.Find(idt) != null))
             {
                 surveystopic.IdSurveys = ids;
                 surveystopic.IdTopic = idt;
                 db.Entry(surveystopic).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new {id = ids});
+                bool existeNumero = ExisteNumero(surveystopic.TopicNumber, ids, idt);
+                if (!existeNumero)
+                {
+                    TempData["Error2"] = "Ya existe un tema con ese numero asignado para esta encuesta";
+                    var auxsurvey = (Survey)db.Surveys.Find(ids);
+                    ViewBag.survey = auxsurvey;
+                    var topic = db.Topics.Find(idt);
+                    ViewBag.topic = topic;
+                    //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", surveystopic.IdTopic);
+                    return View(surveystopic);
+
+                }
+                else
+                {
+                    db.SaveChanges();
+                    TempData["Success"] = "Se ha editado el orden del tema en la encuesta correctamente";
+                    return RedirectToAction("Index", new { id = ids });
+                }
+                
             }
-            ViewBag.IdSurveys = new SelectList(db.Surveys, "Id", "Name", surveystopic.IdSurveys);
-            ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", surveystopic.IdTopic);
-            return View(surveystopic);
+            else
+            {
+                
+                
+                var auxsurvey = (Survey)db.Surveys.Find(ids);
+                ViewBag.survey = auxsurvey;
+                var topic = db.Topics.Find(idt);
+                ViewBag.topic = topic;
+                //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", surveystopic.IdTopic);
+                return View(surveystopic);
+            }
+            //ViewBag.IdSurveys = new SelectList(db.Surveys, "Id", "Name", surveystopic.IdSurveys);
+           
+            //return View(surveystopic);
         }
 
         
@@ -198,7 +236,7 @@ namespace AplicacionBase.Controllers
             
             db.SurveysTopics.Remove(surveystopic);
             db.SaveChanges();
-            
+            TempData["Success"] = "Se ha eliminado el tema de la encuesta correctamente";
             return RedirectToAction("Index", new {id = ids});
         }
 
@@ -213,18 +251,18 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="TopicNumber">Numero del tema</param>
         /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>
-        [HttpPost]
-        public JsonResult ExisteNumero(Decimal TopicNumber, Guid IdSurveys)
+        
+        public bool  ExisteNumero(Decimal TopicNumber, Guid IdSurveys, Guid IdTopic)
         {
-            var surveys = db.SurveysTopics;
+            var surveys = db.SurveysTopics.Where(s => s.IdSurveys == IdSurveys).Where(s => s.TopicNumber == TopicNumber);
             foreach (SurveysTopic surveysTopic in surveys )
             {
-                if (surveysTopic.TopicNumber == TopicNumber)
+                if (surveysTopic.TopicNumber == TopicNumber && surveysTopic.IdSurveys == IdSurveys && surveysTopic.IdTopic != IdTopic)
                 {
-                    return Json(false);
+                    return false;
                 }
             }
-            return Json(true);
+            return true;
         }
 
         

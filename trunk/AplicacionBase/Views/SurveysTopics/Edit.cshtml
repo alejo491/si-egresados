@@ -37,6 +37,9 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.TopicNumber)
             @Html.ValidationMessageFor(model => model.TopicNumber)
+            <div class="validation-summary-errors">
+                @TempData["Error2"]
+            </div>
         </div>
 
         <p>
