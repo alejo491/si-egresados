@@ -16,21 +16,31 @@ namespace AplicacionBase.Models.ViewModels
         {
             this.aspnet_User = aspnet_User;
             aspnet_RolesChecklist = new Dictionary<aspnet_Roles, bool>();
-
+            var aspnetList = db.aspnet_UsersInRoles.Where(s => s.UserId == aspnet_User.UserId);
+            bool bandera = true;
             foreach (var asproles in aspnet_Roles)
             {
-                var UserRole = db.aspnet_UsersInRoles.Find(aspnet_User.UserId, asproles.RoleId);
-                if (UserRole != null) //.Any(producttypecategory => asproles.RoleId == producttypecategory.UserId))
+
+                foreach (var aspnetUsersInRolese in aspnetList)
                 {
-                    aspnet_RolesChecklist.Add(asproles, true);
+                    if (asproles.RoleId == aspnetUsersInRolese.RoleId)
+                    {
+                        aspnet_RolesChecklist.Add(asproles, true);
+                        bandera = false;
+                        break;
+                    }
+
                 }
-                else
+                
+                if (bandera) 
                 {
-                     aspnet_RolesChecklist.Add(asproles, false);
+                    aspnet_RolesChecklist.Add(asproles, false);
                 }
 
-               /* if(!found)
-                    aspnet_RolesChecklist.Add(asproles, false);*/
+                bandera = true;
+
+
+                
             }
         }
     }

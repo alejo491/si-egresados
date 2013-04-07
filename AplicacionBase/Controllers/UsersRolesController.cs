@@ -22,9 +22,17 @@ namespace AplicacionBase.Controllers
         public ActionResult AssignUserRoles(Guid id)
         {
             var aspnet_User = db.aspnet_Users.Find(id);
-            var aspnet_Roles = db.aspnet_Roles;
-            var model = new UsersInRolesViewModel(aspnet_User, aspnet_Roles);
-            return View(model);
+            if (aspnet_User != null)
+            {
+                var aspnet_Roles = db.aspnet_Roles;
+                var model = new UsersInRolesViewModel(aspnet_User, aspnet_Roles);
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         [HttpPost]
