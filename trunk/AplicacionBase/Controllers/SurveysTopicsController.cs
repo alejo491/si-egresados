@@ -26,7 +26,7 @@ namespace AplicacionBase.Controllers
                 var surveystopics =
                     db.SurveysTopics.Include(s => s.Survey).Include(s => s.Topic).Where(s => s.IdSurveys == id).OrderBy(s=> s.TopicNumber);
 
-                Survey auxsurvey = (Survey) db.Surveys.Find(id);
+                Survey auxsurvey = (Survey)db.Surveys.Find(id);
                 if (auxsurvey != null)
                 {
                    
@@ -214,7 +214,7 @@ namespace AplicacionBase.Controllers
         /// <param name="TopicNumber">Numero del tema</param>
         /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>
         [HttpPost]
-        public JsonResult ExisteNumero(Decimal TopicNumber)
+        public JsonResult ExisteNumero(Decimal TopicNumber, Guid IdSurveys)
         {
             var surveys = db.SurveysTopics;
             foreach (SurveysTopic surveysTopic in surveys )
