@@ -14,7 +14,8 @@ namespace AplicacionBase.Models
 
         public System.Guid Id { get; set; }
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
-        [MaxLength(50, ErrorMessage = "No pueder tener mas de 50 caracteres")]
+        [Display(Name="Descripción")]
+        [MaxLength(50, ErrorMessage = "No puede tener más de 50 caracteres")]
         public string Description { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<SurveysTopic> SurveysTopics { get; set; }
