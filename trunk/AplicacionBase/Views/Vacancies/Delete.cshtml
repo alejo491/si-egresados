@@ -1,0 +1,68 @@
+﻿@model AplicacionBase.Models.Vacancy
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Vacancy</legend>
+
+    <div class="display-label">Charge</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Charge)
+    </div>
+
+    <div class="display-label">DayTrip</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DayTrip)
+    </div>
+
+    <div class="display-label">HoursNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HoursNumber)
+    </div>
+
+    <div class="display-label">ProfessionalProfile</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ProfessionalProfile)
+    </div>
+
+    <div class="display-label">PublicationDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PublicationDate)
+    </div>
+
+    <div class="display-label">ClosingDate</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClosingDate)
+    </div>
+
+    <div class="display-label">VacanciesNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VacanciesNumber)
+    </div>
+
+    <div class="display-label">Salary</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Salary)
+    </div>
+
+    <div class="display-label">User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.User.PhoneNumber)
+    </div>
+
+    <div class="display-label">Company</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Company.Name)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

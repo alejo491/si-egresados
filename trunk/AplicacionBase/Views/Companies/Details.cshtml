@@ -1,0 +1,35 @@
+﻿@model AplicacionBase.Models.Company
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Company</legend>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">Sector</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sector)
+    </div>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
