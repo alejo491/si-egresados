@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace AplicacionBase.Models
 {
@@ -29,9 +30,10 @@ namespace AplicacionBase.Models
         [DataType(DataType.MultilineText)]
         public string Sentence { get; set; }
 
-        [Display(Name = "AnswerNumber de Pregunta")]
+        [Display(Name = "Orden de Pregunta")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
+        [Remote("ExisteNumero", "Questions", HttpMethod = "POST", ErrorMessage = "Ese numero ya esta asignado a otra respuesta, escoja otro")]
         public decimal QuestionNumber { get; set; }
 
         [Display(Name = "¿Es Obligatorio La Pregunta?")]

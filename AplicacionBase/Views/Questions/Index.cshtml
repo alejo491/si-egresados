@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Question>
 
 @{
-    ViewBag.Title = "Listar Pregunta";
+    ViewBag.Title = "Listar Pregunta del Tema " + @ViewBag.Topic.Description;
 }
 
-<h2>Listar Pregunta</h2>
+<h2>Listar Pregunta del Tema @ViewBag.Topic.Description</h2>
 
 <p>
-    @Html.ActionLink("Crear Pregunta", "Create")
+    @Html.ActionLink("Crear Pregunta", "Create", new {id=ViewBag.Topic.Id})
 </p>
 <table>
-    <tr>
+    <tr>@*
         <th>
             Tema
         </th>
+        *@
         <th>
             Tipo de Pregunta
         </th>
@@ -21,7 +22,7 @@
             Enunciado de la Pregunta
         </th>
         <th>
-            AnswerNumber de Pregunta
+            Orden de la Pregunta
         </th>
         <th>
             Es Obligatorio
@@ -31,9 +32,9 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Topic.Description)
-        </td>
+        @* <td>
+           @Html.DisplayFor(modelItem => item.Topic.Description) 
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Type)
         </td>
@@ -44,13 +45,18 @@
             @Html.DisplayFor(modelItem => item.QuestionNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsObligatory)
+            @{
+                Write(item.IsObligatory == 0 ? "No" : "Si");
+            }
+            
+            @*  @Html.DisplayFor(modelItem => item.IsObligatory) *@
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
             @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Crear Opciones Respuesta", "../AnswerChoices", new { oid=item.Id })
+            @Html.ActionLink("Crear Opciones Respuesta", "Create", "AnswerChoices", new { id=item.Id },"")
+           @* @Html.ActionLink("Agregar Preguntas", "Create", "Questions", new { id = item.Id }, "") *@
         </td>
     </tr>
 }
