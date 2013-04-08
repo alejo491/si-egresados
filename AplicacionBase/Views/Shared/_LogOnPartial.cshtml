@@ -1,12 +1,13 @@
 ﻿@if(Request.IsAuthenticated) {
     <text>¡Hola <strong>@User.Identity.Name</strong>!
+    [ @Html.ActionLink("Editar Perfil", "Edit", "verify")
     [ @Html.ActionLink("Cerrar sesión", "LogOff", "Account") ]</text>
 }
 else {
     <fb:login-button perms="email,user_checkins" onlogin="afterFacebookConnect();" 
        autologoutlink="false" ></fb:login-button>
     <div id="fb-root" style="display:inline; margin-left:20px;"></div>
-    @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]
+    @:[ @Html.ActionLink("Iniciar sesión", "LogOn", "Account") ]
 }
 <script language="javascript" type="text/javascript">
     window.fbAsyncInit = function () {

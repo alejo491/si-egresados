@@ -11,7 +11,7 @@ namespace AplicacionBase.Controllers
         private DbSIEPISContext db = new DbSIEPISContext();
         //
         // GET: /Verify/
-
+        
         public ActionResult Index()
         {
             Guid g = System.Guid.Empty;
@@ -30,6 +30,19 @@ namespace AplicacionBase.Controllers
                 }
             }
             return RedirectToAction("Create", "User");
+        }
+        
+        public ActionResult Edit()
+        {
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.User.Id;
+                }
+            }
+            return RedirectToAction("Edit", "User", new { id = g });
         }
 
     }
