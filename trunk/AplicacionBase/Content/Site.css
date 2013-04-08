@@ -1,36 +1,10 @@
-﻿/*----------------------------------------------------------
-The base color for this template is #5c87b2. If you'd like
-to use a different color start by replacing all instances of
-#5c87b2 with your new color.
-----------------------------------------------------------*/
+﻿/*Configuracion general Cuerpo*/
+
 body {
     background: #E6E6E6 url(themes/base/images/fon-body.png) repeat-x;
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     height: 100%;
-}
-
-a:link {
-    color: #034af3;
-    text-decoration: underline;
-}
-
-a:visited {
-    color: #505abc;
-}
-
-a:hover {
-    color: #1d60ff;
-    text-decoration: none;
-}
-
-a:active {
-    color: #12eb87;
-}
-
-p, ul {
-    margin-bottom: 20px;
-    line-height: 1.6em;
 }
 
 header,
@@ -40,21 +14,23 @@ section {
     display: block;
 }
 
-/* HEADINGS   
+/* HEADINGS-- hoja de estilos unicauca
 ----------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 
+{
+    font: bold 20px 'Arial Narrow','Helvetica Narrow',Tahoma,sans-serif;
     font-size: 1.5em;
-    color: #000;
+    color: #0C2876;
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 1.7em;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
 h2 {
-    padding: 0 0 10px 0;
+    background-color: inherit;
 }
 
 h3 {
@@ -69,62 +45,124 @@ h5, h6 {
     font-size: 1em;
 }
 
-/* PRIMARY LAYOUT ELEMENTS   
-----------------------------------------------------------*/
+/* Fin configuracion HEADINGS */
 
-/* you can specify a greater or lesser percentage for the 
-page width. Or, you can specify an exact pixel width. */
-.page 
-{
-    display: block;
-    width: 970px;
-    text-align: left;
-    float: left;
-    /*height: 100%;
-    /*width: 90%;
-    margin-left: auto;
-    margin-right: auto;*/
+/* CONFIGURACION DE MAQUETA PRINCIPAL */
+#Maqueta{
+    margin: 0 auto;
+    width: 100%;
+    height:1124px;
 }
 
+/*configuracion lados externos a la pagina  "Ramas"*/
+#izquierda {
+width: 5%;
+float: left;
+}
+#izquierda img
+{
+    width: 100%;
+    min-height: 150px;
+}
+
+#derecha {
+width: 5%;
+float: left;
+}
+#derecha img
+{
+    width: 100%;
+    min-height: 150px;
+}
+
+/*configuracion cuerpo principal de la pagina*/
+#page 
+{
+    display: block;
+    width: 90%;
+    text-align: left;
+    float: left;
+}
+
+/*configuracion de cabecera incluye menu de acciones*/
+#cabecera
+{
+    position:absolute;
+    width: 88.9%;
+    top: 0px;
+}
+
+/*parte superior de la cabecera no incluye menu de acciones*/
 header, #header 
 {
     height: 120px;
-    background: #061E64 url(themes/base/images/fon-cabecera-rojo.png) repeat-y;
-    /*position: relative;
-    margin-bottom: 0px;
-    color: #000;
-    padding: 0;*/
 }
 
-header h1, #header h1 {
+/*configura el ancho y la imagen de fondo de la cabecera*/
+#superior
+{
+    height: 120px;
+    background: url(themes/base/images/fon-cabecera-barra-logo.png) no-repeat 0px 0px;
+}
+
+/*configura los botones del inicio de secion*/
+#logindisplay {
+    font-size: 1.1em;
+    display: block;
+    text-align: right;
+    padding: 10px;
     font-weight: bold;
-    padding: 5px 0;
-    margin: 0;
-    color: #fff;
-    border: none;
-    line-height: 2em;
-    font-size: 32px !important;
-    text-shadow: 1px 1px 2px #111;
+    font-size: 12px;
+    color: White;
 }
 
-#main {
-    padding: 30px 30px 15px 30px;
-    border-radius: 4px 0 0 0;
-    -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
-    min-height: 300px;
+#logindisplay a:link {
+    color: white;
+    text-decoration: underline;
 }
 
-footer, 
-#footer {
-    background: #FFFFFF url(themes/base/images/sep-logo-unicauca.gif);
-    padding-bottom: 5px;
-    clear: both;
-    height: 70px;
+#logindisplay a:visited {
+    color: white;
+    text-decoration: underline;
 }
 
-/* TAB MENU   
-----------------------------------------------------------*/
+#logindisplay a:hover {
+    color: white;
+    text-decoration: none;
+}
+/*Fin configuracion botenes de inicio de secion*/
+
+/*configura el div en el que se mostrara el mensaje principal del sistema*/
+#msg_sistema
+{
+    float: right;
+    height: 50px;
+    margin-top: 28px;
+    text-align: right;
+    color: white;
+    margin-right: 20px;
+    margin-left:250px;
+}
+/*configuracion del menu de acciones*/
+#menucontainer
+{
+    height: 36px;
+}
+/*lados del menu de acciones*/
+#menuizq
+{
+    height: 36px;
+    background: url(themes/base/images/menu-pri-esq-izq.png) no-repeat left top;
+}
+#menuder
+{
+    height: 36px;
+    padding: 0 12px;
+    background: url(themes/base/images/menu-pri-esq-der.png) no-repeat right top;
+}
+
+/*configuracion lista menu de acciones*/
+
 ul#menu {
    padding: 0 0 2px;
     position: relative;
@@ -146,13 +184,6 @@ ul#menu li.first{
 ul#menu li.end{
     border-right: none;
 }
-ul#menu li#greeting {
-   /* padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    color: #fff;*/
-}
 
 ul#menu li a {
     padding: 10px 20px;
@@ -166,20 +197,81 @@ ul#menu li a:hover {
     color: Orange;
     text-decoration: none;
 }
+/*cierre configuracion menu de acciones*/
+/*cierre configuracion cabecera*/
 
-ul#menu li a:active {
-   /* background-color: #a6e2a6;
-    text-decoration: none;*/
+/*configuracion contenido de pagina*/
+#contenido
+{
+    clear: both;
+    background: #FFFFFF url(themes/base/images/fon-con-contenido.png) repeat-x 0 0;    
+    margin-top: 120px;
 }
 
-ul#menu li.selected a {
-    /*background-color: #fff;
-    color: #000;*/
+#main {
+    padding: 30px 30px 15px 30px;
+    border-radius: 4px 0 0 0;
+    -webkit-border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    min-height: 300px;
 }
+div .contenido-izq
+{
+   float:left;
+   width:60%;
+   min-height:300px;
+}
+div .contenido-der
+{
+   float:left;
+   text-align:right;
+}
+/*configuracion footer de la pagina */
+footer, 
+#footer {
+    padding-bottom: 5px;
+    clear: both;
+    height: 70px;
+}
+#footer img
+{
+    background: #FFFFFF;
+    width: 100%;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+table {
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table tr {
+    padding: 5px;
+    border: solid 1px #D8D8D8;
+    background: #D8D8D8;
+}
+table tr.alt
+{
+    padding: 5px;
+    border: solid 1px #D8D8D8;
+    background-color:White;
+}
+
+table tr.head 
+{
+    background: #0B2161;
+    padding: 6px 5px;
+    text-align: left;
+    border: solid 1px #D8D8D8;
+    color:White;
+}
+
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
-
+/*
 fieldset {
     border: 1px solid #ddd;
     padding: 0 1.4em 1.4em 1.4em;
@@ -215,71 +307,12 @@ input[type="submit"] {
     font-size: 1.2em;
     padding: 5px;
 }
+*/
 
-/* TABLE
-----------------------------------------------------------*/
-
-table {
-    border: solid 1px #e8eef4;
-    border-collapse: collapse;
-}
-
-table td {
-    padding: 5px;
-    border: solid 1px #e8eef4;
-}
-
-table th {
-    padding: 6px 5px;
-    text-align: left;
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
-}
-
-/* MISC  
-----------------------------------------------------------*/
-.clear {
-    clear: both;
-}
-
-.error {
-    color: Red;
-}
-
-div#title {
-    display: block;
-    float: left;
-    text-align: left;
-}
-
-#logindisplay {
-    font-size: 1.1em;
-    display: block;
-    text-align: right;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 12px;
-    color: White;
-}
-
-#logindisplay a:link {
-    color: white;
-    text-decoration: underline;
-}
-
-#logindisplay a:visited {
-    color: white;
-    text-decoration: underline;
-}
-
-#logindisplay a:hover {
-    color: white;
-    text-decoration: none;
-}
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
+/*.field-validation-error {
     color: #ff0000;
 }
 
@@ -299,11 +332,11 @@ div#title {
 
 .validation-summary-valid {
     display: none;
-}
+}*/
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.display-label, 
+/*.display-label, 
 .editor-label {
     margin: 1em 0 0 0;
 }
@@ -323,69 +356,24 @@ div#title {
 
 .tri-state {
     width: 6em;
-}
+}*/
 
-#Maqueta{
-    margin: 0 auto;
-    width: 1124px;
-}
 
-#derecha {
-width: 77px;
-height: 245px;
-background: url(themes/base/images/der.gif) no-repeat;
-float: left;
-}
-
-#izquierda {
-width: 77px;
-height: 245px;
-background: url(themes/base/images/izq.gif) no-repeat;
-float: left;
-}
-#superior
-{
-    height: 120px;
-    background: url(themes/base/images/fon-cabecera-barra-logo.png) no-repeat 0px 0px;
-}
-#msg_sistema
-{
-    float: right;
-    width: 770px;
-    height: 50px;
-    margin-top: 28px;
-    text-align: right;
-    color: white;
-    margin-right: 20px;
-}
-#contenido
-{
+/* MISC  
+----------------------------------------------------------*/
+/*
+.clear {
     clear: both;
-    background: #FFFFFF url(themes/base/images/fon-con-contenido.png) repeat-x 0 0;    
-    margin-top: 120px;
 }
-#menucontainer
-{
-    height: 36px;
+
+.error {
+    color: Red;
 }
-#menuizq
-{
-    height: 36px;
-    background: url(themes/base/images/menu-pri-esq-izq.png) no-repeat left top;
+
+div#title {
+    display: block;
+    float: left;
+    text-align: left;
 }
-#menuder
-{
-    height: 36px;
-    padding: 0 12px;
-    background: url(themes/base/images/menu-pri-esq-der.png) no-repeat right top;
-}
-#cabecera
-{
-    position:absolute;
-    width: 970px;
-    top: 0px;
-}
-img
-{
-    max-width: 900px;
-}
+
+*/
