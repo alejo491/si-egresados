@@ -11,7 +11,7 @@ namespace AplicacionBase.Models
         public Survey()
         {
             this.Exemplars = new List<Exemplar>();
-            this.Topics = new List<Topic>();
+            this.SurveysTopics = new List<SurveysTopic>();
         }
 
         public System.Guid Id { get; set; }
