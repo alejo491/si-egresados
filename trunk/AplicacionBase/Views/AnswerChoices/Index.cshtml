@@ -19,7 +19,7 @@
             Valor Cuantitativo
         </th>
         <th>
-            Tipo
+           <center>Tipo</center> 
         </th>
         <th>
             Número de Orden
@@ -35,13 +35,13 @@
             @Html.DisplayFor(modelItem => item.Sentence)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.NumericValue)
+           <center>@Html.DisplayFor(modelItem => item.NumericValue)</center> 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.AnswerNumber)
+            <center>@Html.DisplayFor(modelItem => item.AnswerNumber)</center>
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |

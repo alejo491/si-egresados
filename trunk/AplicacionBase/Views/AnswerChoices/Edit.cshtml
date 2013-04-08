@@ -29,10 +29,12 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Sentence)
         </div>
+      
         <div class="editor-field">
             @Html.EditorFor(model => model.Sentence)
             @Html.ValidationMessageFor(model => model.Sentence)
         </div>
+          <br />
 
         <div class="editor-label">
             @Html.LabelFor(model => model.NumericValue)
@@ -41,17 +43,11 @@
             @Html.EditorFor(model => model.NumericValue)
             @Html.ValidationMessageFor(model => model.NumericValue)
         </div>
+         <br />
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Type)
         </div>
-
-        @*
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-        *@
 
         <div class="editor-field">
             
@@ -61,6 +57,7 @@
             <br/>
 
         </div>
+        <br/>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.AnswerNumber)
