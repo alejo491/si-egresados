@@ -1,6 +1,83 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Egresados Unicauca";
 }
+<div class="contenido-izq">
+    <h2>USUARIOS</h2>
+    <table>
+        <tr class="head">
+            <th>Celda 1</td>
+            <th>Celda 2</td>
+            <th>Celda 3</td>
+        </tr>
+        <tr>
+            <td>Celda 4</td>
+            <td>Celda 5</td>
+            <td>Celda 6</td>
+        </tr>
+        <tr class="alt">
+            <td>Celda 7</td>
+            <td>Celda 8</td>
+            <td>Celda 9</td>
+        </tr>
+        <tr>
+            <td>Celda 10</td>
+            <td>Celda 11</td>
+            <td>Celda 12</td>
+        </tr>
+    </table>
+</div>
+<div class="contenido-der"></div>
+<FORM method=post action="cgi-bin/script.pl">
+Registro de un usuario
+<TABLE BORDER=0>
+<TR>
+	<TD>Apellido</TD>
+	<TD>
+	<INPUT type=text name="apellido">
+	</TD>
+</TR>
 
-<h2>@ViewBag.Message</h2>
-<img SRC="Content/themes/base/images/contenido.png"/>
+<TR>
+	<TD>Nombre</TD>
+	<TD>
+	<INPUT type=text name="nombre">
+	</TD>
+</TR>
+
+<TR>
+	<TD>Género</TD>
+	<TD>
+	Hombre: 
+Mujer: <INPUT type=radio name="género" value="M">
+	<br>Mujer: <INPUT type=radio name="género" value="F">
+	</TD>
+</TR>
+
+<TR>
+	<TD>Ocupación</TD>
+	<TD>
+	<SELECT name="ocupación">
+		<OPTION VALUE="profesor">Profesor</OPTION>
+		<OPTION VALUE="estudiante">Estudiante</OPTION>
+		<OPTION VALUE="ingeniero">Ingeniero</OPTION>
+		<OPTION VALUE="jubilado">Jubilado</OPTION>
+		<OPTION VALUE="otro">Otro</OPTION>
+	</SELECT>
+	</TD>
+</TR>
+<TR>
+	<TD>Comentarios</TD>
+	<TD>
+	<TEXTAREA rows="3" name="comentarios">
+	Escriba aquí sus comentarios</TEXTAREA>
+Enviar
+	</TD>
+</TR>
+
+<TR>
+	<TD COLSPAN=2>
+	<INPUT type="submit" value="Enviar">
+	</TD>
+</TR>
+</TABLE>
+</FORM>
