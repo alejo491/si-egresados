@@ -19,22 +19,22 @@ namespace AplicacionBase.Models
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public System.Guid IdQuestion { get; set; }
 
-        [Display(Name = "Enunciado de la Opción")]
+        [Display(Name = "Enunciado")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DataType(DataType.MultilineText)]
         public string Sentence { get; set; }
 
-        [Display(Name = "Valor de Opción")]
+        [Display(Name = "Valor Cuantitativo")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
         public decimal NumericValue { get; set; }
 
-        [Display(Name = "Tipo de Opción")]
+        [Display(Name = "Tipo")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         //[DataType(DataType.)]
         public string Type { get; set; }
 
-        [Display(Name = "Número de Orden de Opción")]
+        [Display(Name = "Número de Orden")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
         public decimal AnswerNumber { get; set; }

@@ -4,15 +4,15 @@
     ViewBag.Title = "Eliminar";
 }
 
-<h2>Eliminar</h2>
+<h2>Eliminar Opción de Respuesta</h2>
 
-<h3>Esta seguro que desea eliminar esta opcion?</h3>
+<h3>¿Está seguro que desea eliminar esta opción?</h3>
 <fieldset>
-    <legend>OpcionesdeRespuesta</legend>
+    <legend>Opción de Respuesta</legend>
 
     <div class="display-label">Pregunta</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Question.Type)
+        @Html.DisplayFor(model => model.Question.Sentence)
     </div>
 
     <div class="display-label">Enunciado</div>
@@ -20,7 +20,7 @@
         @Html.DisplayFor(model => model.Sentence)
     </div>
 
-    <div class="display-label">ValorN</div>
+    <div class="display-label">Valor Cuantitativo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.NumericValue)
     </div>
@@ -30,7 +30,7 @@
         @Html.DisplayFor(model => model.Type)
     </div>
 
-    <div class="display-label">AnswerNumber</div>
+    <div class="display-label">Número de orden</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AnswerNumber)
     </div>

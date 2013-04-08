@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<AplicacionBase.Models.AnswerChoice>
 
 @{
-    ViewBag.Title = "Listar";
+    ViewBag.Title = "Listar Opciones de Respuesta";
 }
 
 <h2>Opciones de Respuesta de la Pregunta</h2>
-@ViewBag.Question.Sentence
-
+<h3>@ViewBag.Question.Sentence</h3>
 
 <p>
     @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { oid = ViewBag.Question.Id })
@@ -14,19 +13,16 @@
 <table>
     <tr>
         <th>
-            Pregunta
-        </th>
-        <th>
             Enunciado
         </th>
         <th>
-            Valor Numérico
+            Valor Cuantitativo
         </th>
         <th>
             Tipo
         </th>
         <th>
-            Número
+            Número de Orden
         </th>
         <th></th>
     </tr>
@@ -35,9 +31,6 @@
 {
    
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Question.Sentence)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sentence)
         </td>
