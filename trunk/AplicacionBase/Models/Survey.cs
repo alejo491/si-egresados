@@ -11,7 +11,7 @@ namespace AplicacionBase.Models
         public Survey()
         {
             this.Exemplars = new List<Exemplar>();
-            this.SurveysTopics = new List<SurveysTopic>();
+            this.Topics = new List<Topic>();
         }
 
         public System.Guid Id { get; set; }
@@ -22,10 +22,13 @@ namespace AplicacionBase.Models
 
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [MaxLength(50, ErrorMessage = "No pueder tener mas de 50 caracteres")]
+        [DataType(DataType.MultilineText)]
         public string Aim { get; set; }
+
+
+
         public virtual ICollection<Exemplar> Exemplars { get; set; }
-        
-        public virtual ICollection<SurveysTopic> SurveysTopics { get; set; }
+        public virtual ICollection<Topic> Topics { get; set; }
         
         
     }
