@@ -39,10 +39,17 @@ namespace AplicacionBase.Controllers
             {
                 if (e.UserName == HttpContext.User.Identity.Name)
                 {
-                    g = e.User.Id;
+                    g = e.UserId;
                 }
             }
-            return RedirectToAction("Edit", "User", new { id = g });
+            foreach (var e2 in db.Users)
+            {
+                if (e2.Id == g)
+                {
+                    return RedirectToAction("Edit", "User", new { id = g });
+                }
+            }
+            return RedirectToAction("Create", "User");
         }
 
     }
