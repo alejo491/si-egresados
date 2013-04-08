@@ -17,7 +17,7 @@ namespace AplicacionBase.Controllers
         {
             if (oid != Guid.Empty && oid != null)
             {
-                var questions = (Question)db.Questions.Find(oid);
+                 var questions = (Question)db.Questions.Find(oid);
                 if (questions != null)
                 {
                     ViewBag.Question = questions;
@@ -43,8 +43,23 @@ namespace AplicacionBase.Controllers
         // GET: /AnswerChoice/Create
         public ActionResult Create(Guid? oid)
         {
-            ViewData["oid"] = oid;
-            return View();
+            if (oid != Guid.Empty && oid != null)
+            {
+                var questions = (Question)db.Questions.Find(oid);
+                if (questions != null)
+                {
+                    ViewBag.Question = questions;                 
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         //
         // POST: /AnswerChoice/Create
@@ -62,14 +77,18 @@ namespace AplicacionBase.Controllers
             // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
             return View(AnswerChoice);
         }
+
+
         //
         // GET: /AnswerChoice/Edit/5
         public ActionResult Edit(Guid id, Guid? oid)
         {
-            AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
-            // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
-            return View(AnswerChoice);
+                AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
+                // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
+                return View(AnswerChoice);
         }
+
+
         //
         // POST: /AnswerChoice/Edit/5
         [HttpPost]
@@ -84,6 +103,8 @@ namespace AplicacionBase.Controllers
             //ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
             return View(AnswerChoice);
         }
+
+
         //
         // GET: /AnswerChoice/Delete/5
         public ActionResult Delete(Guid id)
