@@ -45,7 +45,7 @@ namespace AplicacionBase.Controllers
 
         //
         // POST: /User/Create
-        public Guid buscarId()
+        public Guid searchId()
         {
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
@@ -60,10 +60,26 @@ namespace AplicacionBase.Controllers
             return g;
         }
 
+        public Guid searchUser()
+        {
+            Guid h = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                foreach (var i in db.Users)
+                {
+                    if (e.UserId != i.Id)
+                    {
+                        h = e.UserId;
+                    }
+                }
+            }
+            return h;
+        }
+
         [HttpPost]
         public ActionResult Create(User user)
         {
-            Guid g = buscarId();
+            Guid g = searchId();
             if (ModelState.IsValid && !g.Equals(System.Guid.Empty))
             {
                 //string nombre = HttpContext.cu .User.Identity
@@ -81,28 +97,6 @@ namespace AplicacionBase.Controllers
         //
         // GET: /User/Edit/5
 
-        public ActionResult Edit2()
-        {
-            Guid g = buscarId();
-            ViewBag.UserName = HttpContext.User.Identity.Name;
-            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName");
-            User user = db.Users.Find(g);
-            return View(user);
-        }
-
-        [HttpPost]
-        public ActionResult Edit2(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                Guid g = buscarId();
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
-            return View(user);
-        }
 
         public ActionResult Edit(Guid id)
         {
@@ -120,7 +114,7 @@ namespace AplicacionBase.Controllers
         {
             if (ModelState.IsValid)
             {
-                Guid g = buscarId();
+                Guid g = searchId();
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");

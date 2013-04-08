@@ -7,13 +7,10 @@
 <h2>Usuarios Registrados</h2>
 
 <p>
-    @Html.ActionLink("Registrar Usuario", "Create")
+    @Html.ActionLink("Registrar Nuevo Usuario", "Create")
 </p>
 <table>
     <tr>
-        <th>
-            Telefono
-        </th>
         <th>
             Nombres
         </th>
@@ -26,23 +23,16 @@
         <th>
             Celular
         </th>
-        <th>
-            Fecha Nacimiento
+         <th>
+            Telefono
         </th>
         <th>
-            Genero
+            Opciones
         </th>
-        <th>
-            Estado Civil
-        </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstNames)
         </td>
@@ -56,13 +46,7 @@
             @Html.DisplayFor(modelItem => item.CellphoneNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaritalStatus)
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
