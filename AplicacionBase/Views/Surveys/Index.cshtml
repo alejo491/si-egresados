@@ -1,10 +1,17 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Survey>
 
 @{
-    ViewBag.Title = "Index 2";
+    ViewBag.Title = "Index";
 }
 
 <h2>Encuesta</h2>
+
+<div class="validation-summary-success">@TempData["Sucess"]</div>
+<div class="validation-summary-updates">@TempData["Update"]</div>
+<div class="validation-summary-remove">@TempData["Remove"]</div>
+
+
+
 
 <p>
     @Html.ActionLink("Crear Nueva Encuesta", "Create")
@@ -31,8 +38,7 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Agregar Temas", "Index", "SurveysTopics", new { id = item.Id }, "")
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

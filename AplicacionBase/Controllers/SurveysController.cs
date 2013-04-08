@@ -36,9 +36,9 @@ namespace AplicacionBase.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
-        //
+          //
         // POST: /Surveys/Create
 
         [HttpPost]
@@ -49,6 +49,8 @@ namespace AplicacionBase.Controllers
                 survey.Id = Guid.NewGuid();
                 db.Surveys.Add(survey);
                 db.SaveChanges();
+                TempData["Sucess"] = "Se registró correctamente la encuesta "+survey.Name+"!";
+
                 return RedirectToAction("Index");  
             }
 
@@ -74,6 +76,7 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(survey).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Update"] = "Se actualizó correctamente la encuesta " + survey.Name + "!";
                 return RedirectToAction("Index");
             }
             return View(survey);
@@ -97,6 +100,7 @@ namespace AplicacionBase.Controllers
             Survey survey = db.Surveys.Find(id);
             db.Surveys.Remove(survey);
             db.SaveChanges();
+            TempData["Remove"] = "Se eliminó correctamente la encuesta " + survey.Name + "!";
             return RedirectToAction("Index");
         }
 
