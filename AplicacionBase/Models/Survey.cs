@@ -25,10 +25,8 @@ namespace AplicacionBase.Models
         [DataType(DataType.MultilineText)]
         public string Aim { get; set; }
 
-
-
         public virtual ICollection<Exemplar> Exemplars { get; set; }
-        public virtual ICollection<Topic> Topics { get; set; }
+        public virtual ICollection<SurveysTopic> SurveysTopics { get; set; }
         
         
     }
