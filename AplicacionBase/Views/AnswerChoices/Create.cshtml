@@ -13,7 +13,8 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Opciones de Respuesta</legend>
-       
+        <br/>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Sentence)
         </div>
@@ -21,6 +22,7 @@
             @Html.EditorFor(model => model.Sentence)
             @Html.ValidationMessageFor(model => model.Sentence)
         </div>
+        <br/>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.NumericValue)
@@ -29,37 +31,19 @@
             @Html.EditorFor(model => model.NumericValue)
             @Html.ValidationMessageFor(model => model.NumericValue)
         </div>
+        <br/>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Type)
         </div>
-        @*
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-         *@
-
-        @*
-
-        <div class="editor-field">
-
-            @Html.DropDownList(Model => Model.)
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-        *@
-
         <div class="editor-field">
             
-
             @Html.RadioButtonFor(model =>model.Type,"NORMAL",true) NORMAL 
             @Html.RadioButtonFor(model =>model.Type,"CON TEXTO",false) CON TEXTO
             @Html.ValidationMessageFor(model => model.Type)
             <br/>
-
-
         </div>
+        <br/>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.AnswerNumber)
@@ -68,6 +52,7 @@
             @Html.EditorFor(model => model.AnswerNumber)
             @Html.ValidationMessageFor(model => model.AnswerNumber)
         </div>
+        <br/>
 
         <p>
             <input type="submit" value="Crear" />

@@ -9,31 +9,38 @@
 <h3>¿Está seguro que desea eliminar esta opción?</h3>
 <fieldset>
     <legend>Opción de Respuesta</legend>
+    <br/>
 
     <div class="display-label">Pregunta</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Question.Sentence)
     </div>
+    <br/>
 
     <div class="display-label">Enunciado</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Sentence)
     </div>
+    <br/>
 
     <div class="display-label">Valor Cuantitativo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.NumericValue)
     </div>
+    <br/>
 
     <div class="display-label">Tipo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Type)
     </div>
+    <br/>
 
     <div class="display-label">Número de orden</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.AnswerNumber)
     </div>
+    <br/>
+
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
