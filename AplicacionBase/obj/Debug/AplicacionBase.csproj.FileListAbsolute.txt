@@ -51,3 +51,10 @@ C:\Users\Andres\Desktop\Proyecto 2\v0.3\AplicacionBase\bin\Newtonsoft.Json.xml
 C:\Users\Andres\Desktop\Proyecto 2\v0.3\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andres\Desktop\Proyecto 2\v0.3\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\Andres\Desktop\Proyecto 2\v0.3\AplicacionBase\obj\Debug\AplicacionBase.pdb
+D:\U\Proyecto 2\AppPIS\AplicacionBase\bin\AplicacionBase.dll
+D:\U\Proyecto 2\AppPIS\AplicacionBase\bin\AplicacionBase.pdb
+D:\U\Proyecto 2\AppPIS\AplicacionBase\bin\EntityFramework.dll
+D:\U\Proyecto 2\AppPIS\AplicacionBase\bin\EntityFramework.xml
+D:\U\Proyecto 2\AppPIS\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+D:\U\Proyecto 2\AppPIS\AplicacionBase\obj\Debug\AplicacionBase.dll
+D:\U\Proyecto 2\AppPIS\AplicacionBase\obj\Debug\AplicacionBase.pdb

@@ -37,7 +37,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Companies/Create
@@ -50,15 +50,15 @@ namespace AplicacionBase.Controllers
                 company.Id = Guid.NewGuid();
                 db.Companies.Add(company);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(company);
         }
-        
+
         //
         // GET: /Companies/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             Company company = db.Companies.Find(id);
@@ -82,7 +82,7 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /Companies/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             Company company = db.Companies.Find(id);
@@ -94,7 +94,7 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             Company company = db.Companies.Find(id);
             db.Companies.Remove(company);
             db.SaveChanges();
