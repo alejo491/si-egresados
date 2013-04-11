@@ -41,5 +41,7 @@ namespace AplicacionBase.Models
 
         public virtual Question Question { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
+
+	//Prueba
     }
 }
