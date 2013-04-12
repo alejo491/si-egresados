@@ -13,15 +13,15 @@ namespace AplicacionBase.Controllers
         private DbSIEPISContext db = new DbSIEPISContext();
         //
         // GET: /AnswerChoices/
-        public ActionResult Index(Guid? oid)
+        public ActionResult Index(Guid? id)
         {
-            if (oid != Guid.Empty && oid != null)
+            if (id != Guid.Empty && id != null)
             {
-                 var questions = (Question)db.Questions.Find(oid);
+                 var questions = (Question)db.Questions.Find(id);
                 if (questions != null)
                 {
                     ViewBag.Question = questions;
-                    var AnswerChoices = db.AnswerChoices.Include(o => o.Question).Where(o => o.IdQuestion == oid);
+                    var AnswerChoices = db.AnswerChoices.Include(o => o.Question).Where(o => o.IdQuestion == id);
                     return View(AnswerChoices.ToList());
                 }
                 else

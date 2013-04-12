@@ -57,7 +57,7 @@
             @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
             @if (item.Type != "Unica")
             {
-                @Html.ActionLink("Crear Opciones Respuesta", "Create", "AnswerChoices", new {id = item.Id}, "")
+                @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new {id = item.Id}, "")
             }
            @* @Html.ActionLink("Agregar Preguntas", "Create", "Questions", new { id = item.Id }, "") *@
         </td>
