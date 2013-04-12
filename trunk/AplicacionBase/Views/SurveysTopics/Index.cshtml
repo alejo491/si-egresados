@@ -13,7 +13,7 @@
     @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  ViewBag.Encuesta.Id})
 </p>
 <table>
-    <tr>       
+    <tr class="head">       
         <th>
             Tema
         </th>
@@ -24,20 +24,29 @@
             Acciones
         </th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>        
-        <td>
-            @Html.DisplayFor(modelItem => item.Topic.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TopicNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }) |
-            @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic })
-        </td>
-    </tr>
+    @{ int i = 0;}
+@foreach (var item in Model)
+{
+    if (i%2 == 0)
+    {
+        
+        @:<tr class="alt">
+    }
+    else
+    {
+        @:<tr>
+    }
+    <td>
+        @Html.DisplayFor(modelItem => item.Topic.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TopicNumber)
+    </td>
+    <td>
+        @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }) |
+        @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic })
+    </td>
+    @:</tr>
+    i++;
 }
-
 </table>

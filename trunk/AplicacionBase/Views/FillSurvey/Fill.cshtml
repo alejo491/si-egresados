@@ -1,0 +1,41 @@
+﻿@using AplicacionBase.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        @{
+            int i = 1;
+        }
+        @foreach (Question question in ViewBag.questions)
+        {
+            
+            <div class="question">                
+                <p>Pregunta @i :
+                @Html.Label(question.Sentence)</p>
+            </div>
+            <br />
+            foreach (AnswerChoice answer in question.AnswerChoices)
+            {
+                @Html.Label(answer.Sentence)
+                
+                @Html.TextBox(answer.Id.ToString(), "")
+                <br/>
+            }
+           
+            <br/>
+            i++;
+        }
+    
+
+        <p>
+            <input type="submit" value="Guardar" />
+    
+        </p>
+    </fieldset>
+}
