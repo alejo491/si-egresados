@@ -72,7 +72,7 @@ namespace AplicacionBase.Controllers
                 AnswerChoice.Id = Guid.NewGuid();
                 db.AnswerChoices.Add(AnswerChoice);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { oid = AnswerChoice.IdQuestion });
+                return RedirectToAction("Index", new { id = AnswerChoice.IdQuestion });
             }
             // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
             return View(AnswerChoice);

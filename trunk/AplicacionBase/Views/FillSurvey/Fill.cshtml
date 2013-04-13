@@ -14,22 +14,53 @@
         }
         @foreach (Question question in ViewBag.questions)
         {
-            
-            <div class="question">                
+              
+           
+                            
                 <p>Pregunta @i :
-                @Html.Label(question.Sentence)</p>
-            </div>
+                    @Html.Label(question.Sentence)</p>
+            
             <br />
+            
             foreach (AnswerChoice answer in question.AnswerChoices)
             {
-                @Html.Label(answer.Sentence)
-                
-                @Html.TextBox(answer.Id.ToString(), "")
+                if (answer.Type == "Normal")
+                {
+                    if (question.Type == "Unica")
+                    {
+                       
+                        @Html.RadioButton(question.Id.ToString(), answer.Id.ToString())
+                       
+                        //@Html.RadioButton(answer.Id.ToString(), false)
+                        
+                        @Html.Label(answer.Sentence) 
+                       
+                    }
+                    if (question.Type == "Multiple")
+                    {
+                        @Html.CheckBox(question.Id.ToString(), answer.Id.ToString())
+                        @Html.Label(answer.Sentence)
+                    }
+                    if (question.Type == "Abierta")
+                    {
+                        @Html.Label(answer.Sentence)
+                        @Html.TextBox(answer.Id.ToString(), "")
+                    }
+                }
+                else
+                {
+                    @Html.Label(answer.Sentence)
+                    @Html.TextBox(answer.Id.ToString(), "")
+                }
+                @: </tr>
+               
+               
                 <br/>
             }
            
             <br/>
             i++;
+             
         }
     
 
@@ -38,4 +69,6 @@
     
         </p>
     </fieldset>
+    
+    <blink>Esta en cambio parpadea.</blink>
 }

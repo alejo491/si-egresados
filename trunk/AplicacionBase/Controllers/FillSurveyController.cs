@@ -23,7 +23,7 @@ namespace AplicacionBase.Controllers
             var question = db.Questions.Where(s => s.IdTopic == idt);
             foreach (var question1 in question.ToList())
             {
-                var answers = db.AnswerChoices.Where(a => a.IdQuestion == question1.Id);
+                var answers = db.AnswerChoices.Where(a => a.IdQuestion == question1.Id).OrderByDescending(s => s.Type);
                 question1.AnswerChoices = answers.ToList();
             }
 
@@ -34,9 +34,6 @@ namespace AplicacionBase.Controllers
         public ActionResult Fill(Guid idt, FormCollection postedForm)
         {
             var q = db.Questions.Where(s => s.IdTopic == idt);
-
-
-
 
             foreach (var  question in q)
             {
