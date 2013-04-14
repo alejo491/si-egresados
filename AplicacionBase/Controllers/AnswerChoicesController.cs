@@ -71,9 +71,7 @@ namespace AplicacionBase.Controllers
                 
                 answerChoice.Id = Guid.NewGuid();
                 answerChoice.IdQuestion = new Guid(""+id);
-                var questions = (Question)db.Questions.Find(id);
-                
-
+                var questions = (Question)db.Questions.Find(id);                
                 bool existeNumero = ExisteNumero(answerChoice.AnswerNumber, answerChoice.IdQuestion, answerChoice.Id);
 				if(existeNumero)
 				{
@@ -84,8 +82,11 @@ namespace AplicacionBase.Controllers
 				}
 				else
 				{
-                     
-					TempData["Error2"] = "Este número ya ha sido asignado a otra opción de respuesta";
+				    if (questions != null)
+				    {
+				        ViewBag.Question = questions;
+				    }
+				    TempData["Error2"] = "Este número ya ha sido asignado a otra opción de respuesta";
 					return View();
 				}
 			}
@@ -132,6 +133,11 @@ namespace AplicacionBase.Controllers
                 bool existeNumero = ExisteNumero(answerChoice.AnswerNumber, answerChoice.IdQuestion, answerChoice.Id);
                 if (!existeNumero)
                 {
+                    var questions = (Question)db.Questions.Find(answerChoice.IdQuestion);
+                    if (questions != null)
+                    {
+                        ViewBag.Question = questions;
+                    }
                     TempData["Error2"] = "Este número ya ha sido asignado a otra opción de respuesta";
                     return View(answerChoice);
                 }
