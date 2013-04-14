@@ -66,3 +66,11 @@ C:\Users\AndresFelipe\Documents\Envios\v23\AplicacionBase\bin\Newtonsoft.Json.xm
 C:\Users\AndresFelipe\Documents\Envios\v23\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\AndresFelipe\Documents\Envios\v23\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\AndresFelipe\Documents\Envios\v23\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\bin\EntityFramework.dll
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\bin\EntityFramework.xml
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\bin\Newtonsoft.Json.xml
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\obj\Debug\AplicacionBase.pdb
