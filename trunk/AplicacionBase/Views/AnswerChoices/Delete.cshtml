@@ -45,6 +45,6 @@
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Eliminar" /> |
-        @Html.ActionLink("Regresar", "Index", new { oid = Model.IdQuestion })
+        @Html.ActionLink("Regresar", "Index", new { id = Model.IdQuestion },"")
     </p>
 }

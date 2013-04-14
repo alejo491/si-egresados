@@ -4,14 +4,13 @@
     ViewBag.Title = "Editar Opción de Respuesta";
 }
 
-<h2>Editar Opción de Respuesta de la Pregunta</h2>
-<h3>@Html.DisplayFor(model => model.Question.Sentence)</h3>
+<h2>Editar Opción de Respuesta de la Pregunta "@Html.DisplayFor(model => model.Question.Sentence)"</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm()) {
-    @Html.ViewData["oid"]
+    @Html.ViewData["id"]
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Opcion de Respuesta</legend>
@@ -22,7 +21,7 @@
             @Html.HiddenFor(model => model.IdQuestion, "Pregunta")
         </div>
         <div class="editor-field">
-            @Html.HiddenFor(model => model.IdQuestion, "" + ViewData["oid"])
+            @Html.HiddenFor(model => model.IdQuestion, "" + ViewData["id"])
         
         </div>
 
@@ -51,8 +50,8 @@
 
         <div class="editor-field">
             
-            @Html.RadioButtonFor(model =>model.Type,"NORMAL",true) NORMAL 
-            @Html.RadioButtonFor(model =>model.Type,"CON TEXTO",false) CON TEXTO
+            @Html.RadioButtonFor(model =>model.Type,"Normal",true) Normal 
+            @Html.RadioButtonFor(model =>model.Type,"Con texto",false) Con texto
             @Html.ValidationMessageFor(model => model.Type)
             <br/>
 
@@ -65,6 +64,9 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.AnswerNumber)
             @Html.ValidationMessageFor(model => model.AnswerNumber)
+            <div class="validation-summary-errors">
+                @TempData["Error2"]
+            </div>
         </div>
 
         <p>
@@ -74,5 +76,5 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index", new { oid = Model.IdQuestion })
+    @Html.ActionLink("Regresar", "Index", new { id = Model.IdQuestion })
 </div>

@@ -41,11 +41,11 @@ namespace AplicacionBase.Controllers
         }
         //
         // GET: /AnswerChoice/Create
-        public ActionResult Create(Guid? oid)
+        public ActionResult Create(Guid? id)
         {
-            if (oid != Guid.Empty && oid != null)
+            if (id != Guid.Empty && id != null)
             {
-                var questions = (Question)db.Questions.Find(oid);
+                var questions = (Question)db.Questions.Find(id);
                 if (questions != null)
                 {
                     ViewBag.Question = questions;                 
@@ -64,44 +64,90 @@ namespace AplicacionBase.Controllers
         //
         // POST: /AnswerChoice/Create
         [HttpPost]
-        public ActionResult Create(AnswerChoice AnswerChoice, Guid? oid)
+        public ActionResult Create(Guid? id, AnswerChoice answerChoice)
         {
-            AnswerChoice.IdQuestion = new Guid("" + oid);
             if (ModelState.IsValid)
             {
-                AnswerChoice.Id = Guid.NewGuid();
-                db.AnswerChoices.Add(AnswerChoice);
-                db.SaveChanges();
-                return RedirectToAction("Index", new { id = AnswerChoice.IdQuestion });
-            }
+                
+                answerChoice.Id = Guid.NewGuid();
+                answerChoice.IdQuestion = new Guid(""+id);
+                var questions = (Question)db.Questions.Find(id);
+                
+
+                bool existeNumero = ExisteNumero(answerChoice.AnswerNumber, answerChoice.IdQuestion, answerChoice.Id);
+				if(existeNumero)
+				{
+                    db.AnswerChoices.Add(answerChoice);
+                    db.SaveChanges();
+                    TempData["Success"] = "Se ha creado la Opción de Respuesta correctamente";
+                    return RedirectToAction("Index", new { id = answerChoice.IdQuestion });
+				}
+				else
+				{
+                     
+					TempData["Error2"] = "Este número ya ha sido asignado a otra opción de respuesta";
+					return View();
+				}
+			}
             // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
-            return View(AnswerChoice);
+            return View(answerChoice);			
         }
 
 
         //
         // GET: /AnswerChoice/Edit/5
-        public ActionResult Edit(Guid id, Guid? oid)
+        public ActionResult Edit(Guid? id)
         {
-                AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
-                // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
-                return View(AnswerChoice);
+                
+
+                if (id != Guid.Empty && id != null )
+                {
+                    AnswerChoice answerChoice = db.AnswerChoices.Find(id);
+                    var achoice = db.AnswerChoices.Find(id);
+                    if(achoice != null)
+                    {
+                        return View(answerChoice);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
         }
 
 
         //
         // POST: /AnswerChoice/Edit/5
         [HttpPost]
-        public ActionResult Edit(AnswerChoice AnswerChoice)
+        public ActionResult Edit(AnswerChoice answerChoice)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(AnswerChoice).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { oid = AnswerChoice.IdQuestion });
+                db.Entry(answerChoice).State = EntityState.Modified;
+                
+                bool existeNumero = ExisteNumero(answerChoice.AnswerNumber, answerChoice.IdQuestion, answerChoice.Id);
+                if (!existeNumero)
+                {
+                    TempData["Error2"] = "Este número ya ha sido asignado a otra opción de respuesta";
+                    return View(answerChoice);
+                }
+                else
+                {
+                    
+                    db.SaveChanges();
+                    TempData["Success"] = "Se ha editado la Opción de Respuesta correctamente";
+                    return RedirectToAction("Index", new { id = answerChoice.IdQuestion });
+                
+                }
+
+
             }
             //ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
-            return View(AnswerChoice);
+            return View(answerChoice);
         }
 
 
@@ -120,12 +166,34 @@ namespace AplicacionBase.Controllers
             AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
             db.AnswerChoices.Remove(AnswerChoice);
             db.SaveChanges();
-            return RedirectToAction("Index", new { oid = AnswerChoice.IdQuestion });
+			TempData["Success"] = "Se ha eliminado la Opción de respuesta correctamente";
+            return RedirectToAction("Index", new { id = AnswerChoice.IdQuestion });
         }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+		
+        /// Metodo que retorna una validacion si el número de orden que se le va asignar a la opcion de respuesta es único
+        /// </summary>
+        /// <param name="TopicNumber">Numero de la Opción de respuesta</param>
+        /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>
+
+        public bool ExisteNumero(Decimal TopicNumber, Guid IdQuestion, Guid IdChoice)
+        {
+            //var question = db.Questions.Where(a => a.Id == IdAnswer).
+            var answer = db.AnswerChoices.Where(s => s.IdQuestion == IdQuestion);
+
+            
+            foreach (AnswerChoice answerChoice in answer)
+            {
+                if (answerChoice.AnswerNumber == TopicNumber && answerChoice.Id != IdChoice)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
