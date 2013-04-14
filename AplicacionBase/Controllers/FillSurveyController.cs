@@ -15,21 +15,44 @@ namespace AplicacionBase.Controllers
         //
         // GET: /FillSurvey/
 
-        public ActionResult Fill(Guid idt)
+        public ActionResult Fill(Guid ids)
         {
-            var topic = db.Topics.Find(idt);
-            //var user = db.aspnet_Users.Find(idu);
-            //var model = new AnswerViewModel(db.Questions.Where(s=>s.IdTopic == topic.Id));
-            var question = db.Questions.Where(s => s.IdTopic == idt);
-            foreach (var question1 in question.ToList())
+            var survey = db.Surveys.Find(ids);
+            if (survey != null)
             {
-                var answers = db.AnswerChoices.Where(a => a.IdQuestion == question1.Id).OrderByDescending(s => s.Type);
-                question1.AnswerChoices = answers.ToList();
+                var surveystopics = db.SurveysTopics.Where(st => st.IdSurveys == survey.Id).OrderBy(st=>st.TopicNumber);
+                foreach (var surveysTopic in surveystopics.ToList())
+                {
+                    var topic = db.Topics.Find(surveysTopic.IdTopic);
+                    //var user = db.aspnet_Users.Find(idu);
+                    //var model = new AnswerViewModel(db.Questions.Where(s=>s.IdTopic == topic.Id));
+                    if (topic != null)
+                    {
+                        var question = db.Questions.Where(s => s.IdTopic == topic.Id).OrderBy(s => s.QuestionNumber);
+                        foreach (var question1 in question.ToList())
+                        {
+                            Question question2 = question1;
+                            var answers = db.AnswerChoices.Where(a => a.IdQuestion == question2.Id).OrderByDescending(s => s.Type);
+                            question1.AnswerChoices = answers.ToList();
+                        }
+
+                        surveysTopic.Topic = topic;
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    
+                }
+
+                ViewBag.questions = surveystopics.ToList();
+                return View();
             }
 
-            ViewBag.questions = question;
-            return View();
+            return RedirectToAction("Index", "Home");
         }
+
         [HttpPost]
         public ActionResult Fill(Guid idt, FormCollection postedForm)
         {

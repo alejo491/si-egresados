@@ -12,63 +12,65 @@
         @{
             int i = 1;
         }
-        @foreach (Question question in ViewBag.questions)
+        
+        @foreach (SurveysTopic surveysTopic in ViewBag.questions)
         {
-              
-           
-                            
-                <p>Pregunta @i :
-                    @Html.Label(question.Sentence)</p>
-            
-            <br />
-            
-            foreach (AnswerChoice answer in question.AnswerChoices)
+            @: Tema @surveysTopic.Topic.Description
+            foreach (Question question in surveysTopic.Topic.Questions)
             {
-                if (answer.Type == "Normal")
+
+                @: <p>Pregunta* @i </p>
+                    @Html.Label(question.Sentence) 
+
+                <br />
+
+                foreach (AnswerChoice answer in question.AnswerChoices)
                 {
-                    if (question.Type == "Unica")
+                    if (answer.Type == "Normal")
                     {
-                       
-                        @Html.RadioButton(question.Id.ToString(), answer.Id.ToString())
-                       
-                        //@Html.RadioButton(answer.Id.ToString(), false)
-                        
-                        @Html.Label(answer.Sentence) 
-                       
+                        if (question.Type == "Unica")
+                        {
+
+                            @Html.RadioButton(question.Id.ToString(), answer.Id.ToString())
+
+                            //@Html.RadioButton(answer.Id.ToString(), false)
+
+                            @Html.Label(answer.Sentence)
+
+                        }
+                        if (question.Type == "Multiple")
+                        {
+                            @Html.CheckBox(question.Id.ToString(), answer.Id.ToString())
+                            @Html.Label(answer.Sentence)
+                        }
+                        if (question.Type == "Abierta")
+                        {
+                            @Html.Label(answer.Sentence)
+                            @Html.TextBox(answer.Id.ToString(), "")
+                        }
                     }
-                    if (question.Type == "Multiple")
-                    {
-                        @Html.CheckBox(question.Id.ToString(), answer.Id.ToString())
-                        @Html.Label(answer.Sentence)
-                    }
-                    if (question.Type == "Abierta")
+                    else
                     {
                         @Html.Label(answer.Sentence)
                         @Html.TextBox(answer.Id.ToString(), "")
                     }
-                }
-                else
-                {
-                    @Html.Label(answer.Sentence)
-                    @Html.TextBox(answer.Id.ToString(), "")
-                }
-                @: </tr>
-               
-               
-                <br/>
-            }
-           
-            <br/>
-            i++;
-             
-        }
-    
+                    
 
+
+                    <br/>
+                }
+
+                <br/>
+                i++;
+
+            }
+
+        }
         <p>
             <input type="submit" value="Guardar" />
     
         </p>
     </fieldset>
     
-    <blink>Esta en cambio parpadea.</blink>
+    
 }
