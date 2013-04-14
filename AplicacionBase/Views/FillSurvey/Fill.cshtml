@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-
+<div>
 @using (Html.BeginForm())
 {
     <fieldset>
@@ -15,14 +15,18 @@
         
         @foreach (SurveysTopic surveysTopic in ViewBag.questions)
         {
-            @: Tema @surveysTopic.Topic.Description
+            @:<div class="tema">
+            @:<div class="ttema">
+            @: <h1>Tema: @surveysTopic.Topic.Description </h1>
+            @:</div>
             foreach (Question question in surveysTopic.Topic.Questions)
             {
 
-                @: <p>Pregunta* @i </p>
-                    @Html.Label(question.Sentence) 
-
-                <br />
+                @: <p class="ttema">Pregunta @i 
+                @Html.Label(question.Sentence) @: 
+                @:</p>
+                
+               
 
                 foreach (AnswerChoice answer in question.AnswerChoices)
                 {
@@ -30,29 +34,50 @@
                     {
                         if (question.Type == "Unica")
                         {
-
+                            @:<div class="fila"> 
+                            @:<span class="form-el">      
                             @Html.RadioButton(question.Id.ToString(), answer.Id.ToString())
-
-                            //@Html.RadioButton(answer.Id.ToString(), false)
-
+                            @:</span> 
+                            
+                            @:<span class="etiqueta">
                             @Html.Label(answer.Sentence)
+                            @:</span>
+                            @:</div>
 
                         }
                         if (question.Type == "Multiple")
                         {
+                            @:<div class="fila"> 
+                            @:<span class="form-el">  
                             @Html.CheckBox(question.Id.ToString(), answer.Id.ToString())
+                            @:</span>
+                            @:<span class="etiqueta">              
                             @Html.Label(answer.Sentence)
+                            @:</span>
+                            @:</div> 
                         }
                         if (question.Type == "Abierta")
                         {
+                            @:<div class="fila">
+                            @:<span class="etiqueta"> 
                             @Html.Label(answer.Sentence)
+                            @:</span>
+                            @:<span class="form-el">   
                             @Html.TextBox(answer.Id.ToString(), "")
+                            @:</span> 
+                            @:</div>  
                         }
                     }
                     else
                     {
+                        @:<div class="fila"> 
+                        @:<span class="etiqueta">
                         @Html.Label(answer.Sentence)
+                        @:</span> 
+                        @:<span class="form-el">
                         @Html.TextBox(answer.Id.ToString(), "")
+                        @:</span> 
+                        @:</div>
                     }
                     
 
@@ -60,17 +85,23 @@
                     <br/>
                 }
 
-                <br/>
                 i++;
 
-            }
 
+            }
+                       
+            @:</div>
+            <br/>
         }
+
         <p>
             <input type="submit" value="Guardar" />
     
         </p>
+        
     </fieldset>
     
-    
+   
 }
+
+</div> 
