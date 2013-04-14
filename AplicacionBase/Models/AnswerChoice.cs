@@ -31,7 +31,6 @@ namespace AplicacionBase.Models
 
         [Display(Name = "Tipo")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
-        //[DataType(DataType.)]
         public string Type { get; set; }
 
         [Display(Name = "Número de Orden")]
@@ -42,6 +41,5 @@ namespace AplicacionBase.Models
         public virtual Question Question { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
 
-	//Prueba
     }
 }

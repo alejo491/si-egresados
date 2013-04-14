@@ -4,11 +4,12 @@
     ViewBag.Title = "Listar Opciones de Respuesta";
 }
 
-<h2>Opciones de Respuesta de la Pregunta</h2>
-<h3>@ViewBag.Question.Sentence</h3>
+<h2>Opciones de Respuesta de la Pregunta "@ViewBag.Question.Sentence"</h2>
+
+<div class="validation-summary-success">@TempData["Success"]</div>
 
 <p>
-    @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { oid = ViewBag.Question.Id })
+    @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { id = ViewBag.Question.Id })
 </p>
 <table>
     <tr>
@@ -22,7 +23,7 @@
            <center>Tipo</center> 
         </th>
         <th>
-            Número de Orden
+            Número de Orden 
         </th>
         <th></th>
     </tr>
@@ -44,7 +45,7 @@
             <center>@Html.DisplayFor(modelItem => item.AnswerNumber)</center>
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id}) |
             @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
             @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
         </td>
