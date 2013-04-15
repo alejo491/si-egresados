@@ -74,3 +74,12 @@ C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\bin\Newtonsoft.Json.xm
 C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\AndresFelipe\Documents\Envios\v31\AplicacionBase\obj\Debug\AplicacionBase.pdb
+D:\Proyecto II\AplicacionBase\bin\AplicacionBase.dll
+D:\Proyecto II\AplicacionBase\bin\AplicacionBase.pdb
+D:\Proyecto II\AplicacionBase\bin\EntityFramework.dll
+D:\Proyecto II\AplicacionBase\bin\EntityFramework.xml
+D:\Proyecto II\AplicacionBase\bin\Newtonsoft.Json.xml
+D:\Proyecto II\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+D:\Proyecto II\AplicacionBase\obj\Debug\AplicacionBase.dll
+D:\Proyecto II\AplicacionBase\obj\Debug\AplicacionBase.pdb
+D:\Proyecto II\AplicacionBase\bin\Newtonsoft.Json.dll
