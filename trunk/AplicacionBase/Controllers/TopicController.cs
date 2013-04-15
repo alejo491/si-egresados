@@ -49,6 +49,7 @@ namespace AplicacionBase.Controllers
                 topic.Id = Guid.NewGuid();
                 db.Topics.Add(topic);
                 db.SaveChanges();
+                TempData["Create"] = "Se registró correctamente el tema " + topic.Description + "!";
                 return RedirectToAction("Index");  
             }
 
@@ -74,6 +75,7 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(topic).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Update"] = "Se actualizó correctamente el tema " + topic.Description + "!";
                 return RedirectToAction("Index");
             }
             return View(topic);
@@ -97,6 +99,7 @@ namespace AplicacionBase.Controllers
             Topic topic = db.Topics.Find(id);
             db.Topics.Remove(topic);
             db.SaveChanges();
+            TempData["Delete"] = "Se eliminó correctamente el tema " + topic.Description + "!";
             return RedirectToAction("Index");
         }
 

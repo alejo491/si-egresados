@@ -2,15 +2,20 @@
 
 @{
     ViewBag.Title = "Temas";
+    int rowIndex = 0;
 }
 
 <h2>Temas</h2>
+
+<div class="validation-summary-success">@TempData["Create"]</div>
+<div class="validation-summary-updates">@TempData["Update"]</div>
+<div class="validation-summary-remove">@TempData["Delete"]</div>
 
 <p>
     @Html.ActionLink("Nuevo Tema", "Create")
 </p>
 <table>
-    <tr>
+    <tr class="head">
         <th>
             Descripcion
         </th>
@@ -18,7 +23,13 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+
+    if (rowIndex % 2 == 0) {
+        @:<tr class="alt">
+    } else { 
+        @:<tr> 
+    }
+    
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
@@ -28,7 +39,8 @@
             @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
             @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id=item.Id }, "")
         </td>
-    </tr>
+    @:</tr>
+    rowIndex++;
 }
 
 </table>
