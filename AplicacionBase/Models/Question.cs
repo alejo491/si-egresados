@@ -33,7 +33,7 @@ namespace AplicacionBase.Models
         [Display(Name = "Orden de Pregunta")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
-        [Remote("ExisteNumero", "Questions", HttpMethod = "POST", ErrorMessage = "Ese numero ya esta asignado a otra respuesta, escoja otro")]
+        //[Remote("ExisteNumero", "Questions", HttpMethod = "POST", ErrorMessage = "Ese numero ya esta asignado a otra respuesta, escoja otro")]
         public decimal QuestionNumber { get; set; }
 
         [Display(Name = "¿Es Obligatorio La Pregunta?")]

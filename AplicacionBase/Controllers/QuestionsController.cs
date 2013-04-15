@@ -18,22 +18,20 @@ namespace AplicacionBase.Controllers
         /*
         public ViewResult Index()
         {
-            var questions = db.Questions.Include(q => q.Topic);
-            return View(questions.ToList());
+          //  var questions = db.Questions.Include(q => q.Topic);
+            return View(db.Questions.ToList());
         }
         */
-
-
         public ActionResult Index(Guid? id)
         {
             if (id != Guid.Empty && id != null)
             {
 
-                var topic = db.Topics.Find(id);
+                var topic = (Topic) db.Topics.Find(id);
 
                 if (topic != null)
                 {
-                    var questionsTopics = db.Questions.Include(s => s.Topic).Where(s => s.IdTopic == id);
+                    var questionsTopics = db.Questions.Include(s => s.Topic).Where(s => s.IdTopic == id).OrderBy(s=>s.QuestionNumber);
                     ViewBag.Topic = topic;
                     return View(questionsTopics.ToList());
                 }
@@ -67,16 +65,23 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create(Guid? id)
         {
-            var auxTopic = db.Topics.Find(id);
-            
-            if (auxTopic != null)
+            if (id != Guid.Empty && id != null)
             {
-                ViewBag.Topic = auxTopic;
-                return View();
+                var auxTopic = (Topic)db.Topics.Find(id);
+
+                if (auxTopic != null)
+                {
+                    ViewBag.Topic = auxTopic;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
-                return RedirectToAction("Index", "Home");                     
+                return RedirectToAction("Index", "Home");
             }
         }
 
@@ -91,15 +96,32 @@ namespace AplicacionBase.Controllers
         // POST: /Questions/Create
 
         [HttpPost]
-        public ActionResult Create(Guid id, Question question)
+        public ActionResult Create(Guid? id, Question question)
         {
             if (ModelState.IsValid)
             {
                 question.Id = Guid.NewGuid();
-                question.IdTopic = id;
-                db.Questions.Add(question);
-                db.SaveChanges();
-                return RedirectToAction("Index", new {id=id});
+                question.IdTopic = new Guid("" + id);
+                var topic = (Topic)db.Topics.Find(id); 
+                bool existeNumero = ExisteNumero(question.QuestionNumber, question.IdTopic, question.Id);
+
+                if (existeNumero)
+                {
+                    db.Questions.Add(question);
+                    db.SaveChanges();
+                    TempData["Success"] = "Se ha creado la pregunta correctamente";
+                    return RedirectToAction("Index", new {id = id});
+               }
+                else
+                {
+                    if (topic != null)
+                    {
+                        ViewBag.Topic = topic;
+                    }
+                    TempData["Error2"] = "Este número ya ha sido asignado a otra pregunta";
+                    return View();
+                }
+                
             }
 
            // ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", question.IdTopic);
@@ -126,16 +148,23 @@ namespace AplicacionBase.Controllers
         // GET: /Questions/Edit/5
  
 
-        public ActionResult Edit(Guid idT, Guid idQ)
+        public ActionResult Edit(Guid? idT, Guid? idQ)
         {
-            Question question = db.Questions.Find(idQ);
-            var auxTopic = db.Topics.Find(idT);
-
-            if (question != null || auxTopic != null)
+            if (idT != Guid.Empty && idT != null && idQ != Guid.Empty && idQ != null)
             {
-                //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", question.IdTopic);
-                ViewBag.Topic = auxTopic;
-                return View(question);
+                Question question = db.Questions.Find(idQ);
+                var auxTopic = db.Topics.Find(idT);
+
+                if (question != null || auxTopic != null)
+                {
+                    //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", question.IdTopic);
+                    ViewBag.Topic = auxTopic;
+                    return View(question);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             return RedirectToAction("Index", "Home");
         }
@@ -151,20 +180,31 @@ namespace AplicacionBase.Controllers
                 question.IdTopic = idT;
                // question.Id = idQ;
                 db.Entry(question).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { id = idT });
+
+                bool existeNumero = ExisteNumero(question.QuestionNumber, question.IdTopic, question.Id);
+                if (!existeNumero)
+                {
+                    var question_ = db.Questions.Find(idQ);
+                    var auxTopic = db.Topics.Find(idT);
+
+                    if (question_ != null || auxTopic != null)
+                    {
+                        //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", question.IdTopic);
+                        ViewBag.Topic = auxTopic;
+                        TempData["Error2"] = "Este número ya ha sido asignado a otra pregunta";
+                        return View(question);
+                    }
+                   
+                }
+                else
+                {
+                    db.SaveChanges();
+                    TempData["Success"] = "Se ha editado la pregunta correctamente";
+                    return RedirectToAction("Index", new { id = idT }); 
+                }
             }
 
-            Question question_ = db.Questions.Find(idQ);
-            var auxTopic = db.Topics.Find(idT);
-
-            if (question_ != null || auxTopic != null)
-            {
-                //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", question.IdTopic);
-                ViewBag.Topic = auxTopic;
-                return View(question_);
-            }
-            return RedirectToAction("Index", "Home");
+            return View(question);
         }
 
 
@@ -208,6 +248,7 @@ namespace AplicacionBase.Controllers
             ViewBag.Topic = auxTopic;
             db.Questions.Remove(question);
             db.SaveChanges();
+            TempData["Success"] = "Se ha eliminado la pregunta correctamente";
             return RedirectToAction("Index", new {id=auxTopic.Id});
         }
 
@@ -217,6 +258,30 @@ namespace AplicacionBase.Controllers
             base.Dispose(disposing);
         }
 
+
+        /// Metodo que retorna una validacion si el número de pregunta que se le va asignar a la Pregunta es único
+        /// </summary>
+        /// <param name="questionNumber">Numero de la Pregunta</param>
+        /// <param name="IdTopic">Id del Tema</param>
+        /// <param name="IdQuestion">Id de la Pregunta</param>
+        /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>
+
+        public bool ExisteNumero(Decimal questionNumber, Guid idTopic, Guid IdQuestion)
+        {
+            //var question = db.Questions.Where(a => a.Id == IdAnswer).
+            var q = db.Questions.Where(s => s.IdTopic == idTopic);
+
+            foreach (Question question in q)
+            {
+                if (question.QuestionNumber == questionNumber && question.Id != IdQuestion)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /*
         [HttpPost]
         public JsonResult ExisteNumero(Decimal QuestionNumber)
         {
@@ -230,5 +295,6 @@ namespace AplicacionBase.Controllers
             }
             return Json(true);
         }
+         */
     }
 }
