@@ -1,5 +1,79 @@
 ﻿@{
-    ViewBag.Title = "Send";
+    ViewBag.Title = "Enviar Encuesta";
 }
-
-<h2>Send</h2>
+<h2>
+    Enviar Encuesta</h2>
+<div>
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <div class="editor-label">
+                Seleccionar Encuesta
+            </div>
+            <table>
+                <tr>
+                    <th>
+                        <div class="editor-label">
+                            Encuesta Dirigida a:
+                        </div>
+                        <div class="editor-field">
+                            @Html.CheckBox("Estudiante", false)Docentes
+                            <br />
+                            @Html.CheckBox("Docentes", false)Docentes
+                            <br />
+                            @Html.CheckBox("Egresados", false)Egresados
+                            <br />
+                            @Html.CheckBox("Administrativos", false)Administrativos
+                             <br />
+                            @Html.CheckBox("Jefe", false)Jefe
+                        </div>
+                    </th>
+                    <th>
+                        <div class="editor-label">
+                            Seleccione los Programas:
+                        </div>
+                        <div class="editor-field">
+                            @Html.CheckBox("IngSistemas", false)Ingenieria de Sistemas
+                            <br />
+                            @Html.CheckBox("IngElectronica", false)Ingenieria Electronica y Telecomunicaciones
+                            <br />
+                            @Html.CheckBox("IngAutomatica", false)Ingenieria Automatica
+                            <br />
+                            @Html.CheckBox("Telematica", false)Telematica
+                            <br />
+                        </div>
+                    </th>
+                </tr>
+            </table>
+            <div class="fila">
+                <span class="etiqueta">
+                    @Html.Label("Fecha")
+                </span><span class="form-el">
+                    @Html.TextBox("txtFecha")
+                </span>
+            </div>
+            <div class="fila">
+                <span class="etiqueta">
+                    @Html.Label("Asunto")
+                </span><span class="form-el">
+                    @Html.TextBox("txtAsunto")
+                </span>
+            </div>
+            <div class="editor-field">
+                <p>
+                    @Html.TextArea("txtMensaje")
+                </p>
+            </div>
+            <div>
+                <p>
+                    <input type="submit" value="Vista Previa" />
+                </p>
+            </div>
+            <div>
+                <p>
+                    @Html.ActionLink("Regresar", "Index", "Home")
+                </p>
+            </div>
+        </fieldset>
+    }
+</div>
