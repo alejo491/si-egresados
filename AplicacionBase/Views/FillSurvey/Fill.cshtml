@@ -36,7 +36,7 @@
                         {
                             @:<div class="fila"> 
                             @:<span class="form-el">      
-                            @Html.RadioButton(question.Id.ToString(), answer.Id.ToString())
+                            @Html.RadioButton("un"+question.Id.ToString(), answer.Id.ToString())
                             @:</span> 
                             
                             @:<span class="etiqueta">
@@ -49,7 +49,7 @@
                         {
                             @:<div class="fila"> 
                             @:<span class="form-el">  
-                            @Html.CheckBox(question.Id.ToString(), answer.Id.ToString())
+                            @Html.CheckBox("mu"+answer.Id.ToString(), "false" )
                             @:</span>
                             @:<span class="etiqueta">              
                             @Html.Label(answer.Sentence)
@@ -63,7 +63,7 @@
                             @Html.Label(answer.Sentence)
                             @:</span>
                             @:<span class="form-el">   
-                            @Html.TextBox(answer.Id.ToString(), "")
+                            @Html.TextBox("ab"+answer.Id.ToString(), "")
                             @:</span> 
                             @:</div>  
                         }
@@ -75,7 +75,7 @@
                         @Html.Label(answer.Sentence)
                         @:</span> 
                         @:<span class="form-el">
-                        @Html.TextBox(answer.Id.ToString(), "")
+                        @Html.TextBox("tt"+answer.Id.ToString(), "")
                         @:</span> 
                         @:</div>
                     }
