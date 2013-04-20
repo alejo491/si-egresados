@@ -4,6 +4,7 @@
     ViewBag.Title = "Crear Pregunta del Tema " + @ViewBag.Topic.Description;
 }
 
+
 <h2>Crear Pregunta del Tema <strong> <i>@ViewBag.Topic.Description </i></strong></h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -28,9 +29,10 @@
         <div class="editor-field">
             
             <p>
-            @Html.RadioButtonFor(model =>model.Type,"Unica",true) Unica Respuesta 
-            @Html.RadioButtonFor(model =>model.Type,"Multiple",false) Multiple Respuesta
-            @Html.RadioButtonFor(model =>model.Type,"Abierta",false) Respuesta Abierta
+            @Html.RadioButtonFor(model =>model.Type,"Unica",true) Unica Respuesta <br/>
+            @Html.RadioButtonFor(model =>model.Type,"Multiple",false) Multiple Respuesta <br/>
+            @Html.RadioButtonFor(model =>model.Type,"Corta",false) Respuesta Abierta Corta <br/>
+            @Html.RadioButtonFor(model =>model.Type,"Larga",false) Respuesta Abierta Larga
             @*Html.RadioButtonFor(model =>model.Type,"Mixta",false) Respuesta Mixta*@
             @*@Html.EditorFor(model => model.Type)*@
             @Html.ValidationMessageFor(model => model.Type)

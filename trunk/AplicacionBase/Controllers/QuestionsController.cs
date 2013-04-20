@@ -110,6 +110,21 @@ namespace AplicacionBase.Controllers
                     db.Questions.Add(question);
                     db.SaveChanges();
                     TempData["Success"] = "Se ha creado la pregunta correctamente";
+                    var aux = new AnswerChoice();
+                    if (question.Type == "Larga" || question.Type == "Corta")
+                    {
+                        aux.Id = Guid.NewGuid();
+                        aux.IdQuestion = question.Id;                       
+                        aux.AnswerNumber = 1;
+                        aux.NumericValue = 0;
+                        aux.Sentence = "Rta";
+                        aux.Type = "Normal";
+                        db.AnswerChoices.Add(aux);
+                        db.SaveChanges();
+                        
+                    }
+
+                  
                     return RedirectToAction("Index", new {id = id});
                }
                 else
@@ -177,7 +192,10 @@ namespace AplicacionBase.Controllers
         {
             if (ModelState.IsValid)
             {
+                //var question2_ = db.Questions.Find(idQ);
                 question.IdTopic = idT;
+                //question.Type = question2_.Type;
+                
                // question.Id = idQ;
                 db.Entry(question).State = EntityState.Modified;
 
@@ -186,6 +204,7 @@ namespace AplicacionBase.Controllers
                 {
                     var question_ = db.Questions.Find(idQ);
                     var auxTopic = db.Topics.Find(idT);
+                    
 
                     if (question_ != null || auxTopic != null)
                     {

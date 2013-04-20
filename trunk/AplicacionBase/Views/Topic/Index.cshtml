@@ -7,9 +7,9 @@
 
 <h2>Temas</h2>
 
-<div class="validation-summary-success">@TempData["Create"]</div>
-<div class="validation-summary-updates">@TempData["Update"]</div>
-<div class="validation-summary-remove">@TempData["Delete"]</div>
+<div class="alert success">@TempData["Create"]</div>
+<div class="alert success">@TempData["Update"]</div>
+<div class="alert success">@TempData["Delete"]</div>
 
 <p>
     @Html.ActionLink("Nuevo Tema", "Create")
@@ -25,9 +25,9 @@
 @foreach (var item in Model) {
 
     if (rowIndex % 2 == 0) {
-        @:<tr class="alt">
+        @:<tr>
     } else { 
-        @:<tr> 
+        @:<tr class="even"> 
     }
     
         <td>

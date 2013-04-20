@@ -4,18 +4,22 @@
     ViewBag.Title = "Detalles Tema";
 }
 
+<div class="c9">
+
 <h2> Detalles </h2>
 
 <fieldset>
     <legend>Tema</legend>
 
-    <div class="display-label">Descipcion</div>
+    <div class="display-label"><legend>Descipcion</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
+    <br/>
 </fieldset>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Regresar", "Index")
 </p>
+</div>
 

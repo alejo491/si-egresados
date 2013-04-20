@@ -8,18 +8,21 @@
 
 <h3>Está seguro que desea eliminar la encuesta?</h3>
 <fieldset>
-    <legend>Encuesta</legend>
+    <legend>
 
-    <div class="display-label">Nombre</div>
+    <div class="display-label"><legend>Nombre</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
+    <br/>
 
-    <div class="display-label">Objetivo</div>
+    <div class="display-label"><legend>Objetivo</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Aim)
     </div>
+    <br/>
 </fieldset>
+
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Eliminar" /> | @Html.ActionLink("Cancelar", "Index")

@@ -36,13 +36,13 @@
             @Html.DisplayFor(modelItem => item.Sentence)
         </td>
         <td>
-           <center>@Html.DisplayFor(modelItem => item.NumericValue)</center> 
+           @Html.DisplayFor(modelItem => item.NumericValue)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
-            <center>@Html.DisplayFor(modelItem => item.AnswerNumber)</center>
+            @Html.DisplayFor(modelItem => item.AnswerNumber)
         </td>
         <td>
             @Html.ActionLink("Editar", "Edit", new { id = item.Id}) |

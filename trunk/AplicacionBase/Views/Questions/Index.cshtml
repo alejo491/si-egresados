@@ -6,7 +6,7 @@
 
 <h2>Preguntas del Tema <strong><i>@ViewBag.Topic.Description</i></strong></h2>
 
-<div class="validation-summary-success">
+<div class="alert success">
     @TempData["Success"]
 </div>
 
@@ -40,11 +40,11 @@
     if (i%2 == 0)
     {
         
-        @:<tr class="alt">
+        @:<tr>
     }
     else
     {
-        @:<tr>
+        @:<tr class="even">
     }
         @* <td>
            @Html.DisplayFor(modelItem => item.Topic.Description) 

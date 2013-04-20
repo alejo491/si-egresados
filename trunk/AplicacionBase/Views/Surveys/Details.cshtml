@@ -3,23 +3,27 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<div class="c9">
 <h2>Detalles</h2>
 
 <fieldset>
-    <legend>Encuesta</legend>
+    
 
-    <div class="display-label">Nombre</div>
+    <div class="display-label"><legend>Nombre</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
+    <br/>
 
-    <div class="display-label">Objetivo</div>
+    <div class="display-label"><legend>Objetivo</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Aim)
     </div>
+    <br/>
 </fieldset>
-<p>
+<br/>
+    <p>
     @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Cancelar", "Index")
 </p>
+</div>
