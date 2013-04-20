@@ -1,52 +1,56 @@
 ﻿@model IEnumerable<AplicacionBase.Models.SurveysTopic>
 
 @{
-    ViewBag.Title = "Agregar temas a encuesta";
+	ViewBag.Title = "Agregar temas a encuesta";
 }
 
-<h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>
+<div class="grid">
+    <div class="c9">
 
-<div class="validation-summary-success">
-    @TempData["Success"]
+    <h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>  
+        <div class="alert success">
+            @TempData["Success"]
+        </div>
+        <p>
+            @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  ViewBag.Encuesta.Id})
+        </p>
+        <table>
+            <tr>       
+                <th>
+                    Tema
+                </th>
+                <th>
+                    Numero de tema
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+            @{ int i = 0;}
+            @foreach (var item in Model)
+            {
+                if (i%2 == 0)
+                {
+		
+                    @:<tr>
+                }
+                else
+                {
+                    @:<tr class="even">
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topic.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TopicNumber)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }) |
+                    @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic })
+                </td>
+                @:</tr>
+                i++;
+            }
+        </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Asociar nuevo tema", "Create", new {id =  ViewBag.Encuesta.Id})
-</p>
-<table>
-    <tr class="head">       
-        <th>
-            Tema
-        </th>
-        <th>
-            Numero de tema
-        </th>
-        <th>
-            Acciones
-        </th>
-    </tr>
-    @{ int i = 0;}
-@foreach (var item in Model)
-{
-    if (i%2 == 0)
-    {
-        
-        @:<tr class="alt">
-    }
-    else
-    {
-        @:<tr>
-    }
-    <td>
-        @Html.DisplayFor(modelItem => item.Topic.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TopicNumber)
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }) |
-        @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic })
-    </td>
-    @:</tr>
-    i++;
-}
-</table>

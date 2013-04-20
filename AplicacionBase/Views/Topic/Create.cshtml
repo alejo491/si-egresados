@@ -4,6 +4,8 @@
     ViewBag.Title = "Agregar Tema";
 }
 
+
+<div class="c9">
 <h2>Agregar Tema</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -21,13 +23,16 @@
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
+        <br/>
 
         <p>
             <input type="submit" value="Agregar" />
         </p>
     </fieldset>
 }
+<br/>
 
 <div>
     @Html.ActionLink("Regresar", "Index")
+</div>
 </div>

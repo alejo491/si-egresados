@@ -4,27 +4,29 @@
     ViewBag.Title = "Borrar";
 }
 
-<h2>Delete</h2>
+<h2>Borrar tema de encuesta</h2>
 
 <h3>¿Está seguro que desea borrar el tema de la encuesta?</h3>
 <fieldset>
-    <legend>Borrar</legend>
 
     <div class="display-label"><legend>Encuesta</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Survey.Name)
     </div>
+    <br/>
 
     <div class="display-label"><legend>Tema</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Topic.Description)
     </div>
+    <br/>
 
     <div class="display-label"><legend>Orden</legend></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TopicNumber)
     </div>
 </fieldset>
+<br/>
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Borrar" /> |

@@ -24,17 +24,8 @@
             @Html.ValidationMessageFor(model => model.IdTopic)
         </div>
         *@
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
-        </div>
-        <div class="editor-field">
-            <p>
-                @Html.RadioButtonFor(model => model.Type, "Unica", true) Unica Respuesta 
-                @Html.RadioButtonFor(model => model.Type, "Multiple", false) Multiple Respuesta
-                @Html.RadioButtonFor(model => model.Type, "Abierta", false) Respuesta Abierta
-                @*Html.RadioButtonFor(model => model.Type, "Mixta", false) Respuesta Mixta*@
-                @Html.ValidationMessageFor(model => model.Type)
-            </p>
+        <div>
+            @Html.HiddenFor(model => model.Type)
         </div>
 
         <div class="editor-label">
