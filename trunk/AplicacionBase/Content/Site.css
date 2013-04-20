@@ -52,13 +52,14 @@ h5, h6 {
 #Maqueta{
     margin: 0 auto;
     width: 100%;
+    
 }
 
 /*configuracion lados externos a la pagina  "Ramas"*/
 #izquierda {
-width: 5%;
-float: left;
-margin-left:33px
+    width: 5%;
+    float: left;
+    margin-left: 33px;
 }
 #izquierda img
 {
@@ -89,6 +90,7 @@ float: left;
 #cabecera
 {
     position:relative;
+    /*width: 88.9%;¨*/
     top: 0px;
 }
 
@@ -205,6 +207,7 @@ ul#menu li a:hover {
 {
     clear: both;
     background: #FFFFFF url(themes/base/images/fon-con-contenido.png) repeat-x 0 0;    
+    /*margin-top: 120px;*/
 }
 
 #main {
@@ -219,12 +222,14 @@ div .contenido-izq
    float:left;
    width:60%;
    min-height:300px;
+   padding: 20px;
 }
 div .contenido-der
 {
    float:left;
    text-align:right;
-   width:40%;
+   padding: 20px;
+   width: 40%;
 }
 /*configuracion footer de la pagina */
 footer, 
@@ -241,7 +246,7 @@ footer,
 
 /* TABLE
 ----------------------------------------------------------*/
-
+/*
 table {
     border: solid 1px #e8eef4;
     border-collapse: collapse;
@@ -261,14 +266,14 @@ table tr.alt
 
 table tr.head 
 {
-    background:rgb(247, 247, 247);
+    background: rgb(247, 247, 247);
     padding: 6px 5px;
     text-align: left;
     border: solid 1px #D8D8D8;
     color:rgb(5, 5, 5);
 }
 
-
+*/
 /*Estilos para maquetar formularios*/
 .fila {
   clear: both;
@@ -315,6 +320,25 @@ div.tema {
     
 }
 
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.display-label, 
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.display-field, 
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
