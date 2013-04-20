@@ -4,45 +4,56 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Encuesta</h2>
+<div class="grid">
+<div class="c9">
+    <h2>Encuesta</h2>
 
-<div class="validation-summary-success">@TempData["Sucess"]</div>
-<div class="validation-summary-updates">@TempData["Update"]</div>
-<div class="validation-summary-remove">@TempData["Remove"]</div>
+    <div class="alert success">@TempData["Sucess"]</div>
+    <div class="alert success">@TempData["Update"]</div>
+    <div class="alert success">@TempData["Remove"]</div>
 
+    <p>
+        @Html.ActionLink("Crear Nueva Encuesta", "Create")
+    </p>
+    <table>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Objetivo
+            </th>
+            <th>Acciones</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+            if (i % 2 == 0)
+            {
+		
+                    @:<tr>
+                }
+            else
+            {
+                    @:<tr class="even">
+            }
+                @:<td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                @:</td>
+                @:<td>
+                    @Html.DisplayFor(modelItem => item.Aim)
+                @:</td>
+                @:<td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) @:|
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }) @:|
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) @:|
+                    @Html.ActionLink("Agregar temas", "Index", "SurveysTopics", new { id = item.Id }, "")
+                    @Html.ActionLink("Enviar Encuesta", "Send", "SendSurveys", new {id = item.Id}, "")
+                @:</td>
+            @:</tr>
+            i++;
+        }
 
-
-
-<p>
-    @Html.ActionLink("Crear Nueva Encuesta", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            Nombre
-        </th>
-        <th>
-            Objetivo
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Aim)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Agregar temas", "Index", "SurveysTopics", new {id = item.Id}, "")
-            @Html.ActionLink("Enviar Encuesta", "Send", "SendSurveys", new {id = item.Id}, "")
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+</div>
+</div>
