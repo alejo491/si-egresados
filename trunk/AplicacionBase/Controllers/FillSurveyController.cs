@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using AplicacionBase.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace AplicacionBase.Controllers
 {
@@ -15,12 +16,12 @@ namespace AplicacionBase.Controllers
         //
         // GET: /FillSurvey/
 
-        public ActionResult Fill(Guid ids)
+        public ActionResult Fill(Guid ids, string Email)
         {
             var survey = db.Surveys.Find(ids);
             if (survey != null)
             {
-                var surveystopics = db.SurveysTopics.Where(st => st.IdSurveys == survey.Id).OrderBy(st=>st.TopicNumber);
+                var surveystopics = db.SurveysTopics.Where(st => st.IdSurveys == survey.Id).OrderBy(st => st.TopicNumber);
                 foreach (var surveysTopic in surveystopics.ToList())
                 {
                     var topic = db.Topics.Find(surveysTopic.IdTopic);
@@ -43,7 +44,7 @@ namespace AplicacionBase.Controllers
                         return RedirectToAction("Index", "Home");
                     }
 
-                    
+
                 }
 
                 ViewBag.questions = surveystopics.ToList();
@@ -54,16 +55,271 @@ namespace AplicacionBase.Controllers
         }
 
         [HttpPost]
-        public ActionResult Fill(Guid idt, FormCollection postedForm)
+        public ActionResult Fill(Guid ids, string Email, FormCollection postedForm)
         {
-            var q = db.Questions.Where(s => s.IdTopic == idt);
+            List<string> ListAnswerC = new List<string>();
+            List<string> ListVal = new List<string>();
 
-            foreach (var  question in q)
+            var exemplar = SaveSurveyed(Email, ids);
+
+            foreach (string v in postedForm)
             {
-                var v = postedForm[question.Id.ToString()].ToString();
+                if (v.StartsWith("tt"))
+                {
+                    var idanswC = v.Substring(2, (v.Length - 2));
+                    Guid ias = new Guid(idanswC);
+                    var text = postedForm[v];
+                    if (ListAnswerC.Count > 0)
+                    {
+                        string idacexiste = ListAnswerC[0];
+                        Guid idac = new Guid(idacexiste);
+                        var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
+                        var idquexiste = objAnsC.IdQuestion;
+                        var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
+                        var idqactual = objAnsCactual.IdQuestion;
+                        if (idqactual != idquexiste)
+                        {   //Aqui se hace el llamado a la funciòn para guardar
+                            //saveAnswer(idquexiste, ListAnswerC, ListVal);
+                            var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
+                            ListAnswerC.Clear();
+                            ListVal.Clear();
+                            ListAnswerC.Add(idanswC);
+                            ListVal.Add(text);
+                        }
+                        else
+                        {
+                            ListAnswerC.Add(idanswC);
+                            ListVal.Add(text);
+                        }
+                    }
+                    else
+                    {
+                        ListAnswerC.Add(idanswC);
+                        ListVal.Add(text);
+                    }
+                }
+
+                if (v.StartsWith("un"))
+                {
+                    var idanswC = postedForm.GetValue(v).AttemptedValue;
+                    var idquestion = v.Substring(2, (v.Length - 2));
+                    Guid ias = new Guid(idanswC);
+                    var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
+                    var idqactual = objAnsCactual.IdQuestion;
+                    var text = objAnsCactual.Sentence;
+                    if (ListAnswerC.Count > 0)
+                    {
+                        string idacexiste = ListAnswerC[0];
+                        Guid idac = new Guid(idacexiste);
+                        var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
+                        var idquexiste = objAnsC.IdQuestion;
+
+                        if (idqactual != idquexiste)
+                        {
+                            //Aqui se hace el llamado a la funciòn para guardar
+                            //saveAnswer(idquexiste, ListAnswerC, ListVal);
+                            var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
+                            ListAnswerC.Clear();
+                            ListVal.Clear();
+                            ListAnswerC.Add(idanswC);
+                            ListVal.Add(text);
+                        }
+                        else
+                        {
+                            ListAnswerC.Add(idanswC);
+                            ListVal.Add(text);
+                        }
+                    }
+                    else
+                    {
+                        ListAnswerC.Add(idanswC);
+                        ListVal.Add(text);
+                    }
+                }
+
+                if (v.StartsWith("mu"))
+                {
+
+                    string idanswC = v.Substring(2, (v.Length - 2));
+                    var k = postedForm[v];
+                    if (k == "true,false")
+                    {
+                        Guid ias = new Guid(idanswC);
+                        var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
+                        var idqactual = objAnsCactual.IdQuestion;
+                        var text = objAnsCactual.Sentence;
+                        if (ListAnswerC.Count > 0)
+                        {
+                            string idacexiste = ListAnswerC[0];
+                            Guid idac = new Guid(idacexiste);
+                            var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
+                            var idquexiste = objAnsC.IdQuestion;
+
+                            if (idqactual != idquexiste)
+                            {
+                                //Aqui se hace el llamado a la funciòn para guardar
+                                //saveAnswer(idquexiste, ListAnswerC, ListVal);
+                                var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
+                                ListAnswerC.Clear();
+                                ListVal.Clear();
+                                ListAnswerC.Add(idanswC);
+                                ListVal.Add(text);
+                            }
+                            else
+                            {
+                                ListAnswerC.Add(idanswC);
+                                ListVal.Add(text);
+                            }
+                        }
+                        else
+                        {
+                            ListAnswerC.Add(idanswC);
+                            ListVal.Add(text);
+                        }
+                    }
+
+                }
+
             }
+
+            if (ListAnswerC.Count > 0)
+            {
+                string idacexiste = ListAnswerC[0];
+                Guid idac = new Guid(idacexiste);
+                var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
+                var idquexiste = objAnsC.IdQuestion;
+                //Aqui se hace el llamado a la funciòn para guardar
+                //saveAnswer(idquexiste, ListAnswerC, ListVal);
+                var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
+                ListAnswerC.Clear();
+                ListVal.Clear();
+            }
+
             return View();
         }
+
+
+        public Exemplar SaveSurveyed(string Email, Guid id)
+        {
+            var m = db.Bosses.Where(s => s.Email == Email);
+            var temps = new Surveyed();
+            var tempex = new Exemplar();
+            if (!m.Any())
+            {
+                var u = db.aspnet_Membership.Where(a => a.Email == Email);
+                if (u.Count() != 0)
+                {
+
+                    foreach (aspnet_Membership aux in u)
+                    {
+                        User u1 = db.Users.Find(aux.UserId);
+                        if (u1 != null)
+                        {
+                            temps.Name = u1.FirstNames + " " + u1.LastNames;
+                            temps.Email = Email;
+                            temps.Type = "";
+                        }
+                        else
+                        {
+                            temps.Name = "";
+                            temps.Email = Email;
+                            temps.Type = "";
+                        }
+                    }
+
+                    db.Surveyeds.Add(temps);
+                    db.SaveChanges();
+
+
+
+
+                    tempex.Id = new Guid();
+                    tempex.ExemplarNumber = db.Exemplars.Count(s => s.IdSurveys == id) + 1;
+                    tempex.IdSurveyed = temps.Id;
+                    tempex.IdSurveys = id;
+
+                    db.Exemplars.Add(tempex);
+                    db.SaveChanges();
+
+
+
+                }
+                else
+                {
+                    ViewBag.Error = "No existe el Email";
+                }
+            }
+            else
+            {
+                var u = db.aspnet_Membership.Where(a => a.Email == Email);
+                foreach (aspnet_Membership aux in u)
+                {
+
+                    Boss b1 = db.Bosses.Find(aux.UserId);
+                    var tempb = new Surveyed();
+                    if (b1 != null)
+                    {
+                        tempb.Name = b1.Name;
+                        tempb.Email = Email;
+                        tempb.Type = "Jefe";
+                    }
+                    else
+                    {
+                        tempb.Name = "";
+                        tempb.Email = Email;
+                        tempb.Type = "";
+                    }
+                }
+
+
+
+                tempex.Id = new Guid();
+                tempex.ExemplarNumber = db.Exemplars.Where(s => s.IdSurveys == id).Count() + 1;
+                tempex.IdSurveyed = temps.Id;
+                tempex.IdSurveys = id;
+
+                db.Exemplars.Add(tempex);
+                db.SaveChanges();
+            }
+
+            return tempex;
+        }
+
+        public Boolean SaveExemplarAnswers(Guid idExemplar, Guid idQuestion, List<string> opc, List<string> valores)    
+	    {
+            try
+            {
+                var tempexqu = new ExemplarsQuestion();
+                tempexqu.IdExemplar = idExemplar;
+                tempexqu.IdQuestion = idQuestion;
+
+                db.ExemplarsQuestions.Add(tempexqu);
+                db.SaveChanges();
+
+
+                //Llenado de tabla Answers
+                int i;
+                for (i = 0; i < opc.Count; i++)
+                {
+                    var tempans = new Answer();
+                    tempans.IdAnswer = new Guid(opc[i]);
+                    tempans.IdQuestion = idQuestion;
+                    tempans.IdExemplar = idExemplar;
+                    tempans.TextValue = valores[i];
+                    db.Answers.Add(tempans);
+                    db.SaveChanges();
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+
+	    }
+
 
     }
 }
