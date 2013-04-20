@@ -21,7 +21,8 @@ namespace AplicacionBase.Controllers
         private bool ingenieriaElectronica;
         private bool ingenieriaAutomatica;
         private bool telematica;
-        private string fecha;
+        private string fechaDesde;
+        private string fechaHasta;
         private string asunto;
         private string mensaje;
 
@@ -71,8 +72,11 @@ namespace AplicacionBase.Controllers
                     case "Telematica":
                         telematica = k.Contains("true");
                         break;
-                    case "txtFecha":
-                        fecha = k;
+                    case "txtFechaDesde":
+                        fechaDesde = k;
+                        break;
+                    case "txtFechaHasta":
+                        fechaHasta = k;
                         break;
                     case "txtAsunto":
                         asunto = k;
@@ -84,7 +88,7 @@ namespace AplicacionBase.Controllers
             }
             if (jefe)
                 {
-                    if (fecha == "")
+                    if (fechaDesde == "")
                     {
                         if (ingenieriadeSistemas)
                         {
@@ -111,22 +115,22 @@ namespace AplicacionBase.Controllers
                     {
                         if (ingenieriadeSistemas)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaAutomatica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaElectronica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (telematica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Telematica", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Telematica", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                     }
@@ -134,7 +138,7 @@ namespace AplicacionBase.Controllers
 
                 if (egresados)
                 {
-                    if (fecha == "")
+                    if (fechaDesde == "")
                     {
                         if (ingenieriadeSistemas)
                         {
@@ -161,22 +165,22 @@ namespace AplicacionBase.Controllers
                     {
                         if (ingenieriadeSistemas)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaAutomatica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaElectronica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (telematica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", Convert.ToDateTime(fecha));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                     }
@@ -186,22 +190,22 @@ namespace AplicacionBase.Controllers
             {
                 if (ingenieriadeSistemas)
                 {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", Convert.ToDateTime(fecha));
+                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", Convert.ToDateTime(fechaDesde));
                     selected.Concat(c);
                 }
                 else if (ingenieriaAutomatica)
                 {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", Convert.ToDateTime(fecha));
+                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", Convert.ToDateTime(fechaDesde));
                     selected.Concat(c);
                 }
                 else if (ingenieriaElectronica)
                 {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", Convert.ToDateTime(fecha));
+                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", Convert.ToDateTime(fechaDesde));
                     selected.Concat(c);
                 }
                 else if (telematica)
                 {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", Convert.ToDateTime(fecha));
+                    var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", Convert.ToDateTime(fechaDesde));
                     selected.Concat(c);
                 }
             }
