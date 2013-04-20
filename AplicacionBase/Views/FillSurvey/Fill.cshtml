@@ -10,24 +10,23 @@
 {
     <fieldset>
         @{
-            int i = 1;
+    int i = 1;
         }
         
         @foreach (SurveysTopic surveysTopic in ViewBag.questions)
         {
             @:<div class="tema">
-            @:<div class="ttema">
+            @:<div class="ttema" style="padding-bottom: 20px">
             @: <h1>Tema: @surveysTopic.Topic.Description </h1>
             @:</div>
             foreach (Question question in surveysTopic.Topic.Questions)
             {
+                @:<div style=" padding-bottom: 1">
 
-                @: <p class="ttema">Pregunta @i 
-                @Html.Label(question.Sentence) @: 
-                @:</p>
-                
-               
-
+                @:<div class="fila">
+                @:Pregunta @i 
+                @Html.Label(question.Sentence)               
+                @:</div>
                 foreach (AnswerChoice answer in question.AnswerChoices)
                 {
                     if (answer.Type == "Normal")
@@ -35,35 +34,51 @@
                         if (question.Type == "Unica")
                         {
                             @:<div class="fila"> 
-                            @:<span class="form-el">      
-                            @Html.RadioButton("un"+question.Id.ToString(), answer.Id.ToString())
-                            @:</span> 
-                            
+                                                      
                             @:<span class="etiqueta">
                             @Html.Label(answer.Sentence)
                             @:</span>
+
+                            @:<span class="form-el">      
+                            @Html.RadioButton("un" + question.Id.ToString(), answer.Id.ToString())
+                            @:</span> 
+
                             @:</div>
 
                         }
                         if (question.Type == "Multiple")
                         {
-                            @:<div class="fila"> 
-                            @:<span class="form-el">  
-                            @Html.CheckBox("mu"+answer.Id.ToString(), "false" )
-                            @:</span>
+                            @:<div class="fila">                          
                             @:<span class="etiqueta">              
                             @Html.Label(answer.Sentence)
                             @:</span>
+                            @:<span class="form-el">  
+                            @Html.CheckBox("mu" + answer.Id.ToString(), "false")
+                            @:</span>
                             @:</div> 
                         }
-                        if (question.Type == "Abierta")
+                        if (question.Type == "Corta")
                         {
                             @:<div class="fila">
-                            @:<span class="etiqueta"> 
-                            @Html.Label(answer.Sentence)
-                            @:</span>
+                            @*@:<span class="etiqueta"> 
+                            @Html.Label(answer.Sentence);*@
+                           @* @:</span>*@
                             @:<span class="form-el">   
-                            @Html.TextBox("ab"+answer.Id.ToString(), "")
+                            @Html.TextBox("ab" + answer.Id.ToString(), "")
+                            @:</span> 
+                            @:</div>  
+                        }
+
+                        if (question.Type == "Larga")
+                        {
+                            @:<div class="fila">
+                           @* @:<span class="etiqueta"> 
+                            @Html.Label(answer.Sentence)
+                            @:</span>*@
+                            @*@:</div>
+                            @:<div class="fila">*@
+                            @:<span class="form-el"> 
+                            @Html.TextArea("ab" + answer.Id.ToString(), "")                              
                             @:</span> 
                             @:</div>  
                         }
@@ -75,29 +90,28 @@
                         @Html.Label(answer.Sentence)
                         @:</span> 
                         @:<span class="form-el">
-                        @Html.TextBox("tt"+answer.Id.ToString(), "")
+                        @Html.TextBox("tt" + answer.Id.ToString(), "")
                         @:</span> 
                         @:</div>
-                    }
-                    
-
-
-                    <br/>
+                    }                
                 }
-
+                @:</div>
+                
                 i++;
-
-
-            }
-                       
-            @:</div>
-            <br/>
+            }                     
+            @:</div>           
         }
-
-        <p>
+        
+        
+        <div class="fila"> 
+            <span class="etiqueta">
+            </span>
+            <span class="form-el">
             <input type="submit" value="Guardar" />
+            </span>
+        </div>
     
-        </p>
+        
         
     </fieldset>
     
