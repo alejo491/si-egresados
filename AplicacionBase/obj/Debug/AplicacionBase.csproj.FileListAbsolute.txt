@@ -96,3 +96,11 @@ C:\Users\AndresFelipe\Documents\Envios\v36(Hoja Estilos)\AplicacionBase\bin\Enti
 C:\Users\AndresFelipe\Documents\Envios\v36(Hoja Estilos)\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\AndresFelipe\Documents\Envios\v36(Hoja Estilos)\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\AndresFelipe\Documents\Envios\v36(Hoja Estilos)\AplicacionBase\obj\Debug\AplicacionBase.pdb
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\bin\AplicacionBase.dll
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\bin\AplicacionBase.pdb
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\bin\EntityFramework.dll
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\bin\EntityFramework.xml
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\bin\Newtonsoft.Json.xml
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\obj\Debug\AplicacionBase.dll
+E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\obj\Debug\AplicacionBase.pdb

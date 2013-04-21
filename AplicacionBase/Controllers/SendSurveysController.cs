@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
@@ -11,7 +12,7 @@ namespace AplicacionBase.Controllers
 
     public class SendSurveysController : Controller
     {
-
+        private DbSIEPISContext db = new DbSIEPISContext();
         private bool estudiante;
         private bool docentes;
         private bool egresados;
@@ -211,8 +212,40 @@ namespace AplicacionBase.Controllers
                 }
             }
 
-            return View();
+            return RedirectToAction("Preview", new { id });
             //return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Preview(Guid id) {
+
+            //var name = ((Dictionary<string, string>)TempData["d"])["jaimejn@unicauca.edu.co"];
+            var survey = (Survey)db.Surveys.Find(id);
+            ViewBag.Survey = survey;
+            var message = (string)TempData["message"];
+            var url = Url.Action("Fill", "FillSurvey");
+            ViewData["body"] = SendSurveysEmailController.PopulateBody("UserName", survey.Name, url, message);
+            TempData["message"] = message;
+            TempData["title"] = survey.Name;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Preview(FormCollection form) {
+
+            var recipients = (Dictionary<string, string>)TempData["d"];
+            var message = (string)TempData["message"];
+            var subject = (string)TempData["subject"];
+
+
+
+            foreach (string item in recipients.Keys) {
+                var url = Url.Action("Fill", "FillSurvey");
+                var body = SendSurveysEmailController.PopulateBody(recipients[item], "Hola", url, message);
+                SendSurveysEmailController.SendHtmlFormattedEmail(item, subject, body);
+            }
+
+            return RedirectToAction("Index", "Surveys");
+
         }
 
     }
