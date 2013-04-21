@@ -4,13 +4,13 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Eliminar</h2>
+<h2>Eliminar Usuario</h2>
 
-<h3>Esta seguro que desea eliminar este usuario?</h3>
+<h3>¿Esta seguro que desea eliminar este usuario?</h3>
 <fieldset>
     <legend>Usuario @ViewBag.UserName</legend>
 
-    <div class="display-label">Telefono</div>
+    <div class="display-label">Teléfono</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.PhoneNumber)
     </div>
@@ -25,7 +25,7 @@
         @Html.DisplayFor(model => model.LastNames)
     </div>
 
-    <div class="display-label">Direccion</div>
+    <div class="display-label">Dirección</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Address)
     </div>
@@ -40,12 +40,12 @@
         @Html.DisplayFor(model => model.BirthDate)
     </div>
 
-    <div class="display-label">Genero</div>
+    <div class="display-label">Género</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Gender)
     </div>
 
-    <div class="display-label">Estado Civil</div>
+    <div class="display-label">Estado Civíl</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.MaritalStatus)
     </div>
