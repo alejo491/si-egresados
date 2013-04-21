@@ -235,12 +235,13 @@ namespace AplicacionBase.Controllers
             var recipients = (Dictionary<string, string>)TempData["d"];
             var message = (string)TempData["message"];
             var subject = (string)TempData["subject"];
+            var title = (string)TempData["title"];
 
 
 
             foreach (string item in recipients.Keys) {
                 var url = Url.Action("Fill", "FillSurvey");
-                var body = SendSurveysEmailController.PopulateBody(recipients[item], "Hola", url, message);
+                var body = SendSurveysEmailController.PopulateBody(recipients[item], title, url, message);
                 SendSurveysEmailController.SendHtmlFormattedEmail(item, subject, body);
             }
 
