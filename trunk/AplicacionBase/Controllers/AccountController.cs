@@ -101,17 +101,26 @@ namespace AplicacionBase.Controllers
             {
                 // Intento de registrar al usuario
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
+                DbSIEPISContext db = new DbSIEPISContext();
+                System.Web.Security.MembershipUserCollection uno = Membership.FindUsersByEmail(model.Email);
+                if (uno.Count == 0)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                    if (createStatus == MembershipCreateStatus.Success)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     
-                    return RedirectToAction("Index", "Verify");
+                        return RedirectToAction("Index", "Verify");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    TempData["Error"] = "Correo Utilizado";
+                    model.Email = "";
                 }
             }
 
