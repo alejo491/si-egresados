@@ -42,7 +42,6 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Borrar Pregunta" /> |
-        @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.Topic.Id })
+        <input type="submit" value="Borrar Pregunta" class="ebutton2 blue"/> &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }

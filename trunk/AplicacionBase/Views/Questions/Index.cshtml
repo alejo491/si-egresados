@@ -12,7 +12,7 @@
 
 
 <p>
-    @Html.ActionLink("Crear Pregunta", "Create", new {id=ViewBag.Topic.Id})
+    @Html.ActionLink("Crear Pregunta", "Create", new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 <table>
     <tr class="head">@*
@@ -66,10 +66,10 @@
         @*  @Html.DisplayFor(modelItem => item.IsObligatory) *@
     </td>
     <td>
-        @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }) |
-        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) |
-        @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, "")
+        @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
         @* @Html.ActionLink("Agregar Preguntas", "Create", "Questions", new { id = item.Id }, "") *@
     </td>
     @:</tr>

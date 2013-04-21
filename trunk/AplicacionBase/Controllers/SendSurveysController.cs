@@ -25,6 +25,7 @@ namespace AplicacionBase.Controllers
         private string fechaHasta;
         private string asunto;
         private string mensaje;
+        private Guid idObtenido;
 
         //
         // GET: /SendSurveys/
@@ -36,10 +37,10 @@ namespace AplicacionBase.Controllers
         }
         
         [HttpPost]
-        public ActionResult Send(FormCollection form)
+        public ActionResult Send(Guid id, FormCollection form)
         {
             var selected= new Dictionary<string,string>();
-
+            idObtenido = id;
             foreach (string variable in form)
             {
                 var k = form[variable];
