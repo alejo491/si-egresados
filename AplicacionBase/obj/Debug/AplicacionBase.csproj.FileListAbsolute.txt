@@ -104,3 +104,11 @@ E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\bin\Newtonsoft.J
 E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
 E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\obj\Debug\AplicacionBase.dll
 E:\Jaime Alberto\Universidad\Proyecto II\SI-EPIS\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\bin\EntityFramework.dll
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\bin\EntityFramework.xml
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\bin\Newtonsoft.Json.xml
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\Andres\Desktop\Proyecto 2\9\AplicacionBase\obj\Debug\AplicacionBase.pdb
