@@ -1,6 +1,19 @@
 ﻿@{
     ViewBag.Title = "Enviar Encuesta General";
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtFechaDesde").datepicker();
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtFechaHasta").datepicker();
+    });
+</script>
+
 <h2>
     Enviar Encuesta General</h2>
 <div>
@@ -42,15 +55,20 @@
             </div>
             <div class="editor-label">
                 Fecha Desde: 
-                </div>
+            </div>
             <div class="editor-field">
-                @Html.TextBox("txtFechaDesde")
+              @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
+                
+                 @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
+               
+                @Html.TextBox("txtFechaDesde", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
+               
             </div>
             <div class="editor-label">              
                 Fecha Hasta: 
             </div>
             <div class="editor-field">
-                @Html.TextBox("txtFechaHasta")
+                @Html.TextBox("txtFechaHasta", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
             </div>
             <div class="editor-label">
                 Asunto: 
@@ -79,3 +97,5 @@
         </fieldset>
     }
 </div>
+
+
