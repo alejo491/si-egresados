@@ -1,123 +1,143 @@
 ﻿@using AplicacionBase.Models
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 <div>
-@using (Html.BeginForm())
-{
-    <fieldset>
-        @{
-    int i = 1;
-        }
-        
-        @foreach (SurveysTopic surveysTopic in ViewBag.questions)
-        {
-            @:<div class="tema">
-            @:<div class="ttema">
-            @: <h1>Tema: @surveysTopic.Topic.Description </h1>
-            @:</div>
-            foreach (Question question in surveysTopic.Topic.Questions)
-            {
-                @:<div>
+	
+		<h3>Responda las preguntas</h3>
 
-                @:<div class="c12">
-                @: <p>
-                    @:Pregunta @i : @question.Sentence
-                    @*@Html.Label(question.Sentence)  *@
-                @: </p>             
-                @:</div>
-                foreach (AnswerChoice answer in question.AnswerChoices)
-                {
-                    if (answer.Type == "Normal")
-                    {
-                        if (question.Type == "Unica")
+
+		@using (Html.BeginForm())
+		{
+	
+			<fieldset>
+		
+				@{
+					int i = 1;
+				}
+		
+				@foreach (SurveysTopic surveysTopic in ViewBag.questions)
+				{
+					@:<div class="row space-bot">
+					@:<div class="ttema">
+					@: <h3>Tema: @surveysTopic.Topic.Description </h3>
+					@:</div>
+					foreach (Question question in surveysTopic.Topic.Questions)
+					{
+						@*@:<div class="row space-bot">*@
+						       @:<div class="c12">
+					                @:<p>
+					                @:Pregunta @i : @question.Sentence
+						                            @*@Html.Label(question.Sentence)  *@
+					                @:</p>
+                                @:</div>             
+						@*@:</div>*@
+						foreach (AnswerChoice answer in question.AnswerChoices)
                         {
-                            @:<div class="fila"> 
-                                                      
-                            @:<span class="etiqueta">
-                            @Html.Label(answer.Sentence)
-                            @:</span>
+						    @:<div class="row space-bot">
+							if (answer.Type == "Normal")
+                            {
+                                if (question.Type == "Unica")
+                                {
+								    @:<div class="c1-5">
+                                    													  
+									@*@:<span class="etiqueta">*@
+									@Html.Label(answer.Sentence)
+									@*@:</span>*@
+                                        @:</div>
+                                    @:<div class="c1-5">
+									@*@:<span class="form-el">  *@    
+									@Html.RadioButton("un" + question.Id.ToString(), answer.Id.ToString())
+									@*@:</span> *@
 
-                            @:<span class="form-el">      
-                            @Html.RadioButton("un" + question.Id.ToString(), answer.Id.ToString())
-                            @:</span> 
+									@:</div>
 
-                            @:</div>
+                                }
+                                if (question.Type == "Multiple")
+                                {
+                                    
+                                    @:<div class="c1-5">
+									@*@:<div class="fila">                          
+									@:<span class="etiqueta">*@              
+									@Html.Label(answer.Sentence)
+									@*@:</span>
+                                    
+									@:<span class="form-el"> *@ 
+								    @:</div> 
+                                    @:<div class="c1-5">
+									@Html.CheckBox("mu" + answer.Id.ToString(), "false")
+									@*@:</span>*@
+									@:</div> 
+								}
+                                if (question.Type == "Corta")
+                                {
+									@:<div class="c1-5">
+							        @*@:<span class="etiqueta"> 
+							        @Html.Label(answer.Sentence);*@
+						            @* @:</span>*@
+									@*@:<span class="form-el"> *@  
+                                    @:</div> 
+                                    @:<div class="c1-5">
+									@Html.TextBox("ab" + answer.Id.ToString(), "")
+									@*@:</span> *@
+									@:</div>  
+								}
 
-                        }
-                        if (question.Type == "Multiple")
-                        {
-                            @:<div class="fila">                          
-                            @:<span class="etiqueta">              
-                            @Html.Label(answer.Sentence)
-                            @:</span>
-                            @:<span class="form-el">  
-                            @Html.CheckBox("mu" + answer.Id.ToString(), "false")
-                            @:</span>
-                            @:</div> 
-                        }
-                        if (question.Type == "Corta")
-                        {
-                            @:<div class="fila">
-                            @*@:<span class="etiqueta"> 
-                            @Html.Label(answer.Sentence);*@
-                           @* @:</span>*@
-                            @:<span class="form-el">   
-                            @Html.TextBox("ab" + answer.Id.ToString(), "")
-                            @:</span> 
-                            @:</div>  
-                        }
+                                if (question.Type == "Larga")
+                                {
+                                    @*@:<div class="c1-5">*@
+						            @* @:<span class="etiqueta"> 
+							        @Html.Label(answer.Sentence)
+							        @:</span>*@
+							        @*@:</div>
+							        @:<div class="fila">*@
+									@*@:<span class="form-el"> *@
+                                    @*@:</div>*@
+                                    @:<div class="c1-5">
+									@Html.TextArea("ab" + answer.Id.ToString(), "")                              
+									@*@:</span> *@
+									@:</div>  
+								}
+                            }
+                            else
+                            {
+                                @:<div class="c1-5">
+								@*@:<div class="fila"> 
+								@:<span class="etiqueta">*@
+								@Html.Label(answer.Sentence)
+								@*@:</span> 
+								@:<span class="form-el">*@
+                                @:</div> 
+                                @:<div class="c1-5">
+								@Html.TextBox("tt" + answer.Id.ToString(), "")
+								@*@:</span> *@
+								@:</div>
+							}  
+                            @:</div>              
+						}
 
-                        if (question.Type == "Larga")
-                        {
-                            @:<div class="fila">
-                           @* @:<span class="etiqueta"> 
-                            @Html.Label(answer.Sentence)
-                            @:</span>*@
-                            @*@:</div>
-                            @:<div class="fila">*@
-                            @:<span class="form-el"> 
-                            @Html.TextArea("ab" + answer.Id.ToString(), "")                              
-                            @:</span> 
-                            @:</div>  
-                        }
-                    }
-                    else
-                    {
-                        @:<div class="fila"> 
-                        @:<span class="etiqueta">
-                        @Html.Label(answer.Sentence)
-                        @:</span> 
-                        @:<span class="form-el">
-                        @Html.TextBox("tt" + answer.Id.ToString(), "")
-                        @:</span> 
-                        @:</div>
-                    }                
-                }
-                @:</div>
-                
-                i++;
-            }                     
-            @:</div>           
-        }
-        
-        
-        <div class="fila"> 
-            <span class="etiqueta">
-            </span>
-            <span class="form-el">
-            <input type="submit" value="Guardar" />
-            </span>
-        </div>
-    
-        
-        
-    </fieldset>
-    
+
+
+                        i++;
+                    }                     
+					@:</div>           
+				}
+		
+		
+				@:<div class="row space-bot"> 
+					<span class="etiqueta">
+					</span>
+					<span class="form-el">
+						<input type="submit" value="Guardar" />
+					</span>
+				</div>
+	
+		
+		
+			</fieldset>
    
-}
+		}
+</div>
 
-</div> 
