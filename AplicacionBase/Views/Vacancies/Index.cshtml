@@ -27,19 +27,7 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
             Perfil Profesional
         </th>
         <th>
-            Fecha de Publicación
-        </th>
-        <th>
             Fecha de Cierre
-        </th>
-        <th>
-            Numero de Vacantes
-        </th>
-        <th>
-            Salario
-        </th>
-        <th>
-            Usuario
         </th>
         <th>
             Compañia
@@ -61,20 +49,9 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
         <td>
             @Html.DisplayFor(modelItem => item.ProfessionalProfile)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PublicationDate)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.ClosingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VacanciesNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.PhoneNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Company.Name)
