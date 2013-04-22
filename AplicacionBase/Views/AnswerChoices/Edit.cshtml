@@ -70,11 +70,9 @@
         </div>
 
         <p>
-            <input type="submit" value="Guardar" />
+            <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = Model.IdQuestion }, htmlAttributes: new { @class = "ebutton blue" })       
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Regresar", "Index", new { id = Model.IdQuestion })
-</div>
+

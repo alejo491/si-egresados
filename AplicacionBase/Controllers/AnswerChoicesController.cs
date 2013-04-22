@@ -34,10 +34,11 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
         public ViewResult Details(Guid id)
         {
-            AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
-            return View(AnswerChoice);
+                AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
+                return View(AnswerChoice);
         }
         //
         // GET: /AnswerChoice/Create
@@ -99,26 +100,24 @@ namespace AplicacionBase.Controllers
         // GET: /AnswerChoice/Edit/5
         public ActionResult Edit(Guid? id)
         {
-                
-
-                if (id != Guid.Empty && id != null )
-                {
-                    AnswerChoice answerChoice = db.AnswerChoices.Find(id);
-                    var achoice = db.AnswerChoices.Find(id);
-                    if(achoice != null)
-                    {
-                        return View(answerChoice);
-                    }
-                    else
-                    {
+            if (id != Guid.Empty && id != null )
+            {
+                 AnswerChoice answerChoice = db.AnswerChoices.Find(id);
+                 var achoice = db.AnswerChoices.Find(id);
+                 if(achoice != null)
+                 {
+                     return View(answerChoice);
+                 }
+                 else
+                 {
                         return RedirectToAction("Index", "Home");
-                    }
-                }
+                 }
+             }
                 else
                 {
                     return RedirectToAction("Index", "Home");
                 }
-        }
+         }
 
 
         //
@@ -161,9 +160,25 @@ namespace AplicacionBase.Controllers
         // GET: /AnswerChoice/Delete/5
         public ActionResult Delete(Guid id)
         {
-            AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
-            return View(AnswerChoice);
-        }
+
+            if (id != Guid.Empty && id != null )
+            {
+                 AnswerChoice answerChoice = db.AnswerChoices.Find(id);
+                 var achoice = db.AnswerChoices.Find(id);
+                 if(achoice != null)
+                 {
+                     return View(answerChoice);
+                 }
+                 else
+                 {
+                        return RedirectToAction("Index", "Home");
+                 }
+             }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+         }
         //
         // POST: /AnswerChoice/Delete/5
         [HttpPost, ActionName("Delete")]

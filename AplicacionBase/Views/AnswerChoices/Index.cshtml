@@ -4,15 +4,20 @@
     ViewBag.Title = "Listar Opciones de Respuesta";
 }
 
+
 <h2>Opciones de Respuesta de la Pregunta "@ViewBag.Question.Sentence"</h2>
 
-<div class="validation-summary-success">@TempData["Success"]</div>
+<div class="alert success">
+    @TempData["Success"]
+</div>
+
+@*<div class="validation-summary-success">@TempData["Success"]</div>*@
 
 <p>
-    @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { id = ViewBag.Question.Id })
+    @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { id = ViewBag.Question.Id }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 <table>
-    <tr>
+    <tr class="head">
         <th>
             Enunciado
         </th>
@@ -31,7 +36,7 @@
 @foreach (var item in Model)
 {
    
-    <tr>
+    @:<tr class="even">
         <td>
             @Html.DisplayFor(modelItem => item.Sentence)
         </td>
@@ -45,11 +50,11 @@
             @Html.DisplayFor(modelItem => item.AnswerNumber)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id}) |
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp 
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
         </td>
-    </tr>
+    @:</tr>
     
 }
 
