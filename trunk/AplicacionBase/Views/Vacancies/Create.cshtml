@@ -21,7 +21,7 @@
             @Html.DropDownList("IdCompanie", "")
             @Html.ValidationMessageFor(model => model.IdCompanie)
 
-            ¿No aparece en la lista?<a href="javascript:window.open('../Companies/Create','Registrar Compañia', 'toolbar=no,directories=no,menubar=no,status=no');">Crear Nueva</a>
+            ¿No aparece en la lista?<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
         </div>
 
         <div class="editor-label">
@@ -92,15 +92,15 @@
             Usuario
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdUser", "Seleccione el usuario")
+            @Html.DropDownList("IdUser", "3206565")
             @Html.ValidationMessageFor(model => model.IdUser)
         </div>
         <p>
-            <input type="submit" value="Crear" />
+            <input type="submit" value="Crear" class="ebutton blue" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Volver a la lista", "Index")
+    @Html.ActionLink("Volver a la lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </div>

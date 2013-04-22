@@ -49,7 +49,7 @@ namespace AplicacionBase.Controllers
                 company.Id = Guid.NewGuid();
                 db.Companies.Add(company);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("../Vacancies/Create");
             }
 
             return View(company);
