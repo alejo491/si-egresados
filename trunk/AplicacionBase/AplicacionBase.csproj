@@ -71,12 +71,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswerChoicesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
+    <Compile Include="Controllers\ElectiveController.cs" />
     <Compile Include="Controllers\FillSurveyController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Controllers\SendSurveysController.cs" />
     <Compile Include="Controllers\SendSurveysDbController.cs" />
     <Compile Include="Controllers\SendSurveysEmailController.cs" />
     <Compile Include="Controllers\StudyController.cs" />
+    <Compile Include="Controllers\ThesisController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UsersInRolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -234,7 +237,9 @@
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Template\SurveyEmailTemplate.htm" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -388,6 +393,27 @@
   <ItemGroup>
     <Content Include="Views\SendSurveys\SendSpecific.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\School\Create.cshtml" />
+    <Content Include="Views\School\Delete.cshtml" />
+    <Content Include="Views\School\Details.cshtml" />
+    <Content Include="Views\School\Edit.cshtml" />
+    <Content Include="Views\School\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Thesis\Create.cshtml" />
+    <Content Include="Views\Thesis\Delete.cshtml" />
+    <Content Include="Views\Thesis\Details.cshtml" />
+    <Content Include="Views\Thesis\Edit.cshtml" />
+    <Content Include="Views\Thesis\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Elective\Create.cshtml" />
+    <Content Include="Views\Elective\Delete.cshtml" />
+    <Content Include="Views\Elective\Details.cshtml" />
+    <Content Include="Views\Elective\Edit.cshtml" />
+    <Content Include="Views\Elective\Index.cshtml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -405,7 +431,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>11675</DevelopmentServerPort>
+          <DevelopmentServerPort>15281</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
