@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using System.Diagnostics;
 
 namespace AplicacionBase.Controllers
 {
@@ -260,9 +261,10 @@ namespace AplicacionBase.Controllers
         //
         // POST: /SendSurveys/SendSpecific
         [HttpPost]
-        public ActionResult SendSpecific(Guid id, FormCollection form, User usuario)
+        public ActionResult SendSpecific(Guid id, FormCollection form)
         {
             var selected = new Dictionary<string, string>();
+            string nombreCompleto = "";
 
             foreach (string variable in form)
             {
@@ -270,6 +272,9 @@ namespace AplicacionBase.Controllers
 
                 switch (variable)
                 {
+                    case "FirstNames":
+                        nombreCompleto = k;
+                        break;
                     case "txtAsunto":
                         asunto = k;
                         break;
@@ -278,9 +283,13 @@ namespace AplicacionBase.Controllers
                         break;
                 }
             }
-            
-            string nombreCompleto = usuario.FirstNames + " " + usuario.LastNames;
-            selected.Add("jhonfredym89@gmail.com", "Jhon Fredy");
+
+            var listaUsuarios = db.Users.Where(u => u.FirstNames == nombreCompleto);
+            foreach(var user in listaUsuarios) {
+                var idUsuario = user.Id;
+                var memberShip = db.aspnet_Membership.Find(idUsuario);
+                selected.Add(memberShip.Email, nombreCompleto);
+            }
 
             return RedirectToAction("Preview", new { id });
         }
