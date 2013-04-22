@@ -1,0 +1,38 @@
+﻿@model AplicacionBase.Models.Item
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Item</legend>
+
+    <div class="display-label">Report</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Report.Description)
+    </div>
+
+    <div class="display-label">TableName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TableName)
+    </div>
+
+    <div class="display-label">FieldName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FieldName)
+    </div>
+
+    <div class="display-label">PageNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PageNumber)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

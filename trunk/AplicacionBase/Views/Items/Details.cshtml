@@ -1,0 +1,36 @@
+﻿@model AplicacionBase.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Item</legend>
+
+    <div class="display-label">Report</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Report.Description)
+    </div>
+
+    <div class="display-label">TableName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TableName)
+    </div>
+
+    <div class="display-label">FieldName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FieldName)
+    </div>
+
+    <div class="display-label">PageNumber</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PageNumber)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
