@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Vista Previa";
+}
+<h2>
+    Vista Previa</h2>
+<h3>
+    Asunto:
+</h3>
+<div>
+    @using (Html.BeginForm()) {
+        <fieldset>
+            <div>
+                @Html.Raw((string)ViewData["Body"])
+            </div>
+        </fieldset>
+        <div>
+            <p>
+                <input type="submit" value="Enviar" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Send", "SendSurveys", routeValues: new { id = ViewBag.Survey.Id }, htmlAttributes: new { @class = "ebutton blue" })
+            </p>
+        </div>
+    }
+</div>
