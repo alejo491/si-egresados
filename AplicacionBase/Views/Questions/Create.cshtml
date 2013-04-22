@@ -57,7 +57,7 @@
             @Html.EditorFor(model => model.QuestionNumber)
             @Html.ValidationMessageFor(model => model.QuestionNumber) 
             </p>
-            <div class="validation-summary-errors"> <p>@TempData["Error2"]</p> </div>
+            <div class="alert error"> <p>@TempData["Error2"]</p> </div>
         </div>
 
         <div class="editor-label">

@@ -69,7 +69,11 @@
         @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
         @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
         @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        @if (item.Type != "Larga" || item.Type != "Corta")
+        {
         @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+        }
+        
         @* @Html.ActionLink("Agregar Preguntas", "Create", "Questions", new { id = item.Id }, "") *@
     </td>
     @:</tr>
