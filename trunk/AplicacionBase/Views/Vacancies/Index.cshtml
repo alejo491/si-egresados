@@ -1,45 +1,48 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Vacancy>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listado de Vacantes";
 }
 
-<h2>Index</h2>
+<h2>Listado de Vacantes</h2>
 
+Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLink("Buscar", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
+
+<br/>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nueva", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 <table>
     <tr>
         <th>
-            Charge
+            Cargo
         </th>
         <th>
-            DayTrip
+            Jornada
         </th>
         <th>
-            HoursNumber
+            Numero de Horas
         </th>
         <th>
-            ProfessionalProfile
+            Perfil Profesional
         </th>
         <th>
-            PublicationDate
+            Fecha de Publicación
         </th>
         <th>
-            ClosingDate
+            Fecha de Cierre
         </th>
         <th>
-            VacanciesNumber
+            Numero de Vacantes
         </th>
         <th>
-            Salary
+            Salario
         </th>
         <th>
-            User
+            Usuario
         </th>
         <th>
-            Company
+            Compañia
         </th>
         <th></th>
     </tr>
@@ -77,9 +80,9 @@
             @Html.DisplayFor(modelItem => item.Company.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }

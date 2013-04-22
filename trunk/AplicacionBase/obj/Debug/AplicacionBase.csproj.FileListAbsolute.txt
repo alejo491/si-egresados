@@ -120,3 +120,11 @@ C:\Users\Andres\Desktop\Proyecto 2\13\AplicacionBase\bin\Newtonsoft.Json.xml
 C:\Users\Andres\Desktop\Proyecto 2\13\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Andres\Desktop\Proyecto 2\13\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\Andres\Desktop\Proyecto 2\13\AplicacionBase\obj\Debug\AplicacionBase.pdb
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\bin\AplicacionBase.dll
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\bin\AplicacionBase.pdb
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\bin\EntityFramework.dll
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\bin\EntityFramework.xml
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\bin\Newtonsoft.Json.xml
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\obj\Debug\AplicacionBase.dll
+D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\obj\Debug\AplicacionBase.pdb

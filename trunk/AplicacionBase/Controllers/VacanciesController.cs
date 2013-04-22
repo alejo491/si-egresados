@@ -9,9 +9,9 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
-    [Authorize]
     public class VacanciesController : Controller
     {
+        [Authorize]
         private DbSIEPISContext db = new DbSIEPISContext();
 
         //
