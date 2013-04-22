@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AplicacionBase.Models
 {
@@ -11,6 +13,8 @@ namespace AplicacionBase.Models
         }
 
         public System.Guid Id { get; set; }
+
+        [DisplayName("Nombre de la Institución")]
         public string Name { get; set; }
         public virtual ICollection<Study> Studies { get; set; }
     }

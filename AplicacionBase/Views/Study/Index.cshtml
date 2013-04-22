@@ -4,27 +4,27 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Estudios Realizados</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Estudio", "Create", "", htmlAttributes: new { @class = "ebutton blue" }) &nbsp
 </p>
 <table>
     <tr>
         <th>
-            School
+            Institución
         </th>
         <th>
-            User
+            Título
         </th>
         <th>
-            Grade
+            Fecha de Inicio
         </th>
         <th>
-            StartDate
+            Fecha de Finalización
         </th>
-        <th>
-            EndDate
+         <th>
+            Opciones
         </th>
         <th></th>
     </tr>
@@ -33,9 +33,6 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.School.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.PhoneNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Grade)
@@ -47,9 +44,9 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Ver", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
