@@ -1,5 +1,4 @@
 ﻿@model AplicacionBase.Models.Report
-           @model IEnumerable<AplicacionBase.Models.Item>
 
 @{
     ViewBag.Title = "Details";
@@ -29,44 +28,3 @@
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-
-<table>
-    <tr>
-        <th>
-            Report
-        </th>
-        <th>
-            TableName
-        </th>
-        <th>
-            FieldName
-        </th>
-        <th>
-            PageNumber
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Report.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TableName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FieldName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PageNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
