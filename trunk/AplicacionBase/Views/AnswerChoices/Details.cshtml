@@ -40,6 +40,5 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Regresar", "Index", new { oid = Model.IdQuestion })
+    @Html.ActionLink("Editar", "Edit", new { idT = Model.Id}, htmlAttributes: new { @class = "ebutton blue" }) &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = Model.IdQuestion }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
