@@ -50,7 +50,7 @@
                     @Html.ActionLink("Agregar temas", "Index", "SurveysTopics", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) @: &nbsp
                     @Html.ActionLink("Enviar Encuesta", "Send", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) @: &nbsp
                     @Html.ActionLink("Enviar Encuesta General", "Send", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
-                    @Html.ActionLink("Enviar Encuesta Especifica", "Send", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                    @Html.ActionLink("Enviar Encuesta Especifica", "SendSpecific", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
                 @:</td>
             @:</tr>
             i++;

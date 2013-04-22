@@ -249,5 +249,49 @@ namespace AplicacionBase.Controllers
 
         }
 
+        //
+        // GET: /SendSurveys/
+
+        public ActionResult SendSpecific(Guid id)
+        {
+            return View();
+        }
+
+        //
+        // POST: /SendSurveys/SendSpecific
+        [HttpPost]
+        public ActionResult SendSpecific(Guid id, FormCollection form, User usuario)
+        {
+            var selected = new Dictionary<string, string>();
+
+            foreach (string variable in form)
+            {
+                var k = form[variable];
+
+                switch (variable)
+                {
+                    case "txtAsunto":
+                        asunto = k;
+                        break;
+                    case "txtMensaje":
+                        mensaje = k;
+                        break;
+                }
+            }
+            
+            string nombreCompleto = usuario.FirstNames + " " + usuario.LastNames;
+            selected.Add("jhonfredym89@gmail.com", "Jhon Fredy");
+
+            return RedirectToAction("Preview", new { id });
+        }
+
+        [HttpPost]
+        public JsonResult BuscarPorNombre(string words)
+        {
+            var suggestions = from u in db.Users select u.FirstNames;
+            var namelist = suggestions.Where(u => u.ToLower().StartsWith(words.ToLower()));
+            return Json(namelist, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

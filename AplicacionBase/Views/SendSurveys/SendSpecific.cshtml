@@ -1,5 +1,45 @@
-﻿@{
-    ViewBag.Title = "SendSpecific";
+﻿@model AplicacionBase.Models.User
+
+@{
+    ViewBag.Title = "Enviar Encuesta Específica";
 }
 
-<h2>SendSpecific</h2>
+<script type="text/javascript" language="javascript">
+    $("#nombre").autocomplete({
+        source: "/SendSurveysController/BuscarPorNombre",
+        minLength: 1
+    });
+</script>
+
+<h2>Enviar Encuesta Específica</h2>
+
+@using (Html.BeginForm())
+{
+	<fieldset>
+	    <div class="editor-label">
+            Para:  
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.FirstNames, new { @id = "nombre" })
+        </div>
+        <div class="editor-label">
+            Asunto: 
+        </div>
+        <div class="editor-field">
+            @Html.TextBox("txtAsunto")
+        </div>
+        <div class="editor-label">
+            Mensaje:
+        </div>
+        <div class="editor-field">
+            <p>
+                @Html.TextArea("txtMensaje")
+            </p>
+        </div>
+        <div>
+            <p>
+                <input type="submit" value="Vista Previa" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Index", "Surveys", htmlAttributes: new { @class = "ebutton blue" })
+            </p>
+        </div>
+    </fieldset>
+}
