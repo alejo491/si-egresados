@@ -4,10 +4,11 @@
     [ @Html.ActionLink("Cerrar sesión", "LogOff", "Account") ]</text>
 }
 else {
+     @:[ @Html.ActionLink("Iniciar sesión", "LogOn", "Account") ]
     <fb:login-button perms="email,user_checkins" onlogin="afterFacebookConnect();" 
-       autologoutlink="false" ></fb:login-button>
-    <div id="fb-root" style="display:inline; margin-left:20px;"></div>
-    @:[ @Html.ActionLink("Iniciar sesión", "LogOn", "Account") ]
+       autologoutlink="false" >Iniciar sesión</fb:login-button>
+    <div id="fb-root" style="display:inline; margin-right:0px;"></div>
+   
 }
 <script language="javascript" type="text/javascript">
     window.fbAsyncInit = function () {
