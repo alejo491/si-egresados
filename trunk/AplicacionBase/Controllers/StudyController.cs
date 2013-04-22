@@ -48,16 +48,29 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Study study)
         {
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+
+            }
+            var IdUser = g;
             if (ModelState.IsValid)
             {
+                ViewBag.IdUser = IdUser;
                 study.Id = Guid.NewGuid();
+                study.IdUser = IdUser;
                 db.Studies.Add(study);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
-
+            
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "Name", study.IdUser);
             ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
             return View(study);
         }
