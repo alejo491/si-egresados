@@ -219,14 +219,14 @@ ul#menu li a:hover {
 }
 div .contenido-izq
 {
-   float:left;
+   /*float:left;*/
    width:60%;
    min-height:300px;
    padding: 20px;
 }
 div .contenido-der
 {
-   float:left;
+   /*float:left;*/
    text-align:right;
    padding: 20px;
    width: 40%;
