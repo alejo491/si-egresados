@@ -7,59 +7,59 @@
 <h2>Details</h2>
 
 <fieldset>
-    <legend>Vacancy</legend>
+    <legend>Vacante</legend>
 
-    <div class="display-label">Charge</div>
+    <div class="display-label">Cargo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Charge)
     </div>
 
-    <div class="display-label">DayTrip</div>
+    <div class="display-label">Jornada</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.DayTrip)
     </div>
 
-    <div class="display-label">HoursNumber</div>
+    <div class="display-label">Numero de Horas</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.HoursNumber)
     </div>
 
-    <div class="display-label">ProfessionalProfile</div>
+    <div class="display-label">Perfil Profesional</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.ProfessionalProfile)
     </div>
 
-    <div class="display-label">PublicationDate</div>
+    <div class="display-label">Fecha de Publicacion</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.PublicationDate)
     </div>
 
-    <div class="display-label">ClosingDate</div>
+    <div class="display-label">Fecha de Cierre</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.ClosingDate)
     </div>
 
-    <div class="display-label">VacanciesNumber</div>
+    <div class="display-label">Numero de Vacantes</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.VacanciesNumber)
     </div>
 
-    <div class="display-label">Salary</div>
+    <div class="display-label">Salario</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Salary)
     </div>
 
-    <div class="display-label">User</div>
+    <div class="display-label">Usuario</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.User.PhoneNumber)
     </div>
 
-    <div class="display-label">Company</div>
+    <div class="display-label">Compañia</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Volver a la lista", "Index")
 </p>

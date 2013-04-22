@@ -9,7 +9,6 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
-    [Authorize]
     public class CompaniesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();

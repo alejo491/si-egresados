@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Crear</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,10 +12,10 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Company</legend>
+        <legend>Compañia</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
+            Nombre
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
@@ -23,7 +23,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.City)
+            Direccion
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.City)
@@ -31,7 +31,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Sector)
+            Telefono
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Sector)
@@ -39,7 +39,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Type)
+            Correo Electronico
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Type)
