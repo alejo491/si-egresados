@@ -11,7 +11,7 @@ namespace AplicacionBase.Controllers
 {
     public class VacanciesController : Controller
     {
-        [Authorize]
+        
         private DbSIEPISContext db = new DbSIEPISContext();
 
         //
