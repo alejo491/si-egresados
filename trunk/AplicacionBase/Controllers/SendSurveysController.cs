@@ -27,12 +27,15 @@ namespace AplicacionBase.Controllers
         private string asunto;
         private string mensaje;
         private Guid idObtenido;
+        private bool continuar;
+        private bool continuar2 = false;
 
         //
         // GET: /SendSurveys/
 
         public ActionResult Send(Guid id)
         {
+            ViewBag.Seleccionado1 = false;
             return View();
            // return RedirectToAction("Index", "Home");
         }
@@ -42,53 +45,177 @@ namespace AplicacionBase.Controllers
         {
             var selected= new Dictionary<string,string>();
             idObtenido = id;
-            foreach (string variable in form)
+            continuar = false;
+            continuar2 = false;
+            TempData["Error3"] = "¡Es Obligatorio Colocar un Asunto!";
+            TempData["Error4"] = "¡Es Obligatorio Colocar un Mensaje!";
+            ViewBag.Seleccionado1 = false;
+
+            #region Validaciones de Seleccion de Destinatario
+
+            foreach (string v in form)
             {
-                var k = form[variable];
-                switch (variable)
+                var k = form[v];
+                if (continuar)
+                {
+                    TempData["Error1"] = "";
+                    break;
+                }
+
+                switch (v)
                 {
                     case "Estudiantes":
-                        estudiante = k.Contains("true");
+                        continuar = k.Contains("true");
+                        if (continuar)
+                        {
+                            ViewBag.Seleccionado1 = true;
+                        }
+                        else
+                        {
+                            ViewBag.Seleccionado1 = false;
+                        }
                         break;
                     case "Docentes":
-                        docentes = k.Contains("true");
+                        continuar = k.Contains("true");
+                        ViewBag.Seleccionado2 = v;
                         break;
                     case "Egresados":
-                        egresados = k.Contains("true");
+                        continuar = k.Contains("true");
+                        ViewBag.Seleccionado3 = v;
                         break;
                     case "Administrativos":
-                        administrativos = k.Contains("true");
-                        break;
-                    case "Jefe":
-                        jefe = k.Contains("true");
-                        break;
-                    case "IngSistemas":
-                        ingenieriadeSistemas = k.Contains("true");
-                        break;
-                    case "IngElectronica":
-                        ingenieriaElectronica = k.Contains("true");
-                        break;
-                    case "IngAutomatica":
-                        ingenieriaAutomatica = k.Contains("true");
-                        break;
-                    case "Telematica":
-                        telematica = k.Contains("true");
-                        break;
-                    case "txtFechaDesde":
-                        fechaDesde = k;
-                        break;
-                    case "txtFechaHasta":
-                        fechaHasta = k;
-                        break;
-                    case "txtAsunto":
-                        asunto = k;
-                        break;
-                    case "txtMensaje":
-                        mensaje = k;
+                        continuar = k.Contains("true");
+                        ViewBag.Seleccionado4 = v;
                         break;
                 }
             }
-            if (jefe)
+
+            
+            if (continuar == false)
+            {
+                TempData["Error1"] = "Debes seleccionar al menos un destinatario";
+               // return View();
+            }
+
+            #endregion
+
+            #region Validar si Asunto esta lleno
+
+            foreach (string v in form)
+            {
+                var k = form[v];
+                if (continuar2)
+                {
+                    TempData["Error3"] = "";
+                    break;
+                }
+
+                switch (v)
+                {   
+                    case "txtAsunto":
+                        if (k == "")
+                        {
+                            TempData["Error3"] = "¡Es Obligatorio Colocar un Asunto!";
+                            continuar2 = false;
+                        //    return View();
+                        }
+                        else
+                        {
+                            continuar2 = true;
+                            ViewBag.Asunto = k;
+                            asunto = k;
+                        }
+                        break;
+                }
+            }
+            #endregion
+
+            #region Validar si Mensaje esta lleno
+
+            continuar2 = false;
+            foreach (string v in form)
+            {
+                var k = form[v];
+                if (continuar2)
+                {
+                    TempData["Error4"] = "";
+                    break;
+                }
+
+                switch (v)
+                {
+                        case "txtMensaje":
+                        if (k == "")
+                        {
+                            TempData["Error4"] = "¡Es Obligatorio Colocar un Mensaje!";
+                            continuar2 = false;
+                        }
+                        else
+                        {
+                            if (asunto !=null)
+                            {
+                                continuar2 = true;
+                            }
+                        ViewBag.Mensaje = k;
+                            TempData["Error4"] = "";
+                            mensaje = k;
+                            
+                        }
+                        break;
+                }
+            }
+            #endregion
+
+            if (continuar==true && continuar2==true)
+            {
+
+                foreach (string variable in form)
+                {
+                    var k = form[variable];
+                    switch (variable)
+                    {
+                        case "Estudiantes":
+                            estudiante = k.Contains("true");
+                            break;
+                        case "Docentes":
+                            docentes = k.Contains("true");
+                            break;
+                        case "Egresados":
+                            egresados = k.Contains("true");
+                            break;
+                        case "Administrativos":
+                            administrativos = k.Contains("true");
+                            break;
+                        case "Jefe":
+                            jefe = k.Contains("true");
+                            break;
+                        case "IngSistemas":
+                            ingenieriadeSistemas = k.Contains("true");
+                            break;
+                        case "IngElectronica":
+                            ingenieriaElectronica = k.Contains("true");
+                            break;
+                        case "IngAutomatica":
+                            ingenieriaAutomatica = k.Contains("true");
+                            break;
+                        case "Telematica":
+                            telematica = k.Contains("true");
+                            break;
+                        case "txtFechaDesde":
+                            fechaDesde = k;
+                            break;
+                        case "txtFechaHasta":
+                            fechaHasta = k;
+                            break;
+                        case "txtAsunto":
+                            asunto = k;
+                            break;
+                        case "txtMensaje":
+                            mensaje = k;
+                            break;
+                    }
+                }
+                if (jefe)
                 {
                     if (fechaDesde == "")
                     {
@@ -117,22 +244,26 @@ namespace AplicacionBase.Controllers
                     {
                         if (ingenieriadeSistemas)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas",
+                                                                                Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaAutomatica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica",
+                                                                                Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaElectronica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica",
+                                                                                Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (telematica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosJefe("Telematica", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Telematica",
+                                                                                Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                     }
@@ -167,53 +298,66 @@ namespace AplicacionBase.Controllers
                     {
                         if (ingenieriadeSistemas)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
+                                                                                    Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaAutomatica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica",
+                                                                                    Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (ingenieriaElectronica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica",
+                                                                                    Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                         else if (telematica)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", Convert.ToDateTime(fechaDesde));
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica",
+                                                                                    Convert.ToDateTime(fechaDesde));
                             selected.Concat(c);
                         }
                     }
                 }
 
-            if (egresados != true && jefe != true)
-            {
-                if (ingenieriadeSistemas)
+                if (egresados != true && jefe != true)
                 {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", Convert.ToDateTime(fechaDesde));
-                    selected.Concat(c);
+                    if (ingenieriadeSistemas)
+                    {
+                        var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
+                                                                                Convert.ToDateTime(fechaDesde));
+                        selected.Concat(c);
+                    }
+                    else if (ingenieriaAutomatica)
+                    {
+                        var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica",
+                                                                                Convert.ToDateTime(fechaDesde));
+                        selected.Concat(c);
+                    }
+                    else if (ingenieriaElectronica)
+                    {
+                        var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica",
+                                                                                Convert.ToDateTime(fechaDesde));
+                        selected.Concat(c);
+                    }
+                    else if (telematica)
+                    {
+                        var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica",
+                                                                                Convert.ToDateTime(fechaDesde));
+                        selected.Concat(c);
+                    }
                 }
-                else if (ingenieriaAutomatica)
-                {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", Convert.ToDateTime(fechaDesde));
-                    selected.Concat(c);
-                }
-                else if (ingenieriaElectronica)
-                {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", Convert.ToDateTime(fechaDesde));
-                    selected.Concat(c);
-                }
-                else if (telematica)
-                {
-                    var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", Convert.ToDateTime(fechaDesde));
-                    selected.Concat(c);
-                }
-            }
 
-            return RedirectToAction("Preview", new { id });
-            //return RedirectToAction("Index", "Home");
+                TempData["message"] = mensaje;
+                TempData["subject"] = asunto;
+                TempData["d"] = selected;
+
+                return RedirectToAction("Preview", new {id});
+            }
+            return View();
         }
 
         public ActionResult Preview(Guid id) {

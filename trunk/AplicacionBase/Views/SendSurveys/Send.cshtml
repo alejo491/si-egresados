@@ -17,6 +17,8 @@
 <h2>
     Enviar Encuesta General</h2>
 <div>
+    
+
 
     @using (Html.BeginForm())
     {
@@ -27,7 +29,7 @@
             </div>
             <div class="editor-field">
                 <p>
-                    @Html.CheckBox("Estudiante", false)Docentes
+                    @Html.CheckBox("Estudiantes", (bool)ViewBag.Seleccionado1)Estudiantes
                     <br />
                     @Html.CheckBox("Docentes", false)Docentes
                     <br />
@@ -35,6 +37,10 @@
                     <br />
                     @Html.CheckBox("Administrativos", false)Administrativos
                     <br />
+                    @if (TempData["Error1"] != "")
+                    {
+                        <div class="alert error"> <p>@TempData["Error1"]</p> </div>
+                    }
                     @Html.CheckBox("Jefe", false)Jefe
                 </p>
             </div>
@@ -54,36 +60,48 @@
                 </p>
             </div>
             <div class="editor-label">
-                Fecha Desde: 
+                Egresados Desde: 
             </div>
             <div class="editor-field">
-              @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
+                @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
                 
-                 @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
+                @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
                
-                @Html.TextBox("txtFechaDesde", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
+                @Html.TextBox("txtFechaDesde", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
                
             </div>
             <div class="editor-label">              
-                Fecha Hasta: 
+                Egresados Hasta: 
             </div>
             <div class="editor-field">
-                @Html.TextBox("txtFechaHasta", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
+                @Html.TextBox("txtFechaHasta", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
             </div>
             <div class="editor-label">
                 Asunto: 
             </div>
             <div class="editor-field">
-                @Html.TextBox("txtAsunto")
+                @Html.TextArea("txtAsunto", (string)ViewBag.Asunto,new {style="width:700px;height:100px"})
             </div>
+            
+            @if (TempData["Error3"] != "")
+            {
+                <div class="alert error"> <p>@TempData["Error3"]</p> </div>
+            }
+
             <div class="editor-label">
                 Mensaje:
             </div>
             <div class="editor-field">
                 <p>
-                    @Html.TextArea("txtMensaje")
+                    @Html.TextArea("txtMensaje",(string)ViewBag.Mensaje,new{style="width:700px;height:100px;"})
                 </p>
             </div>
+            
+            @if (TempData["Error4"] != "")
+            {
+                <div class="alert error"> <p>@TempData["Error4"]</p> </div>
+            }
+
             <div>
                 <p>
                     <input type="submit" value="Vista Previa" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Index", "Surveys", htmlAttributes: new { @class = "ebutton blue" })
