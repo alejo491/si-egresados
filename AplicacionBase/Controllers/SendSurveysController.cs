@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
-using System.Diagnostics;
 
 namespace AplicacionBase.Controllers
 {
@@ -287,9 +286,14 @@ namespace AplicacionBase.Controllers
             var listaUsuarios = db.Users.Where(u => u.FirstNames == nombreCompleto);
             foreach(var user in listaUsuarios) {
                 var idUsuario = user.Id;
+                nombreCompleto = nombreCompleto + " " + user.LastNames;
                 var memberShip = db.aspnet_Membership.Find(idUsuario);
                 selected.Add(memberShip.Email, nombreCompleto);
             }
+
+            TempData["subject"] = asunto;
+            TempData["message"] = mensaje;
+            TempData["d"] = selected;
 
             return RedirectToAction("Preview", new { id });
         }
