@@ -24,7 +24,7 @@ namespace AplicacionBase.Models.Mapping
                 .HasForeignKey(d => d.IdSurveys);
             this.HasRequired(t => t.Surveyed)
                 .WithMany(t => t.Exemplars)
-                .HasForeignKey(d => d.IdSurveys);
+                .HasForeignKey(d => d.IdSurveyed);
 
         }
     }
