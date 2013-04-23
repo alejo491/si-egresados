@@ -195,7 +195,7 @@ namespace AplicacionBase.Controllers
                 ListVal.Clear();
             }
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -215,12 +215,14 @@ namespace AplicacionBase.Controllers
                         User u1 = db.Users.Find(aux.UserId);
                         if (u1 != null)
                         {
+                            temps.Id = Guid.NewGuid();
                             temps.Name = u1.FirstNames + " " + u1.LastNames;
                             temps.Email = Email;
                             temps.Type = "";
                         }
                         else
                         {
+                            temps.Id = Guid.NewGuid();
                             temps.Name = "";
                             temps.Email = Email;
                             temps.Type = "";
@@ -233,7 +235,7 @@ namespace AplicacionBase.Controllers
 
 
 
-                    tempex.Id = new Guid();
+                    tempex.Id = Guid.NewGuid();
                     tempex.ExemplarNumber = db.Exemplars.Count(s => s.IdSurveys == id) + 1;
                     tempex.IdSurveyed = temps.Id;
                     tempex.IdSurveys = id;
@@ -302,6 +304,7 @@ namespace AplicacionBase.Controllers
                 for (i = 0; i < opc.Count; i++)
                 {
                     var tempans = new Answer();
+                    tempans.Id = Guid.NewGuid();
                     tempans.IdAnswer = new Guid(opc[i]);
                     tempans.IdQuestion = idQuestion;
                     tempans.IdExemplar = idExemplar;
