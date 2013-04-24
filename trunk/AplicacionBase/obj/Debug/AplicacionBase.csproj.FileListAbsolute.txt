@@ -128,3 +128,23 @@ D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\bin\Newtonsoft.Json
 D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
 D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\obj\Debug\AplicacionBase.dll
 D:\Mis Documentos\Universidad\Proyecto II\new\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\EntityFramework.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\EntityFramework.xml
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\bin\Newtonsoft.Json.xml
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\EntityFramework.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\EntityFramework.xml
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\Newtonsoft.Json.xml
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\obj\Debug\AplicacionBase.pdb
