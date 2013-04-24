@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
+            enableLocalization="true">
+
+  <mvcSiteMapNode title="Inicio" controller="Home" action="Index">
+    <mvcSiteMapNode title="Acerca De" controller="Home" action="About"/>
+
+
+    <mvcSiteMapNode title="Cuenta" controller="Account" action="LogOn">
+      <mvcSiteMapNode title="Registro" controller="Account" action="Register"/>
+      <mvcSiteMapNode title="Cambiar Contraseña" controller="Account" action="ChangePassword"/>
+      <mvcSiteMapNode title="Cambiar Contraseña Correcta" controller="Account" action="ChangePasswordSuccess"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Respuestas" controller="AnswerChoices" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="AnswerChoices" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="AnswerChoices" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="AnswerChoices" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="AnswerChoices" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Compañias" controller="Companies" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Companies" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Companies" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Companies" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Companies" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Electiva" controller="Elective" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Elective" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Elective" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Elective" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Elective" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Llenar Encuesta" controller="FillSurvey" action="Fill"/>
+
+    <mvcSiteMapNode title="Articulo" controller="Items" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Items" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Items" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Items" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Items" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Pregunta" controller="Questions" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Questions" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Questions" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Questions" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Questions" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Reporte" controller="Reports" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Reports" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Reports" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Reports" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Reports" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Rol" controller="Roles" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Reports" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Reports" action="Create"/>
+      <mvcSiteMapNode title="Eliminar" controller="Reports" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Instituto" controller="School" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="School" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="School" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="School" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="School" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Enviar Encuesta" controller="SendSurveys" action="Send">
+      <mvcSiteMapNode title="Vista Anticipada" controller="SendSurveys" action="Preview"/>
+      <mvcSiteMapNode title="Enviar Especifica" controller="SendSurveys" action="SendSpecific"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Estudio" controller="Study" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Study" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Study" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Study" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Study" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Encuesta" controller="Surveys" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Surveys" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Surveys" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Surveys" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Surveys" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Temas Encuesta" controller="SurveysTopics" action="Index">
+      <mvcSiteMapNode title="Crear" controller="SurveysTopics" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="SurveysTopics" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="SurveysTopics" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Tesis" controller="Thesis" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Thesis" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Thesis" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Thesis" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Thesis" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Tema" controller="Topic" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Topic" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Topic" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Topic" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Topic" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Usuario" controller="User" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="User" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="User" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="User" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="User" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Usuarios Roles" controller="UserInRoles" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="UserInRoles" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="UserInRoles" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="UserInRoles" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="UserInRoles" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Roles Usuario" controller="UsersRoles" action="Index">
+      <mvcSiteMapNode title="Asignar Rol" controller="UsersRoles" action="AssignUserRoles"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Vacantes" controller="Vacancies" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Vacancies" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Vacancies" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Vacancies" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Vacancies" action="Delete"/>
+    </mvcSiteMapNode>
+
+  </mvcSiteMapNode>
+
+</mvcSiteMap>
