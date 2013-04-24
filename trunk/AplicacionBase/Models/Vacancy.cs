@@ -14,6 +14,7 @@ namespace AplicacionBase.Models
         public System.DateTime ClosingDate { get; set; }
         public string VacanciesNumber { get; set; }
         public decimal Salary { get; set; }
+        public string Description { get; set; }
         public System.Guid IdUser { get; set; }
         public System.Guid IdCompanie { get; set; }
         public virtual Company Company { get; set; }

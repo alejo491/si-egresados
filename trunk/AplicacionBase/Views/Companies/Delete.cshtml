@@ -1,21 +1,36 @@
 ﻿@model AplicacionBase.Models.Company
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Borrar compañía";
 }
 
-<h2>Delete</h2>
+<h2>Borrar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Está seguro de que quiere borrar esta compañía?</h3>
 <fieldset>
-    <legend>Company</legend>
+    <legend>Compañía</legend>
 
-    <div class="display-label">Name</div>
+    <div class="display-label">Nombre</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
-    <div class="display-label">City</div>
+    <div class="display-label">Teléfono</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">Dirección</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">E-Mail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">Ciudad</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.City)
     </div>
@@ -24,15 +39,10 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Sector)
     </div>
-
-    <div class="display-label">Type</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Type)
-    </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Borrar" /> |
+        @Html.ActionLink("Volver al Inicio", "Index")
     </p>
 }

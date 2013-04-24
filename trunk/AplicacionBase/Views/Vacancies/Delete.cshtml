@@ -1,12 +1,12 @@
 ﻿@model AplicacionBase.Models.Vacancy
 
 @{
-    ViewBag.Title = "Eliminar";
+    ViewBag.Title = "Borrar vacante";
 }
 
-<h2>Eliminar</h2>
+<h2>Borrar</h2>
 
-<h3>¿Esta seguro de eliminar esta vacante?</h3>
+<h3>¿Está seguro de que quiere borrar esta vacante?</h3>
 <fieldset>
     <legend>Vacante</legend>
 
@@ -20,7 +20,7 @@
         @Html.DisplayFor(model => model.DayTrip)
     </div>
 
-    <div class="display-label">Numero de Hotas</div>
+    <div class="display-label">Número de Horas</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.HoursNumber)
     </div>
@@ -30,7 +30,7 @@
         @Html.DisplayFor(model => model.ProfessionalProfile)
     </div>
 
-    <div class="display-label">Fecha de Publicacion</div>
+    <div class="display-label">Fecha de Publicación</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.PublicationDate)
     </div>
@@ -40,7 +40,7 @@
         @Html.DisplayFor(model => model.ClosingDate)
     </div>
 
-    <div class="display-label">Numero de Vacantes</div>
+    <div class="display-label">Número de Vacantes</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.VacanciesNumber)
     </div>
@@ -50,19 +50,24 @@
         @Html.DisplayFor(model => model.Salary)
     </div>
 
+    <div class="display-label">Descripción</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
     <div class="display-label">Usuario</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.User.PhoneNumber)
     </div>
 
-    <div class="display-label">Compañia</div>
+    <div class="display-label">Compañía</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Eliminar" /> |
-        @Html.ActionLink("Volver a la lista", "Index")
+        <input type="submit" value="Borrar" /> |
+        @Html.ActionLink("Volver al Inicio", "Index")
     </p>
 }

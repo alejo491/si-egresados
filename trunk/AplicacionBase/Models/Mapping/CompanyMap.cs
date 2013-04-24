@@ -15,6 +15,14 @@ namespace AplicacionBase.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(50);
 
+            this.Property(t => t.Address)
+                .IsRequired()
+                .HasMaxLength(40);
+
+            this.Property(t => t.Email)
+                .IsRequired()
+                .HasMaxLength(25);
+
             this.Property(t => t.City)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -23,17 +31,15 @@ namespace AplicacionBase.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(15);
 
-            this.Property(t => t.Type)
-                .IsRequired()
-                .HasMaxLength(10);
-
             // Table & Column Mappings
             this.ToTable("Companies");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Name).HasColumnName("Name");
+            this.Property(t => t.Phone).HasColumnName("Phone");
+            this.Property(t => t.Address).HasColumnName("Address");
+            this.Property(t => t.Email).HasColumnName("Email");
             this.Property(t => t.City).HasColumnName("City");
             this.Property(t => t.Sector).HasColumnName("Sector");
-            this.Property(t => t.Type).HasColumnName("Type");
         }
     }
 }

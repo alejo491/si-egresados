@@ -36,6 +36,7 @@ namespace AplicacionBase.Models.Mapping
             this.Property(t => t.ClosingDate).HasColumnName("ClosingDate");
             this.Property(t => t.VacanciesNumber).HasColumnName("VacanciesNumber");
             this.Property(t => t.Salary).HasColumnName("Salary");
+            this.Property(t => t.Description).HasColumnName("Description");
             this.Property(t => t.IdUser).HasColumnName("IdUser");
             this.Property(t => t.IdCompanie).HasColumnName("IdCompanie");
 

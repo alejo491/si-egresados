@@ -1,20 +1,35 @@
 ﻿@model AplicacionBase.Models.Company
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <fieldset>
-    <legend>Company</legend>
+    <legend>Compañía</legend>
 
-    <div class="display-label">Name</div>
+    <div class="display-label">Nombre</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
-    <div class="display-label">City</div>
+    <div class="display-label">Teléfono</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Phone)
+    </div>
+
+    <div class="display-label">Dirección</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">E-Mail</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">Ciudad</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.City)
     </div>
@@ -23,13 +38,8 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Sector)
     </div>
-
-    <div class="display-label">Type</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Type)
-    </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Volver al Inicio", "Index")
 </p>

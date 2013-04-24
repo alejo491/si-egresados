@@ -12,12 +12,12 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Vacancy</legend>
+        <legend>Vacante</legend>
 
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Charge)
+            Cargo
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Charge)
@@ -25,7 +25,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.DayTrip)
+            Jornada
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.DayTrip)
@@ -33,7 +33,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.HoursNumber)
+            Número de Horas
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.HoursNumber)
@@ -41,7 +41,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ProfessionalProfile)
+            Perfil Profesional
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.ProfessionalProfile)
@@ -49,7 +49,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PublicationDate)
+            Fecha de Publicación
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.PublicationDate)
@@ -57,7 +57,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ClosingDate)
+            Fecha de Cierre
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.ClosingDate)
@@ -65,7 +65,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.VacanciesNumber)
+            Número de Vacantes
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.VacanciesNumber)
@@ -73,7 +73,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Salary)
+            Salario
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Salary)
@@ -81,7 +81,15 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdUser, "User")
+           Descripción
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdUser, "Usuario")
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdUser", String.Empty)
@@ -89,7 +97,7 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdCompanie, "Company")
+            @Html.LabelFor(model => model.IdCompanie, "Compañía")
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdCompanie", String.Empty)
@@ -97,11 +105,11 @@
         </div>
 
         <p>
-            <input type="submit" value="Actualizar" />
+            <input type="submit" value="Guardar cambios" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver al Inicio", "Index")
 </div>

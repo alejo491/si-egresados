@@ -1,7 +1,7 @@
 ﻿@model AplicacionBase.Models.Company
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear nueva compañía";
 }
 
 <h2>Crear</h2>
@@ -12,7 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Compañia</legend>
+        <legend>Compañía</legend>
 
         <div class="editor-label">
             Nombre
@@ -23,7 +23,31 @@
         </div>
 
         <div class="editor-label">
-            Direccion
+            Teléfono
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Phone)
+            @Html.ValidationMessageFor(model => model.Phone)
+        </div>
+
+        <div class="editor-label">
+            Dirección
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            E-Mail
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            Ciudad
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.City)
@@ -31,27 +55,19 @@
         </div>
 
         <div class="editor-label">
-            Telefono
+            Sector
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Sector)
             @Html.ValidationMessageFor(model => model.Sector)
         </div>
 
-        <div class="editor-label">
-            Correo Electronico
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Type)
-            @Html.ValidationMessageFor(model => model.Type)
-        </div>
-
         <p>
-            <input type="submit" value="Create" class="ebutton blue" />
+            <input type="submit" value="Crear" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Volver atras", "../Vacancies/Create", null, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Volver al Inicio", "Index")
 </div>

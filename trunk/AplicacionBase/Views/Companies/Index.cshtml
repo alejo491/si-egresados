@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Company>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inicio";
 }
 
-<h2>Index</h2>
+<h2>Inicio</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Crear nueva compañía", "Create")
 </p>
 <table>
     <tr>
@@ -15,15 +15,21 @@
             Nombre
         </th>
         <th>
-            Direccion
+            Teléfono
         </th>
         <th>
-            Telefono
+            Dirección
         </th>
         <th>
-            Correo Electronico
+            E-Mail
         </th>
-        <th></th>
+        <th>
+            Ciudad
+        </th>
+        <th>
+            Sector
+        </th>
+        <th>Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -32,18 +38,24 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.City)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sector)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
