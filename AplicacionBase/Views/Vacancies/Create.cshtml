@@ -1,10 +1,10 @@
 ﻿@model AplicacionBase.Models.Vacancy
 
 @{
-    ViewBag.Title = "Publicar Vacante";
+    ViewBag.Title = "Crear nueva vacante";
 }
 
-<h2>Publicar Vacante</h2>
+<h2>Crear</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,17 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Publicar Vacante</legend>
-
-        <div class="editor-label">
-            Compañia
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdCompanie", "")
-            @Html.ValidationMessageFor(model => model.IdCompanie)
-
-            ¿No aparece en la lista?<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
-        </div>
+        <legend>Vacante</legend>
 
         <div class="editor-label">
             Cargo
@@ -33,7 +23,7 @@
         </div>
 
         <div class="editor-label">
-           Jornada
+            Jornada
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.DayTrip)
@@ -41,7 +31,7 @@
         </div>
 
         <div class="editor-label">
-            Numero de Horas
+            Número de horas
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.HoursNumber)
@@ -57,7 +47,7 @@
         </div>
 
         <div class="editor-label">
-            Fecha de Publicacion
+           Fecha de Publicación
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.PublicationDate)
@@ -65,7 +55,7 @@
         </div>
 
         <div class="editor-label">
-           Fecha de Cierre
+            Fecha de Cierre
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.ClosingDate)
@@ -73,7 +63,7 @@
         </div>
 
         <div class="editor-label">
-            Numero de Vacantes
+            Número de Vacantes
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.VacanciesNumber)
@@ -81,7 +71,7 @@
         </div>
 
         <div class="editor-label">
-            Salario
+           Salario
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Salary)
@@ -89,18 +79,35 @@
         </div>
 
         <div class="editor-label">
-            Usuario
+            Descripción
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdUser", "3206565")
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdUser, "Usuario")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdUser", String.Empty)
             @Html.ValidationMessageFor(model => model.IdUser)
         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IdCompanie, "Compañía")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("IdCompanie", String.Empty)
+            @Html.ValidationMessageFor(model => model.IdCompanie)
+        </div>
+
         <p>
-            <input type="submit" value="Crear" class="ebutton blue" />
+            <input type="submit" value="Crear" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Volver a la lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Volver al Inicio", "Index")
 </div>

@@ -1,10 +1,10 @@
 ﻿@model AplicacionBase.Models.Vacancy
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <fieldset>
     <legend>Vacante</legend>
@@ -19,7 +19,7 @@
         @Html.DisplayFor(model => model.DayTrip)
     </div>
 
-    <div class="display-label">Numero de Horas</div>
+    <div class="display-label">Número de horas</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.HoursNumber)
     </div>
@@ -29,7 +29,7 @@
         @Html.DisplayFor(model => model.ProfessionalProfile)
     </div>
 
-    <div class="display-label">Fecha de Publicacion</div>
+    <div class="display-label">Fecha de Publicación</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.PublicationDate)
     </div>
@@ -39,7 +39,7 @@
         @Html.DisplayFor(model => model.ClosingDate)
     </div>
 
-    <div class="display-label">Numero de Vacantes</div>
+    <div class="display-label">Número de Vacantes</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.VacanciesNumber)
     </div>
@@ -49,17 +49,22 @@
         @Html.DisplayFor(model => model.Salary)
     </div>
 
+    <div class="display-label">Descripción</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
     <div class="display-label">Usuario</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.User.PhoneNumber)
     </div>
 
-    <div class="display-label">Compañia</div>
+    <div class="display-label">Compañía</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
 </fieldset>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Volver a la lista", "Index")
+    @Html.ActionLink("Volver al Inicio", "Index")
 </p>

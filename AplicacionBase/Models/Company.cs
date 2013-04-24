@@ -13,9 +13,11 @@ namespace AplicacionBase.Models
 
         public System.Guid Id { get; set; }
         public string Name { get; set; }
+        public int Phone { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
         public string City { get; set; }
         public string Sector { get; set; }
-        public string Type { get; set; }
         public virtual ICollection<Experience> Experiences { get; set; }
         public virtual ICollection<Vacancy> Vacancies { get; set; }
     }

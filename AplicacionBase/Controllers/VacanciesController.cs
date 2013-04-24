@@ -8,10 +8,9 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
-{
+{ 
     public class VacanciesController : Controller
     {
-        
         private DbSIEPISContext db = new DbSIEPISContext();
 
         //
@@ -38,7 +37,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Create()
         {
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber");
+            ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
             return View();
         } 
 
@@ -57,7 +56,7 @@ namespace AplicacionBase.Controllers
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
+            ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
             return View(vacancy);
         }
         

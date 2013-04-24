@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Vacancy>
 
 @{
-    ViewBag.Title = "Listado de Vacantes";
+    ViewBag.Title = "Inicio";
 }
 
-<h2>Listado de Vacantes</h2>
+<h2>Inicio</h2>
 
-Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLink("Buscar", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
-
-<br/>
 <p>
-    @Html.ActionLink("Crear Nueva", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Crear nueva vacante", "Create")
 </p>
 <table>
     <tr>
@@ -21,18 +18,33 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
             Jornada
         </th>
         <th>
-            Numero de Horas
+            Número de Horas
         </th>
         <th>
             Perfil Profesional
         </th>
         <th>
+            Fecha de Publicación
+        </th>
+        <th>
             Fecha de Cierre
         </th>
         <th>
-            Compañia
+            Número de Vacantes
         </th>
-        <th></th>
+        <th>
+            Salario
+        </th>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Usuario
+        </th>
+        <th>
+            Compañía
+        </th>
+        <th>Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -49,9 +61,23 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
         <td>
             @Html.DisplayFor(modelItem => item.ProfessionalProfile)
         </td>
-
+        <td>
+            @Html.DisplayFor(modelItem => item.PublicationDate)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ClosingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VacanciesNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.PhoneNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Company.Name)
@@ -59,7 +85,7 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
