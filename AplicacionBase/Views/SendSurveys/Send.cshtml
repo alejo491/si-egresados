@@ -25,42 +25,42 @@
                     </div>
                     <div class="c4 first">
                         <div class="editor-label">
-                            Encuesta Dirigida a:
+                            <p>
+                                Encuesta Dirigida a:
+                            </p>
                         </div>
                         <div class="editor-field">
                             <p>
-                                @Html.CheckBox("Estudiantes", (bool)ViewBag.Seleccionado1)Estudiantes
+                                @Html.RadioButton("Dirigida", (bool)ViewBag.Seleccionado1, true)Egresados
                                 <br />
-                                @Html.CheckBox("Docentes", false)Docentes
-                                <br />
-                                @Html.CheckBox("Egresados", false)Egresados
-                                <br />
-                                @Html.CheckBox("Administrativos", false)Administrativos
-                                <br />
-                                @Html.CheckBox("Jefe", false)Jefe
-                                @if (TempData["Error1"] != "")
-                                {
-                                    <div class="alert error">
-                                        <p>@TempData["Error1"]</p>
-                                    </div>
-                                }
+                                @Html.RadioButton("Dirigida", (bool)ViewBag.Seleccionado2, false)Jefes de Egresados
+                                
                             </p>
                         </div>
                     </div>
                     <div class="c4 last">
                         <div class="editor-label">
-                            Seleccione los Programas:
+                            <p>
+                                Seleccione los Programas:
+                            </p>
                         </div>
                         <div class="editor-field">
                             <p>
-                                @Html.CheckBox("IngSistemas", false)Ingenieria de Sistemas
+                                @Html.CheckBox("IngSistemas", (bool)ViewBag.Seleccionado3)Ingeniería de Sistemas
                                 <br />
-                                @Html.CheckBox("IngElectronica", false)Ingenieria Electronica y Telecomunicaciones
+                                @Html.CheckBox("IngElectronica", (bool)ViewBag.Seleccionado4)Ingeniería Electrónica
+                                y Telecomunicaciones
                                 <br />
-                                @Html.CheckBox("IngAutomatica", false)Ingenieria Automatica
+                                @Html.CheckBox("IngAutomatica", (bool)ViewBag.Seleccionado5)Ingeniería en Automática
+                                Industrial
                                 <br />
-                                @Html.CheckBox("Telematica", false)Telematica
-                                <br />
+                                @Html.CheckBox("Telematica", (bool)ViewBag.Seleccionado6)Tecnología en Telemática
+                                @if (TempData["Error2"] != "")
+                                {
+                                    <div class="alert error">
+                                        <p>@TempData["Error2"]</p>
+                                    </div>
+                                }
                             </p>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                             <p>
                                 @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
                                 @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
-                                @Html.TextBox("txtFechaDesde", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
+                                @Html.TextBox("txtFechaDesde", (string)ViewBag.FechaDesde, new { @type = "date", @placeholder = "DD/MM/AAAA" })
                             </p>
                         </div>
                     </div>
@@ -88,8 +88,16 @@
                         </div>
                         <div class="editor-field">
                             <p>
-                                @Html.TextBox("txtFechaHasta", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })</p>
+                                @Html.TextBox("txtFechaHasta", (string)ViewBag.FechaHasta, new { @type = "date", @placeholder = "DD/MM/AAAA" })</p>
                         </div>
+                    </div>
+                    <div class="c12 first">
+                    @if (TempData["Error1"] != "")
+                    {
+                        <div class="alert error">
+                            <p>@TempData["Error1"]</p>
+                        </div>
+                    }
                     </div>
                 </div>
                 <div class="c12 first">
