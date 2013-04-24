@@ -18,7 +18,7 @@
 		@Html.HiddenFor(model => model.Id)
 
 		<div class="editor-label">
-			@Html.LabelFor(model => model.Description)
+			<h3>@Html.LabelFor(model => model.Description)</h3>
 		</div>
 	    <div class="editor-field">
 	        @Html.EditorFor(model => model.Description)
@@ -27,13 +27,14 @@
         <br/>
 
 		<p>
-			<input type="submit" value="Guardar" />
+		    <input type="submit" value="Guardar" class="ebutton2 blue" /> &nbsp;
+            @Html.ActionLink("Regresar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 		</p>
 	</fieldset>
 }
     <br/>
 
     <div>
-        @Html.ActionLink("Regresar", "Index")
+        
     </div>
 </div>

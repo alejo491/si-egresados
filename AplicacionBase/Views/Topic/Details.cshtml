@@ -9,17 +9,17 @@
 <h2> Detalles </h2>
 
 <fieldset>
-    <legend>Tema</legend>
+    <h3>Tema</h3>
 
-    <div class="display-label"><legend>Descipcion</legend></div>
+    <div class="display-label"><h3>Descipcion</h3></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
     <br/>
 </fieldset>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Regresar", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+    @Html.ActionLink("Regresar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 </div>
 

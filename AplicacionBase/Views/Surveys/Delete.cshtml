@@ -1,30 +1,39 @@
 ﻿@model AplicacionBase.Models.Survey
-
 @{
     ViewBag.Title = "Delete";
 }
-
-<h2>Eliminar Encuesta</h2>
-
-<h3>Está seguro que desea eliminar la encuesta?</h3>
-<fieldset>
-    <legend>
-
-    <div class="display-label"><legend>Nombre</legend></div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+<div class="grid">
+    <h2>
+        Eliminar Encuesta</h2>
+    <h3>
+        
+        Está seguro que desea eliminar la encuesta?
+    </h3>
+    <div class="grid">
+    <fieldset>
+        <div class="display-label">
+            <h3>
+                Nombre</h3>
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        <br />
+        <div class="display-label">
+            <h3>
+                Objetivo</h3>
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Aim)
+        </div>
+        <br />
+    </fieldset>
+    @using (Html.BeginForm())
+    {
+        <p>
+            <input type="submit" value="Eliminar" class="ebutton2 blue" />
+            @Html.ActionLink("Cancelar", "Index", null ,htmlAttributes: new {@class = "ebutton blue"})
+        </p>
+    }
     </div>
-    <br/>
-
-    <div class="display-label"><legend>Objetivo</legend></div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Aim)
-    </div>
-    <br/>
-</fieldset>
-
-@using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Eliminar" /> | @Html.ActionLink("Cancelar", "Index")
-    </p>
-}
+</div>

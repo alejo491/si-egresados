@@ -12,7 +12,7 @@
 <div class="alert success">@TempData["Delete"]</div>
 
 <p>
-    @Html.ActionLink("Nuevo Tema", "Create")
+    @Html.ActionLink("Nuevo Tema", "Create", null, htmlAttributes: new { @class = "ebutton blue"})
 </p>
 <table>
     <tr class="head">
@@ -34,10 +34,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Ver", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id=item.Id }, "")
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+            @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+            @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
         </td>
     @:</tr>
     rowIndex++;

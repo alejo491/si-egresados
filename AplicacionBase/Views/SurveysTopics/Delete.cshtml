@@ -9,19 +9,19 @@
 <h3>¿Está seguro que desea borrar el tema de la encuesta?</h3>
 <fieldset>
 
-    <div class="display-label"><legend>Encuesta</legend></div>
+    <div class="display-label"><h3>Encuesta</h3></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Survey.Name)
     </div>
     <br/>
 
-    <div class="display-label"><legend>Tema</legend></div>
+    <div class="display-label"><h3>Tema</h3></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Topic.Description)
     </div>
     <br/>
 
-    <div class="display-label"><legend>Orden</legend></div>
+    <div class="display-label"><h3>Orden</h3></div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TopicNumber)
     </div>
@@ -29,7 +29,7 @@
 <br/>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Borrar" /> |
-        @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.survey})
+        <input type="submit" value="Borrar" class=" ebutton2 blue" /> &nbsp;
+        @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.survey }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }
