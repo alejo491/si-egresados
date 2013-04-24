@@ -26,13 +26,11 @@
         <br/>
 
         <p>
-            <input type="submit" value="Agregar" />
+            <input type="submit" value="Agregar" class="ebutton2 blue" /> &nbsp;
+            @Html.ActionLink("Regresar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
         </p>
     </fieldset>
 }
 <br/>
 
-<div>
-    @Html.ActionLink("Regresar", "Index")
-</div>
 </div>

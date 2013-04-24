@@ -17,7 +17,7 @@
     <fieldset>
         
         <div class="editor-label">
-            <strong>@Html.LabelFor(model => model.IdTopic, "Tema")   </strong>
+            <h3>@Html.LabelFor(model => model.IdTopic, "Tema")   </h3>
         </div>
         <div class="editor-field">
             @ViewBag.topic.Description
@@ -26,7 +26,7 @@
         <br/>
 
         <div class="editor-label">
-            <strong>@Html.LabelFor(model => model.TopicNumber)</strong>
+            <h3>@Html.LabelFor(model => model.TopicNumber)</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.TopicNumber)
@@ -38,12 +38,13 @@
         <br/>
 
         <p>
-            <input type="submit" value="Guardar" />
+            <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp;
+            @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.survey.Id }, htmlAttributes: new { @class = "ebutton blue" })
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Regresar al listado", "Index", routeValues: new {id = ViewBag.survey.Id})
+    
 </div>
 </div>
