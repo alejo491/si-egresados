@@ -1,114 +1,137 @@
 ﻿@{
     ViewBag.Title = "Enviar Encuesta General";
 }
-
 <script type="text/javascript">
     $(document).ready(function () {
         $("#txtFechaDesde").datepicker();
     });
 </script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $("#txtFechaHasta").datepicker();
     });
 </script>
-
-<h2>
-    Enviar Encuesta General</h2>
-<div>
-    
-
-
-    @using (Html.BeginForm())
-    {
-        <fieldset>
-
-            <div class="editor-label">
-                Encuesta Dirigida a:
-            </div>
-            <div class="editor-field">
-                <p>
-                    @Html.CheckBox("Estudiantes", (bool)ViewBag.Seleccionado1)Estudiantes
-                    <br />
-                    @Html.CheckBox("Docentes", false)Docentes
-                    <br />
-                    @Html.CheckBox("Egresados", false)Egresados
-                    <br />
-                    @Html.CheckBox("Administrativos", false)Administrativos
-                    <br />
-                    @if (TempData["Error1"] != "")
-                    {
-                        <div class="alert error"> <p>@TempData["Error1"]</p> </div>
-                    }
-                    @Html.CheckBox("Jefe", false)Jefe
-                </p>
-            </div>
-            <div class="editor-label">
-                Seleccione los Programas:
-            </div>
-            <div class="editor-field">
-                <p>
-                    @Html.CheckBox("IngSistemas", false)Ingenieria de Sistemas
-                    <br />
-                    @Html.CheckBox("IngElectronica", false)Ingenieria Electronica y Telecomunicaciones
-                    <br />
-                    @Html.CheckBox("IngAutomatica", false)Ingenieria Automatica
-                    <br />
-                    @Html.CheckBox("Telematica", false)Telematica
-                    <br />
-                </p>
-            </div>
-            <div class="editor-label">
-                Egresados Desde: 
-            </div>
-            <div class="editor-field">
-                @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
-                
-                @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
-               
-                @Html.TextBox("txtFechaDesde", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
-               
-            </div>
-            <div class="editor-label">              
-                Egresados Hasta: 
-            </div>
-            <div class="editor-field">
-                @Html.TextBox("txtFechaHasta", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
-            </div>
-            <div class="editor-label">
-                Asunto: 
-            </div>
-            <div class="editor-field">
-                @Html.TextArea("txtAsunto", (string)ViewBag.Asunto,new {style="width:700px;height:100px"})
-            </div>
-            
-            @if (TempData["Error3"] != "")
-            {
-                <div class="alert error"> <p>@TempData["Error3"]</p> </div>
-            }
-
-            <div class="editor-label">
-                Mensaje:
-            </div>
-            <div class="editor-field">
-                <p>
-                    @Html.TextArea("txtMensaje",(string)ViewBag.Mensaje,new{style="width:700px;height:100px;"})
-                </p>
-            </div>
-            
-            @if (TempData["Error4"] != "")
-            {
-                <div class="alert error"> <p>@TempData["Error4"]</p> </div>
-            }
-
-            <div>
-                <p>
-                    <input type="submit" value="Vista Previa" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Index", "Surveys", htmlAttributes: new { @class = "ebutton blue" })
-                </p>
-            </div>
-        </fieldset>
-    }
+<div class="grid">
+    <h2>
+        Enviar Encuesta General</h2>
+    <div class="grid">
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <div class="c12 first">
+                    <div class="c12 first">
+                        <h3>
+                            Seleccione destinatarios</h3>
+                    </div>
+                    <div class="c4 first">
+                        <div class="editor-label">
+                            Encuesta Dirigida a:
+                        </div>
+                        <div class="editor-field">
+                            <p>
+                                @Html.CheckBox("Estudiantes", (bool)ViewBag.Seleccionado1)Estudiantes
+                                <br />
+                                @Html.CheckBox("Docentes", false)Docentes
+                                <br />
+                                @Html.CheckBox("Egresados", false)Egresados
+                                <br />
+                                @Html.CheckBox("Administrativos", false)Administrativos
+                                <br />
+                                @Html.CheckBox("Jefe", false)Jefe
+                                @if (TempData["Error1"] != "")
+                                {
+                                    <div class="alert error">
+                                        <p>@TempData["Error1"]</p>
+                                    </div>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="c4 last">
+                        <div class="editor-label">
+                            Seleccione los Programas:
+                        </div>
+                        <div class="editor-field">
+                            <p>
+                                @Html.CheckBox("IngSistemas", false)Ingenieria de Sistemas
+                                <br />
+                                @Html.CheckBox("IngElectronica", false)Ingenieria Electronica y Telecomunicaciones
+                                <br />
+                                @Html.CheckBox("IngAutomatica", false)Ingenieria Automatica
+                                <br />
+                                @Html.CheckBox("Telematica", false)Telematica
+                                <br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="c12 first">
+                    <div class="c12 first">
+                        <h3>
+                            Seleccione filtro de fecha por graduación</h3>
+                    </div>
+                    <div class="c4 first">
+                        <div class="editor-label">
+                            Egresados Desde:
+                        </div>
+                        <div class="editor-field">
+                            <p>
+                                @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
+                                @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
+                                @Html.TextBox("txtFechaDesde", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
+                            </p>
+                        </div>
+                    </div>
+                    <div class="c4 last">
+                        <div class="editor-label">
+                            Egresados Hasta:
+                        </div>
+                        <div class="editor-field">
+                            <p>
+                                @Html.TextBox("txtFechaHasta", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="c12 first">
+                    <div class="c12 first">
+                        <h3>
+                            Edite el asunto y mensaje del correo</h3>
+                    </div>
+                    <div class="c11 first">
+                        <div class="editor-label">
+                            Asunto:
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextArea("txtAsunto", (string)ViewBag.Asunto, new { style = "width:700px;height:100px" })
+                        </div>
+                        @if (TempData["Error3"] != "")
+                        {
+                            <div class="alert error">
+                                <p>@TempData["Error3"]</p>
+                            </div>
+                        }
+                        <div class="editor-label">
+                            Mensaje:
+                        </div>
+                        <div class="editor-field">
+                            <p>
+                                @Html.TextArea("txtMensaje", (string)ViewBag.Mensaje, new { style = "width:700px;height:100px;" })
+                            </p>
+                        </div>
+                        @if (TempData["Error4"] != "")
+                        {
+                            <div class="alert error">
+                                <p>@TempData["Error4"]</p>
+                            </div>
+                        }
+                        <div>
+                            <p>
+                                <input type="submit" value="Vista Previa" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Index", "Surveys", htmlAttributes: new { @class = "ebutton blue" })
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
 </div>
-
-
