@@ -46,7 +46,7 @@
                             <div id="menuder">
                                 <ul id="menu">
                                     <li class="first">@Html.ActionLink("Home", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Usuarios", "Index", "User")</li>
                                     <li>@Html.ActionLink("About", "About", "Home")</li>
                                     <li class="end">@Html.ActionLink("About", "About", "Home")</li>
                                 </ul>
@@ -54,10 +54,14 @@
                         </div>
                     </div>
                     </div>
+                <div id="BreadCrumbs">
+                    @Html.MvcSiteMap().SiteMapPath()
+
+                </div>
             <div id="contenido">
                 
-                <div id="main">
-                        @RenderBody()
+                <div id="main">                    
+                    @RenderBody()
                 </div>  
             </div> 
             <div id="footer">
