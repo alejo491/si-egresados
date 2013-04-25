@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Vacancy>
 
 @{
-    ViewBag.Title = "Inicio";
+    ViewBag.Title = "Listado de Vacantes";
 }
 
-<h2>Inicio</h2>
+<h2>Listado de Vacantes</h2>
 
+Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLink("Buscar", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
+
+<br/>
 <p>
-    @Html.ActionLink("Crear nueva vacante", "Create")
+     @Html.ActionLink("Crear Nueva", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 <table>
     <tr>
@@ -85,7 +88,7 @@
         <td>
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
