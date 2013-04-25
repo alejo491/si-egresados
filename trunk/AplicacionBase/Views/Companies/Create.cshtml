@@ -63,11 +63,11 @@
         </div>
 
         <p>
-            <input type="submit" value="Crear" />
+            <input type="submit" value="Crear" class="ebutton blue" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Volver al Inicio", "Index")
+      @Html.ActionLink("Volver atras", "../Vacancies/Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </div>

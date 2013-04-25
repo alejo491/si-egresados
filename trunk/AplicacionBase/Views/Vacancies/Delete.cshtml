@@ -1,12 +1,12 @@
 ﻿@model AplicacionBase.Models.Vacancy
 
 @{
-    ViewBag.Title = "Borrar vacante";
+    ViewBag.Title = "Eliminar";
 }
 
 <h2>Borrar</h2>
 
-<h3>¿Está seguro de que quiere borrar esta vacante?</h3>
+<h3>¿Está seguro de que quiere eliminar esta vacante?</h3>
 <fieldset>
     <legend>Vacante</legend>
 
@@ -67,7 +67,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Borrar" /> |
-        @Html.ActionLink("Volver al Inicio", "Index")
+        <input type="submit" value="Eliminar" /> |
+        @Html.ActionLink("Volver a la lista", "Index")
     </p>
 }
