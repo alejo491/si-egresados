@@ -519,6 +519,8 @@ namespace AplicacionBase.Controllers
                     }
                 }
                 */
+                //selected.Add("jaimealberto.jurado@gmail.com","Jaime Jurado");
+
                 TempData["message"] = ViewBag.Mensaje;
                 TempData["subject"] = ViewBag.Asunto;
                 TempData["d"] = selected;
@@ -534,10 +536,14 @@ namespace AplicacionBase.Controllers
             var survey = (Survey)db.Surveys.Find(id);
             ViewBag.Survey = survey;
             var message = (string)TempData["message"];
-            var url = Url.Action("Fill", "FillSurvey");
+            var subject = (string)TempData["subject"];
+            var url = Url.Action("Fill", "FillSurvey", new { id });
             ViewData["body"] = SendSurveysEmailController.PopulateBody("UserName", survey.Name, url, message);
             TempData["message"] = message;
             TempData["title"] = survey.Name;
+            TempData["id"] = survey.Id;
+            ViewBag.Subject = subject;
+            TempData["subject"] = subject;
             return View();
         }
 
@@ -552,7 +558,7 @@ namespace AplicacionBase.Controllers
 
 
             foreach (string item in recipients.Keys) {
-                var url = Url.Action("Fill", "FillSurvey");
+                var url = Url.Action("Fill", "FillSurvey", new { id = (Guid)TempData["id"] , item });
                 var body = SendSurveysEmailController.PopulateBody(recipients[item], title, url, message);
                 SendSurveysEmailController.SendHtmlFormattedEmail(item, subject, body);
             }
@@ -602,6 +608,8 @@ namespace AplicacionBase.Controllers
                 var memberShip = db.aspnet_Membership.Find(idUsuario);
                 selected.Add(memberShip.Email, nombreCompleto);
             }
+
+            
 
             TempData["subject"] = asunto;
             TempData["message"] = mensaje;

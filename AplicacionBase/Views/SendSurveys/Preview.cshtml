@@ -4,11 +4,12 @@
 <h2>
     Vista Previa</h2>
 <h3>
-    Asunto:
+    Asunto: @ViewBag.Subject
 </h3>
 <div>
     @using (Html.BeginForm()) {
-        <fieldset>
+        <fieldset style="width: 750px">
+        <br />
             <div>
                 @Html.Raw((string)ViewData["Body"])
             </div>
