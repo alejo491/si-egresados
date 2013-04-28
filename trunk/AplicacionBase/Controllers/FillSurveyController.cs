@@ -69,34 +69,48 @@ namespace AplicacionBase.Controllers
                     var idanswC = v.Substring(2, (v.Length - 2));
                     Guid ias = new Guid(idanswC);
                     var text = postedForm[v];
-                    if (ListAnswerC.Count > 0)
-                    {
-                        string idacexiste = ListAnswerC[0];
-                        Guid idac = new Guid(idacexiste);
-                        var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
-                        var idquexiste = objAnsC.IdQuestion;
-                        var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
-                        var idqactual = objAnsCactual.IdQuestion;
-                        if (idqactual != idquexiste)
-                        {   //Aqui se hace el llamado a la funciòn para guardar
-                            //saveAnswer(idquexiste, ListAnswerC, ListVal);
-                            var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
-                            ListAnswerC.Clear();
-                            ListVal.Clear();
-                            ListAnswerC.Add(idanswC);
-                            ListVal.Add(text);
+                    
+                        if (ListAnswerC.Count > 0)
+                        {
+                            string idacexiste = ListAnswerC[0];
+                            Guid idac = new Guid(idacexiste);
+                            var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
+                            var idquexiste = objAnsC.IdQuestion;
+                            var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
+                            var idqactual = objAnsCactual.IdQuestion;
+                            if (idqactual != idquexiste)
+                            {
+                                //Aqui se hace el llamado a la funciòn para guardar
+                                //saveAnswer(idquexiste, ListAnswerC, ListVal);
+                                var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
+                                ListAnswerC.Clear();
+                                ListVal.Clear();
+                                ListAnswerC.Add(idanswC);
+                                if (text.Length>0)
+                                {
+                                    ListVal.Add(text);
+                                }
+                               
+                            }
+                            else
+                            {
+                                ListAnswerC.Add(idanswC);
+                                if (text.Length >0)
+                                {
+                                    ListVal.Add(text);
+                                }
+                                
+                            }
                         }
                         else
                         {
                             ListAnswerC.Add(idanswC);
-                            ListVal.Add(text);
+                            if (text.Length >0)
+                            {
+                                ListVal.Add(text);
+                            }
                         }
-                    }
-                    else
-                    {
-                        ListAnswerC.Add(idanswC);
-                        ListVal.Add(text);
-                    }
+                    
                 }
 
                 if (v.StartsWith("un"))
