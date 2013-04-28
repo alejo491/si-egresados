@@ -54,9 +54,10 @@
         @Html.DisplayFor(model => model.Description)
     </div>
 
-    <div class="display-label">Usuario</div>
+    <div class="display-label">Publicada por</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.User.PhoneNumber)
+         @Html.DisplayFor(model => model.User.FirstNames)
+         @Html.DisplayFor(model => model.User.LastNames)
     </div>
 
     <div class="display-label">Compañía</div>

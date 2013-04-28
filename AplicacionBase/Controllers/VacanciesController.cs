@@ -9,6 +9,7 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 { 
+    [Authorize]
     public class VacanciesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -47,16 +48,29 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Vacancy vacancy)
         {
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+
+            }
+            var IdUser = g;
+
             if (ModelState.IsValid)
             {
                 vacancy.Id = Guid.NewGuid();
+                vacancy.IdUser = IdUser;
                 db.Vacancies.Add(vacancy);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
             return View(vacancy);
         }
         
