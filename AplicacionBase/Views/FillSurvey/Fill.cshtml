@@ -4,6 +4,35 @@
     ViewBag.Title = "Index";
 }
 
+
+<script type="text/javascript">
+    /**************************************
+    * Form validator plugin
+    **************************************/
+    (function ($) {
+        alert('PUTO EL QUE LEA');
+        $.fn.validator = function (opts) {
+            $(this).find('.notFilled').live('keyup', function () {
+                if ($(this).val() != "") {
+                    $(this).removeClass('notFilled');
+                }
+            });
+            return $(this).submit(function (evt) {
+                $(this).find('.required').each(function () {
+                    if ($(this).attr('value') == '') {
+                        $(this).addClass('notFilled');
+                        evt.preventDefault();
+                    }
+                });
+                $(this).find('.notFilled').first().focus();
+            });
+        };
+    })(jQuery);
+
+    jQuery(document).ready(function () {
+        jQuery('form').validator();
+    });
+    </script>
 <script type="text/javascript" src="http://jetlogs.org/jquery/jquery-1.2.6.pack.js"></script>
 
 <div>
@@ -65,7 +94,7 @@
                                               @: && !isCheckedById("@code[j]")				            
                                           }
                                       }
-                                      @for(int k =0;k<codetext.Count; k++)
+                                  @for(int k =0;k<codetext.Count; k++)
                                       {
                                           if (k == 0)
                                           {
@@ -84,33 +113,99 @@
                                             }
                                           }
 
-                                      ) {
-                                      //alert("Please select at least one selector");
-                                      $("#@question.Id").text("Esta pregunta es obligatoria, debe marcar al menos una opción");
+                                  ) {
+                                        //alert("Please select at least one selector");
+                                        $("#@question.Id").text("Esta pregunta es obligatoria, debe marcar al menos una opción");
                                   
-                                      return false;
-                                  } else {
-                                      $("#@question.Id").text("");
-                                      return true; //submit the form
-                                  }
-                              });
+                                        return false;
+                                    } else {
+                                        $("#@question.Id").text("");
+                                        return true; //submit the form
+                                    }
+                                    });
 
-                              function isCheckedById(id) {
-                                  var checked = $("input[@@id=" + id + "]:checked").length;
-                                  if (checked == 0) {
-                                      return false;
-                                  } else {
-                                      return true;
-                                  }
-                              }
-                          });
+                                        function isCheckedById(id) {
+                                        var checked = $("input[@@id=" + id + "]:checked").length;
+                                        if (checked == 0) {
+                                        return false;
+                                    } else {
+                                        return true;
+                                    }
+                                    }
+                                    });
                       </script>
                 
                 </text>
 
         }
-        
-        
+
+            if (question.Type == "Unica")
+            {
+                List<string> c1 = new List<string>();
+                List<string> c2 = new List<string>();
+                string que = "un"+question.Id.ToString();
+                foreach (var choice in question.AnswerChoices )
+                {
+                    if (choice.Type != "Normal")
+                    {
+                        c2.Add("tt" + choice.Id.ToString());
+                    }
+                }
+
+                foreach (var vartexto in c2)
+                {
+<text>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("input[@@id=@que]").change(
+                function () { $("#@vartexto").val(''); }
+            );
+
+            $("input[@@id=@vartexto]").change(
+                function () {
+                    if ($("#@vartexto").attr('value') == '') {
+
+                        $("input[@@id=@que]").attr('checked', true);
+                    }
+                    else {
+
+                        $("input[@@id=@que]").attr('checked', false);
+                    }
+                }
+            );
+        });
+    </script>
+
+</text>
+                }
+            }
+            
+            if ((question.Type == "Corta" || question.Type == "Larga") && question.IsObligatory == 1)
+            {
+                if (question.AnswerChoices.Count>0)
+                {
+                    string ida = "tt" + question.AnswerChoices.First().Id.ToString();
+                    
+                    <text>
+                        <script type="text/javascript">
+                                  $(document).ready(function () {
+                                      $('form').submit(function () {
+                                          if (($("#@ida").attr('value') == '')) {
+                                              $("#@question.Id").text("Esta pregunta es obligatoria, debe marcar al menos una opción");
+                                              return false;
+                                          }
+                                          else {
+                                              $("#@question.Id").text("");
+                                          return true;
+                                      }
+                                      });
+                                  });
+                              </script>
+                    </text>
+                }
+                
+            }
+
 						@*@:<div class="row space-bot">*@
 						       @:<div class="c12">
 					                @:<p>
@@ -134,7 +229,7 @@
                                         @:</div>
                                     @:<div class="c1-5">
 									@*@:<span class="form-el">  *@    
-									@Html.RadioButton("un" + question.Id.ToString(), answer.Id.ToString())
+									@Html.RadioButton("un" + question.Id.ToString(), answer.Id.ToString(), true)
 									@*@:</span> *@
 
 									@:</div>
@@ -181,7 +276,7 @@
 									@*@:<span class="form-el"> *@
                                     @*@:</div>*@
                                     @:<div class="c1-5">
-									@Html.TextArea("tt" + answer.Id.ToString(), "")                              
+									@Html.TextArea("tt" + answer.Id.ToString(),"")                              
 									@*@:</span> *@
 									@:</div>  
 								}
@@ -196,7 +291,7 @@
 								@:<span class="form-el">*@
                                 @:</div> 
                                 @:<div class="c1-5">
-								@Html.TextBox("tt" + answer.Id.ToString(), "")
+								@Html.TextBox("tt" + answer.Id.ToString(),"")
 								@*@:</span> *@
 								@:</div>
 							}  
