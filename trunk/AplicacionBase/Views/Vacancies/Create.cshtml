@@ -21,7 +21,7 @@
             @Html.DropDownList("IdCompanie", "")
             @Html.ValidationMessageFor(model => model.IdCompanie)
 
-            ¿No aparece en la lista?<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
+            ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
         </div>
 
         <div class="editor-label">
@@ -96,13 +96,8 @@
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdUser, "Usuario")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdUser", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdUser)
-        </div>
+      
+    
 
         
         

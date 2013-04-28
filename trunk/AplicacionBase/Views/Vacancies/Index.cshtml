@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Vacancy>
 
 @{
-    ViewBag.Title = "Listado de Vacantes";
+    ViewBag.Title="Listado de Vacantes";
 }
 
 <h2>Listado de Vacantes</h2>
@@ -42,7 +42,7 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
             Descripción
         </th>
         <th>
-            Usuario
+            Publicada por
         </th>
         <th>
             Compañía
@@ -80,7 +80,8 @@ Buscar en Vacantes <input type='text' name='Buscar' size='60' /> @Html.ActionLin
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+            @Html.DisplayFor(modelItem => item.User.FirstNames)
+            @Html.DisplayFor(modelItem => item.User.LastNames)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Company.Name)
