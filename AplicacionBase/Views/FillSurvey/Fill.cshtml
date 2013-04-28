@@ -1,31 +1,116 @@
 ﻿@using AplicacionBase.Models
 
 @{
-	ViewBag.Title = "Index";
+    ViewBag.Title = "Index";
 }
+
+<script type="text/javascript" src="http://jetlogs.org/jquery/jquery-1.2.6.pack.js"></script>
 
 <div>
 	
 		<h3>Responda las preguntas</h3>
-
+        
 
 		@using (Html.BeginForm())
-		{
+  {
 	
 			<fieldset>
 		
 				@{
-					int i = 1;
+      int i = 1;
 				}
 		
 				@foreach (SurveysTopic surveysTopic in ViewBag.questions)
-				{
+    {
 					@:<div class="row space-bot">
 					@:<div class="ttema">
 					@: <h3>Tema: @surveysTopic.Topic.Description </h3>
 					@:</div>
-					foreach (Question question in surveysTopic.Topic.Questions)
-					{
+        foreach (Question question in surveysTopic.Topic.Questions)
+        {
+            string cl = "";
+            List<string> code = new List<string>();
+            List<string> codetext = new List<string>();
+            if (question.IsObligatory == 1)
+            {
+                cl = "required";
+            }
+            if (question.Type == "Multiple" && question.IsObligatory ==1)
+            {
+                foreach (var answerChoice in question.AnswerChoices)
+                {
+                    if (answerChoice.Type == "Con texto")
+                    {
+                        codetext.Add("tt" + answerChoice.Id);
+                    }
+                    else
+                    {
+                        code.Add("mu" + answerChoice.Id);
+                    }
+
+                }
+            
+
+                <text><script type="text/javascript">
+                          $(document).ready(function() {
+                              $("form").submit(function() {
+                                  if (@for (int j = 0; j < code.Count; j++)
+                                      {
+                                          if (j == 0)
+                                          {
+                                              @:!isCheckedById("@code[j]")
+                                          }
+                                          else
+                                          {
+                                              @: && !isCheckedById("@code[j]")				            
+                                          }
+                                      }
+                                      @for(int k =0;k<codetext.Count; k++)
+                                      {
+                                          if (k == 0)
+                                          {
+                                              @:  && ( $("#@codetext[k]").attr('value') == ''
+                                          }
+                                          else
+                                          {
+                                            
+                                                    @: && ( $("#@codetext[k]").attr('value') == ''
+                                                
+                                            }
+
+                                            if(k==codetext.Count-1)
+                                            {
+                                                    @: )
+                                            }
+                                          }
+
+                                      ) {
+                                      //alert("Please select at least one selector");
+                                      $("#@question.Id").text("Esta pregunta es obligatoria, debe marcar al menos una opción");
+                                  
+                                      return false;
+                                  } else {
+                                      $("#@question.Id").text("");
+                                      return true; //submit the form
+                                  }
+                              });
+
+                              function isCheckedById(id) {
+                                  var checked = $("input[@@id=" + id + "]:checked").length;
+                                  if (checked == 0) {
+                                      return false;
+                                  } else {
+                                      return true;
+                                  }
+                              }
+                          });
+                      </script>
+                
+                </text>
+
+        }
+        
+        
 						@*@:<div class="row space-bot">*@
 						       @:<div class="c12">
 					                @:<p>
@@ -34,8 +119,8 @@
 					                @:</p>
                                 @:</div>             
 						@*@:</div>*@
-						foreach (AnswerChoice answer in question.AnswerChoices)
-                        {
+            foreach (AnswerChoice answer in question.AnswerChoices)
+            {
 						    @:<div class="row space-bot">
 							if (answer.Type == "Normal")
                             {
@@ -117,15 +202,16 @@
 							}  
                             @:</div>              
 						}
+                        
+            <div class="alert error"><label id="@question.Id"></label></div>
+            <br />
 
 
-
-                        i++;
-                    }                     
+            i++;
+        } 
+                            
 					@:</div>           
-				}
-		
-		
+				}		
 				<div class="row space-bot"> 
 					<span class="etiqueta">
 					</span>
@@ -138,6 +224,6 @@
 		
 			</fieldset>
    
-		}
+  }
 </div>
 
