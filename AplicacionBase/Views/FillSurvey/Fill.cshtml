@@ -4,35 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-
-<script type="text/javascript">
-    /**************************************
-    * Form validator plugin
-    **************************************/
-    (function ($) {
-        alert('PUTO EL QUE LEA');
-        $.fn.validator = function (opts) {
-            $(this).find('.notFilled').live('keyup', function () {
-                if ($(this).val() != "") {
-                    $(this).removeClass('notFilled');
-                }
-            });
-            return $(this).submit(function (evt) {
-                $(this).find('.required').each(function () {
-                    if ($(this).attr('value') == '') {
-                        $(this).addClass('notFilled');
-                        evt.preventDefault();
-                    }
-                });
-                $(this).find('.notFilled').first().focus();
-            });
-        };
-    })(jQuery);
-
-    jQuery(document).ready(function () {
-        jQuery('form').validator();
-    });
-    </script>
 <script type="text/javascript" src="http://jetlogs.org/jquery/jquery-1.2.6.pack.js"></script>
 
 <div>
@@ -253,14 +224,14 @@
 								}
                                 if (question.Type == "Corta")
                                 {
-									@:<div class="c1-5">
+									@*@:<div class="c1-5">*@
 							        @*@:<span class="etiqueta"> 
 							        @Html.Label(answer.Sentence);*@
 						            @* @:</span>*@
 									@*@:<span class="form-el"> *@  
-                                    @:</div> 
+                                   @* @:</div> *@
                                     @:<div class="c1-5">
-									@Html.TextBox("tt" + answer.Id.ToString(), "")
+									@Html.TextBox("tt" + answer.Id.ToString(),"", new { style = "width:400px" })
 									@*@:</span> *@
 									@:</div>  
 								}
@@ -276,7 +247,7 @@
 									@*@:<span class="form-el"> *@
                                     @*@:</div>*@
                                     @:<div class="c1-5">
-									@Html.TextArea("tt" + answer.Id.ToString(),"")                              
+									@Html.TextArea("tt" + answer.Id.ToString(), new { style = "width:700px;height:100px" })                              
 									@*@:</span> *@
 									@:</div>  
 								}
@@ -291,7 +262,7 @@
 								@:<span class="form-el">*@
                                 @:</div> 
                                 @:<div class="c1-5">
-								@Html.TextBox("tt" + answer.Id.ToString(),"")
+								@Html.TextBox("tt" + answer.Id.ToString(), "", new { style = "width:400px" })
 								@*@:</span> *@
 								@:</div>
 							}  
