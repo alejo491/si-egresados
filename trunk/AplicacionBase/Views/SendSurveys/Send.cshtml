@@ -3,12 +3,12 @@
 }
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtFechaDesde").datepicker();
+        $("#txtFechaDesde").datepicker({ dateFormat: 'YYYY/MM/DD' });
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtFechaHasta").datepicker();
+        $("#txtFechaHasta").datepicker({ dateFormat: 'yy/mm/dd' });
     });
 </script>
 <div class="grid">
@@ -78,7 +78,7 @@
                             <p>
                                 @*  @Html.TextBox("txtFechaDesde", "", new { @class = "hasDatepicker", @type = "date", @placeholder = "MM/DD/AAAA" })*@
                                 @*<input id="datepicker" name="" placeholder="mm/dd/yyyy" type="date">*@
-                                @Html.TextBox("txtFechaDesde", (string)ViewBag.FechaDesde, new { @type = "date", @placeholder = "DD/MM/AAAA" })
+                                @Html.TextBox("txtFechaDesde", (string)ViewBag.FechaDesde, new { @type = "date", @placeholder = "AAAA/MM/DD" })
                             </p>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="editor-field">
                             <p>
-                                @Html.TextBox("txtFechaHasta", (string)ViewBag.FechaHasta, new { @type = "date", @placeholder = "DD/MM/AAAA" })</p>
+                                @Html.TextBox("txtFechaHasta", (string)ViewBag.FechaHasta, new { @type = "date", @placeholder = "AAAA/MM/DD" })</p>
                         </div>
                     </div>
                     <div class="c12 first">

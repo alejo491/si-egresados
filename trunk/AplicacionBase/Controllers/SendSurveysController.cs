@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
@@ -29,6 +30,7 @@ namespace AplicacionBase.Controllers
         private bool continuar;
         private bool continuar2 = false;
         CultureInfo provider = CultureInfo.InvariantCulture;
+        public Regex re;
 
         //
         // GET: /SendSurveys/
@@ -43,7 +45,7 @@ namespace AplicacionBase.Controllers
             ViewBag.Seleccionado6 = false;
             ViewBag.FechaDesde = "";
             ViewBag.FechaHasta = "";
-
+            re = new Regex("^(0?[1-9]|1[0-9]|2|2[0-9]|3[0-1])/(0?[1-9]|1[0-2])/(d{2}|d{4})$");
 
             return View();
            // return RedirectToAction("Index", "Home");
@@ -53,6 +55,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Send(Guid id, FormCollection form)
         {
             var selected= new Dictionary<string,string>();
+            selected.Add("","");
             idObtenido = id;
             continuar = false;
             continuar2 = false;
@@ -91,30 +94,8 @@ namespace AplicacionBase.Controllers
                             jefeEgresados = true;
                         }
                         break;
-                    /*
-                case "JefesEgresados":
-                    continuar = k.Contains("true");
-                    if (continuar)
-                    {
-                        ViewBag.Seleccionado2 = true;
-                        ViewBag.Seleccionado1 = false;
-                    }
-                    else
-                    {
-                        ViewBag.Seleccionado2 = false;
-                        ViewBag.Seleccionado1 = true;
-                    }
-                    break;
-                    */
                 }
             }
-
-            /*
-            if (ViewBag.Seleccionado1 == false )
-            {
-                TempData["Error1"] = "Debes seleccionar al menos un destinatario";
-            }
-            */
             #endregion
 
             #region Validaciones de un Programa
@@ -169,10 +150,36 @@ namespace AplicacionBase.Controllers
                             ViewBag.Seleccionado6 = false;
                         }
                         break;
+                }
+            }
+            if (!(ingenieriadeSistemas) && !(ingenieriaAutomatica) && !(ingenieriaElectronica) && !(telematica))
+            {
+                TempData["Error2"] = "¡Es Obligatorio Seleccionar como Minimo un Programa!";
+            }
+            
+            #endregion
+          
+
+            #region Se Valida la Fecha y se permite continuar si es Valida
+
+            /*
+             string []format = new string []{"yyyy-MM-dd HH:mm:ss"};
+             string value = "2011-09-02 15:30:20";
+             DateTime datetime;
+             if (DateTime.TryParseExact(value, format, System.Globalization.CultureInfo.InvariantCulture,System.Globalization.DateTimeStyles.NoCurrentDateDefault  , out datetime))
+             Console.WriteLine("Valido  : " + datetime);
+             else
+             Console.WriteLine("Invalido");
+             */
+            foreach (string variable in form)
+            {
+                var k = form[variable];
+                switch (variable)
+                {
+
                     case "txtFechaDesde":
                         ViewBag.FechaDesde = k;
                         fechaDesde = k;
-                        //DateTime d = Convert.ToDateTime(Convert.ToDateTime(fechaDesde).ToString("dd/MM/yyyy"));
                         break;
                     case "txtFechaHasta":
                         ViewBag.FechaHasta = k;
@@ -180,25 +187,158 @@ namespace AplicacionBase.Controllers
                         break;
                 }
             }
-            if (!(ingenieriadeSistemas) && !(ingenieriaAutomatica) && !(ingenieriaElectronica) && !(telematica))
-            {
-                TempData["Error2"] = "¡Es Obligatorio Seleccionar como Minimo un Programa!";
-            }
-            if (fechaDesde != "" && fechaHasta != "")
-            {
-                if (Convert.ToDateTime(fechaDesde)>Convert.ToDateTime(fechaHasta))
-                {
-                    TempData["Error1"] = "¡La Fecha Desde no puede ser mayor a Fecha Hasta !";
-                    continuar = false;
-                }
 
-                if(Convert.ToDateTime(fechaDesde)>DateTime.Now || (Convert.ToDateTime(fechaHasta)>DateTime.Now))
-                {
-                    TempData["Error1"] = "¡La Fechas No pueden ser mayores al dia actual!";
-                    continuar = false;
-                }
+            string[] format = new string[] { "yyyy-MM-dd" };
+            string[] formatE = new string[] { "MM-dd-yyyy" };
+            string[] formatV = new string[] { "dd-MM-yyyy" };
+
+            DateTime fecha;
+            if (fechaDesde.Contains("/"))
+            {
+                fechaDesde=fechaDesde.Replace('/', '-');
+            }
+            if (fechaHasta.Contains("/"))
+            {
+               fechaHasta= fechaHasta.Replace('/','-');
             }
 
+            if (fechaDesde !="")
+            {
+                if (DateTime.TryParseExact(fechaDesde,format,System.Globalization.CultureInfo.InvariantCulture,System.Globalization.DateTimeStyles.NoCurrentDateDefault,out fecha))
+                {
+                    if (Convert.ToDateTime(fechaDesde) > DateTime.Now)
+                    {
+                        TempData["Error1"] = "¡La Fecha Egresados Desde No pueden ser mayores al dia actual!";
+                        continuar = false;
+                 
+                    }
+                }
+                else if (DateTime.TryParseExact(fechaDesde, formatE, System.Globalization.CultureInfo.InvariantCulture,
+                                                System.Globalization.DateTimeStyles.NoCurrentDateDefault, out fecha))
+                {
+                    string fechaConFormato = string.Empty;
+
+                    //formatea la fecha si viene en formato mm-dd-yyyy
+                    fechaConFormato = Regex.Replace(fechaDesde,
+                    @"(?<mm>\d{1,2})-(?<dd>\d{1,2})\b-\b(?<yyyy>\d{4})",
+                    "${yyyy}-${mm}-${dd}");
+                    fechaDesde = fechaConFormato;
+
+                    if (Convert.ToDateTime(fechaDesde) > DateTime.Now)
+                    {
+                        TempData["Error1"] = "¡La Fecha Egresados Desde No pueden ser mayores al dia actual!";
+                        continuar = false;
+
+                    }
+
+                }
+                else if (DateTime.TryParseExact(fechaDesde, formatV, System.Globalization.CultureInfo.InvariantCulture,
+                                            System.Globalization.DateTimeStyles.NoCurrentDateDefault, out fecha))
+                {
+                    string fechaConFormato = string.Empty;
+
+                    //formatea la fecha si viene en formato dd-mm-yyyy
+                    fechaConFormato = Regex.Replace(fechaDesde,
+                    @"(?<dd>\d{1,2})\b-(?<mm>\d{1,2})-\b(?<yyyy>\d{4})",
+                    "${yyyy}-${mm}-${dd}");
+                    fechaDesde = fechaConFormato;
+
+                    if (Convert.ToDateTime(fechaDesde) > DateTime.Now)
+                    {
+                        TempData["Error1"] = "¡La Fecha Egresados Desde No pueden ser mayores al dia actual!";
+                        continuar = false;
+
+                    }
+
+                }
+                else
+               {
+                    TempData["Error1"] = "¡La Fecha No tiene un Formato Valido!";
+                    continuar = false;
+                }
+            }
+            if (fechaHasta != "")
+            {
+                if (DateTime.TryParseExact(fechaHasta,format,System.Globalization.CultureInfo.InvariantCulture,System.Globalization.DateTimeStyles.NoCurrentDateDefault,out fecha))
+                {
+                    if (Convert.ToDateTime(fechaHasta) > DateTime.Now)
+                    {
+                        TempData["Error1"] = "¡La Fecha Egresados Hasta No pueden ser mayores al dia actual!";
+                        continuar = false;
+                    }
+                    else
+                    {
+                        TempData["Error1"] = "";
+                        continuar = true;
+                    }
+                }
+                else if (DateTime.TryParseExact(fechaHasta, formatE, System.Globalization.CultureInfo.InvariantCulture,
+                            System.Globalization.DateTimeStyles.NoCurrentDateDefault, out fecha))
+                {
+                    string fechaConFormato = string.Empty;
+
+                    //formatea la fecha si viene en formato mm-dd-yyyy
+                    fechaConFormato = Regex.Replace(fechaHasta,
+                    @"(?<mm>\d{1,2})-(?<dd>\d{1,2})\b-\b(?<yyyy>\d{4})",
+                    "${yyyy}-${mm}-${dd}");
+                    fechaHasta = fechaConFormato;
+
+                    if (Convert.ToDateTime(fechaHasta) > DateTime.Now)
+                    {
+                        TempData["Error1"] = "¡La Fecha Egresados Hasta No pueden ser mayores al dia actual!";
+                        continuar = false;
+                    }
+                    else
+                    {
+                        TempData["Error1"] = "";
+                        continuar = true;
+                    }
+
+                }
+                else if (DateTime.TryParseExact(fechaHasta, formatV, System.Globalization.CultureInfo.InvariantCulture,
+                                        System.Globalization.DateTimeStyles.NoCurrentDateDefault, out fecha))
+                {
+                    string fechaConFormato = string.Empty;
+
+                    //formatea la fecha si viene en formato dd-mm-yyyy
+                    fechaConFormato = Regex.Replace(fechaHasta,
+                    @"(?<dd>\d{1,2})\b-(?<mm>\d{1,2})-\b(?<yyyy>\d{4})",
+                    "${yyyy}-${mm}-${dd}");
+                    fechaHasta = fechaConFormato;
+                    
+                    if (Convert.ToDateTime(fechaHasta) > DateTime.Now)
+                    {
+                        TempData["Error1"] = "¡La Fecha Egresados Hasta No pueden ser mayores al dia actual!";
+                        continuar = false;
+                    }
+                    else
+                    {
+                        TempData["Error1"] = "";
+                        continuar = true;
+                    }
+
+                }
+                else
+                {
+                    TempData["Error1"] = "¡La Fecha No tiene un Formato Valido!";
+                    continuar = false;
+                }
+            }
+            if (continuar)
+            {
+                if (fechaDesde != "" && fechaDesde != "")
+                {
+                    if (Convert.ToDateTime(fechaDesde) > Convert.ToDateTime(fechaHasta))
+                    {
+                        TempData["Error1"] = "¡La Fecha Desde no puede ser mayor a Fecha Hasta !";
+                        continuar = false;
+                    }
+                    else
+                    {
+                        continuar = true;
+                    }
+                }
+            }
             #endregion
 
             #region Validar si Asunto esta lleno
@@ -231,7 +371,7 @@ namespace AplicacionBase.Controllers
             }
             #endregion
 
-            #region Validar si Mensaje esta lleno y Almacenar Fechas
+            #region Validar si Mensaje esta lleno
 
             continuar2 = false;
             foreach (string v in form)
@@ -465,7 +605,7 @@ namespace AplicacionBase.Controllers
 
                         if (ingenieriadeSistemas)
                         {
-                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
+                            Dictionary<string,string> c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
                                                                                     fh);
                             selected.Concat(c);
                         }
@@ -521,6 +661,10 @@ namespace AplicacionBase.Controllers
                 */
                 //selected.Add("jaimealberto.jurado@gmail.com","Jaime Jurado");
 
+                //Agregar validacion de que si no encuentra ningun usuario no pueda continuar
+                //La Concatenacion no esta funcionando
+
+                selected.Remove("");
                 TempData["message"] = ViewBag.Mensaje;
                 TempData["subject"] = ViewBag.Asunto;
                 TempData["d"] = selected;
