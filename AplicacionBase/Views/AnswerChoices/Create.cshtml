@@ -20,7 +20,9 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Sentence)
+            <div class="alert error">
             @Html.ValidationMessageFor(model => model.Sentence)
+            </div>
         </div>
         <br/>
 
@@ -29,7 +31,9 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.NumericValue)
+            <div class="alert error">
             @Html.ValidationMessageFor(model => model.NumericValue)
+            </div>
         </div>
         <br/>
 
@@ -40,7 +44,9 @@
             
             @Html.RadioButtonFor(model =>model.Type,"Normal",true) Normal
             @Html.RadioButtonFor(model =>model.Type,"Con texto",false) Con texto
+            <div class="alert error">
             @Html.ValidationMessageFor(model => model.Type)
+            </div>
             <br/>
         </div>
         <br/>
@@ -50,9 +56,9 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.AnswerNumber)
-            @Html.ValidationMessageFor(model => model.AnswerNumber)
-			<div class="validation-summary-errors">
-                @TempData["Error2"]
+            <div class="alert error">
+            <p>@Html.ValidationMessageFor(model => model.AnswerNumber)</p>			
+            <p>@TempData["Error2"]</p>
             </div>
         </div>
         <br/>

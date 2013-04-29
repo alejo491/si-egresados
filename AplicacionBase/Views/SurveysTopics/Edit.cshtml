@@ -21,7 +21,9 @@
         </div>
         <div class="editor-field">
             @ViewBag.topic.Description
+             <div class="alert error">
             @Html.ValidationMessageFor(model => model.IdTopic)
+            </div>
         </div>
         <br/>
 
@@ -30,9 +32,9 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.TopicNumber)
-            @Html.ValidationMessageFor(model => model.TopicNumber)
-            <div class="validation-summary-errors">
-                @TempData["Error2"]
+            <div class="alert error">
+           <p> @Html.ValidationMessageFor(model => model.TopicNumber)       </p>     
+                <p> @TempData["Error2"] </p>
             </div>
         </div>
         <br/>

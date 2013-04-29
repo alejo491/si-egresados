@@ -20,14 +20,18 @@
         <div class="display-label">Nombre</div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
+            <div class="alert error">
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
         </div>
         <br />
 
        <div class="display-label">Objetivo</div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Aim)
+            <div class="alert error">
             @Html.ValidationMessageFor(model => model.Aim)
+            </div>
         </div>
         <br />
 
