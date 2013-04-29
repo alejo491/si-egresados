@@ -238,7 +238,7 @@ namespace AplicacionBase.Controllers
                 ListAnswerC.Clear();
                 ListVal.Clear();
             }
-            TempData["Success"] = "Gracias por llenar la encuesta";
+            TempData["Success"] = "¡Muchas gracias por llenar la encuesta!";
             return RedirectToAction("Index", "Home");
         }
 
