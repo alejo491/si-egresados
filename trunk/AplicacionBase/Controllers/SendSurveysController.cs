@@ -726,40 +726,131 @@ namespace AplicacionBase.Controllers
         {
             var selected = new Dictionary<string, string>();
             string nombreCompleto = "";
+            TempData["ErrorD"] = "¡Es Obligatorio Seleccionar un Destinatario!";
+            TempData["ErrorA"] = "¡Es Obligatorio Colocar un Asunto!";
+            TempData["ErrorM"] = "¡Es Obligatorio Colocar un Mensaje!";
+
+            #region Validar si Destinatario esta lleno
+
+            continuar = false;
+
+            foreach (string variable in form)
+            {
+                var k = form[variable];
+                if (continuar)
+                {
+                    TempData["ErrorD"] = "";
+                    break;
+                }
+
+                switch (variable)
+                {
+                    case "FirstNames":
+                        if (k == "")
+                        {
+                            TempData["ErrorD"] = "¡Es Obligatorio Seleccionar un Destinatario!";
+                            continuar = false;
+                        }
+                        else
+                        {
+                            TempData["ErrorD"] = "";
+                            nombreCompleto = k;
+                        }
+                        break;
+                }
+            }
+            #endregion
+
+            #region Validar si Asunto esta lleno
 
             foreach (string variable in form)
             {
                 var k = form[variable];
 
+                if (continuar)
+                {
+                    TempData["ErrorA"] = "";
+                    break;
+                }
+
                 switch (variable)
                 {
-                    case "FirstNames":
-                        nombreCompleto = k;
-                        break;
                     case "txtAsunto":
-                        asunto = k;
-                        break;
-                    case "txtMensaje":
-                        mensaje = k;
+                        if (k == "")
+                        {
+                            TempData["ErrorA"] = "¡Es Obligatorio Colocar un Asunto!";
+                            continuar = false;
+                        }
+                        else
+                        {
+                            if (nombreCompleto != "")
+                            {
+                                continuar = true;
+                            }
+                            ViewBag.Asunto = k;
+                            asunto = k;
+                        }
                         break;
                 }
             }
+            #endregion
 
-            var listaUsuarios = db.Users.Where(u => u.FirstNames == nombreCompleto);
-            foreach(var user in listaUsuarios) {
-                var idUsuario = user.Id;
-                nombreCompleto = nombreCompleto + " " + user.LastNames;
-                var memberShip = db.aspnet_Membership.Find(idUsuario);
-                selected.Add(memberShip.Email, nombreCompleto);
+            #region Validar si Mensaje esta lleno
+
+            continuar = false;
+
+            foreach (string variable in form)
+            {
+                var k = form[variable];
+                if (continuar)
+                {
+                    TempData["ErrorM"] = "";
+                    break;
+                }
+
+                switch (variable)
+                {
+                    case "txtMensaje":
+                        if (k == "")
+                        {
+                            TempData["ErrorM"] = "¡Es Obligatorio Colocar un Mensaje!";
+                            continuar = false;
+                        }
+                        else
+                        {
+                            if (asunto != null)
+                            {
+                                continuar = true;
+                            }
+                            ViewBag.Mensaje = k;
+                            TempData["ErrorM"] = "";
+                            mensaje = k;
+                        }
+                        break;
+                }
+            }
+            #endregion
+
+            if (continuar)
+            {
+                var usuario = db.Users.Where(u => u.FirstNames == nombreCompleto);
+                foreach (var user in usuario)
+                {
+                    var idUsuario = user.Id;
+                    nombreCompleto = nombreCompleto + " " + user.LastNames;
+                    var memberShip = db.aspnet_Membership.Find(idUsuario);
+                    selected.Add(memberShip.Email, nombreCompleto);
+                }
+
+                TempData["subject"] = asunto;
+                TempData["message"] = mensaje;
+                TempData["d"] = selected;
+
+                return RedirectToAction("Preview", new { id });
             }
 
+            return View();
             
-
-            TempData["subject"] = asunto;
-            TempData["message"] = mensaje;
-            TempData["d"] = selected;
-
-            return RedirectToAction("Preview", new { id });
         }
 
         [HttpPost]

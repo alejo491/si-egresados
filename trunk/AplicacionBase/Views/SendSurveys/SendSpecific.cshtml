@@ -16,30 +16,53 @@
 @using (Html.BeginForm())
 {
 	<fieldset>
-	    <div class="editor-label">
-            Para:  
+        <div class="c12 first">
+            <div class="c11 first">
+                <div class="editor-label">
+                    Para:
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.FirstNames, new { @id = "nombre", @Name = "FirstNames", style = "width:300px" })
+                </div>
+                @if (TempData["ErrorD"] != "")
+                {
+                    <div class="alert error">
+                        <p>@TempData["ErrorD"]</p>
+                    </div>
+                }
+                <div class="editor-label">
+                    Asunto:
+                </div>
+                <div class="editor-field">
+                    @Html.TextArea("txtAsunto", (string)ViewBag.Asunto, new { style = "width:700px;height:100px" })
+                </div>
+                @if (TempData["ErrorA"] != "")
+                {
+                    <div class="alert error">
+                        <p>@TempData["ErrorA"]</p>
+                    </div>
+                }
+                <div class="editor-label">
+                    Mensaje:
+                </div>
+                <div class="editor-field">
+                    <p>
+                        @Html.TextArea("txtMensaje", (string)ViewBag.Mensaje, new { style = "width:700px;height:100px;" })
+                    </p>
+                </div>
+                @if (TempData["ErrorM"] != "")
+                {
+                    <div class="alert error">
+                        <p>@TempData["ErrorM"]</p>
+                    </div>
+                }
+                <div>
+                    <p>
+                        <input type="submit" value="Vista Previa" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Index", "Surveys", htmlAttributes: new { @class = "ebutton blue" })
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.FirstNames, new { @id = "nombre", @Name = "FirstNames" })
-        </div>
-        <div class="editor-label">
-            Asunto: 
-        </div>
-        <div class="editor-field">
-            @Html.TextBox("txtAsunto")
-        </div>
-        <div class="editor-label">
-            Mensaje:
-        </div>
-        <div class="editor-field">
-            <p>
-                @Html.TextArea("txtMensaje")
-            </p>
-        </div>
-        <div>
-            <p>
-                <input type="submit" value="Vista Previa" class="ebutton2 blue" />&nbsp; @Html.ActionLink("Regresar", "Index", "Surveys", htmlAttributes: new { @class = "ebutton blue" })
-            </p>
-        </div>
+        
     </fieldset>
 }
