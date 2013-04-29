@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Routing;
+using System.Web.Security;
 using AplicacionBase.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
@@ -18,6 +20,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Fill(Guid ids, string Email)
         {
+            
             var survey = db.Surveys.Find(ids);
             if (survey != null)
             {
@@ -55,12 +58,39 @@ namespace AplicacionBase.Controllers
         }
 
         [HttpPost]
-        public ActionResult Fill(Guid ids, string Email, FormCollection postedForm)
+    public ActionResult Fill(Guid ids, string Email, FormCollection postedForm)
         {
-            List<string> ListAnswerC = new List<string>();
-            List<string> ListVal = new List<string>();
+            var ListAnswerC = new List<string>();
+            var ListVal = new List<string>();
+            Guid iduser = Guid.Empty;
+            var em = Email;
+            if (em == null)
+            {
+               var users = db.aspnet_Users.Where(s => s.UserName == HttpContext.User.Identity.Name);
+                if (users.Any())
+                {
+                    iduser = users.First().UserId;
+                }
 
-            var exemplar = SaveSurveyed(Email, ids);
+                if (iduser != Guid.Empty)
+                {
+                    var user = db.aspnet_Membership.Find(iduser);
+                    em = user.Email;
+                }
+                else
+                {
+                    TempData["Error"] = "Usted no puede diligenciar esta encuesta";
+                    return RedirectToAction("Index", "Home");
+                }
+
+
+            }
+            var exemplar = SaveSurveyed(em, ids);
+            if (exemplar == null)
+            {
+                TempData["Error"] = "No existe ese Email, no puede llenar la encuesta";
+                return RedirectToAction("Index", "Home");
+            }
 
             foreach (string v in postedForm)
             {
@@ -69,48 +99,48 @@ namespace AplicacionBase.Controllers
                     var idanswC = v.Substring(2, (v.Length - 2));
                     Guid ias = new Guid(idanswC);
                     var text = postedForm[v];
-                    
-                        if (ListAnswerC.Count > 0)
+
+                    if (ListAnswerC.Count > 0)
+                    {
+                        string idacexiste = ListAnswerC[0];
+                        Guid idac = new Guid(idacexiste);
+                        var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
+                        var idquexiste = objAnsC.IdQuestion;
+                        var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
+                        var idqactual = objAnsCactual.IdQuestion;
+                        if (idqactual != idquexiste)
                         {
-                            string idacexiste = ListAnswerC[0];
-                            Guid idac = new Guid(idacexiste);
-                            var objAnsC = db.AnswerChoices.First(s => s.Id == idac);
-                            var idquexiste = objAnsC.IdQuestion;
-                            var objAnsCactual = db.AnswerChoices.First(a => a.Id == ias);
-                            var idqactual = objAnsCactual.IdQuestion;
-                            if (idqactual != idquexiste)
+                            //Aqui se hace el llamado a la funciòn para guardar
+                            //saveAnswer(idquexiste, ListAnswerC, ListVal);
+                            var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
+                            ListAnswerC.Clear();
+                            ListVal.Clear();
+                            ListAnswerC.Add(idanswC);
+                            if (text.Length > 0)
                             {
-                                //Aqui se hace el llamado a la funciòn para guardar
-                                //saveAnswer(idquexiste, ListAnswerC, ListVal);
-                                var ExemplarQuestion = SaveExemplarAnswers(exemplar.Id, idquexiste, ListAnswerC, ListVal);
-                                ListAnswerC.Clear();
-                                ListVal.Clear();
-                                ListAnswerC.Add(idanswC);
-                                if (text.Length>0)
-                                {
-                                    ListVal.Add(text);
-                                }
-                               
+                                ListVal.Add(text);
                             }
-                            else
-                            {
-                                ListAnswerC.Add(idanswC);
-                                if (text.Length >0)
-                                {
-                                    ListVal.Add(text);
-                                }
-                                
-                            }
+
                         }
                         else
                         {
                             ListAnswerC.Add(idanswC);
-                            if (text.Length >0)
+                            if (text.Length > 0)
                             {
                                 ListVal.Add(text);
                             }
+
                         }
-                    
+                    }
+                    else
+                    {
+                        ListAnswerC.Add(idanswC);
+                        if (text.Length > 0)
+                        {
+                            ListVal.Add(text);
+                        }
+                    }
+
                 }
 
                 if (v.StartsWith("un"))
@@ -208,101 +238,100 @@ namespace AplicacionBase.Controllers
                 ListAnswerC.Clear();
                 ListVal.Clear();
             }
-
+            TempData["Success"] = "Gracias por llenar la encuesta";
             return RedirectToAction("Index", "Home");
         }
 
 
         public Exemplar SaveSurveyed(string Email, Guid id)
         {
-            var m = db.Bosses.Where(s => s.Email == Email);
+            var encuestado = db.Surveyeds.Where(s=>s.Email == Email);
             var temps = new Surveyed();
             var tempex = new Exemplar();
-            if (!m.Any())
+            if (encuestado.Any())
             {
-                var u = db.aspnet_Membership.Where(a => a.Email == Email);
-                if (u.Count() != 0)
-                {
-
-                    foreach (aspnet_Membership aux in u)
-                    {
-                        User u1 = db.Users.Find(aux.UserId);
-                        if (u1 != null)
-                        {
-                            temps.Id = Guid.NewGuid();
-                            temps.Name = u1.FirstNames + " " + u1.LastNames;
-                            temps.Email = Email;
-                            temps.Type = "";
-                        }
-                        else
-                        {
-                            temps.Id = Guid.NewGuid();
-                            temps.Name = "";
-                            temps.Email = Email;
-                            temps.Type = "";
-                        }
-                    }
-
-                    db.Surveyeds.Add(temps);
-                    db.SaveChanges();
-
-
-
-
-                    tempex.Id = Guid.NewGuid();
-                    tempex.ExemplarNumber = db.Exemplars.Count(s => s.IdSurveys == id) + 1;
-                    tempex.IdSurveyed = temps.Id;
-                    tempex.IdSurveys = id;
-
-                    db.Exemplars.Add(tempex);
-                    db.SaveChanges();
-
-
-
-                }
-                else
-                {
-                    ViewBag.Error = "No existe el Email";
-                }
+                temps = encuestado.First();
             }
             else
             {
-                var u = db.aspnet_Membership.Where(a => a.Email == Email);
-                foreach (aspnet_Membership aux in u)
+                var m = db.Bosses.Where(s => s.Email == Email);                             
+                if (!m.Any())
                 {
+                        var u = db.aspnet_Membership.Where(a => a.Email == Email);
+                        if (u.Count() != 0)
+                        {
 
-                    Boss b1 = db.Bosses.Find(aux.UserId);
-                    var tempb = new Surveyed();
-                    if (b1 != null)
-                    {
-                        tempb.Name = b1.Name;
-                        tempb.Email = Email;
-                        tempb.Type = "Jefe";
+                            foreach (aspnet_Membership aux in u)
+                            {
+                                User u1 = db.Users.Find(aux.UserId);
+                                if (u1 != null)
+                                {
+                                    temps.Id = Guid.NewGuid();
+                                    temps.Name = u1.FirstNames + " " + u1.LastNames;
+                                    temps.Email = Email;
+                                    temps.Type = "";
+                                }
+                                else
+                                {
+                                    temps.Id = Guid.NewGuid();
+                                    temps.Name = "";
+                                    temps.Email = Email;
+                                    temps.Type = "";
+                                }
+                            }
+
+                            db.Surveyeds.Add(temps);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                    
+                            return null;
+                        }
                     }
                     else
                     {
-                        tempb.Name = "";
-                        tempb.Email = Email;
-                        tempb.Type = "";
-                    }
+                        var u = db.aspnet_Membership.Where(a => a.Email == Email);
+                        foreach (aspnet_Membership aux in u)
+                        {
+
+                            Boss b1 = db.Bosses.Find(aux.UserId);
+                            var tempb = new Surveyed();
+                            if (b1 != null)
+                            {
+                                tempb.Name = b1.Name;
+                                tempb.Email = Email;
+                                tempb.Type = "Jefe";
+                            }
+                            else
+                            {
+                                tempb.Name = "";
+                                tempb.Email = Email;
+                                tempb.Type = "";
+                            }
                 }
-
-
-
-                tempex.Id = new Guid();
-                tempex.ExemplarNumber = db.Exemplars.Where(s => s.IdSurveys == id).Count() + 1;
-                tempex.IdSurveyed = temps.Id;
-                tempex.IdSurveys = id;
-
-                db.Exemplars.Add(tempex);
-                db.SaveChanges();
+                
             }
 
+           
+            }
+
+            tempex.Id = Guid.NewGuid();
+            tempex.ExemplarNumber = db.Exemplars.Count(s => s.IdSurveys == id) + 1;
+            tempex.IdSurveyed = temps.Id;
+            tempex.IdSurveys = id;
+            if (db.Exemplars.Where(s => s.IdSurveyed == temps.Id).Any(s => s.IdSurveys == id))
+            {
+                return null;
+            }
+            db.Exemplars.Add(tempex);
+            db.SaveChanges();
             return tempex;
+
         }
 
-        public Boolean SaveExemplarAnswers(Guid idExemplar, Guid idQuestion, List<string> opc, List<string> valores)    
-	    {
+        public Boolean SaveExemplarAnswers(Guid idExemplar, Guid idQuestion, List<string> opc, List<string> valores)
+        {
             try
             {
                 var tempexqu = new ExemplarsQuestion();
@@ -333,9 +362,9 @@ namespace AplicacionBase.Controllers
             {
                 return false;
             }
-            
 
-	    }
+
+        }
 
 
     }
