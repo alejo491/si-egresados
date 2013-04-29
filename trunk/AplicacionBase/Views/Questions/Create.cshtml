@@ -34,8 +34,10 @@
             @Html.RadioButtonFor(model =>model.Type,"Corta",false) Respuesta Abierta Corta <br/>
             @Html.RadioButtonFor(model =>model.Type,"Larga",false) Respuesta Abierta Larga
             @*Html.RadioButtonFor(model =>model.Type,"Mixta",false) Respuesta Mixta*@
-            @*@Html.EditorFor(model => model.Type)*@
+                @*@Html.EditorFor(model => model.Type)*@
+                <div class="alert error">
             @Html.ValidationMessageFor(model => model.Type)
+            </div>
             </p>
         </div>
 
@@ -45,7 +47,9 @@
         <div class="editor-field">
             <p>
                 @Html.EditorFor(model => model.Sentence)
+                <div class="alert error">
                 @Html.ValidationMessageFor(model => model.Sentence)
+                </div>
             </p>
         </div>
 
@@ -55,7 +59,9 @@
         <div class="editor-field">
             <p>
             @Html.EditorFor(model => model.QuestionNumber)
+            <div class="alert error">
             @Html.ValidationMessageFor(model => model.QuestionNumber) 
+            </div>
             </p>
             <div class="alert error"> <p>@TempData["Error2"]</p> </div>
         </div>
@@ -69,7 +75,9 @@
             @*@Html.EditorFor(model => model.IsObligatory)*@
             @Html.RadioButtonFor(model =>model.IsObligatory,0,true) No Obligatorio
             @Html.RadioButtonFor(model =>model.IsObligatory,1,false) Obligatoria
-            @Html.ValidationMessageFor(model => model.IsObligatory)
+                <div class="alert error">
+                @Html.ValidationMessageFor(model => model.IsObligatory)
+                </div>
             </p>
         </div>
 

@@ -46,7 +46,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
-                    @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
+                    @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
+                     @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
                 </td>
                 @:</tr>
                 i++;
