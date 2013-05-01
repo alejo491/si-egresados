@@ -55,7 +55,6 @@ namespace AplicacionBase.Controllers
         public ActionResult Send(Guid id, FormCollection form)
         {
             var selected= new Dictionary<string,string>();
-            selected.Add("","");
             idObtenido = id;
             continuar = false;
             continuar2 = false;
@@ -76,22 +75,28 @@ namespace AplicacionBase.Controllers
                 switch (v)
                 {
                     case "Dirigida":
-                        
-                        if (k=="True")
+
+                        if (k == "True")
                         {
                             ViewBag.Seleccionado1 = true;
+                            /*
                             ViewBag.Seleccionado2 = false;
+                          * */
                             continuar = true;
                             egresados = true;
                             jefeEgresados = false;
+                          
                         }
                         else
                         {
+                           
                             ViewBag.Seleccionado1 = false;
-                            ViewBag.Seleccionado2 = true;
+                            /* ViewBag.Seleccionado2 = true;
+                             */
                             continuar = true;
                             egresados = false;
                             jefeEgresados = true;
+                            
                         }
                         break;
                 }
@@ -158,7 +163,6 @@ namespace AplicacionBase.Controllers
             }
             
             #endregion
-          
 
             #region Se Valida la Fecha y se permite continuar si es Valida
 
@@ -458,56 +462,56 @@ namespace AplicacionBase.Controllers
                         if (ingenieriadeSistemas)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas",fd,fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaAutomatica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica", fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaElectronica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica", fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (telematica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Telematica", fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                     }
                     #endregion
 
                     #region Jefes de Egresados desde una Fecha, hasta la Actual, por Programas Seleccionados
-                    else if (fechaHasta == "")
+                    else if (fechaHasta == "" && fechaDesde!="")
                     {
                         DateTime fd =(Convert.ToDateTime(fechaDesde));
 
                         if (ingenieriadeSistemas)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas",fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaAutomatica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaElectronica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (telematica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Telematica", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                     }
                     #endregion
 
                     #region Jefes de Egresados Hasta una fecha, por Programas Seleccionados
-                    else if (fechaDesde=="")
+                    else if (fechaDesde=="" && fechaHasta!="")
                     {
                         DateTime fh = Convert.ToDateTime(fechaHasta);
 
@@ -515,25 +519,51 @@ namespace AplicacionBase.Controllers
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas",
                                                                                 fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaAutomatica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica",
                                                                                 fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaElectronica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica",
                                                                                 fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (telematica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosJefe("Telematica",
                                                                                 fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                    }
+                    #endregion
+
+                    #region Todos los Jefes de Egresados, por Programas Seleccionados
+                    else if (fechaDesde == "" && fechaHasta != "")
+                    {
+                       if (ingenieriadeSistemas)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Sistemas");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                        else if (ingenieriaAutomatica)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria Automatica");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                        else if (ingenieriaElectronica)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Ingenieria de Electronica");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                        else if (telematica)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosJefe("Telematica");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                     }
                     #endregion
@@ -550,82 +580,111 @@ namespace AplicacionBase.Controllers
                         if (ingenieriadeSistemas)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaAutomatica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica",  fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaElectronica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (telematica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", fd, fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                     }
                     #endregion
 
                     #region Egresados desde una Fecha Especifica hasta la actualidad por Programas Seleccionados
-                    else if (fechaHasta == "")
+                    else if (fechaHasta == ""&& fechaDesde!="")
                     {
                         DateTime fd = (Convert.ToDateTime(fechaDesde));
 
                         if (ingenieriadeSistemas)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaAutomatica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaElectronica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (telematica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica", fd, DateTime.Now);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                     }
                     #endregion
 
-                    #region Egresados inferiores o iguales a una fecha especifica, por Programa Seleccionado
-                    else if (fechaDesde=="")
+                    #region Todos los Egresados, por Programa Seleccionado
+                    else if (fechaDesde=="" && fechaHasta!="")
                     {
                         DateTime fh = (Convert.ToDateTime(fechaHasta));
 
                         if (ingenieriadeSistemas)
                         {
-                            Dictionary<string,string> c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
-                                                                                    fh);
-                            selected.Concat(c);
+                            Dictionary<string, string> c =
+                                SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
+                                                                                fh);
+                           selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+
                         }
                         else if (ingenieriaAutomatica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica",
                                                                                     fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (ingenieriaElectronica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica",
                                                                                     fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                         else if (telematica)
                         {
                             var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica",
                                                                                     fh);
-                            selected.Concat(c);
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                    }
+                    #endregion
+
+                    #region Egresados entre Fechas y Por Programas Seleccionados
+
+                    if (fechaDesde == "" && fechaHasta == "")
+                    {
+                        if (ingenieriadeSistemas)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                        else if (ingenieriaAutomatica)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                        else if (ingenieriaElectronica)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
+                        }
+                        else if (telematica)
+                        {
+                            var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica");
+                            selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                         }
                     }
                     #endregion
@@ -637,25 +696,25 @@ namespace AplicacionBase.Controllers
                     {
                         var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Sistemas",
                                                                                 Convert.ToDateTime(fechaDesde));
-                        selected.Concat(c);
+                        selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                     }
                     else if (ingenieriaAutomatica)
                     {
                         var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria Automatica",
                                                                                 Convert.ToDateTime(fechaDesde));
-                        selected.Concat(c);
+                        selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                     }
                     else if (ingenieriaElectronica)
                     {
                         var c = SendSurveysDbController.ListarEgresadosPrograma("Ingenieria de Electronica",
                                                                                 Convert.ToDateTime(fechaDesde));
-                        selected.Concat(c);
+                        selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                     }
                     else if (telematica)
                     {
                         var c = SendSurveysDbController.ListarEgresadosPrograma("Telematica",
                                                                                 Convert.ToDateTime(fechaDesde));
-                        selected.Concat(c);
+                        selected = selected.Concat(c).ToDictionary(x => x.Key, x => x.Value);
                     }
                 }
                 */
@@ -664,7 +723,12 @@ namespace AplicacionBase.Controllers
                 //Agregar validacion de que si no encuentra ningun usuario no pueda continuar
                 //La Concatenacion no esta funcionando
 
-                selected.Remove("");
+                if (selected.Count == 0)
+                {
+                    TempData["ErrorDatos"] = "No se puede continuar, No Se encontraron Datos";
+                    return View();
+                }
+
                 TempData["message"] = ViewBag.Mensaje;
                 TempData["subject"] = ViewBag.Asunto;
                 TempData["d"] = selected;
