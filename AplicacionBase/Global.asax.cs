@@ -33,28 +33,47 @@ namespace AplicacionBase
 
         protected void Application_Start()
         {
-            //AssemblyHelper a = new AssemblyHelper();
-            //var a2 = a.GetControllerNames();
-            AreaRegistration.RegisterAllAreas();            
+            AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            /*SecurityConfigurator.Configure(configuration =>
-            {
-                // Let FluentSecurity know how to get the authentication status of the current user
-                configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
-                configuration.GetRolesFrom(Roles.GetAllRoles);
-                // This is where you set up the policies you want FluentSecurity to enforce on your controllers and actions
-                configuration.For<HomeController>().Ignore();
-                configuration.For<AccountController>().DenyAuthenticatedAccess();
-                configuration.For<AccountController>(x => x.ChangePassword()).DenyAnonymousAccess();
-                configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
-                var asd = Roles.GetAllRoles();
-                TopicController t = new TopicController();
-                
-                configuration.For<TopicController>().RequireAllRoles(asd);
-            });
+            //var assembly = new AssemblyHelper();
+            //var result = assembly.GetControllerNames();
+            //SecurityConfigurator.Configure(configuration =>
+            //{
+            //    if (result)
+            //    {
+            //        configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
+            //        configuration.GetRolesFrom(Roles.GetRolesForUser);
+            //        configuration.For<HomeController>(x => x.Index())
+            //                     .RequireRole(assembly.GetRolesMethods("HomeController", "Index"));
+            //        configuration.For<VerifyController>().Ignore();
+            //        configuration.For<AccountController>().Ignore();
+            //        configuration.For<RoleMethodsController>(x=>x.AssignRolesMethods(new Guid())).RequireRole(assembly.GetRolesMethods("RoleMethodsController", "AssignRolesMethods"));
+            //    }
 
-            GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);*/
+            //    /*// Let FluentSecurity know how to get the authentication status of the current user
+            //    configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
+            //    configuration.GetRolesFrom(Roles.GetAllRoles);
+            //    // This is where you set up the policies you want FluentSecurity to enforce on your controllers and actions
+            //    configuration.For<RoleMethodsController>().Ignore();
+            //    configuration.For<AccountController>().DenyAuthenticatedAccess();
+            //    configuration.For<AccountController>(x => x.ChangePassword()).DenyAnonymousAccess();
+            //    configuration.For<AccountController>(x => x.LogOff()).DenyAnonymousAccess();
+            //    var asd = Roles.GetAllRoles();
+            //    TopicController t = new TopicController();
+
+            //    configuration.For<TopicController>().RequireAllRoles(asd);*/
+
+            //});
+
+            //GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
+            
+            
+            /*
+            AreaRegistration.RegisterAllAreas();            
+            RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterRoutes(RouteTable.Routes);*/
+           
         }
     }
 }
