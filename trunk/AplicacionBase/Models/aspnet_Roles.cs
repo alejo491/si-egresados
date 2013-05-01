@@ -9,6 +9,7 @@ namespace AplicacionBase.Models
         {
             this.aspnet_UsersInRoles = new List<aspnet_UsersInRoles>();
             this.Posts = new List<Post>();
+            this.RoleMethods = new List<RoleMethod>();
         }
 
         public System.Guid ApplicationId { get; set; }
@@ -19,5 +20,6 @@ namespace AplicacionBase.Models
         public virtual aspnet_Applications aspnet_Applications { get; set; }
         public virtual ICollection<aspnet_UsersInRoles> aspnet_UsersInRoles { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<RoleMethod> RoleMethods { get; set; }
     }
 }
