@@ -13,7 +13,16 @@
 </script>
 <div class="grid">
     <h2>
-        Enviar Encuesta General</h2>
+        Enviar Encuesta General
+    </h2>
+     <div class="c12 first">
+         <div class="alert error">
+             @if (TempData["ErrorDatos"] != "")
+             {
+                 <p>@TempData["ErrorDatos"]</p>
+             }
+         </div>
+     </div>
     <div class="grid">
         @using (Html.BeginForm())
         {
@@ -31,9 +40,24 @@
                         </div>
                         <div class="editor-field">
                             <p>
-                                @Html.RadioButton("Dirigida", (bool)ViewBag.Seleccionado1, true)Egresados
-                                <br />
-                                @Html.RadioButton("Dirigida", (bool)ViewBag.Seleccionado2, false)Jefes de Egresados
+                              @if ((bool) ViewBag.Seleccionado1)
+                              {
+                                  ViewBag.Seleccionado1 = true;
+                                  ViewBag.Seleccionado2 = false;
+                                  TempData["Seleccionado"] = "true";
+                                  @Html.RadioButton("Dirigida", true, true)@:Egresados                                    
+                                  <br />
+                                  @Html.RadioButton("Dirigida", false, false)@:Jefes de Egresados
+                              }
+                              else
+                              {
+                                  TempData["Seleccionado"] = "false";
+                                  ViewBag.Seleccionado1 = false;
+                                  ViewBag.Seleccionado2 = true;
+                                  @Html.RadioButton("Dirigida", true, false)@:Egresados
+                                  <br />
+                                  @Html.RadioButton("Dirigida", false, true)@:Jefes de Egresados
+                              }
                                 
                             </p>
                         </div>
@@ -92,12 +116,12 @@
                         </div>
                     </div>
                     <div class="c12 first">
-                    @if (TempData["Error1"] != "")
-                    {
-                        <div class="alert error">
-                            <p>@TempData["Error1"]</p>
-                        </div>
-                    }
+                        @if (TempData["Error1"] != "")
+                        {
+                            <div class="alert error">
+                                <p>@TempData["Error1"]</p>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="c12 first">
