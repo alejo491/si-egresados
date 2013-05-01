@@ -33,6 +33,8 @@ namespace AplicacionBase
 
         protected void Application_Start()
         {
+            //AssemblyHelper a = new AssemblyHelper();
+            //var a2 = a.GetControllerNames();
             AreaRegistration.RegisterAllAreas();            
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
