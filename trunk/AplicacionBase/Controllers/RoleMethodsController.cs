@@ -22,7 +22,7 @@ namespace AplicacionBase.Controllers
             var aspnet_Role = db.aspnet_Roles.Find(id);
             if (aspnet_Role != null)
             {
-                var Method = db.Methods;
+                var Method = db.Methods.OrderBy(s=>s.IdController);
                 var model = new RoleMethodsViewModel(aspnet_Role, Method);
                 return View(model);
             }
