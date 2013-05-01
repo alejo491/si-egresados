@@ -64,6 +64,9 @@ namespace AplicacionBase.Models
         public DbSet<vw_aspnet_WebPartState_Paths> vw_aspnet_WebPartState_Paths { get; set; }
         public DbSet<vw_aspnet_WebPartState_Shared> vw_aspnet_WebPartState_Shared { get; set; }
         public DbSet<vw_aspnet_WebPartState_User> vw_aspnet_WebPartState_User { get; set; }
+        public DbSet<Method> Methods { get; set; }
+        public DbSet<RoleMethod> RoleMethods { get; set; }
+        public DbSet<SecureController> SecureControllers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -115,6 +118,9 @@ namespace AplicacionBase.Models
             modelBuilder.Configurations.Add(new vw_aspnet_WebPartState_PathsMap());
             modelBuilder.Configurations.Add(new vw_aspnet_WebPartState_SharedMap());
             modelBuilder.Configurations.Add(new vw_aspnet_WebPartState_UserMap());
+            modelBuilder.Configurations.Add(new MethodMap());
+            modelBuilder.Configurations.Add(new RoleMethodMap());
+            modelBuilder.Configurations.Add(new SecureControllerMap());
         }
     }
 }

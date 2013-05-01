@@ -1,0 +1,31 @@
+﻿@model AplicacionBase.Models.ViewModels.RoleMethodsViewModel
+
+@{
+ViewBag.Title = "Asignar roles al usuario";
+}
+
+<h2>Cambiar roles al usuario: <strong><i>@Model.aspnet_Role.RoleName</i></strong></h2>
+
+
+@using (Html.BeginForm(new { id=Model.aspnet_Role.RoleId }))
+{
+<fieldset>
+    <legend>Seleccione los roles del usuario</legend>
+    <br/>
+
+@foreach (var category in @Model.MethodChecklist)
+{
+@Html.CheckBox(category.Key.Name, category.Value)
+@Html.Label(category.Key.FullName)
+<br />
+}
+
+<p>
+    <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp;
+    @Html.ActionLink("Regresar al listado", "Index","Home", null, new {@class="ebutton blue"})
+</p>
+</fieldset>
+}
+<div>
+
+</div>

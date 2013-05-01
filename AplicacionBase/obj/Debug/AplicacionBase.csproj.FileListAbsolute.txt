@@ -148,3 +148,11 @@ C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\bin\N
 C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\user\Desktop\Nueva carpeta\si-egresados SiteMap V2\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\bin\EntityFramework.dll
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\bin\EntityFramework.xml
+C:\Users\AndresFelipe\Documents\Envios\v72\AplicacionBase\bin\MvcSiteMapProvider.xml
