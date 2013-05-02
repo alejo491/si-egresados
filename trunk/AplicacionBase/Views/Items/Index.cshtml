@@ -1,27 +1,31 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Item>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Item del reporte " + @ViewBag.Topic.Description;
 }
 
-<h2>Index</h2>
+<h2>Items del reporte <strong><i>@ViewBag.Topic.Description</i></strong></h2>
+
+<div class="alert success">@TempData["Create"]</div>
+<div class="alert success">@TempData["Update"]</div>
+<div class="alert success">@TempData["Delete"]</div>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Item", "Create", new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 <table>
     <tr>
         <th>
-            Report
+            Reporte
         </th>
         <th>
-            TableName
+            Nombre de la tabla
         </th>
         <th>
-            FieldName
+            Nombre del campo
         </th>
         <th>
-            PageNumber
+            Número de página
         </th>
         <th></th>
     </tr>
@@ -41,9 +45,14 @@
             @Html.DisplayFor(modelItem => item.PageNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id = ViewBag.Topic.Id, idit=item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+
+
+
+            @Html.ActionLink("Ver", "Details", new { id=item.Id } , htmlAttributes: new { @class = "ebutton blue" }) &nbsp 
+
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }   , htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+
         </td>
     </tr>
 }

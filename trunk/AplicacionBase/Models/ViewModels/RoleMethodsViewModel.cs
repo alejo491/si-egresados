@@ -19,14 +19,14 @@ namespace AplicacionBase.Models.ViewModels
             MethodChecklist = new Dictionary<Method, bool>();
             var aspnetList = db.RoleMethods.Where(s => s.IdRole == aspnet_Role.RoleId);
             bool bandera = true;
-            foreach (var asproles in Method)
+            foreach (var auxmethod in Method)
             {
 
-                foreach (var aspnetUsersInRolese in aspnetList)
+                foreach (var methodslist in aspnetList)
                 {
-                    if (asproles.Id == aspnetUsersInRolese.IdRole)
+                    if (auxmethod.Id == methodslist.IdAction)
                     {
-                        MethodChecklist.Add(asproles, true);
+                        MethodChecklist.Add(auxmethod, true);
                         bandera = false;
                         break;
                     }
@@ -35,7 +35,7 @@ namespace AplicacionBase.Models.ViewModels
                 
                 if (bandera) 
                 {
-                    MethodChecklist.Add(asproles, false);
+                    MethodChecklist.Add(auxmethod, false);
                 }
 
                 bandera = true;
