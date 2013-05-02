@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -16,32 +16,25 @@
 
         @Html.HiddenFor(model => model.Id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdReport, "Report")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdReport", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdReport)
-        </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TableName)
+        <div class="display-label">
+           <h3>Nombre de la tabla</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.TableName)
             @Html.ValidationMessageFor(model => model.TableName)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FieldName)
+        <div class="display-label">
+           <h3>Nombre del campo</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.FieldName)
             @Html.ValidationMessageFor(model => model.FieldName)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PageNumber)
+        <div class="display-label">
+           <h3>Número de página</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.PageNumber)
@@ -49,11 +42,12 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp; 
+
+            @Html.ActionLink("Regresar", "Index", routeValues: new { id = ViewBag.idrep}, htmlAttributes: new { @class = "ebutton blue" })
+
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+

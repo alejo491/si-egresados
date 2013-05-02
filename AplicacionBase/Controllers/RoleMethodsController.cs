@@ -24,6 +24,7 @@ namespace AplicacionBase.Controllers
             {
                 var Method = db.Methods.OrderBy(s=>s.IdController);
                 var model = new RoleMethodsViewModel(aspnet_Role, Method);
+                ViewBag.ControllerList = db.SecureControllers.ToList();
                 return View(model);
             }
             else
@@ -40,7 +41,7 @@ namespace AplicacionBase.Controllers
             aspnet_Roles aspnet_Role = db.aspnet_Roles.Find(id);
             foreach (var role in db.Methods)
             {
-                if (postedForm[role.Name].ToString().Contains("true"))
+                if (postedForm[role.FullName].ToString().Contains("true"))
                 {
                     MethodToAdd.Add(role);
                 }

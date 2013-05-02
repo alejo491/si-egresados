@@ -663,6 +663,9 @@ table tr.even td{background-color: #fafafa;}
 .tab-container .tab-radio:checked ~ .tab-page { visibility: visible; }
 
 /* ---- Accordion ---- */
+
+
+
 .accordion {
     width: 66%;
     background: #fff;
@@ -835,3 +838,9 @@ ebutton2:hover, ebutton2:active{
     padding-bottom: 20px;
     
 }
+
+.controllergroup {
+    text-align: left;
+    font-size: 14px;
+}
+

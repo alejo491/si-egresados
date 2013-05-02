@@ -1,31 +1,61 @@
-﻿@model AplicacionBase.Models.ViewModels.RoleMethodsViewModel
+﻿@using AplicacionBase.Models
+@model AplicacionBase.Models.ViewModels.RoleMethodsViewModel
 
 @{
 ViewBag.Title = "Asignar roles al usuario";
 }
 
-<h2>Cambiar roles al usuario: <strong><i>@Model.aspnet_Role.RoleName</i></strong></h2>
-
-
-@using (Html.BeginForm(new { id=Model.aspnet_Role.RoleId }))
+<div class="grid">
+    <div class="c12">
+        <h2>Cambiar roles al usuario: <strong><i>@Model.aspnet_Role.RoleName</i></strong></h2>
+    </div>
+    <div class="c12">
+        <div class="c6 first">
+            @using (Html.BeginForm(new {id = Model.aspnet_Role.RoleId}))
 {
-<fieldset>
+    <fieldset>
     <legend>Seleccione los roles del usuario</legend>
     <br/>
+        @{
+        int i = 0;
+        foreach (SecureController secure in ViewBag.ControllerList)
+        {
+            string refacor = "#acc" + i;
+            string idaccor = "acc" + i;
+            @:<div class="accordion controllergroup">   
+            @: <section>
+                @:<a href="@refacor" id="@idaccor">@secure.Name</a>  
+                    @:<p>  
+                        foreach (var category in @Model.MethodChecklist)
+                        {
+                            if (category.Key.FullName.Contains(secure.Name))
+                            {                               
+                                @Html.CheckBox(category.Key.FullName, category.Value) @category.Key.FullName                                                             
+                                @:<br />
+                            }
 
-@foreach (var category in @Model.MethodChecklist)
-{
-@Html.CheckBox(category.Key.Name, category.Value)
-@Html.Label(category.Key.FullName)
-<br />
+                        }
+                        i++;
+                    @:</p> 
+            @:</section>
+            @:</div>
+          }
+        }
+        <br />
+        <p>
+            
+            <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp;
+            @Html.ActionLink("Regresar al listado", "Index", "Home", null, new { @class = "ebutton blue" })
+        </p>
+    </fieldset>
 }
-
-<p>
-    <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp;
-    @Html.ActionLink("Regresar al listado", "Index","Home", null, new {@class="ebutton blue"})
-</p>
-</fieldset>
-}
-<div>
-
+        </div>
+        <div class="c2 last"></div>
+    </div>
+    &nbsp;
 </div>
+
+
+
+
+

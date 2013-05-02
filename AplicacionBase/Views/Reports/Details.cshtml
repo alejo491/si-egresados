@@ -4,27 +4,32 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <fieldset>
-    <legend>Report</legend>
+    <legend>Reporte</legend>
 
-    <div class="display-label">User</div>
+     <div class="display-label">
+        <h3>Usuario</h3>
+    </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.User.PhoneNumber)
+          @ViewBag.nombre
     </div>
 
-    <div class="display-label">Description</div>
+     <div class="display-label">
+        <h3>Descripción</h3>
+    </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 
-    <div class="display-label">ReportDate</div>
+     <div class="display-label">
+        <h3>Fecha Reporte</h3>
+    </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.ReportDate)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>

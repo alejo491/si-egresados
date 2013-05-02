@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Crear</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,38 +12,20 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Report</legend>
+        <legend>Reporte</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdUser, "User")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdUser", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdUser)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
+        <div class="display-label">
+           <h3>Descripción</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ReportDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReportDate)
-            @Html.ValidationMessageFor(model => model.ReportDate)
-        </div>
-
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Crear" class="ebutton2 blue" /> &nbsp;
+            @Html.ActionLink("Regresar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

@@ -4,30 +4,27 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Está seguro de eliminar este reporte?</h3>
 <fieldset>
-    <legend>Report</legend>
+    <legend>Reporte</legend>
 
-    <div class="display-label">User</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.User.PhoneNumber)
+
+
+     <div class="display-label">
+        <h3>Descripción</h3>
     </div>
-
-    <div class="display-label">Description</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 
-    <div class="display-label">ReportDate</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ReportDate)
-    </div>
+    
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Eliminar" class="ebutton2 blue" /> &nbsp;
+        @Html.ActionLink("Regresar", "Index",null, htmlAttributes: new { @class = "ebutton blue" })
+
     </p>
 }

@@ -36,8 +36,8 @@ namespace AplicacionBase
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            //var assembly = new AssemblyHelper();
-            //var result = assembly.GetControllerNames();
+            var assembly = new AssemblyHelper();
+            var result = assembly.GetControllerNames();
             //SecurityConfigurator.Configure(configuration =>
             //{
             //    if (result)
