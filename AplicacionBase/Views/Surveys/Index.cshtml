@@ -48,12 +48,27 @@
                     @Html.DisplayFor(modelItem => item.Aim)
                     @:</td>
                     @:<td>
-                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) @: &nbsp
-                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })  @: &nbsp
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) @: &nbsp
-                    @Html.ActionLink("Agregar temas", "Index", "SurveysTopics", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) @: &nbsp
-                    @Html.ActionLink("Enviar Encuesta General", "Send", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) @: &nbsp
-                    @Html.ActionLink("Enviar Encuesta Especifica", "SendSpecific", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                    <div align="center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) <text>&nbsp;</text>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) <text>&nbsp;</text>
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) <text>&nbsp;</text>
+                        
+                    
+                    <div class="accordion">
+                        @{
+                            string refacor = "#acc" + i;
+                            string idaccor = "acc" + i;
+                        }
+                        <section>
+                            <a href="@refacor" id="@idaccor">Mas opciones</a>
+                            <p>@Html.ActionLink("Agregar temas", "Index", "SurveysTopics", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                                @Html.ActionLink("Enviar Encuesta General", "Send", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                                @Html.ActionLink("Enviar Encuesta Especifica", "SendSpecific", "SendSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })                            </p>
+                        </section>
+                        
+					     
+                    </div>
+                    </div>
                     @:</td>
                     @:</tr>
                     i++;
