@@ -4,79 +4,93 @@
     ViewBag.Title = "Preguntas del Tema " + @ViewBag.Topic.Description;
 }
 
-<h2>Preguntas del Tema <strong><i>@ViewBag.Topic.Description</i></strong></h2>
 
-<div class="alert success">
-    @TempData["Success"]
+<div class="grid">
+    <div class="c12">
+        <h2>Preguntas del Tema <strong><i>@ViewBag.Topic.Description</i></strong></h2>
+        <div class="alert success">
+            @TempData["Success"]
+        </div>
+
+
+        <p>
+            @Html.ActionLink("Crear Pregunta", "Create", new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
+        </p>
+    </div>
+    <div class="c12">
+        <div class="c10 first">              
+            <table>
+                <tr class="head">@*
+                    <th>
+                        Tema
+                    </th>
+                    *@
+                    <th>
+                        Tipo de Pregunta
+                    </th>
+                    <th>
+                        Enunciado de la Pregunta
+                    </th>
+                    <th>
+                        Orden de la Pregunta
+                    </th>
+                    <th>
+                        Es Obligatorio
+                    </th>
+                    <th></th>
+                </tr>
+                @{ int i = 0;}
+
+            @foreach (var item in Model) {
+                if (i%2 == 0)
+                {
+        
+                    @:<tr>
+                }
+                else
+                {
+                    @:<tr class="even">
+                }
+                    @* <td>
+                       @Html.DisplayFor(modelItem => item.Topic.Description) 
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sentence)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionNumber)
+                </td>
+                <td>
+                    @{
+                        Write(item.IsObligatory == 0 ? "No" : "Si");
+                    }
+            
+                    @*  @Html.DisplayFor(modelItem => item.IsObligatory) *@
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+                    @if (item.Type != "Larga" && item.Type != "Corta")
+                    {
+                    @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                    }
+        
+                    @* @Html.ActionLink("Agregar Preguntas", "Create", "Questions", new { id = item.Id }, "") *@
+                </td>
+                @:</tr>
+                i++;
+            }
+            </table>
+        </div>
+        <div class="c2 last">
+            @Html.Partial("_LayoutSideBar")
+        </div>
+    </div>
+    &nbsp;
 </div>
 
 
-<p>
-    @Html.ActionLink("Crear Pregunta", "Create", new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
-</p>
-<table>
-    <tr class="head">@*
-        <th>
-            Tema
-        </th>
-        *@
-        <th>
-            Tipo de Pregunta
-        </th>
-        <th>
-            Enunciado de la Pregunta
-        </th>
-        <th>
-            Orden de la Pregunta
-        </th>
-        <th>
-            Es Obligatorio
-        </th>
-        <th></th>
-    </tr>
-    @{ int i = 0;}
-
-@foreach (var item in Model) {
-    if (i%2 == 0)
-    {
-        
-        @:<tr>
-    }
-    else
-    {
-        @:<tr class="even">
-    }
-        @* <td>
-           @Html.DisplayFor(modelItem => item.Topic.Description) 
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.Type)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Sentence)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.QuestionNumber)
-    </td>
-    <td>
-        @{
-            Write(item.IsObligatory == 0 ? "No" : "Si");
-        }
-            
-        @*  @Html.DisplayFor(modelItem => item.IsObligatory) *@
-    </td>
-    <td>
-        @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-        @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-        @if (item.Type != "Larga" && item.Type != "Corta")
-        {
-        @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-        }
-        
-        @* @Html.ActionLink("Agregar Preguntas", "Create", "Questions", new { id = item.Id }, "") *@
-    </td>
-    @:</tr>
-    i++;
-}
-</table>

@@ -827,3 +827,11 @@ ebutton2:hover, ebutton2:active{
 	background:-webkit-gradient(linear, left top, left bottom, from(#1d3b91), to(#1d3b91));
 	background:-moz-linear-gradient(top, #1d3b91, #1d3b91);
 }
+
+.sidebar {
+    background-color: gray;
+    border-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    
+}

@@ -5,57 +5,70 @@
 }
 
 
-<h2>Opciones de Respuesta de la Pregunta "@ViewBag.Question.Sentence"</h2>
+<div class="grid">
+    <div class="c12">
+        <h2>Opciones de Respuesta de la Pregunta "@ViewBag.Question.Sentence"</h2>
 
-<div class="alert success">
-    @TempData["Success"]
+        <div class="alert success">
+            @TempData["Success"]
+        </div>
+
+        @*<div class="validation-summary-success">@TempData["Success"]</div>*@
+
+        <p>
+            @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { id = ViewBag.Question.Id }, htmlAttributes: new { @class = "ebutton blue" })
+        </p>
+    </div>
+    <div class="c12">
+        <div class="c10 first">
+            
+                <table>
+                    <tr class="head">
+                        <th>
+                            Enunciado
+                        </th>
+                        <th>
+                            Valor Cuantitativo
+                        </th>
+                        <th>
+                           <center>Tipo</center> 
+                        </th>
+                        <th>
+                            Número de Orden 
+                        </th>
+                        <th></th>
+                    </tr>
+
+                @foreach (var item in Model)
+                {
+   
+                    @:<tr class="even">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sentence)
+                        </td>
+                        <td>
+                           @Html.DisplayFor(modelItem => item.NumericValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AnswerNumber)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+                            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp 
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                        </td>
+                    @:</tr>
+    
+                }
+
+                </table>
+
+        </div>
+        <div class="c2 last">@Html.Partial("_LayoutSideBar")</div>
+    </div>
+    &nbsp;
 </div>
 
-@*<div class="validation-summary-success">@TempData["Success"]</div>*@
-
-<p>
-    @Html.ActionLink("Crear Opcion de Respuesta", "Create", new { id = ViewBag.Question.Id }, htmlAttributes: new { @class = "ebutton blue" })
-</p>
-<table>
-    <tr class="head">
-        <th>
-            Enunciado
-        </th>
-        <th>
-            Valor Cuantitativo
-        </th>
-        <th>
-           <center>Tipo</center> 
-        </th>
-        <th>
-            Número de Orden 
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model)
-{
-   
-    @:<tr class="even">
-        <td>
-            @Html.DisplayFor(modelItem => item.Sentence)
-        </td>
-        <td>
-           @Html.DisplayFor(modelItem => item.NumericValue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnswerNumber)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp 
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-        </td>
-    @:</tr>
-    
-}
-
-</table>
