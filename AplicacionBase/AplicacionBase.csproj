@@ -486,6 +486,8 @@
     <Content Include="Views\SecureControllers\Details.cshtml" />
     <Content Include="Views\SecureControllers\Edit.cshtml" />
     <Content Include="Views\SecureControllers\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutIframe.cshtml" />
+    <Content Include="Views\Shared\_LayoutSideBar.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

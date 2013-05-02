@@ -6,52 +6,57 @@
 
 <div class="grid">
     <div class="c12 first">
-    <h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>  
+        <h2>Temas asociado a la encuesta <strong><i>@ViewBag.Encuesta.Name</i></strong></></h2>  
         <div class="alert success">
             @TempData["Success"]
         </div>
         <p>
-            @Html.ActionLink("Asociar nuevo tema", "Create", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
-            @Html.ActionLink("Crear nuevo tema", "Create","Topic", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
-        </p>
-        <table>
-            <tr>       
-                <th>
-                    Tema
-                </th>
-                <th>
-                    Numero de tema
-                </th>
-                <th>
-                    Acciones
-                </th>
-            </tr>
-            @{ int i = 0;}
-            @foreach (var item in Model)
-            {
-                if (i%2 == 0)
-                {
-		
-                    @:<tr>
-                }
-                else
-                {
-                    @:<tr class="even">
-                }
-                <td>
-                    @Html.DisplayFor(modelItem => item.Topic.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TopicNumber)
-                </td>
-                <td>
-                    @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
-                    @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
-                     @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
-                </td>
-                @:</tr>
-                i++;
-            }
-        </table>
+                @Html.ActionLink("Asociar nuevo tema", "Create", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink("Crear nuevo tema", "Create","Topic", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
+            </p>
     </div>
+    <div class="c12 first">
+        <div class="c11 first"><table>
+                                   <tr>       
+                                       <th>
+                                           Tema
+                                       </th>
+                                       <th>
+                                           Numero de tema
+                                       </th>
+                                       <th>
+                                           Acciones
+                                       </th>
+                                   </tr>
+                                   @{ int i = 0;}
+                                   @foreach (var item in Model)
+                                   {
+                                       if (i%2 == 0)
+                                       {
+		
+                                           @:<tr>
+                                       }
+                                       else
+                                       {
+                                           @:<tr class="even">
+                                       }
+                                       <td>
+                                           @Html.DisplayFor(modelItem => item.Topic.Description)
+                                       </td>
+                                       <td>
+                                           @Html.DisplayFor(modelItem => item.TopicNumber)
+                                       </td>
+                                       <td>
+                                           @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+                                           @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
+                                           @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
+                                       </td>
+                                       @:</tr>
+                                       i++;
+                                   }
+                               </table></div>
+        <div class="c1 last"> @Html.Partial("_LayoutSideBar")</div>
+    </div>
+    &nbsp;
 </div>
+   
