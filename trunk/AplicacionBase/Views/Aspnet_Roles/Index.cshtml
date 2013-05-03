@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AplicacionBase.Models.aspnet_Roles>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Listar Roles</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Rol", "Create","", htmlAttributes: new { @class = "ebutton blue" })
+</p>
+<table>
+    <tr>
+       
+        <th>
+            Nombre del Rol
+        </th>
+        <th>
+            Nombre del rol abreviado
+        </th>
+        <th>
+            Descripciòn
+        </th>
+        <th>
+            Acciones
+        </th>
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.RoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoweredRoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" })
+        </td>
+    </tr>
+}
+
+</table>

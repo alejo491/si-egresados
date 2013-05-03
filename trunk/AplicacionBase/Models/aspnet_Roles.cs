@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AplicacionBase.Models
 {
@@ -14,8 +15,16 @@ namespace AplicacionBase.Models
 
         public System.Guid ApplicationId { get; set; }
         public System.Guid RoleId { get; set; }
+        [Display(Name = "Nombre del Rol")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public string RoleName { get; set; }
+
+        [Display(Name = "Nombre del Rol Abreviado")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public string LoweredRoleName { get; set; }
+
+        [Display(Name = "Descripciòn")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public string Description { get; set; }
         public virtual aspnet_Applications aspnet_Applications { get; set; }
         public virtual ICollection<aspnet_UsersInRoles> aspnet_UsersInRoles { get; set; }

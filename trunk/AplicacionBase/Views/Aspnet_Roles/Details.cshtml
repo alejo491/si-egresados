@@ -1,0 +1,42 @@
+﻿@model AplicacionBase.Models.aspnet_Roles
+
+@{
+    ViewBag.Title = "Detalles Rol";
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend>Rol</legend>
+
+    
+    <div class="display-field">
+        @Html.HiddenFor(model => model.aspnet_Applications.ApplicationName)
+    </div>
+
+   
+    <div class="display-field">
+        @Html.HiddenFor(model => model.RoleId)
+    </div>
+
+    <div class="display-label">Nombre del Rol</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoleName)
+    </div>
+
+    <div class="display-label">Nombre del Rol Abreviado</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LoweredRoleName)
+    </div>
+
+    <div class="display-label">Descripciòn</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <div class="display-label"></div>
+    <div class="display-label"></div>
+    <div class="display-label"></div>
+    <div class="display-label"></div>
+    @Html.ActionLink("Editar", "Edit", new { id =  Model.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = Model.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) 
+</fieldset>
+
