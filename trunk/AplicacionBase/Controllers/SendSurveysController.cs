@@ -809,7 +809,7 @@ namespace AplicacionBase.Controllers
 
                 switch (variable)
                 {
-                    case "FirstNames":
+                    case "txtDestinatario":
                         if (k == "")
                         {
                             TempData["ErrorD"] = "¡Es Obligatorio Seleccionar un Destinatario!";
@@ -897,11 +897,10 @@ namespace AplicacionBase.Controllers
 
             if (continuar)
             {
-                var usuario = db.Users.Where(u => u.FirstNames == nombreCompleto);
+                var usuario = db.Users.Where(u => u.FirstNames + " " + u.LastNames == nombreCompleto);
                 foreach (var user in usuario)
                 {
                     var idUsuario = user.Id;
-                    nombreCompleto = nombreCompleto + " " + user.LastNames;
                     var memberShip = db.aspnet_Membership.Find(idUsuario);
                     selected.Add(memberShip.Email, nombreCompleto);
                 }
@@ -917,13 +916,12 @@ namespace AplicacionBase.Controllers
             
         }
 
-        [HttpPost]
-        public JsonResult BuscarPorNombre(string words)
+        public ActionResult Autocomplete(string term)
         {
-            var suggestions = from u in db.Users select u.FirstNames;
-            var namelist = suggestions.Where(u => u.ToLower().StartsWith(words.ToLower()));
-            return Json(namelist, JsonRequestBehavior.AllowGet);
+            var items = (from u in db.Users select u.FirstNames + " " + u.LastNames).ToArray();
+            var filteredItems = items.Where(
+                item => item.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
+            return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

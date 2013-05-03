@@ -1,16 +1,17 @@
-﻿@model AplicacionBase.Models.User
-
-@{
+﻿@{
     ViewBag.Title = "Enviar Encuesta Específica";
 }
 
-<script type="text/javascript" language="javascript">
-    $("#nombre").autocomplete({
-        source: "/SendSurveysController/BuscarPorNombre",
-        minLength: 1
-    });
-</script>
-
+<script type="text/css" src="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" language="javascript"> 
+    $(document).ready(function () {
+        $('#txtDestinatario').autocomplete({ 
+            source: '@Url.Action("Autocomplete")' 
+        }); 
+    }) 
+    </script>
 <h2>Enviar Encuesta Específica</h2>
 
 @using (Html.BeginForm())
@@ -18,11 +19,14 @@
 	<fieldset>
         <div class="c12 first">
             <div class="c11 first">
+                <div class="ui-widget"></div>
                 <div class="editor-label">
                     Para:
                 </div>
                 <div class="editor-field">
-                    @Html.TextBoxFor(model => model.FirstNames, new { @id = "nombre", @Name = "FirstNames", style = "width:300px" })
+                    <div class="ui-widget">
+                        <input type="text" name="txtDestinatario" id="txtDestinatario" style = "width:400px" />
+                    </div>
                 </div>
                 @if (TempData["ErrorD"] != "")
                 {
