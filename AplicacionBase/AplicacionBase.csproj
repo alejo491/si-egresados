@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswerChoicesController.cs" />
+    <Compile Include="Controllers\Aspnet_RolesController.cs" />
     <Compile Include="Controllers\AssemblyHelper.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ElectiveController.cs" />
@@ -484,6 +485,11 @@
     <Content Include="Views\Reports\Details.cshtml" />
     <Content Include="Views\Reports\Edit.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Aspnet_Roles\Create.cshtml" />
+    <Content Include="Views\Aspnet_Roles\Delete.cshtml" />
+    <Content Include="Views\Aspnet_Roles\Details.cshtml" />
+    <Content Include="Views\Aspnet_Roles\Edit.cshtml" />
+    <Content Include="Views\Aspnet_Roles\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

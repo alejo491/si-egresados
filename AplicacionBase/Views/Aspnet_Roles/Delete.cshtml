@@ -1,0 +1,48 @@
+﻿@model AplicacionBase.Models.aspnet_Roles
+
+@{
+    ViewBag.Title = "Eliminar Rol";
+}
+
+<h2>Eliminar Rol</h2>
+
+<h3>Esta seguro que desea eliminar este Rol?</h3>
+<fieldset>
+    <legend>Rol</legend>
+
+   
+    <div class="display-field">
+        @Html.HiddenFor(model => model.aspnet_Applications.ApplicationName)
+    </div>
+
+  
+    <div class="display-field">
+        @Html.HiddenFor(model => model.RoleId)
+    </div>
+
+    <div class="display-label">Nombre del Rol</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RoleName)
+    </div>
+
+    <div class="display-label">Nombre del Rol abreviado</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LoweredRoleName)
+    </div>
+
+    <div class="display-label">Descripciòn</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <div class="display-label"></div>
+    <div class="display-label"></div>
+    <div class="display-label"></div>
+
+    @using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" class = "ebutton blue"/> |
+        @Html.ActionLink("Regresar al Listado", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+    </p>
+}
+
+</fieldset>
