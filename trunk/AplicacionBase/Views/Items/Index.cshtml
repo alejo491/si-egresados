@@ -55,14 +55,23 @@
                     @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }   , htmlAttributes: new { @class = "ebutton blue" }) &nbsp
 
                 </td>
+
             </tr>
         }
 
         </table>
-
+        <br />
     	</div>
     	<div class="c3 last" id=”layout”>@Html.Partial("_LayoutReports")</div>
 	</div>
+
+    <br />
+       <br />
+                 <p>
+                    @Html.ActionLink("Regresar", "Index","Reports", null, htmlAttributes: new { @class = "ebutton blue" })
+
+                </p>
+
 	&nbsp;
 </div>
 

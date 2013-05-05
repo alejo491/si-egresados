@@ -30,6 +30,9 @@ namespace AplicacionBase.Controllers
         {
             Report report = db.Reports.Find(id);
             var user = db.Users.Find(report.IdUser);
+
+           // ViewBag.Re = id;
+
             ViewBag.nombre = user.FirstNames + " " + user.LastNames;
 
             return View(report);
