@@ -3,11 +3,15 @@
     ViewBag.Title = "Create";
     //Layout = "~/Views/Shared/_LayoutIframe.cshtml";
 }
+
 <div class="grid">
-    <h2>
+	<div class="c12">
+    		<h2>
         Crear Encuesta</h2>
-    <div class="grid">
-        @using (Html.BeginForm())
+	</div>
+	<div class="c12">
+    	<div class="c9 first" id=”contenido”>
+        	@using (Html.BeginForm())
         {
             @Html.ValidationSummary(true)
             <fieldset>
@@ -45,6 +49,12 @@
             </fieldset>
 
         }
-
-    </div>
+    	</div>
+    	<div class="c3 last" id=”layout”>@Html.Partial("_LayoutSideBar")</div>
+	</div>
+	&nbsp;
 </div>
+
+
+
+

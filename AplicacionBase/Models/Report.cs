@@ -15,6 +15,7 @@ namespace AplicacionBase.Models
         public System.Guid IdUser { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public string Description { get; set; }
 
         public System.DateTime ReportDate { get; set; }
