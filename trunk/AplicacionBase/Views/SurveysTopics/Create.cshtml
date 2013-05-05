@@ -4,10 +4,19 @@
 	ViewBag.Title = "Asociar un tema";
 }
 
-<div class="c9">
+<div class="grid">
 
-<h2>Asociar un tema a la encuesta <strong><i>@ViewBag.survey.Name</i></strong></h2> <br />
-@using (Html.BeginForm()) {
+    <div class="c12">
+
+           <h2>Asociar un tema a la encuesta <strong><i>@ViewBag.survey.Name</i></strong></h2> 
+
+    </div>
+
+    <div class="c12">
+
+       <div class="c9 first" id=”contenido”>
+
+           @using (Html.BeginForm()) {
 	@Html.ValidationSummary(true)
 	<fieldset>
 		<div class="editor-label">
@@ -42,5 +51,13 @@
 	            
 	</fieldset>
 }
-<br/>
+
+       </div>
+
+       <div class="c3 last" id=”layout”>@Html.Partial("_LayoutSideBar")</div>
+
+    </div>
+
+    &nbsp;
 </div>
+
