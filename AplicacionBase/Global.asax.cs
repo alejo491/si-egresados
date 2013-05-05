@@ -38,39 +38,88 @@ namespace AplicacionBase
 
         protected void Application_Start()
         {
+
+
+            ////Cargar todos los controladores y metodos automaticamente, no se cargan los metodos si ya estan en la base de datos.
+            //#region Cargar controladores
+            //var assembly = new AssemblyHelper();
+            //var result = assembly.GetControllerNames();
+            //#endregion
+
+            //#region Reglas de seguridad
+            ////Reglas de configuración
+            //SecurityConfigurator.Configure(configuration =>
+            //{
+            //    if (result)
+            //    {
+            //        //Se le dice a la aplicacion de donde sacar el estado del usuario y los roles que tiene
+            //        configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
+            //        configuration.GetRolesFrom(Roles.GetRolesForUser);
+
+            //        //Reglas de configruacion para controladores
+
+            //        #region Reglas del Home Controller
+            //            //Configuracion para el controlador de Home
+            //            configuration.For<HomeController>().Ignore();
+            //            configuration.For<VerifyController>().Ignore();
+            //            configuration.For<AccountController>().Ignore();
+
+            //        #endregion
+     
+            //        //****************************************************************************************************//
+            //        //*********************¡AQUI VAN TODAS LAS REGLAS QUE SE VAN A AGREGAR! *******************************//
+            //        //****************************************************************************************************//
+
+            //        #region Reglas de configuracion por cada controlador
+
+            //        //************Configuracion para el controlador de encuestas.********************
+
+            //            #region Reglas del controlador Surveys   
+            //                //Se obtienen los roles que tienen acceso al controlador Surveys y a los metodos de este controlador
+            //                string[] rolesSurveysIndex = assembly.GetRolesMethods("SurveysController", "Index");
+            //                var rolesSurveysCreate = assembly.GetRolesMethods("SurveysController", "Create");
+            //                var rolesSurveysEdit = assembly.GetRolesMethods("SurveysController", "Edit");
+            //                var rolesSurveysDelete = assembly.GetRolesMethods("SurveysController", "Delete");
+            //                var rolesSurveysDeleteConfirmed = assembly.GetRolesMethods("SurveysController", "DeleteConfirmed");
+            //                var rolesSurveysDetails = assembly.GetRolesMethods("SurveysController", "Detail");
+
+
+            //                //Se configuran las reglas de acceso para el controlador surveys.
+            //                configuration.For<SurveysController>(x => x.Index())
+            //                             .RequireAnyRole(rolesSurveysIndex);
+
+            //                configuration.For<SurveysController>(x => x.Create())
+            //                             .RequireAnyRole(rolesSurveysCreate);
+
+            //                configuration.For<SurveysController>(x => x.Edit(default(Guid)))
+            //                             .RequireAnyRole(rolesSurveysEdit);
+
+            //                configuration.For<SurveysController>(x => x.Delete(default(Guid)))
+            //                             .RequireAnyRole(rolesSurveysDelete);
+
+            //                configuration.For<SurveysController>(x => x.DeleteConfirmed(default(Guid)))
+            //                              .RequireAnyRole(rolesSurveysDeleteConfirmed);
+
+            //                configuration.For<SurveysController>(x => x.Details(default(Guid)))
+            //                              .RequireAnyRole(rolesSurveysDetails);
+
+            //            #endregion
+                        
+            //        #endregion
+
+            //        //****************************************************************************************************//
+            //        //****************************************************************************************************//
+            //        //****************************************************************************************************//
+            //    }
+
+
+
+            //});
+            //#endregion
             
-            /*var assembly = new AssemblyHelper();
-            var result = assembly.GetControllerNames();
-            SecurityConfigurator.Configure(configuration =>
-            {
-                if (result)
-                {
-                    configuration.GetAuthenticationStatusFrom(() => HttpContext.Current.User.Identity.IsAuthenticated);
-                    configuration.GetRolesFrom(Roles.GetRolesForUser);
-                    configuration.For<HomeController>(x => x.Index())
-                                 .RequireRole(assembly.GetRolesMethods("HomeController", "Index"));
-                    configuration.For<VerifyController>().Ignore();
-                    configuration.For<AccountController>().Ignore();
-                    configuration.For<UserController>().Ignore();
-                    configuration.For<UsersRolesController>().Ignore();
-                    var rolesAssign = assembly.GetRolesMethods("RoleMethodsController", "AssignRolesMethods");
-                    if (rolesAssign.Length > 0)
-                    {
-                        configuration.For<RoleMethodsController>(x => x.AssignRolesMethods(Guid.NewGuid()))
-                                     .RequireRole(rolesAssign);
-                    }
-                    else
-                    {
-                        configuration.For<RoleMethodsController>(x => x.AssignRolesMethods(Guid.NewGuid()))
-                                     .Ignore();
-                    }
-                }
-
-
-
-            });
             
-            GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);*/
+            ////Se añaden las reglas
+            //GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
             //GlobalFilters.Filters.Add(new DenyAnonymousAccessPolicyViolationHandler());
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
@@ -78,4 +127,5 @@ namespace AplicacionBase
 
         }
     }
+
 }
