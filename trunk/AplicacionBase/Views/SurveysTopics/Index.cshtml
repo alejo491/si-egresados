@@ -17,46 +17,47 @@
     </div>
     <div class="c12 first">
         <div class="c9 first"><table>
-                                   <tr>       
-                                       <th>
-                                           Tema
-                                       </th>
-                                       <th>
-                                           Numero de tema
-                                       </th>
-                                       <th>
-                                           Acciones
-                                       </th>
-                                   </tr>
-                                   @{ int i = 0;}
-                                   @foreach (var item in Model)
-                                   {
-                                       if (i%2 == 0)
-                                       {
+                                  <tr>       
+                                      <th>
+                                          Tema
+                                      </th>
+                                      <th>
+                                          Numero de tema
+                                      </th>
+                                      <th>
+                                          Acciones
+                                      </th>
+                                  </tr>
+                                  @{ int i = 0;}
+                                  @foreach (var item in Model)
+                                  {
+                                      if (i%2 == 0)
+                                      {
 		
-                                           @:<tr>
-                                       }
-                                       else
-                                       {
-                                           @:<tr class="even">
-                                       }
-                                       <td>
-                                           @Html.DisplayFor(modelItem => item.Topic.Description)
-                                       </td>
-                                       <td>
-                                           @Html.DisplayFor(modelItem => item.TopicNumber)
-                                       </td>
-                                       <td>
-                                           @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
-                                           @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
-                                           @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
-                                       </td>
-                                       @:</tr>
-                                       i++;
-                                   }
-                               </table></div>
+                                          @:<tr>
+                                      }
+                                      else
+                                      {
+                                          @:<tr class="even">
+                                      }
+                                      <td>
+                                          @Html.DisplayFor(modelItem => item.Topic.Description)
+                                      </td>
+                                      <td>
+                                          @Html.DisplayFor(modelItem => item.TopicNumber)
+                                      </td>
+                                      <td>
+                                          @Html.ActionLink("Editar", "Edit", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+                                          @Html.ActionLink("Borrar", "Delete", new { ids = item.IdSurveys, idt = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
+                                          @Html.ActionLink("Crear Preguntas", "Index", "Questions", new { id = item.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
+                                      </td>
+                                      @:</tr>
+                                      i++;
+                                  }
+                              </table></div>
         <div class="c3 last"> @Html.Partial("_LayoutSideBar")</div>
     </div>
+    @Html.ActionLink("Volver al listado de encuestas", "Index", "Surveys",null, htmlAttributes: new { @class = "ebutton blue" })
     &nbsp;
 </div>
    

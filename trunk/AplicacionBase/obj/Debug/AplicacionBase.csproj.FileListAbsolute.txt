@@ -195,3 +195,14 @@ C:\Users\AndresFelipe\Documents\Envios\v85\AplicacionBase\bin\MvcSiteMapProvider
 C:\Users\AndresFelipe\Documents\Envios\v85\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\AndresFelipe\Documents\Envios\v85\AplicacionBase\obj\Debug\AplicacionBase.pdb
 C:\Users\AndresFelipe\Documents\Envios\v85\AplicacionBase\bin\FluentSecurity.dll
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\EntityFramework.dll
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\FluentSecurity.dll
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\EntityFramework.xml
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\bin\Newtonsoft.Json.xml
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\AndresFelipe\Documents\Envios\v86\AplicacionBase\obj\Debug\AplicacionBase.pdb
