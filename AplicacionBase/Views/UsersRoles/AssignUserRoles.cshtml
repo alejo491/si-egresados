@@ -4,10 +4,14 @@
 ViewBag.Title = "Asignar roles al usuario";
 }
 
-<h2>Cambiar roles al usuario: <strong><i>@Model.aspnet_User.UserName</i></strong></h2>
 
-
-@using (Html.BeginForm(new { id=Model.aspnet_User.UserId }))
+<div class="grid">
+    <div class="c12">
+       <h2>Cambiar roles al usuario: <strong><i>@Model.aspnet_User.UserName</i></strong></h2>
+    </div>
+    <div class="c12">
+        <div class="c9 first">
+            @using (Html.BeginForm(new { id=Model.aspnet_User.UserId }))
 {
 <fieldset>
     <legend>Seleccione los roles del usuario</legend>
@@ -15,17 +19,24 @@ ViewBag.Title = "Asignar roles al usuario";
 
 @foreach (var category in @Model.aspnet_RolesChecklist)
 {
-@Html.CheckBox(category.Key.RoleName, category.Value)
-@Html.Label(category.Key.RoleName)
-<br />
+    <div class="c12">
+        <div class="c1 first">@Html.CheckBox(category.Key.RoleName, category.Value)</div>
+        <div class="c11 last"> @Html.Label(category.Key.RoleName)</div>
+    </div>
+    <br />
+    
 }
-
+    <br />
+    <br />
 <p>
     <input type="submit" value="Guardar" class="ebutton2 blue"/> &nbsp;
-    @Html.ActionLink("Regresar al listado", "Index","Home", null, new {@class="ebutton blue"})
+    @Html.ActionLink("Regresar al listado", "Index", "User", null, new { @class = "ebutton blue" })
 </p>
 </fieldset>
 }
-<div>
-
+        </div>
+        <div class="c3 last">@Html.Partial("_LayoutSeguridad")</div>
+    </div>
+    &nbsp;
 </div>
+

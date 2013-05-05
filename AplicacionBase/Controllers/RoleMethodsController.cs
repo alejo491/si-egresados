@@ -29,7 +29,8 @@ namespace AplicacionBase.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                
+                return RedirectToAction("Index", "Aspnet_Roles");
             }
 
         }
@@ -48,7 +49,8 @@ namespace AplicacionBase.Controllers
             }
             ReassignMethod(aspnet_Role, MethodToAdd);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            TempData["Success"] = "Se ha han cambiado los permisos correctamente";
+            return RedirectToAction("Index", "Aspnet_Roles");
         }
 
         

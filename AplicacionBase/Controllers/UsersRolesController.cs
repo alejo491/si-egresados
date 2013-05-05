@@ -14,11 +14,6 @@ namespace AplicacionBase.Controllers
         // GET: /UsersRoles/
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult AssignUserRoles(Guid id)
         {
             var aspnet_User = db.aspnet_Users.Find(id);
@@ -30,7 +25,7 @@ namespace AplicacionBase.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "User");
             }
 
         }
@@ -49,7 +44,8 @@ namespace AplicacionBase.Controllers
             }
             Reassignaspnet_Roles(aspnet_User, aspnet_RolesToAdd);
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            TempData["Success"] = "Se han asignado los roles al usuario correctamente";
+            return RedirectToAction("Index", "User");
         }
 
         
