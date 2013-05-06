@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Detalles de la Pregunta, perteneciente al Tema " + @ViewBag.Topic.Description;
+
+    if (ViewBag.WizardStep != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <h2>Detalles Pregunta, perteneciente al Tema <strong> <i> @ViewBag.Topic.Description </i></strong></h2>

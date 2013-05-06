@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Eliminar Pregunta " + @ViewBag.Topic.Description;
+
+    if (ViewBag.WizardStep != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <h2>Eliminar Pregunta del Tema  <strong> <i> @ViewBag.Topic.Description </i></strong></h2>
