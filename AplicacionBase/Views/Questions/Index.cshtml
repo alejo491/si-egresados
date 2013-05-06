@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Preguntas del Tema " + @ViewBag.Topic.Description;
+
+    if (ViewBag.WizardStep != 0)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 
@@ -15,6 +20,7 @@
 
         <p>
             @Html.ActionLink("Crear Pregunta", "Create", new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
+            @Html.ActionLink("Regresar a Temas", "Index", "Topic", new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
         </p>
     </div>
     <div class="c12">

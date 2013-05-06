@@ -45,6 +45,7 @@ namespace AplicacionBase.Controllers
             ViewBag.Seleccionado6 = false;
             ViewBag.FechaDesde = "";
             ViewBag.FechaHasta = "";
+            ViewBag.idSurvey = id;
             re = new Regex("^(0?[1-9]|1[0-9]|2|2[0-9]|3[0-1])/(0?[1-9]|1[0-2])/(d{2}|d{4})$");
 
             return View();
@@ -54,6 +55,7 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Send(Guid id, FormCollection form)
         {
+            ViewBag.idSurvey = id;
             var selected= new Dictionary<string,string>();
             idObtenido = id;
             continuar = false;

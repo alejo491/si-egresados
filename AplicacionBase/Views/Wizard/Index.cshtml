@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+    var temporal = ViewBag.ActualStep + 1;
+    var anterior = ViewBag.ActualStep - 1;
+}
+<script type="text/javascript" language="JavaScript">
+<!--
+    function autoResize(id) {
+        var newheight;
+
+
+
+        if (document.getElementById(id)) {
+            newheight = document.getElementById(id).contentWindow.document.body.scrollHeight;
+
+
+        }
+
+        document.getElementById(id).height = newheight + "px";
+
+    }
+//-->
+</script>
+<div>
+    <div style="padding-top: 20px">
+        <br />
+        <br />
+        @if (anterior >= 0)
+        {
+            <a href="/Wizard/Index?actualStep=@anterior" class="ebutton2 blue">Anterior</a> 
+        }
+        <a href="/Wizard/Index?actualStep=@temporal" class="ebutton2 blue">Siguiente</a>
+    </div>
+    <div style="padding-top: 20px">
+        <iframe id="wizardConteiner" src="@ViewBag.ActualRoute" style="width: 100%; border: 0px;" onload="autoResize('wizardConteiner')">
+        </iframe>
+    </div>
+</div>
