@@ -128,5 +128,16 @@ namespace AplicacionBase.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        
+        public ActionResult Search(string criteria)
+        {
+            string texto = criteria.ToLower().Trim();
+            var vacancies = db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
+                v.ProfessionalProfile.Contains(criteria));
+            ;
+            return View(vacancies.ToList());
+
+        }
     }
 }

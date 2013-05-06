@@ -133,6 +133,7 @@
       <mvcSiteMapNode title="Crear" controller="Vacancies" action="Create"/>
       <mvcSiteMapNode title="Editar" controller="Vacancies" action="Edit"/>
       <mvcSiteMapNode title="Eliminar" controller="Vacancies" action="Delete"/>
+      <mvcSiteMapNode title="Buscar" controller="Vacancies" action="Search"/>
     </mvcSiteMapNode>
 
   </mvcSiteMapNode>
