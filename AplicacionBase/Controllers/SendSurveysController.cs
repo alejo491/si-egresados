@@ -764,11 +764,12 @@ namespace AplicacionBase.Controllers
             var message = (string)TempData["message"];
             var subject = (string)TempData["subject"];
             var title = (string)TempData["title"];
+			var id = (Guid)TempData["id"];
 
 
 
             foreach (string item in recipients.Keys) {
-                var url = Url.Action("Fill", "FillSurvey", new { id = (Guid)TempData["id"] , item });
+                var url = Url.Action("Fill", "FillSurvey", new { id , email = item });
                 var body = SendSurveysEmailController.PopulateBody(recipients[item], title, url, message);
                 SendSurveysEmailController.SendHtmlFormattedEmail(item, subject, body);
             }
