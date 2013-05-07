@@ -49,26 +49,26 @@
         </div>
 
         <div class="editor-label">
-            Fecha de Publicación
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PublicationDate)
-            @Html.ValidationMessageFor(model => model.PublicationDate)
-        </div>
-
-        <div class="editor-label">
             Fecha de Cierre
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ClosingDate)
+            @Html.TextBoxFor(model => model.ClosingDate, new { id = "closingdate" })
             @Html.ValidationMessageFor(model => model.ClosingDate)
         </div>
+
+       
+
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  $("#closingdate").datepicker({ dateFormat: 'dd/mm/yy' });
+              });
+        </script>
 
         <div class="editor-label">
             Número de Vacantes
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.VacanciesNumber)
+            @Html.TextAreaFor(model => model.VacanciesNumber)
             @Html.ValidationMessageFor(model => model.VacanciesNumber)
         </div>
 

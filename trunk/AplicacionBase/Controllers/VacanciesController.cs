@@ -20,7 +20,7 @@ namespace AplicacionBase.Controllers
         public ViewResult Index()
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
-            return View(vacancies.ToList());
+            return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
 
         //
@@ -81,7 +81,7 @@ namespace AplicacionBase.Controllers
         {
             Vacancy vacancy = db.Vacancies.Find(id);
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
+           // ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
             return View(vacancy);
         }
 
@@ -98,7 +98,7 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
+         //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
             return View(vacancy);
         }
 
@@ -136,7 +136,7 @@ namespace AplicacionBase.Controllers
             var vacancies = db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
                 v.ProfessionalProfile.Contains(criteria));
             ;
-            return View(vacancies.ToList());
+            return View(vacancies.ToList().OrderByDescending(c => c.PublicationDate));
 
         }
     }
