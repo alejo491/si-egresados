@@ -24,6 +24,7 @@ namespace AplicacionBase.Controllers
         */
         public ActionResult Index(Guid? id)
         {
+           
             if (id != Guid.Empty && id != null)
             {
 
@@ -65,6 +66,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create(Guid? id)
         {
+
             if (id != Guid.Empty && id != null)
             {
                 var auxTopic = (Topic)db.Topics.Find(id);
@@ -98,6 +100,7 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Guid? id, Question question)
         {
+          
             if (ModelState.IsValid)
             {
                 question.Id = Guid.NewGuid();
@@ -165,6 +168,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Edit(Guid? idT, Guid? idQ)
         {
+         
             if (idT != Guid.Empty && idT != null && idQ != Guid.Empty && idQ != null)
             {
                 Question question = db.Questions.Find(idQ);
@@ -246,6 +250,7 @@ namespace AplicacionBase.Controllers
  
         public ActionResult Delete(Guid id)
         {
+           
             Question question = db.Questions.Find(id);
             if (question != null)
             {
@@ -261,7 +266,7 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             Question question = db.Questions.Find(id);
             var auxTopic = db.Topics.Find(question.IdTopic);
             ViewBag.Topic = auxTopic;

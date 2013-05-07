@@ -25,11 +25,20 @@
     <div style="padding-top: 20px">
         <br />
         <br />
-        @if (anterior >= 0)
+        @* @if (anterior >= 0)
         {
             <a href="/Wizard/Index?actualStep=@anterior" class="ebutton2 blue">Anterior</a> 
         }
-        <a href="/Wizard/Index?actualStep=@temporal" class="ebutton2 blue">Siguiente</a>
+        *@
+        <a href="/Wizard/Index?actualStep=@temporal" class="ebutton2 blue">Omitir</a>
+        @if (temporal < 3)
+        {
+            <a href="/Wizard/Index?actualStep=@temporal" class="ebutton2 blue">Siguiente</a>
+        }
+        else
+        {
+        <a href="/Wizard/Index?actualStep=@temporal" class="ebutton2 blue">Finalizar</a>
+        }
     </div>
     <div style="padding-top: 20px">
         <iframe id="wizardConteiner" src="@ViewBag.ActualRoute" style="width: 100%; border: 0px;" onload="autoResize('wizardConteiner')">

@@ -217,3 +217,11 @@ C:\Users\AndresFelipe\Documents\Envios\v89\AplicacionBase\bin\Newtonsoft.Json.xm
 C:\Users\AndresFelipe\Documents\Envios\v89\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\AndresFelipe\Documents\Envios\v89\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\AndresFelipe\Documents\Envios\v89\AplicacionBase\obj\Debug\AplicacionBase.pdb
+D:\01-2013\Proyecto 2\App\AplicacionBase\bin\AplicacionBase.dll
+D:\01-2013\Proyecto 2\App\AplicacionBase\bin\AplicacionBase.pdb
+D:\01-2013\Proyecto 2\App\AplicacionBase\bin\EntityFramework.dll
+D:\01-2013\Proyecto 2\App\AplicacionBase\bin\MvcSiteMapProvider.dll
+D:\01-2013\Proyecto 2\App\AplicacionBase\bin\EntityFramework.xml
+D:\01-2013\Proyecto 2\App\AplicacionBase\bin\MvcSiteMapProvider.xml
+D:\01-2013\Proyecto 2\App\AplicacionBase\obj\Debug\AplicacionBase.dll
+D:\01-2013\Proyecto 2\App\AplicacionBase\obj\Debug\AplicacionBase.pdb

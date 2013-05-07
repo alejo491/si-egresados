@@ -126,6 +126,13 @@ namespace AplicacionBase
             RegisterRoutes(RouteTable.Routes);
 
         }
+
+        /*Lineas Necesarias, para Administrar el Wizard*/
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session["Wizard"] = "0";
+            Session["Wizard1"] = "0";
+        }
     }
 
 }
