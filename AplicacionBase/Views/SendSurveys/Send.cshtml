@@ -28,7 +28,6 @@
 
     <div class="c12">
         <div class="c9 first" id="contenido">
-            <div class="grid">
                 @using (Html.BeginForm())
                 {
                     <fieldset>
@@ -169,11 +168,8 @@
                         </div>
                     </fieldset>
                 }
-            </div>
-        </div>
-        <div class="c3 last">
-            @Html.Partial("_LayoutSideBar")
-        </div>
-        &nbsp;
+         </div>
+                <div class="c3 last" id="layout">@Html.Partial("_LayoutSideBar")</div>
     </div>
+    &nbsp;
 </div>

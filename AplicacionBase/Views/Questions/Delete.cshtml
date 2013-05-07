@@ -2,19 +2,22 @@
 
 @{
     ViewBag.Title = "Eliminar Pregunta " + @ViewBag.Topic.Description;
-
-    if (ViewBag.WizardStep != 0)
+    if ((string)Session["Wizard"] != "0")
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        Session["Wizard"] = "0";
     }
 }
-
+<div class="grid">
+    <div class="c12">
 <h2>Eliminar Pregunta del Tema  <strong> <i> @ViewBag.Topic.Description </i></strong></h2>
-
+ </div>
+    <div class="c12">
+        <div class="c9 first" id="contenido">    
 <h3>¿Está Seguro de Eliminarlo?</h3>
 <fieldset>
-    <legend>Pregunta</legend>
-    @*
+    @*<legend>Pregunta</legend>
+    
     <div class="display-label">Topic</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Topic.Description)
@@ -50,3 +53,8 @@
         <input type="submit" value="Borrar Pregunta" class="ebutton2 blue"/> &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }
+        </div>
+        <div class="c3 last" id="layout">@Html.Partial("_LayoutSideBar")</div>
+    </div>
+&nbsp;
+</div>

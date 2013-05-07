@@ -2,15 +2,18 @@
 
 @{
     ViewBag.Title = "Detalles de la Pregunta, perteneciente al Tema " + @ViewBag.Topic.Description;
-
-    if (ViewBag.WizardStep != 0)
+    if ((string)Session["Wizard"] != "0")
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        Session["Wizard"] = "0";
     }
 }
-
-<h2>Detalles Pregunta, perteneciente al Tema <strong> <i> @ViewBag.Topic.Description </i></strong></h2>
-
+<div class="grid">
+    <div class="c12">
+        <h2>Detalles Pregunta, perteneciente al Tema <strong> <i> @ViewBag.Topic.Description </i></strong></h2>
+    </div>
+<div class="c12">
+        <div class="c9 first" id="contenido">   
 <fieldset>
     <legend>Pregunta</legend>
     @*
@@ -47,3 +50,8 @@
     
     @Html.ActionLink("Editar", "Edit", new { idT = Model.IdTopic, idQ = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = ViewBag.Topic.Id }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
+</div>
+<div class="c3 last" id="layout">@Html.Partial("_LayoutSideBar")</div>
+</div>
+&nbsp;
+</div>

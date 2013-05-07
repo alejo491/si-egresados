@@ -8,5 +8,7 @@ namespace AplicacionBase.Controllers
 {
     public class WizardDbController
     {
+ 
+
     }
 }

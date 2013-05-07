@@ -2,22 +2,28 @@
 
 @{
     ViewBag.Title = "Editar Pregunta del Tema " + @ViewBag.Topic.Description;
-
-    if (ViewBag.WizardStep != 0)
+    ViewBag.WizardStep = 0;
+    if ((string)Session["Wizard"] != "0")
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        Session["Wizard"] = "0";
     }
 }
 
-<h2>Editar Pregunta del Tema <strong> <i> @ViewBag.Topic.Description </i></strong></h2>
-
+<div class="grid">
+    <div class="c12">
+        <h2>Editar Pregunta del Tema <strong> <i> @ViewBag.Topic.Description </i></strong></h2>
+    </div>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+<div class="c12">
+        <div class="c9 first" id="contenido">  
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Pregunta</legend>
+       @* <legend>Pregunta</legend>*@
 
         @Html.HiddenFor(model => model.Id)
         @*
@@ -78,3 +84,8 @@
         </p>
     </fieldset>
 }
+</div>
+<div class="c3 last" id="layout">@Html.Partial("_LayoutSideBar")</div>
+</div>
+&nbsp;
+</div>
