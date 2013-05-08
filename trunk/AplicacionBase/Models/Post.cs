@@ -13,9 +13,11 @@ namespace AplicacionBase.Models
 
         public System.Guid Id { get; set; }
         public System.Guid IdUser { get; set; }
+        public string Title { get; set; }
+        public string Abstract { get; set; }
         public string Content { get; set; }
         public System.DateTime PublicationDate { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }        
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<aspnet_Roles> aspnet_Roles { get; set; }

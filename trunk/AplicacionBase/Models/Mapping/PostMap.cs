@@ -18,6 +18,8 @@ namespace AplicacionBase.Models.Mapping
             this.ToTable("Posts");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.IdUser).HasColumnName("IdUser");
+            this.Property(t => t.Title).HasColumnName("Title");
+            this.Property(t => t.Abstract).HasColumnName("Abstract");
             this.Property(t => t.Content).HasColumnName("Content");
             this.Property(t => t.PublicationDate).HasColumnName("PublicationDate");
             this.Property(t => t.UpdateDate).HasColumnName("UpdateDate");
