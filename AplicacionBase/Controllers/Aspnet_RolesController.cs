@@ -50,8 +50,10 @@ namespace AplicacionBase.Controllers
             {
                 aspnet_roles.ApplicationId = db.aspnet_Applications.First().ApplicationId;
                 aspnet_roles.RoleId = Guid.NewGuid();
+                aspnet_roles.LoweredRoleName = "" + aspnet_roles.RoleName.ToLower();
                 db.aspnet_Roles.Add(aspnet_roles);
                 db.SaveChanges();
+                TempData["Success"] = "Se ha creado el rol " + aspnet_roles.RoleName + " correctamente";
                 return RedirectToAction("Index");
             }
 
@@ -69,11 +71,11 @@ namespace AplicacionBase.Controllers
              return View(aspnet_roles);*/
             if (id != Guid.Empty && id != null)
             {
-                aspnet_Roles answerChoice = db.aspnet_Roles.Find(id);
+                aspnet_Roles aspnetroles = db.aspnet_Roles.Find(id);
                 var achoice = db.aspnet_Roles.Find(id);
                 if (achoice != null)
                 {
-                    return View(answerChoice);
+                    return View(aspnetroles);
                 }
                 else
                 {
@@ -96,6 +98,7 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(aspnet_roles).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Success"] = "Se ha Actualizado el rol " + aspnet_roles.RoleName + " correctamente";
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName", aspnet_roles.ApplicationId);
@@ -120,6 +123,7 @@ namespace AplicacionBase.Controllers
             aspnet_Roles aspnet_roles = db.aspnet_Roles.Find(id);
             db.aspnet_Roles.Remove(aspnet_roles);
             db.SaveChanges();
+            TempData["Success"] = "Se ha Eliminado el rol " + aspnet_roles.RoleName + " correctamente";
             return RedirectToAction("Index");
         }
 
