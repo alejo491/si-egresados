@@ -17,14 +17,15 @@ namespace AplicacionBase.Models
         public System.Guid RoleId { get; set; }
         [Display(Name = "Nombre del Rol")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [MaxLength(50, ErrorMessage = "No puede tener más de 50 caracteres")]
         public string RoleName { get; set; }
 
-        [Display(Name = "Nombre del Rol Abreviado")]
-        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+       
         public string LoweredRoleName { get; set; }
 
         [Display(Name = "Descripciòn")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [MaxLength(50, ErrorMessage = "No puede tener más de 50 caracteres")]
         public string Description { get; set; }
         public virtual aspnet_Applications aspnet_Applications { get; set; }
         public virtual ICollection<aspnet_UsersInRoles> aspnet_UsersInRoles { get; set; }

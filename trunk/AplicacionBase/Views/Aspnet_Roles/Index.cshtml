@@ -4,20 +4,35 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Listar Roles</h2>
+<div class="grid">
 
-<p>
-    @Html.ActionLink("Crear Nuevo Rol", "Create","", htmlAttributes: new { @class = "ebutton blue" })
-</p>
+    <div class="c12">
+
+           
+        <h2>Listar Roles</h2>
+
+        <div class="alert success">
+            @TempData["Success"]
+        </div>
+
+        <p>
+            @Html.ActionLink("Crear Nuevo Rol", "Create","", htmlAttributes: new { @class = "ebutton blue" })
+        </p>
+
+    </div>
+
+    <div class="c12">
+
+       <div class="c9 first" id=”contenido”>
+
+           
 <table>
     <tr>
        
         <th>
             Nombre del Rol
         </th>
-        <th>
-            Nombre del rol abreviado
-        </th>
+       
         <th>
             Descripciòn
         </th>
@@ -33,18 +48,28 @@
         <td>
             @Html.DisplayFor(modelItem => item.RoleName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LoweredRoleName)
-        </td>
+       
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) |
-            @Html.ActionLink("Detalles", "Details", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) |
+            @Html.ActionLink("Editar", "Edit", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) 
+            @Html.ActionLink("Detalles", "Details", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" }) 
             @Html.ActionLink("Eliminar", "Delete", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" })
+            @Html.ActionLink("Asignar Permisos", "AssignRolesMethods", "RoleMethods", new { id = item.RoleId }, htmlAttributes: new { @class = "ebutton blue" })
         </td>
     </tr>
 }
 
 </table>
+
+       </div>
+
+       <div class="c3 last" id=”layout”>@Html.Partial("_LayoutSeguridad")</div>
+
+    </div>
+
+    &nbsp;
+</div>
+
+

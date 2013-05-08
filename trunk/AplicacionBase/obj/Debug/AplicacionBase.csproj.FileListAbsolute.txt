@@ -225,3 +225,12 @@ D:\01-2013\Proyecto 2\App\AplicacionBase\bin\EntityFramework.xml
 D:\01-2013\Proyecto 2\App\AplicacionBase\bin\MvcSiteMapProvider.xml
 D:\01-2013\Proyecto 2\App\AplicacionBase\obj\Debug\AplicacionBase.dll
 D:\01-2013\Proyecto 2\App\AplicacionBase\obj\Debug\AplicacionBase.pdb
+D:\AplicacionBase\AplicacionBase\bin\AplicacionBase.dll
+D:\AplicacionBase\AplicacionBase\bin\AplicacionBase.pdb
+D:\AplicacionBase\AplicacionBase\bin\EntityFramework.dll
+D:\AplicacionBase\AplicacionBase\bin\MvcSiteMapProvider.dll
+D:\AplicacionBase\AplicacionBase\bin\EntityFramework.xml
+D:\AplicacionBase\AplicacionBase\bin\MvcSiteMapProvider.xml
+D:\AplicacionBase\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+D:\AplicacionBase\AplicacionBase\obj\Debug\AplicacionBase.dll
+D:\AplicacionBase\AplicacionBase\obj\Debug\AplicacionBase.pdb
