@@ -15,6 +15,12 @@
             User
         </th>
         <th>
+            Title
+        </th>
+        <th>
+            Abstract
+        </th>
+        <th>
             Content
         </th>
         <th>
@@ -30,6 +36,12 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Abstract)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Content)
