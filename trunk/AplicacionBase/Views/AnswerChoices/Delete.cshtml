@@ -4,10 +4,21 @@
     ViewBag.Title = "Eliminar";
 }
 
-<h2>Eliminar Opción de Respuesta</h2>
+<div class="grid">
+
+    <div class="c12">
+
+           <h2>Eliminar Opción de Respuesta</h2>
 
 <h3>¿Está seguro que desea eliminar esta opción?</h3>
-<fieldset>
+
+    </div>
+
+    <div class="c12">
+
+       <div class="c9 first" id=”content”>
+
+          <fieldset>
     <legend>Opción de Respuesta</legend>
     <br/>
 
@@ -47,3 +58,15 @@
         <input type="submit" value="Eliminar" class="ebutton2 blue"/> &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = Model.IdQuestion }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }
+
+       </div>
+
+       <div class="c3 last" id=”layout”>@Html.Partial("_LayoutSideBar")</div>
+
+    </div>
+
+    &nbsp;
+</div>
+
+
+

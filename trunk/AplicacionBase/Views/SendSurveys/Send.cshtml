@@ -3,12 +3,12 @@
 }
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtFechaDesde").datepicker({ dateFormat: 'YYYY/MM/DD' });
+        $("#txtFechaDesde").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtFechaHasta").datepicker({ dateFormat: 'yy/mm/dd' });
+        $("#txtFechaHasta").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 <div class="grid">
@@ -27,7 +27,7 @@
     </div>
 
     <div class="c12">
-        <div class="c9 first" id="contenido">
+        <div class="c9 first" id="content">
                 @using (Html.BeginForm())
                 {
                     <fieldset>

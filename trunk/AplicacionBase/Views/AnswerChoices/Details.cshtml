@@ -4,8 +4,19 @@
     ViewBag.Title = "Detalles";
 }
 
-<h2>Detalles de la Opción de Respuesta</h2>
+<div class="grid">
 
+    <div class="c12">
+
+          <h2>Detalles de la Opción de Respuesta</h2>
+
+    </div>
+
+    <div class="c12">
+
+       <div class="c9 first" id=”content”>
+
+           
 <fieldset>
     <legend>Opción de Respuesta</legend>
     <br/>
@@ -42,3 +53,15 @@
 <p>
     @Html.ActionLink("Editar", "Edit", new { idT = Model.Id}, htmlAttributes: new { @class = "ebutton blue" }) &nbsp; @Html.ActionLink("Regresar al listado", "Index", routeValues: new { id = Model.IdQuestion }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
+
+       </div>
+
+       <div class="c3 last" id=”layout”>@Html.Partial("_LayoutSideBar")</div>
+
+    </div>
+
+    &nbsp;
+</div>
+
+
+
