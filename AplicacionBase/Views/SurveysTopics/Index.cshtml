@@ -13,6 +13,7 @@
         <p>
                 @Html.ActionLink("Asociar nuevo tema", "Create", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
                 @Html.ActionLink("Crear nuevo tema", "Create","Topic", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink("Volver al listado de encuestas", "Index", "Surveys",null, htmlAttributes: new { @class = "ebutton blue" })
             </p>
     </div>
     <div class="c12 first">
@@ -57,7 +58,7 @@
                               </table></div>
         <div class="c3 last"> @Html.Partial("_LayoutSideBar")</div>
     </div>
-    @Html.ActionLink("Volver al listado de encuestas", "Index", "Surveys",null, htmlAttributes: new { @class = "ebutton blue" })
+    
     &nbsp;
 </div>
    
