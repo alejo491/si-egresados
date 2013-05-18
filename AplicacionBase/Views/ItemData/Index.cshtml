@@ -1,0 +1,300 @@
+﻿@using System.Collections.Specialized
+@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript">
+    
+
+    $(function () {
+        $.getJSON("/ItemData/ListFields", null, function (data) {
+            var items = "<option>Seleccione una opcion</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classfield").html(items);
+        });
+
+    });
+    
+    $(function () {
+        $.getJSON("/ItemData/ListActions", null, function (data) {
+            var items = "<option>Seleccione una opcion</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classfieldaction").html(items);
+        });
+
+    });
+    
+    $(function () {
+        $.getJSON("/ItemData/ListLogic", null, function (data) {
+            var items = "<option>Condicion</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classlogic").html(items);
+        });
+
+    });
+    
+    $(function () {
+        $.getJSON("/ItemData/ListOperators", null, function (data) {
+            var items = "<option>Operador</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classoperators").html(items);
+        });
+
+    });
+    
+
+    $(function () {
+        $.getJSON("/ItemData/ListSearchFields", null, function (data) {
+            var items = "<option>Seleccione una opcion</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classsearchfield").html(items);
+        });
+
+    });
+    
+    
+    $(function () {
+        $.getJSON("/ItemData/ListGroupFields", null, function (data) {
+            var items = "<option>Seleccione una opcion</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classsgroup").html(items);
+        });
+
+    });
+
+    var indice = 0;
+    
+    function hide(id) {
+
+        var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+        elDiv.style.display = 'none';
+        
+
+    }
+
+    function show(id) {
+
+        var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+        elDiv.style.display = 'block';
+
+    }
+    
+    function shownext(id) {
+        indice++;
+        var b = indice + '';
+        var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+        elDiv.style.display = 'block';
+
+    }
+    
+    function changeindex(id) {
+        document.getElementById(id).selectedIndex = 0;
+    }
+    
+    function changevalue(id) {
+        document.getElementById(id).value = '';
+        document.getElementById(id).Text = '';
+    }
+    
+
+    window.onload = function(){/*hace que se cargue la función */
+
+        @{
+            for (int j=2; j<50; j++)
+            {
+                string name = "containerfield" + j;
+                string sname = "containersearch" + j;
+                @:hide('@name');
+                @:hide('@sname');
+                
+            }
+       }
+
+    };
+
+</script>
+<script type="text/javascript">
+
+   
+
+    function addElement(text) {
+
+        var divelement = document.getElementById("container");
+        var select = document.createElement("select");
+        select.className = text;
+        divelement.appendChild(select);
+
+    }
+</script>
+
+
+
+<div class="grid">
+
+    <div class="c12">
+
+       <h2>Seleccione los criterios de selección de los datos</h2>
+
+    </div>
+
+    <div class="c12">
+    
+        <div class="c9 first" id=”contenido”>
+        
+            <div id="fields">
+                @using (Html.BeginForm())
+                    {
+                    
+                        <h3>Escoja los campos a mostrar</h3>
+                    
+                        <div id="containerfield1">
+                             <div class="c12">
+                                 <div class="c1 first"> 
+                                     <p style="font-size: 12px">Campo 1</p>
+                                 </div>
+                                 <div class="c3">
+                                     @Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
+                                 </div>
+                                 <div class="c3">
+                                     @Html.DropDownList("fieldaction1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
+                                 </div>
+                                 <div class="c1 first">
+                                     <input type="button" onClick="show('containerfield2')" value="+"/>
+                                 </div>
+                             </div>
+                        </div>
+
+                        for (int i = 2; i < 50; i++)
+                        {
+                            string nid = "containerfield" + i;
+                            string showaction = "containerfield" + (i + 1);
+                            string hideaction = "containerfield" + i;
+                            string indice = "field" + i;
+                            string indiceaction = "fieldaction" + i;
+                            <div id="@nid">
+                                <div class="c12">
+                                    <div class="c1 first">
+                                        <p style="font-size: 12px">Campo @i</p>
+                                    </div>
+                                    <div class="c3">
+                                        @Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
+                                    </div>
+                                    <div class="c3">
+                                        @Html.DropDownList("fieldaction" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
+                                    </div>
+                                    <div class="c1 first">
+                                        <input type="button" onClick="show('@showaction');" value="+"/> 
+                                        
+                                    </div>
+                                    <div class="c1">
+                                        <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="-"/>
+                                    </div>
+                                </div>             
+                            </div>
+                    
+                    
+                        }
+                        
+                        <h3>Escoja los criterios de busqueda</h3>
+                        <div id="containersearch1">
+                            <div class="c12">
+                                <div class="c2 first"> 
+                                     
+                                </div>
+                                 
+                                <div class="c3">
+                                    @Html.DropDownList("searchfield1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
+                                </div>
+                                <div class="c2">
+                                    @Html.DropDownList("operator1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
+                                </div>
+                                 
+                                <div class="c2">
+                                    <input type="text" id="criteria1" style="width: 100px"/>
+                                </div>
+                                 
+                                <div class="c1 first">
+                                    <input type="button" onClick="show('containersearch2');" value="+"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        for (int k = 2; k < 50; k++)
+                        {
+                            string sid = "containersearch" + k;
+                            string nextsid = "containersearch" + (k+1);
+                            string nextsearchfield = "searchfield" + (k+1);
+                            string searchfield = "searchfield" + k;
+                            string operatorfield = "operator" + k;
+                            string criteria = "criteria" + k;
+                            string logic = "logic" + k;
+                            <div id="@sid">
+                                <div class="c12">
+                                    <div class="c2 first">
+                                        @Html.DropDownList("logic" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classlogic" })                                    
+                                    </div>
+                                            
+                                    <div class="c3">
+                                        @Html.DropDownList("searchfield" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
+                                    </div>
+                                    <div class="c2">
+                                        @Html.DropDownList("operator"+k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
+                                    </div>
+                                 
+                                    <div class="c2">
+                                        <input type="text" id="@criteria" style="width: 100px"/>
+                                    </div>
+                                 
+                                    <div class="c1 first">
+                                        <input type="button" onClick="show('@nextsid');" value="+"/> 
+                                        
+                                    </div>
+                                    <div class="c1">
+                                        <input type="button" onClick="hide('@sid'); changeindex('@searchfield'); changeindex('@operatorfield'); changevalue('@criteria'); changeindex('@logic');" value="-"/>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            
+                            
+                        }
+                        
+                        <h3>Escoja los criterios de agrupamiento</h3>
+                            <div id="containersearch1">
+                                <div class="c12">
+                                    <div class="c2 first">
+                                     <p style="font-size: 12px">Agrupar por</p>
+                                    </div>
+                                    <div class="c5">
+                                        @Html.DropDownList("groupfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                    </div>
+                                    
+                                </div>
+                              </div>
+                        <input type="submit" value="Send"/>
+                    }
+
+            </div>
+
+        </div>
+
+        <div class="c3 last" id=”layoutderecho”>@Html.Partial("_LayoutSideBar")</div>
+
+    </div>
+
+    &nbsp;
+</div>
+
+
+
