@@ -26,7 +26,21 @@ namespace AplicacionBase.Controllers
             {
                 if (e2.Id == g)
                 {
-                    return RedirectToAction("Index", "Home");
+                    var steps = db.UsersSteps.Where(s=>s.UserId==e2.Id).OrderBy(s=>s.Step.SOrder);
+
+                    if (!steps.Any())
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        var tmp = (List<UsersStep>)steps.ToList();
+                        Session["steps"] = tmp;
+                        var ActualStep = Convert.ToInt16(tmp.ElementAt(0).Step.SOrder);
+                        return RedirectToAction("Index", "Wizard", ActualStep);
+                    }
+
+                    
                 }
             }
             return RedirectToAction("Create", "User");
@@ -52,5 +66,8 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Create", "User");
         }
 
+        
+        
     }
+
 }
