@@ -24,14 +24,57 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ListActions()
+        public JsonResult ListActions(string field, string campo)
         {
+            Random r = new Random();
+            Dictionary<string, string> d; 
+            if (Session["Dictionary"] == null)
+            {
+                d = new Dictionary<string, string>();
+                Session["Dictionary"] = d;
+            }
+            else
+            {
+                d = (Dictionary<string, string>)Session["Dictionary"];
+            }
+
             List<String> list = new List<string>();
-            list.Add("Suma");
-            list.Add("Minimo");
-            list.Add("Maximo");
-            list.Add("Contar");
-            list.Add("Promedio");
+            if (field != "Seleccione una opcion")
+            {
+                int n = r.Next(109);
+                if (n%2 == 0)
+                {
+
+                    list.Add("Suma");
+                    list.Add("Minimo");
+                    list.Add("Maximo");
+                    list.Add("Contar");
+                    list.Add("Promedio");
+                }
+                else
+                {
+                    list.Add("SI");
+                    list.Add("NO");
+                }
+                if (d.ContainsKey(campo))
+                {
+                    d[campo] = field;
+                    Session["Dictionary"] = d;
+                }
+                else
+                {
+                    d.Add(campo, field);
+                    Session["Dictionary"] = d;
+                }
+            }
+            else
+            {
+                if (d.ContainsKey(campo))
+                {
+                    d.Remove(campo);
+                    Session["Dictionary"] = d;
+                }
+            }
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
@@ -60,10 +103,24 @@ namespace AplicacionBase.Controllers
         public JsonResult ListGroupFields()
         {
             List<String> list = new List<string>();
-            list.Add("GroupField1");
-            list.Add("GroupField1");
-            list.Add("GroupField1");
-            list.Add("GroupField1");
+            
+            for (int i = 0; i < 10000; i++ )
+            {
+                Dictionary<string, string> d = (Dictionary<string, string>)Session["Dictionary"];               
+                if (d != null)
+                {
+                    foreach (var val in d)
+                    {
+                        if (!list.Contains(val.Value))
+                        {
+                            list.Add(val.Value);
+                        }
+
+                    }
+                }
+            }
+            
+            
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 

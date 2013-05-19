@@ -2,29 +2,58 @@
 @{
     ViewBag.Title = "Index";
 }
-<script type="text/javascript">
-    
-    $(function () {
-        $.getJSON("/ItemData/ListFields", null, function (data) {
-            var items = "<option>Seleccione una opcion</option>";
-            $.each(data, function (i, item) {
-                items += "<option value=" + item + ">" + item + "</option>";
+<script type="text/javascript"> 
+   
+    @for (int l = 1; l < 100; l++)
+    {
+        var Fields = "#field"+l;
+        var Field = "field" + l;
+        var FieldsAction = "#fieldaction"+l;
+        var FieldsGroup = "#fieldgroup" + l;
+       <text> $(function () { 
+
+            $.getJSON("/ItemData/ListFields", null, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@Fields").html(items);
             });
-            $(".classfield").html(items);
+
+        
+ 
+            $("@Fields").change(function () {
+
+            var Param = { field: $("@Fields > option:selected").attr("value") , campo: '@Field'};
+            $.getJSON("/ItemData/ListActions/", Param, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@FieldsAction").html(items);
+            });
         });
 
-    });
-    
-    $(function () {
-        $.getJSON("/ItemData/ListActions", null, function (data) {
-            var items = "<option>Seleccione una opcion</option>";
-            $.each(data, function (i, item) {
-                items += "<option value=" + item + ">" + item + "</option>";
-            });
-            $(".classfieldaction").html(items);
-        });
 
+
+    $("@Fields").change(function () {
+            
+            $.getJSON("/ItemData/ListGroupFields/", function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $(".classgroup").html(items);
+            });
+        });
     });
+
+        </text>
+
+    }
+        
+        
+    
     
     $(function () {
         $.getJSON("/ItemData/ListLogic", null, function (data) {
@@ -47,7 +76,7 @@
         });
 
     });
-    
+   
 
     $(function () {
         $.getJSON("/ItemData/ListSearchFields", null, function (data) {
@@ -61,16 +90,7 @@
     });
     
     
-    $(function () {
-        $.getJSON("/ItemData/ListGroupFields", null, function (data) {
-            var items = "<option>Seleccione una opcion</option>";
-            $.each(data, function (i, item) {
-                items += "<option value=" + item + ">" + item + "</option>";
-            });
-            $(".classsgroup").html(items);
-        });
-
-    });
+    
 
     var indice = 1;
     
@@ -125,8 +145,10 @@
             {
                 string name = "containerfield" + j;
                 string sname = "containersearch" + j;
+                string gname = "containergroup" + j;
                 @:hide('@name');
                 @:hide('@sname');
+                @:hide('@gname');
                 
             }
        }
@@ -291,18 +313,42 @@
                         }
                         
                         <h3>Escoja los criterios de agrupamiento</h3>
-                        <div id="containersearch1">
+                        <div id="containergroup1">
                             <div class="c12">
                                 <div class="c2 first">
                                     <p style="font-size: 12px">Agrupar por</p>
                                 </div>
                                 <div class="c5">
-                                    @Html.DropDownList("groupfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                    @Html.DropDownList("fieldgroup1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                </div>
+                                <div>
+                                    <div class="c1 first">
+                                    <input type="button" onClick="shownext('containergroup')" value="+"/>
+                                </div>
                                 </div>
                                     
                             </div>
                         </div>
-                    
+
+                        for (int m = 2; m < 100; m++)
+                        {
+                            var group = "containergroup" + m;
+                            var grouplist = "fieldgroup" + m;
+                            <div id="@group">
+                                <div class="c12">
+                                    <div class="c2 first">
+                                        <p style="font-size: 12px">Agrupar por</p>
+                                    </div>
+                                    <div class="c5">
+                                        @Html.DropDownList("fieldgroup"+m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                    </div>
+                                    <div class="c1 first">
+                                        <input type="button" onClick="hide('@group'); changeindex('@grouplist');" value="-"/>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                         <input type="submit" value="Send"/>
                     }
 
