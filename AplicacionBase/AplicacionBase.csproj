@@ -508,6 +508,7 @@
     <Content Include="Views\ItemSurveys\Create.cshtml" />
     <Content Include="Views\ItemSurveys\Delete.cshtml" />
     <Content Include="Views\ItemData\Delete.cshtml" />
+    <Content Include="Views\Vacancies\Search.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

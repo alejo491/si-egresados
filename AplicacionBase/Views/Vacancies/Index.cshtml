@@ -4,16 +4,16 @@
     ViewBag.Title="Listado de Vacantes";
 }
 
-<h2>Listado de Vacantes</h2>
+<h1>Listado de Vacantes</h1>
 
 
 <form method="get" action="/Vacancies/Search">
     <fieldset>
         <legend>Búsqueda de vacantes que contengan las palabras:</legend>
         <div class="editor-field">
-            <input type="text" name="criteria"id="criteria" />
+            <input type="text" name="criteria" id="criteria" />&nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
         </div>
-        <input type="submit" value="Buscar" />
+            
     </fieldset>
 </form>
 
@@ -23,7 +23,7 @@
      @Html.ActionLink("Crear Nueva", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
 <table>
-    <tr>
+    <tr class="head">
         <th>
             Cargo
         </th>
@@ -62,7 +62,7 @@
 
 @foreach (var item in Model)
 {
-    <tr>
+    <tr class="alt">
         <td>
             @Html.DisplayFor(modelItem => item.Charge)
         </td>

@@ -4,45 +4,56 @@
     ViewBag.Title = "Búsqueda de Vacantes";
 }
 
-<h2>Resultados de la Búsqueda</h2>
+<h1>Resultados de la Búsqueda</h1>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            Descripción:
-        </th>
-        <th>
-            Publicado por:
-        </th>
-        <th>
-            Empresa contratante:
-        </th>
-        <th>
-        </th>
+
+@if (Model.Count() != 0)
+{
+    <table>
+        <tr class="head">
+            <th>
+                Descripción
+            </th>
+            <th>
+                Publicado por
+            </th>
+            <th>
+                Empresa contratante
+            </th>
+            <th>
+                Acciones
+            </th>
         
-    </tr>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FirstNames)
-            @Html.DisplayFor(modelItem => item.User.LastNames)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Company.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+        <tr class="alt">
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstNames)
+                @Html.DisplayFor(modelItem => item.User.LastNames)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>
 }
 
-</table>
+@if (Model.Count() == 0)
+{
+    <p>No hay coincidencias</p>
+}
+<p>    
+    @Html.ActionLink("Crear Nueva Vacante", "Create")
+</p>
