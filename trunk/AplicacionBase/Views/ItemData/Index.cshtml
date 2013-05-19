@@ -4,7 +4,6 @@
 }
 <script type="text/javascript">
     
-
     $(function () {
         $.getJSON("/ItemData/ListFields", null, function (data) {
             var items = "<option>Seleccione una opcion</option>";
@@ -91,11 +90,22 @@
     }
     
     function shownext(id) {
+        
         indice++;
         var b = indice + '';
         var elDiv = document.getElementById(id+b); //se define la variable "elDiv" igual a nuestro div
         elDiv.style.display = 'block';
 
+    }
+    
+    function hidenext(id) {
+        //alert(indice);
+        if (indice != 1) {
+            var b = indice + '';
+            var elDiv = document.getElementById(id+b); //se define la variable "elDiv" igual a nuestro div
+            elDiv.style.display = 'none';
+            indice--;
+        }
     }
     
     function changeindex(id) {
@@ -111,7 +121,7 @@
     window.onload = function(){/*hace que se cargue la función */
 
         @{
-            for (int j=2; j<50; j++)
+            for (int j=2; j<100; j++)
             {
                 string name = "containerfield" + j;
                 string sname = "containersearch" + j;
@@ -159,27 +169,38 @@
                         <h3>Escoja los campos a mostrar</h3>
                     
                         <div id="containerfield1">
-                             <div class="c12">
-                                 <div class="c1 first"> 
-                                     <p style="font-size: 12px">Campo 1</p>
-                                 </div>
-                                 <div class="c3">
-                                     @Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
-                                 </div>
-                                 <div class="c3">
-                                     @Html.DropDownList("fieldaction1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
-                                 </div>
-                                 <div class="c1 first">
-                                     <input type="button" onClick="shownext('containerfield')" value="+"/>
-                                 </div>
-                             </div>
+                            <div class="c12">
+                                <div class="c5 first">
+                                    Seleccionar todos los campos @Html.CheckBox("AllFields", false)
+                                </div>
+                                <div class="c5">
+                                    Contar registros @Html.CheckBox("CountFields", false)
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            
+                            <div class="c12">
+                                <div class="c1 first"> 
+                                    <p style="font-size: 12px">Campo 1</p>
+                                </div>
+                                <div class="c3">
+                                    @Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
+                                </div>
+                                <div class="c3">
+                                    @Html.DropDownList("fieldaction1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
+                                </div>
+                                <div class="c1 first">
+                                    <input type="button" onClick="shownext('containerfield')" value="+"/>
+                                </div>
+                            </div>
                         </div>
 
-                        for (int i = 2; i < 50; i++)
+                        for (int i = 2; i < 100; i++)
                         {
                             string nid = "containerfield" + i;
                             string showaction = "containerfield" + (i + 1);
-                            string hideaction = "containerfield" + i;
+                            string hideaction = "containerfield"+i;
                             string indice = "field" + i;
                             string indiceaction = "fieldaction" + i;
                             <div id="@nid">
@@ -196,7 +217,7 @@
                                     @*<div class="c1 first">
                                         <input type="button" onClick="show('@showaction');" value="+"/>                                       
                                     </div>*@
-                                    <div class="c1">
+                                    <div class="c1 first">
                                         <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="-"/>
                                     </div>
                                 </div>             
@@ -224,12 +245,12 @@
                                 </div>
                                  
                                 <div class="c1 first">
-                                    <input type="button" onClick="show('containersearch2');" value="+"/>
+                                    <input type="button" onClick="shownext('containersearch');" value="+"/>
                                 </div>
                             </div>
                         </div>
 
-                        for (int k = 2; k < 50; k++)
+                        for (int k = 2; k < 100; k++)
                         {
                             string sid = "containersearch" + k;
                             string nextsid = "containersearch" + (k+1);
@@ -255,11 +276,11 @@
                                         <input type="text" id="@criteria" style="width: 100px"/>
                                     </div>
                                  
-                                    <div class="c1 first">
+                                    @*<div class="c1 first">
                                         <input type="button" onClick="show('@nextsid');" value="+"/> 
                                         
-                                    </div>
-                                    <div class="c1">
+                                    </div>*@
+                                    <div class="c1 first">
                                         <input type="button" onClick="hide('@sid'); changeindex('@searchfield'); changeindex('@operatorfield'); changevalue('@criteria'); changeindex('@logic');" value="-"/>
                                     </div>
                                 </div>
