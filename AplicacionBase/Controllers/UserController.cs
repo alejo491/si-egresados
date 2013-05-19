@@ -87,11 +87,46 @@ namespace AplicacionBase.Controllers
                 user.Id = g;
                 db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                StepsLoad(g);
+
+                var steps = db.UsersSteps.Where(s => s.UserId == g).OrderBy(s => s.Step.SOrder);
+
+                if (!steps.Any())
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    var tmp = (List<UsersStep>)steps.ToList();
+                    Session["steps"] = tmp; 
+                    var ActualStep = Convert.ToInt16(tmp.ElementAt(0).Step.SOrder);
+                    return RedirectToAction("Index", "Wizard", ActualStep);
+                }
+
+                //return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
+        }
+
+        private void StepsLoad(Guid user)
+        {
+            var steps = db.Steps.OrderBy(s => s.SOrder).ToList();
+            foreach (var step in steps)
+            //while (count < steps.Count())
+            {
+                //var step = steps.ElementAt(count);
+                var obj = new UsersStep
+                {
+                    UserId = user,
+                    IdSteps = step.Id,
+                    Ok = "f"
+                };
+                db.UsersSteps.Add(obj);
+                db.SaveChanges();
+            }
+
         }
 
         //

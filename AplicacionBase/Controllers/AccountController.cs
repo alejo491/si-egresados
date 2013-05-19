@@ -105,11 +105,11 @@ namespace AplicacionBase.Controllers
                 System.Web.Security.MembershipUserCollection uno = Membership.FindUsersByEmail(model.Email);
                 if (uno.Count == 0)
                 {
-                    Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                    var user = Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
                     if (createStatus == MembershipCreateStatus.Success)
                     {
                         FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    
+                        Session["firstTime"] = true; //Para Wizard
                         return RedirectToAction("Index", "Verify");
                     }
                     else
@@ -221,5 +221,7 @@ namespace AplicacionBase.Controllers
             }
         }
         #endregion
+
+       
     }
 }
