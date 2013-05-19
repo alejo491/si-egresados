@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
-{ 
+{
     [Authorize]
     public class VacanciesController : Controller
     {
@@ -40,7 +40,7 @@ namespace AplicacionBase.Controllers
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
             return View();
-        } 
+        }
 
         //
         // POST: /Vacancies/Create
@@ -48,40 +48,51 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Vacancy vacancy)
         {
-            Guid g = System.Guid.Empty;
-            foreach (var e in db.aspnet_Users)
-            {
 
-                if (e.UserName == HttpContext.User.Identity.Name)
-                {
-                    g = e.UserId;
-                }
+            /* Guid g = System.Guid.Empty;
+             foreach (var e in db.aspnet_Users)
+             {
 
-            }
-            var IdUser = g;
+                 if (e.UserName == HttpContext.User.Identity.Name)
+                 {
+                     g = e.UserId;
+                 }
+
+             }
+             var IdUser = g;
+
+             */
+
+
+
+
+            var IdUser = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
+
+
 
             if (ModelState.IsValid)
             {
                 vacancy.Id = Guid.NewGuid();
                 vacancy.IdUser = IdUser;
+                vacancy.PublicationDate = DateTime.Now;
                 db.Vacancies.Add(vacancy);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
             return View(vacancy);
         }
-        
+
         //
         // GET: /Vacancies/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-           // ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
+            // ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
             return View(vacancy);
         }
 
@@ -98,13 +109,13 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-         //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
+            //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
             return View(vacancy);
         }
 
         //
         // GET: /Vacancies/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
@@ -116,7 +127,7 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             Vacancy vacancy = db.Vacancies.Find(id);
             db.Vacancies.Remove(vacancy);
             db.SaveChanges();
@@ -129,14 +140,15 @@ namespace AplicacionBase.Controllers
             base.Dispose(disposing);
         }
 
-        
+
         public ActionResult Search(string criteria)
         {
             string texto = criteria.ToLower().Trim();
             var vacancies = db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
                 v.ProfessionalProfile.Contains(criteria));
-            ;
+
             return View(vacancies.ToList().OrderByDescending(c => c.PublicationDate));
+
 
         }
     }

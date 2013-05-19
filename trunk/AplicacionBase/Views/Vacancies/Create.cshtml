@@ -4,7 +4,7 @@
     ViewBag.Title = "Publicar Vacante";
 }
 
-<h2>Publicar vacante</h2>
+<h1>Publicar vacante</h1>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -14,7 +14,7 @@
     <fieldset>
         <legend>Publicar Vacante</legend>
 
-         <div class="editor-label">
+        <div class="editor-label">
             Compañía
         </div>
         <div class="editor-field">
@@ -56,14 +56,7 @@
             @Html.ValidationMessageFor(model => model.ProfessionalProfile)
         </div>
 
-        <div class="editor-label">
-           Fecha de Publicación
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.PublicationDate, new { id = "pubdate", @Value = @DateTime.Now})
-            @Html.ValidationMessageFor(model => model.PublicationDate)
-        </div>
-
+   
         <div class="editor-label">
             Fecha de Cierre
         </div>
@@ -73,13 +66,9 @@
         </div>
 
         <script type="text/javascript">
-                  $(document).ready(function () {
-                      $("#pubdate").datepicker({ dateFormat: 'dd/mm/yy' });
-                  });
-
-                  $(document).ready(function () {
-                      $("#closingdate").datepicker({ dateFormat: 'dd/mm/yy' });
-                  });
+            $(document).ready(function () {
+                $("#closingdate").datepicker({ dateFormat: 'dd/mm/yy' });
+            });
         </script>
 
         <div class="editor-label">
@@ -105,13 +94,6 @@
             @Html.TextAreaFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
-
-      
-    
-
-        
-        
-
         <p>
              <input type="submit" value="Crear" class="ebutton blue" />
         </p>
