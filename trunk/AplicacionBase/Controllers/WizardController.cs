@@ -17,7 +17,7 @@ namespace AplicacionBase.Controllers
         {
             @ViewBag.ActualStep = ActualStep;
 
-            Session["Wizard"]="1";
+            
 
             /*
             switch (ActualStep)
@@ -39,6 +39,7 @@ namespace AplicacionBase.Controllers
             }*/
             var steps = (List<UsersStep>)Session["steps"];
             if (steps != null) {
+                Session["Wizard"] = "1";
                 var step = steps.ElementAt(ActualStep).Step;
                 ViewBag.ActualRoute = step.SPath;
                 ViewBag.StepsCount = steps.Count();
@@ -90,7 +91,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult End()
         {
-            Session["Wizard"] = 0;
+            Session["Wizard"] = "0";
             return RedirectToAction("Index", "Home");
         }
 
