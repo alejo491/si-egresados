@@ -1,5 +1,106 @@
-﻿@{
+﻿@using System.Collections.Specialized
+@{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<script type="text/javascript">
+    $(function () {
+        $.getJSON("/ItemSurveys/SurveysList", null, function (data) {
+            var items = "<option>Seleccione la encuesta</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + i + ">" + item + "</option>";
+            });
+            $("#C2").html(items);
+        });
+
+        $("#C2").change(function () {
+            var Param = { ids: $("#C2 > option:selected").attr("value") };
+            $.getJSON("/ItemSurveys/TopicsList/", Param, function (data) {
+                var items = "<option>Seleccione el tema</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + i + ">" + item + "</option>";
+                });
+                $("#C3").html(items);
+            });
+        });
+
+        $("#C3").change(function () {
+            var Param = { idt: $("#C3 > option:selected").attr("value") };
+            $.getJSON("/ItemSurveys/QuestionsList/", Param, function (data) {
+                var items = "<option>Seleccione Pregunta</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + i + ">" + item + "</option>";
+                });
+                $("#C4").html(items);
+            });
+        });
+    });
+</script>
+
+<div class="grid">
+
+    <div class="c12">
+
+        <h2>Seleccione los datos que va consultar</h2>
+
+    </div>
+    <div class="c12">
+    
+        <div class="c9 first" id=”contenido”>
+            @using (Html.BeginForm())
+            {
+                <div class="c12">
+                    <div class="c1 first">
+                        <p>Encuesta</p>
+                    </div>
+                    <div class="c11">
+                        @Html.DropDownList("surveysfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys" , @id="C2"})                      
+                    </div>
+                </div>
+                <div class="c12">
+                    <div class="c1 first">
+                        <p>Tema</p>
+                    </div>
+                    <div class="c11">
+                        @Html.DropDownList("topicsfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C3" })  
+                    </div>
+                </div>
+                <div class="c12">
+                    <div class="c1 first">
+                        <p>Pregunta</p>
+                    </div>
+                    <div class="c11">
+                        @Html.DropDownList("topicsfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C4" })                           
+                    </div>
+                </div>
+                <h3>Tipo de grafico</h3>
+                <div class="c12">
+                    <div class="c1 first">
+                        
+                    </div>
+                    <div class="c11">
+                        <div class="c12">
+                            @Html.RadioButton("option", "Si") Con grafico
+                        </div>
+                        <div class="c12">
+                            @Html.RadioButton("option", "No") Sin Grafico
+                        </div>
+                           
+                    </div>
+                    <h3>Opciones</h3>
+                    <div class="c12">
+                        <div class="c2">
+                            <p style="font-size: 13px">Numero de Pagina</p>
+                        </div>
+                        <div class="c9">
+                            @Html.TextBox("numeropagina", "")
+                        </div>
+                    </div>                  
+                </div>
+                <input type="button" value="Previsualizar"/>
+                              
+            }
+        </div>
+        <div class="c3 last" id=”layoutderecho”>@Html.Partial("_LayoutSideBar")</div>
+    </div>
+ </div>

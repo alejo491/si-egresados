@@ -73,7 +73,7 @@
 
     });
 
-    var indice = 0;
+    var indice = 1;
     
     function hide(id) {
 
@@ -93,7 +93,7 @@
     function shownext(id) {
         indice++;
         var b = indice + '';
-        var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+        var elDiv = document.getElementById(id+b); //se define la variable "elDiv" igual a nuestro div
         elDiv.style.display = 'block';
 
     }
@@ -170,7 +170,7 @@
                                      @Html.DropDownList("fieldaction1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
                                  </div>
                                  <div class="c1 first">
-                                     <input type="button" onClick="show('containerfield2')" value="+"/>
+                                     <input type="button" onClick="shownext('containerfield')" value="+"/>
                                  </div>
                              </div>
                         </div>
@@ -193,10 +193,9 @@
                                     <div class="c3">
                                         @Html.DropDownList("fieldaction" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
                                     </div>
-                                    <div class="c1 first">
-                                        <input type="button" onClick="show('@showaction');" value="+"/> 
-                                        
-                                    </div>
+                                    @*<div class="c1 first">
+                                        <input type="button" onClick="show('@showaction');" value="+"/>                                       
+                                    </div>*@
                                     <div class="c1">
                                         <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="-"/>
                                     </div>
@@ -271,17 +270,18 @@
                         }
                         
                         <h3>Escoja los criterios de agrupamiento</h3>
-                            <div id="containersearch1">
-                                <div class="c12">
-                                    <div class="c2 first">
-                                     <p style="font-size: 12px">Agrupar por</p>
-                                    </div>
-                                    <div class="c5">
-                                        @Html.DropDownList("groupfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
-                                    </div>
-                                    
+                        <div id="containersearch1">
+                            <div class="c12">
+                                <div class="c2 first">
+                                    <p style="font-size: 12px">Agrupar por</p>
                                 </div>
-                              </div>
+                                <div class="c5">
+                                    @Html.DropDownList("groupfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                </div>
+                                    
+                            </div>
+                        </div>
+                    
                         <input type="submit" value="Send"/>
                     }
 
