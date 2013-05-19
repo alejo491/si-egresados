@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
-using System.Data.Entity;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
-using System.Web;
+using System.Text;
 using System.Web.Mvc;
+using System.Xml.Serialization;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
@@ -123,5 +125,75 @@ namespace AplicacionBase.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+    #region Codigo, para generar tabla y grafico (chart pie) de los reportes
+
+        public ActionResult Preview()
+        {
+            var selectquery = "SELECT * FROM Topics";
+            var dataa = GetDataSet(selectquery);
+            var dataSet = dataa.ToXml();
+           // dataSet.ReadXmlSchema(Server.MapPath("data.xsd"));
+            //dataSet.ReadXml(Server.MapPath("data.xml"));
+            ViewBag.datos = dataSet;
+            return View();
+        }
+/*
+        private static DataTable GetData(string query)
+        {
+            DataTable dt = new DataTable();
+
+            SqlCommand cmd = new SqlCommand(query);
+
+            String constr = ConfigurationManager.ConnectionStrings["mydbase"].ConnectionString;
+
+            SqlConnection con = new SqlConnection(constr);
+            SqlDataAdapter sda = new SqlDataAdapter();
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            sda.SelectCommand = cmd;
+            sda.Fill(dt);
+            return dt;
+        }
+*/
+
+        DataSet GetDataSet(string sqlCommand)
+        {
+            
+            DataSet ds = new DataSet();
+            var strconn = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ToString();
+            var myCon = new SqlConnection(strconn);
+            myCon.Open();
+            var myAda = new SqlDataAdapter(sqlCommand, myCon);
+            myAda.Fill(ds);
+            myCon.Close();
+            //String connectionString = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ConnectionString;
+            /*using (SqlCommand cmd = new SqlCommand(sqlCommand, new SqlConnection(connectionString)))
+            {
+                cmd.Connection.Open();
+                DataTable table = new DataTable();
+                table.Load(cmd.ExecuteReader());
+                ds.Tables.Add(table);
+            } * */
+            return ds;
+        }
     }
+
+    public static class Extensions
+    {
+        public static string ToXml(this DataSet ds)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                using (TextWriter streamWriter = new StreamWriter(memoryStream))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(DataSet));
+                    xmlSerializer.Serialize(streamWriter, ds);
+                    return Encoding.UTF8.GetString(memoryStream.ToArray());
+                }
+            }
+        }
+    }
+    #endregion
+
 }

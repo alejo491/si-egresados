@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using System.Web.Routing;
 using AplicacionBase.Controllers;
-
+using AplicacionBase.Models;
 using FluentSecurity;
 using FluentSecurity.Policy;
 
@@ -130,8 +130,63 @@ namespace AplicacionBase
         /*Lineas Necesarias, para Administrar el Wizard*/
         protected void Session_Start(object sender, EventArgs e)
         {
+            /*Variable de Sesion para el Wizard*/
+
             Session["Wizard"] = "0";
-            Session["Wizard1"] = "0";
+            Session["User"] = string.Empty;
+            Session["steps"] = null;
+            Session["firstTime"] = false;
+            /*--------------------------------*/
+
+        }
+
+        /*Lineas Necesarias, para Administrar el Wizard*/
+        private void CreateSteps()
+        {
+            var db = new DbSIEPISContext();
+            var steps = db.Steps;
+            if (steps.Any()) return;
+            var survey = new Survey
+            {
+                Id = Guid.NewGuid(),
+                Name = "Información Adicional",
+                Aim = "Reunir información adicional de los usuarios"
+            };
+            db.Surveys.Add(survey);
+            db.SaveChanges();
+            var count = 0;
+            while (count < 5)
+            {
+                var obj = new Step
+                {
+                    Id = Guid.NewGuid(),
+                    SOrder = count
+                };
+                switch (count)
+                {
+                    case 0:
+                        obj.SPath = @"/User/Index?wizardStep=1";
+                        break;
+                    case 1:
+                        obj.SPath = @"/Study/Index?wizardStep=1";
+                        break;
+                    case 2:
+                        obj.SPath = @"/Experience/Index?wizardStep=1";
+                        break;
+                    case 3:
+                        obj.SPath = @"/Elective/Index?wizardStep=1";
+                        break;
+                    case 4:
+                        //obj.SPath = @"/Surveys/Index";
+                        obj.SPath = @"/FillSurvey/Fill?ids=" + survey.Id.ToString() + @"&wizardStep=1";
+                        break;
+                }
+
+                db.Steps.Add(obj);
+                db.SaveChanges();
+                count++;
+            }
+
         }
     }
 
