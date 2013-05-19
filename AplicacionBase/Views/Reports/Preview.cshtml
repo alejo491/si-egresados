@@ -1,0 +1,43 @@
+﻿@using System.Data
+@using System.Data.Entity
+@using System.Text
+@using System.Web.Script.Serialization
+@using System.Xml
+@{
+    ViewBag.Title = "preview";  
+}
+
+<h2>preview</h2>
+
+@{
+    var texto = ViewBag.datos;
+
+    DataSet ds = new DataSet();
+
+    StringReader stream = new StringReader(texto);
+    ds.ReadXml(stream);
+
+    DataTable dt = ds.Tables[0];
+}
+
+<table style="border: 1px solid black">
+    <thead>
+        <tr>
+            @foreach (DataColumn column in dt.Columns)
+            {
+                <th>@column.Caption</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in dt.Rows)
+        {
+            <tr>
+            @foreach (var cell in row.ItemArray)
+            {
+                <td>@cell.ToString()</td>
+            }
+            </tr>
+        }
+    </tbody>
+</table>
