@@ -1,45 +1,40 @@
 ﻿@model AplicacionBase.Models.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <fieldset>
-    <legend>Post</legend>
-
-    <div class="display-label">User</div>
+    <legend>Noticia</legend>
     <div class="display-field">
-        @Html.DisplayFor(model => model.User.PhoneNumber)
+        Usuario : 
+        @Html.DisplayFor(model => model.User.FirstNames)
+        @Html.DisplayFor(model => model.User.LastNames)
     </div>
-
-    <div class="display-label">Title</div>
     <div class="display-field">
+        Titulo : 
         @Html.DisplayFor(model => model.Title)
     </div>
-
-    <div class="display-label">Abstract</div>
     <div class="display-field">
+        Resunen : 
         @Html.DisplayFor(model => model.Abstract)
     </div>
-
-    <div class="display-label">Content</div>
     <div class="display-field">
+        Contenido : 
         @Html.DisplayFor(model => model.Content)
     </div>
-
-    <div class="display-label">PublicationDate</div>
     <div class="display-field">
+        Fecha de Publicacion : 
         @Html.DisplayFor(model => model.PublicationDate)
     </div>
-
-    <div class="display-label">UpdateDate</div>
     <div class="display-field">
+        Ultima Modificacion :      
         @Html.DisplayFor(model => model.UpdateDate)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+    @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
