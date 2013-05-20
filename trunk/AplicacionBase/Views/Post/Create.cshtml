@@ -15,7 +15,7 @@
         <legend>Noticia</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Title)
+            Titulo
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Title)
@@ -23,15 +23,15 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Abstract)
+            Resumen
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Abstract, htmlAttributes: new { rows="5%", cols="25%" })
             @Html.ValidationMessageFor(model => model.Abstract)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Content)
+         <div class="editor-label">
+            Contenido
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Content, htmlAttributes: new { rows = "8%", cols = "45%" })
