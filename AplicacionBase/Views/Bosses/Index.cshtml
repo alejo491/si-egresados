@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AplicacionBase.Models.Boss> 
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Jefes Registrados</h2>
+
+<p>
+    @Html.ActionLink("Registrar Nuevo Jefe", "Create", "", htmlAttributes: new { @class = "ebutton blue" })
+</p>
+<table>
+    <tr>
+        <th>
+            Nombre
+        </th>        
+        <th>
+            Email
+        </th>
+         <th>
+            Teléfono
+        </th>
+        <th>
+            Opciones
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>        
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) &nbsp
+            @Html.ActionLink("Ver", "Details", new { id=item.Id }) &nbsp
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) &nbsp
+        </td>
+    </tr>
+}
+
+</table>

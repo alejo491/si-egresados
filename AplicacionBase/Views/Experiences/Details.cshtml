@@ -1,0 +1,38 @@
+﻿@model AplicacionBase.Models.Experience
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend>Experiencia Laboral</legend>
+
+    <div class="display-label">Nombre Compañia</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Company.Name)
+    </div>
+    <div class="display-label">Descripcion del trabajo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+    <div class="display-label">Cargo Desempeñado</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Charge)
+    </div>
+    
+    <div class="display-label">Fecha Inicio Trabajo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+    </div>
+    <div class="display-label">Fecha fin Trabajo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Volver", "Index")
+</p>
