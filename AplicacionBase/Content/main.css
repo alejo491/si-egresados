@@ -84,8 +84,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-
-a {color: #2ba6cb; text-decoration: none; line-height: inherit; }
+a {color: #2ba6cb; text-decoration: none; line-height: inherit;  }
 a:hover {color: #333333; }
 a:focus {color: #333333; outline: none; }
 
@@ -385,6 +384,7 @@ th {
 	text-align: center;
 }
 td{font-size:14px;}
+
 table tr:first-child th:first-child{
  	        border-top-left-radius: 5px;
 	    -moz-border-radius-topleft: 5px;
@@ -854,4 +854,34 @@ ebutton2:hover, ebutton2:active{
 
 .linkmenu {
     width: 170px;
+}
+
+.btnedit
+{
+      background: #FFFFFF url(themes/base/images/edit.png) no-repeat 0 0;
+        min-width: 25px;
+        min-height: 25px;
+        float: left;
+}
+.btndelete
+{
+      background: #FFFFFF url(themes/base/images/delete.png) no-repeat 0 0;
+        min-width: 25px;
+        min-height: 25px;
+        float: left;
+}
+.btndetails
+{
+      background: #FFFFFF url(themes/base/images/detail.png) no-repeat 0 0;
+        min-width: 25px;
+        min-height: 25px;
+        float: left;
+}
+
+.btnmore
+{
+      background: #FFFFFF url(themes/base/images/more.png) no-repeat 0 0;
+        min-width: 25px;
+        min-height: 25px;
+        float: left;
 }

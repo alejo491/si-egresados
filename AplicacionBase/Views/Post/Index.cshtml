@@ -44,9 +44,10 @@
             @Html.DisplayFor(modelItem => item.PublicationDate)
         </td>
         <td >
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+            @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit" }) 
+            @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails" }) 
+            @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete" })
+            @Html.ActionLink(" ", "", null, htmlAttributes: new { @class = "btnmore" })
         </td>
     </tr>
 }
