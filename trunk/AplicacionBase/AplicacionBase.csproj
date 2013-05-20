@@ -76,9 +76,11 @@
     <Compile Include="Controllers\AnswerChoicesController.cs" />
     <Compile Include="Controllers\Aspnet_RolesController.cs" />
     <Compile Include="Controllers\AssemblyHelper.cs" />
+    <Compile Include="Controllers\BossesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ElectiveController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ExperiencesController.cs" />
     <Compile Include="Controllers\FillSurveyController.cs" />
     <Compile Include="Controllers\ItemDataController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -514,6 +516,16 @@
     <Content Include="Views\ItemData\Delete.cshtml" />
     <Content Include="Views\Vacancies\Search.cshtml" />
     <Content Include="Views\Reports\Preview.cshtml" />
+    <Content Include="Views\Bosses\Create.cshtml" />
+    <Content Include="Views\Bosses\Delete.cshtml" />
+    <Content Include="Views\Bosses\Details.cshtml" />
+    <Content Include="Views\Bosses\Edit.cshtml" />
+    <Content Include="Views\Bosses\Index.cshtml" />
+    <Content Include="Views\Experiences\Create.cshtml" />
+    <Content Include="Views\Experiences\Delete.cshtml" />
+    <Content Include="Views\Experiences\Details.cshtml" />
+    <Content Include="Views\Experiences\Edit.cshtml" />
+    <Content Include="Views\Experiences\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
