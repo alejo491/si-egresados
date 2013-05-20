@@ -6,9 +6,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using System.Web.Security;
 
 namespace AplicacionBase.Controllers
-{ 
+{
     public class PostController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -36,9 +37,8 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber");
             return View();
-        } 
+        }
 
         //
         // POST: /Post/Create
@@ -46,25 +46,27 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Post post)
         {
+            post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
+            post.PublicationDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 post.Id = Guid.NewGuid();
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "LastNames", post.IdUser);
             return View(post);
         }
-        
+
         //
         // GET: /Post/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             Post post = db.Posts.Find(id);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
             return View(post);
         }
 
@@ -74,19 +76,21 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Edit(Post post)
         {
+            post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
+            post.UpdateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
             return View(post);
         }
 
         //
         // GET: /Post/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             Post post = db.Posts.Find(id);
@@ -98,7 +102,7 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
