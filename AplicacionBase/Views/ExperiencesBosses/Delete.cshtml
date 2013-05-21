@@ -1,0 +1,38 @@
+﻿@model AplicacionBase.Models.ExperiencesBoss
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Esta seguro de eliminar este registro?</h3>
+<fieldset>
+    <legend>Jefe Directo</legend>
+
+    <div class="display-label">Nombre Jefe</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Boss.Name)
+    </div>
+
+    <div class="display-label">Chargo Desempeñado</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Experience.Charge)
+    </div>
+
+    <div class="display-label">Fecha inicio</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.StartDate)
+    </div>
+
+    <div class="display-label">Fecha Fin</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EndDate)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" /> |
+        @Html.ActionLink("Volver", "Index")
+    </p>
+}

@@ -241,3 +241,17 @@ C:\Users\user\Desktop\Nueva carpeta\AplicacionBase\bin\MvcSiteMapProvider.xml
 C:\Users\user\Desktop\Nueva carpeta\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\Nueva carpeta\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\user\Desktop\Nueva carpeta\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\user\Desktop\lo que se subio\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\obj\Debug\AplicacionBase.pdb
