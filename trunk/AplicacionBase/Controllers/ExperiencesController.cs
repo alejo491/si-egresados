@@ -27,8 +27,12 @@ namespace AplicacionBase.Controllers
 
             }
             var IdUser = g;
-            
-            return View(db.Experiences.Where(l => l.IdUser == g));
+            Guid nulo = System.Guid.Empty;            
+            if (g != nulo)
+            {
+                return View(db.Experiences.Where(l => l.IdUser == g));
+            }
+            else return RedirectPermanent("/Account/LogOn");
         }
 
         //
@@ -74,8 +78,7 @@ namespace AplicacionBase.Controllers
                 experience.IdUser = IdUser;
                 db.Experiences.Add(experience);
                 db.SaveChanges();
-
-                return Redirect("../../ExperiencesBosses/Create");
+                return RedirectPermanent("/ExperiencesBosses/Create");
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
