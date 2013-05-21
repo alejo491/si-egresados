@@ -12,7 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Compañía</legend>
+        <legend>Información de la compañía</legend>
 
         @Html.HiddenFor(model => model.Id)
 
@@ -65,11 +65,10 @@
         </div>
 
         <p>
-            <input type="submit" value="Actualizar" />
+            <input type="submit" value="Actualizar" class="ebutton blue"/>&nbsp;
+              @Html.ActionLink("Volver al Inicio", "Index", null, htmlAttributes: new { @class="ebutton blue"})
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Volver al Inicio", "Index")
-</div>
+
