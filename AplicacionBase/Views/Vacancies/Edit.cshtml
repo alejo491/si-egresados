@@ -12,7 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Vacante</legend>
+        <legend>Información de la vacante/legend>
 
         @Html.HiddenFor(model => model.Id)      
         @Html.HiddenFor(model => model.PublicationDate)
@@ -87,7 +87,7 @@
            Descripción
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, htmlAttributes: new { rows="5%", cols="45%" })
             @Html.ValidationMessageFor(model => model.Description)
         </div>
 
@@ -100,12 +100,11 @@
             @Html.ValidationMessageFor(model => model.IdCompanie)
         </div>
 
-        <p>
-            <input type="submit" value="Actualizar" />
-        </p>
+       
     </fieldset>
+     <p>
+            <input type="submit" value="Actualizar"  class="ebutton blue" />
+             @Html.ActionLink("Volver a la lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
+        </p>
 }
 
-<div>
-    @Html.ActionLink("Volver a la lista", "Index")
-</div>

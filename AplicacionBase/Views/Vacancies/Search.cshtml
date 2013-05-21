@@ -12,10 +12,10 @@
     <table>
         <tr class="head">
             <th>
-                Descripción
+                Cargo
             </th>
             <th>
-                Publicado por
+                Publicada por
             </th>
             <th>
                 Empresa contratante
@@ -30,7 +30,7 @@
     {
         <tr class="alt">
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Charge)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.FirstNames)
@@ -54,6 +54,7 @@
 {
     <p>No hay coincidencias</p>
 }
+<br/>
 <p>    
-    @Html.ActionLink("Crear Nueva Vacante", "Create")
+    @Html.ActionLink("Crear Nueva Vacante", "Create", null, htmlAttributes: new { @class ="ebutton blue"})
 </p>
