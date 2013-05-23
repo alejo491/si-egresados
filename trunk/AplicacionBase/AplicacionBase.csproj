@@ -113,6 +113,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsultaGeneral.cs" />
+    <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\Filter.cs" />
+    <Compile Include="Models\GroupOption.cs" />
+    <Compile Include="Models\ItemData.cs" />
+    <Compile Include="Models\ItemSurvey.cs" />
+    <Compile Include="Models\Mapping\ConsultaGeneralMap.cs" />
+    <Compile Include="Models\Mapping\FieldMap.cs" />
+    <Compile Include="Models\Mapping\FilterMap.cs" />
+    <Compile Include="Models\Mapping\GroupOptionMap.cs" />
+    <Compile Include="Models\Mapping\ItemDataMap.cs" />
+    <Compile Include="Models\Mapping\ItemSurveyMap.cs" />
     <Compile Include="Models\Mapping\MethodMap.cs" />
     <Compile Include="Models\Mapping\RoleMethodMap.cs" />
     <Compile Include="Models\Mapping\SecureControllerMap.cs" />

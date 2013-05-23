@@ -34,12 +34,17 @@ namespace AplicacionBase.Models
         public DbSet<Company> Companies { get; set; }
         public DbSet<Elective> Electives { get; set; }
         public DbSet<Exemplar> Exemplars { get; set; }
+        public DbSet<Field> Fields { get; set; }
+        public DbSet<Filter> Filters { get; set; }
+        public DbSet<GroupOption> GroupOptions { get; set; }
         public DbSet<ExemplarsQuestion> ExemplarsQuestions { get; set; }
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<ExperiencesBoss> ExperiencesBosses { get; set; }
         public DbSet<FreeField> FreeFields { get; set; }
         public DbSet<FreeFieldsValue> FreeFieldsValues { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<ItemData> ItemDatas { get; set; }        
+        public DbSet<ItemSurvey> ItemSurveys { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Report> Reports { get; set; }
@@ -67,6 +72,8 @@ namespace AplicacionBase.Models
         public DbSet<Method> Methods { get; set; }
         public DbSet<RoleMethod> RoleMethods { get; set; }
         public DbSet<SecureController> SecureControllers { get; set; }
+        public DbSet<ConsultaGeneral> ConsultaGenerals { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -93,7 +100,12 @@ namespace AplicacionBase.Models
             modelBuilder.Configurations.Add(new ExperiencesBossMap());
             modelBuilder.Configurations.Add(new FreeFieldMap());
             modelBuilder.Configurations.Add(new FreeFieldsValueMap());
+            modelBuilder.Configurations.Add(new FieldMap());
+            modelBuilder.Configurations.Add(new FilterMap());
+            modelBuilder.Configurations.Add(new ItemDataMap());
             modelBuilder.Configurations.Add(new ItemMap());
+            modelBuilder.Configurations.Add(new ItemSurveyMap());
+            modelBuilder.Configurations.Add(new GroupOptionMap());
             modelBuilder.Configurations.Add(new PostMap());
             modelBuilder.Configurations.Add(new QuestionMap());
             modelBuilder.Configurations.Add(new ReportMap());
@@ -109,6 +121,7 @@ namespace AplicacionBase.Models
             modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new UsersStepMap());
             modelBuilder.Configurations.Add(new VacancyMap());
+            modelBuilder.Configurations.Add(new ConsultaGeneralMap());
             modelBuilder.Configurations.Add(new vw_aspnet_ApplicationsMap());
             modelBuilder.Configurations.Add(new vw_aspnet_MembershipUsersMap());
             modelBuilder.Configurations.Add(new vw_aspnet_ProfilesMap());

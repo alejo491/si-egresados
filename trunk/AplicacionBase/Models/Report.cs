@@ -8,7 +8,9 @@ namespace AplicacionBase.Models
     {
         public Report()
         {
+            this.ItemDatas = new List<ItemData>();
             this.Items = new List<Item>();
+            this.ItemSurveys = new List<ItemSurvey>();
         }
 
         public System.Guid Id { get; set; }
@@ -19,7 +21,9 @@ namespace AplicacionBase.Models
         public string Description { get; set; }
 
         public System.DateTime ReportDate { get; set; }
+        public virtual ICollection<ItemData> ItemDatas { get; set; }
         public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<ItemSurvey> ItemSurveys { get; set; }
         public virtual User User { get; set; }
     }
 }
