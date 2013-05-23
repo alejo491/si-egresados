@@ -11,7 +11,7 @@
     <fieldset>
         <legend>Búsqueda de vacantes que contengan las palabras:</legend>
         <div class="editor-field">
-            <input type="text" name="criteria" id="criteria" />&nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
+          @Html.TextBox("criteria", ViewBag.CurrentFilter as string)&nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
         </div>
             
     </fieldset>

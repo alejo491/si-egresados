@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using PagedList;
+
 
 namespace AplicacionBase.Controllers
 {
@@ -13,6 +15,8 @@ namespace AplicacionBase.Controllers
     public class VacanciesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
+        private int pageSize = 1;
+        private int pageNumber;
 
         //
         // GET: /Vacancies/
@@ -137,19 +141,54 @@ namespace AplicacionBase.Controllers
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
-            base.Dispose(disposing);
+            base.Dispose(disposing); 
         }
 
 
-        public ActionResult Search(string criteria)
+       
+        private System.Linq.IOrderedEnumerable<Vacancy> results;
+        private string searchText;
+   
+        
+        public ActionResult Search(string criteria, int? page)
         {
-            string texto = criteria.ToLower().Trim();
-            var vacancies = db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
+       
+            ViewBag.CurrentFilter = criteria;
+        
+            if (criteria == null) {
+               criteria = "";
+            }
+
+
+          
+            /*    if (criteria.ToLower().Trim().Equals(searchText))
+                {
+                    pageNumber = (page ?? 1);
+                    return View(results.ToPagedList(pageNumber, pageSize));
+                }
+            */
+
+           
+
+           searchText= criteria.ToLower().Trim();
+
+           
+            //Búsqueda
+            var vacancies= db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
                 v.ProfessionalProfile.Contains(criteria));
 
-            return View(vacancies.ToList().OrderByDescending(c => c.PublicationDate));
+            //Ordenar por fecha de publicación
+            results = vacancies.ToList().OrderByDescending(c => c.PublicationDate);
 
+
+
+            pageNumber = (page ?? 1);            
+            return View(results.ToPagedList(pageNumber, pageSize));
 
         }
+
+     
+      
+       
     }
 }

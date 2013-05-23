@@ -255,3 +255,13 @@ C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\bin\MvcSiteM
 C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\user\Desktop\La que esta subida en tortoise\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\EntityFramework.dll
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\PagedList.dll
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\EntityFramework.xml
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\PagedList.xml
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\obj\Debug\AplicacionBase.pdb
