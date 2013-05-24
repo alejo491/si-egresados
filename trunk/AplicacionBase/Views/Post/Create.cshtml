@@ -13,6 +13,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Noticia</legend>
+
         <div class="editor-label">
             Título
         </div>
@@ -24,19 +25,19 @@
         <div class="editor-label">
             Resumen
         </div>
-        <div class="editor-field">
+        <div class="editor-field" align="justify">
             @Html.TextAreaFor(model => model.Abstract, htmlAttributes: new { rows="5%", cols="25%" })
             @Html.ValidationMessageFor(model => model.Abstract)
         </div>
 
-         <div class="editor-label">
+        <div class="editor-label">
             Contenido
         </div>
-        <div class="editor-field">
+        <div class="editor-field" align="justify">
             @Html.TextAreaFor(model => model.Content, htmlAttributes: new { rows = "8%", cols = "45%" })
             @Html.ValidationMessageFor(model => model.Content)
-           
         </div>
+
     </fieldset>
     <div>
         <input type="submit" value="Crear" class="ebutton blue"/>
