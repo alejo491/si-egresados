@@ -8,6 +8,10 @@ using System.Text;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using AplicacionBase.Models;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
 
 namespace AplicacionBase.Controllers
 {
@@ -124,6 +128,76 @@ namespace AplicacionBase.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        // GET: /Reports/Generar
+
+        public ViewResult Generar()
+        {
+            var selectquery = "SELECT gender, count(*) as cantidad FROM Users GROUP BY gender";
+            DataSet ds = new DataSet();
+            var strconn = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ToString();
+            var myCon = new SqlConnection(strconn);
+            myCon.Open();
+            var myAda = new SqlDataAdapter(selectquery, myCon);
+            myAda.Fill(ds);
+            myCon.Close();
+
+            string fileName = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".pdf";
+            Document document = new Document(PageSize.A4, 50, 50, 25, 25);
+            PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
+            document.Open();
+
+            Paragraph parrafo = new Paragraph();
+
+            parrafo.Alignment = Element.ALIGN_CENTER;
+            parrafo.Font = FontFactory.GetFont("Arial", 24);
+            parrafo.Font.SetStyle(Font.BOLD);
+            parrafo.Add("Reporte de Usuarios por Sexo");
+
+            document.Add(parrafo);
+
+            parrafo = new Paragraph("\n");
+
+            document.Add(parrafo);
+
+            PdfPTable tabla = new PdfPTable(2);
+            tabla.SetWidthPercentage(new float[] { 100, 100 }, PageSize.A4);
+            tabla.AddCell(new Paragraph("Genero"));
+            tabla.AddCell(new Paragraph("Cantidad"));
+
+            foreach (PdfPCell celda in tabla.Rows[0].GetCells())
+            {
+                celda.BackgroundColor = BaseColor.LIGHT_GRAY;
+                celda.HorizontalAlignment = 1;
+                celda.Padding = 3;
+            }
+
+            DataTable dt = ds.Tables[0];
+
+            foreach (DataRow row in dt.Rows)
+            {
+
+                string genero = Convert.ToString(row["gender"]);
+                string cantidad = Convert.ToString(row["cantidad"]);
+
+                PdfPCell celda1 = new PdfPCell(new Paragraph(genero, FontFactory.GetFont("Arial", 10)));
+                PdfPCell celda2 = new PdfPCell(new Paragraph(cantidad, FontFactory.GetFont("Arial", 10)));
+
+                tabla.AddCell(celda1);
+                tabla.AddCell(celda2);
+
+            }
+
+            document.Add(tabla);
+
+            document.Close();
+
+            Process prc = new System.Diagnostics.Process();
+            prc.StartInfo.FileName = fileName;
+            prc.Start();
+
+            return View();
         }
 
     #region Codigo, para generar tabla y grafico (chart pie) de los reportes
