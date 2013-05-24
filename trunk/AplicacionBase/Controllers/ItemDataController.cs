@@ -22,16 +22,57 @@ namespace AplicacionBase.Controllers
             list.Add("AND");
             list.Add("OR");
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }     
+
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+           /* bool allfields = false;
+            bool somefield = false;
+            foreach (String key in form)
+            {
+                if (key.Contains("AllFields"))
+                {
+                    if (form[key].Contains("true"))
+                    {
+                        allfields = true;
+                    }
+                }
+
+                if (key.Substring(0,5) == "field")
+                {
+                    if (form[key] != "Seleccione una opcion")
+                    {
+                        somefield = true;
+                    }
+                }
+
+            }
+            */
+
+            foreach (String key in form)
+            {
+
+            }
+
+            return RedirectToAction("Index", "Home");
+            
+            
+
         }
 
+        #region Ajax
         public JsonResult ListActions(string field, string campo)
         {
-            Random r = new Random();
-            Dictionary<string, string> d; 
+
+            var assembly = new AssemblyHelper();
+            var result = assembly.GetFieldsType();
+            Dictionary<string, string> d;
             if (Session["Dictionary"] == null)
             {
                 d = new Dictionary<string, string>();
                 Session["Dictionary"] = d;
+
             }
             else
             {
@@ -41,21 +82,40 @@ namespace AplicacionBase.Controllers
             List<String> list = new List<string>();
             if (field != "Seleccione una opcion")
             {
-                int n = r.Next(109);
-                if (n%2 == 0)
+
+                if (result[field] == "System.decimal" || result[field] == "Decimal" || result[field] == "decimal")
                 {
 
                     list.Add("Suma");
                     list.Add("Minimo");
                     list.Add("Maximo");
-                    list.Add("Contar");
+                    //list.Add("Contar");
                     list.Add("Promedio");
                 }
                 else
                 {
-                    list.Add("SI");
-                    list.Add("NO");
+                    var cadena = "System.Nullable`1[System.DateTime]".Substring(18, 15);
+                    if (result[field] == @"System.DateTime")
+                    {
+                        list.Add("Año");
+                        list.Add("Mes");
+                        list.Add("Dia");
+                    }
+                    else
+                    {
+                        if (result[field].Length >= 15)
+                        {
+                            if (result[field].Substring(18, 15) == cadena)
+                            {
+                                list.Add("Año");
+                                list.Add("Mes");
+                                list.Add("Dia");
+                            }
+                        }
+                    }
+
                 }
+
                 if (d.ContainsKey(campo))
                 {
                     d[campo] = field;
@@ -78,71 +138,70 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ListOperators()
+        public JsonResult ListOperators(string field, string campo)
         {
             List<String> list = new List<string>();
-            list.Add(@"Mayor o igual");
-            list.Add(@"Menor o igual");
-            list.Add(@"Mayor");
-            list.Add(@"Menor");
-            list.Add(@"Igual");
-            list.Add(@"Diferente de");
+            var assembly = new AssemblyHelper();
+            var result = assembly.GetFieldsType();
+            if (result[field] == "System.string" || result[field] == "string" || result[field] == "System.String" || result[field] == "String")
+            {
+                list.Add("Like");
+            }
+            else
+            {
+                list.Add(@"Mayor o igual a");
+                list.Add(@"Menor o igual a");
+                list.Add(@"Mayor que");
+                list.Add(@"Menor que");
+                list.Add(@"Igual a");
+                list.Add(@"Diferente de");
+            }
+
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ListSearchFields()
         {
-            List<String> list = new List<string>();
-            list.Add("SearchField1");
-            list.Add("SearchField2");
-            list.Add("SearchField3");
-            list.Add("SearchField4");
+            var list = new List<string>();
+            var assembly = new AssemblyHelper();
+            var result = assembly.GetFieldsType();
+            foreach (var key in result)
+            {
+                list.Add(key.Key);
+            }
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ListGroupFields()
         {
-            List<String> list = new List<string>();
-            
-            for (int i = 0; i < 10000; i++ )
+            var list = new List<string>();
+            var assembly = new AssemblyHelper();
+            var result = assembly.GetFieldsType();
+            foreach (var key in result)
             {
-                Dictionary<string, string> d = (Dictionary<string, string>)Session["Dictionary"];               
-                if (d != null)
-                {
-                    foreach (var val in d)
-                    {
-                        if (!list.Contains(val.Value))
-                        {
-                            list.Add(val.Value);
-                        }
-
-                    }
-                }
+                list.Add(key.Key);
             }
-            
-            
+
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ListFields()
         {
-            List<String> list = new List<string>();
-            list.Add("Campo1");
+            var assembly = new AssemblyHelper();
+            var result = assembly.GetFieldsType();
+            var list = new List<string>();
+            foreach (var opc in result)
+            {
+                list.Add(opc.Key);
+            }
+
+            /*list.Add("Campo1");
             list.Add("Campo2");
             list.Add("Campo3");
-            list.Add("Campo4");
+            list.Add("Campo4");*/
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
-
-        [HttpPost]
-        public ActionResult Index(FormCollection form)
-        {
-            foreach (String key in form)
-            {
-                var k = form[key];
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        #endregion
 
     }
 

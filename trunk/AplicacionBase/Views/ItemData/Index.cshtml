@@ -10,7 +10,17 @@
         var Field = "field" + l;
         var FieldsAction = "#fieldaction"+l;
         var FieldsGroup = "#fieldgroup" + l;
-       <text> $(function () { 
+
+
+
+        var searches = "#searchfield"+l;
+        var search = "searchfield" + l;
+        var oper = "#operator"+l;
+
+        var groups = "#fieldgroup" + l;
+        var group = "fieldgroup" + l;
+        //var FieldsGroup = "#fieldgroup" + l;
+        <text> $(function () { 
 
             $.getJSON("/ItemData/ListFields", null, function (data) {
                 var items = "<option>Seleccione una opcion</option>";
@@ -20,7 +30,33 @@
                 $("@Fields").html(items);
             });
 
+            $.getJSON("/ItemData/ListSearchFields", null, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@searches").html(items);
+            });
+
+             $.getJSON("/ItemData/ListGroupFields", null, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@groups").html(items);
+            });
         
+            $("@searches").change(function () {
+
+            var Param = { field: $("@searches > option:selected").attr("value") , campo: '@search'};
+            $.getJSON("/ItemData/ListOperators/", Param, function (data) {
+                var items = "<option>Operacion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@oper").html(items);
+            });
+        });
  
             $("@Fields").change(function () {
 
@@ -34,22 +70,11 @@
             });
         });
 
-
-
-    $("@Fields").change(function () {
-            
-            $.getJSON("/ItemData/ListGroupFields/", function (data) {
-                var items = "<option>Seleccione una opcion</option>";
-                $.each(data, function (i, item) {
-                    items += "<option value=" + item + ">" + item + "</option>";
-                });
-                $(".classgroup").html(items);
-            });
-        });
+    
     });
 
         </text>
-
+       
     }
         
         
@@ -66,28 +91,7 @@
 
     });
     
-    $(function () {
-        $.getJSON("/ItemData/ListOperators", null, function (data) {
-            var items = "<option>Operador</option>";
-            $.each(data, function (i, item) {
-                items += "<option value=" + item + ">" + item + "</option>";
-            });
-            $(".classoperators").html(items);
-        });
-
-    });
    
-
-    $(function () {
-        $.getJSON("/ItemData/ListSearchFields", null, function (data) {
-            var items = "<option>Seleccione una opcion</option>";
-            $.each(data, function (i, item) {
-                items += "<option value=" + item + ">" + item + "</option>";
-            });
-            $(".classsearchfield").html(items);
-        });
-
-    });
     
     
     
