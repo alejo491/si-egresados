@@ -9,7 +9,6 @@
 <h3>Esta seguro de querer eliminar esta Noticia?</h3>
 <fieldset>
     <legend>Noticia</legend>
-
     <div class="display-field">
         Usuario :
         @Html.DisplayFor(model => model.User.FirstNames)
@@ -37,8 +36,8 @@
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Eliminar" /> 
+    <div>
+        <input type="submit" value="Eliminar" class="ebutton blue"/> 
         @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
-    </p>
+    </div>
 }
