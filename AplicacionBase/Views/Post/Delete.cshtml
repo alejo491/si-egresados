@@ -6,34 +6,41 @@
 
 <h2>Eliminar</h2>
 
-<h3>Esta seguro de querer eliminar esta Noticia?</h3>
+<h3>¿Está seguro que quiere eliminar esta noticia? </h3>
 <fieldset>
     <legend>Noticia</legend>
+
     <div class="display-field">
         Usuario :
         @Html.DisplayFor(model => model.User.FirstNames)
         @Html.DisplayFor(model => model.User.LastNames)
     </div>
+
     <div class="display-field">
-        Titulo : 
+        Título : 
         @Html.DisplayFor(model => model.Title)
     </div>
-    <div class="display-field">
+
+    <div class="display-field" align="justify">
         Resumen : 
         @Html.DisplayFor(model => model.Abstract)
     </div>
-    <div class="display-field">
+
+    <div class="display-field" align="justify">
         Contenido : 
         @Html.DisplayFor(model => model.Content)
     </div>
+
     <div class="display-field">
-        Fecha de Publicacion : 
+        Fecha de Publicación : 
         @Html.DisplayFor(model => model.PublicationDate)
     </div>
+
     <div class="display-field">
         Ultima Actualizacion : 
         @Html.DisplayFor(model => model.UpdateDate)
     </div>
+
 </fieldset>
 @using (Html.BeginForm()) {
     <div>
