@@ -18,6 +18,33 @@ namespace AplicacionBase.Controllers
                 type => type.IsSubclassOf(typeof(T))).ToList();
         }
 
+        private static List<Type> GetClass()
+        {
+            return Assembly.GetCallingAssembly().GetTypes().Where(s=>s.Name == "ConsultaGeneral").ToList();
+        }
+
+        public Dictionary<string, string> GetFieldsType()
+        {
+            var result = new Dictionary<string, string>();
+            /*string k = "";
+            foreach (var variable in GetClass())
+            {
+                var v = variable;
+                k = variable.ToString();
+
+            }
+
+            var c = 
+            c.GetFields();*/
+            var clase = typeof(ConsultaGeneral);
+            var att = clase.GetProperties();
+            foreach (var fieldInfo in att)
+            {
+                result.Add(fieldInfo.Name, fieldInfo.PropertyType.ToString());
+            }
+            return result;
+        }
+
         public bool GetControllerNames()
         {
             try
