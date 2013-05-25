@@ -9,6 +9,8 @@ namespace AplicacionBase.Models
         {
             this.Comments = new List<Comment>();
             this.aspnet_Roles = new List<aspnet_Roles>();
+            this.Likes = new List<Like>();
+            this.Startboxs = new List<Startbox>();
         }
 
         public System.Guid Id { get; set; }
@@ -21,5 +23,7 @@ namespace AplicacionBase.Models
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<aspnet_Roles> aspnet_Roles { get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
+        public virtual ICollection<Startbox> Startboxs { get; set; }
     }
 }
