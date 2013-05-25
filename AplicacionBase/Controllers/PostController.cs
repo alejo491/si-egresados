@@ -29,6 +29,7 @@ namespace AplicacionBase.Controllers
         public ViewResult Details(Guid id)
         {
             Post post = db.Posts.Find(id);
+            Guid us = (Guid)Membership.GetUser().ProviderUserKey;
             return View(post);
         }
 

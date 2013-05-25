@@ -18,7 +18,8 @@ namespace AplicacionBase.Controllers
 
         public ViewResult Index()
         {
-            return View(db.Likes.ToList());
+            var likes = db.Likes.Include(l => l.Post).Include(l => l.User);
+            return View(likes.ToList());
         }
 
         //
@@ -35,6 +36,8 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title");
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber");
             return View();
         } 
 
@@ -52,6 +55,8 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index");  
             }
 
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", like.Id_Post);
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", like.Id_User);
             return View(like);
         }
         
@@ -61,6 +66,8 @@ namespace AplicacionBase.Controllers
         public ActionResult Edit(Guid id)
         {
             Like like = db.Likes.Find(id);
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", like.Id_Post);
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", like.Id_User);
             return View(like);
         }
 
@@ -76,6 +83,8 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", like.Id_Post);
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", like.Id_User);
             return View(like);
         }
 
