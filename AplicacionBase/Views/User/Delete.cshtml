@@ -49,10 +49,13 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.MaritalStatus)
     </div>
+    <div>
+        &nbsp
+    </div>
 </fieldset>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Eliminar" /> |
-        @Html.ActionLink("Volver al listado de Usuarios", "Index")
-    </p>
+    <div>
+        <input type="submit" value="Eliminar" class="ebutton blue"/> &nbsp
+        @Html.ActionLink("Registrar al listado de Usuarios", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+    </div>
 }
