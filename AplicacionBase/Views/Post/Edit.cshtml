@@ -16,7 +16,7 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            Título
+            <span style="color: black;">Título :</span>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Title)
@@ -24,7 +24,7 @@
         </div>
 
         <div class="editor-label" align="justify">
-            Resumen
+            <span style="color: black;">Resumen :</span>
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Abstract, htmlAttributes: new { rows = "5%", cols = "25%" })
@@ -32,7 +32,7 @@
         </div>
 
         <div class="editor-label">
-            Contenido
+            <span style="color: black;">Contenido :</span>
         </div>
         <div class="editor-field" align="justify">
             @Html.TextAreaFor(model => model.Content, htmlAttributes: new { rows = "8%", cols = "45%" })
