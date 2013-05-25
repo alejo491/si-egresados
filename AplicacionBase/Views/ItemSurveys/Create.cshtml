@@ -70,7 +70,7 @@
                         <p>Pregunta</p>
                     </div>
                     <div class="c11">
-                        @Html.DropDownList("topicsfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C4" })                           
+                        @Html.DropDownList("questionfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C4" })                           
                     </div>
                 </div>
                 <h3>Tipo de grafico</h3>
@@ -80,10 +80,10 @@
                     </div>
                     <div class="c11">
                         <div class="c12">
-                            @Html.RadioButton("option", "Si") Con grafico
+                            @Html.RadioButton("option", "Pastel") Pastel
                         </div>
                         <div class="c12">
-                            @Html.RadioButton("option", "No") Sin Grafico
+                            @Html.RadioButton("option", "Barras") Barras
                         </div>
                            
                     </div>
@@ -97,7 +97,7 @@
                         </div>
                     </div>                  
                 </div>
-                <input type="button" value="Previsualizar"/>
+                <input type="submit" value="Previsualizar"/>
                               
             }
         </div>
