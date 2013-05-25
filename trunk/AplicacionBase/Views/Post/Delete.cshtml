@@ -21,16 +21,6 @@
         @Html.DisplayFor(model => model.Title)
     </div>
 
-    <div class="display-field" align="justify">
-        <span style="color: black;">Resumen :</span>
-        @Html.DisplayFor(model => model.Abstract)
-    </div>
-
-    <div class="display-field" align="justify">
-    <span style="color: black;">Contenido :</span>
-        @Html.DisplayFor(model => model.Content)
-    </div>
-
     <div class="display-field">
         <span style="color: black;">Fecha de Publicación :</span>
         @Html.DisplayFor(model => model.PublicationDate)
@@ -39,6 +29,16 @@
     <div class="display-field">
         <span style="color: black;">Última Actualización :</span>
         @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+
+    <div class="display-field" align="justify">
+        <span style="color: black;">Resumen :</span>
+        @Html.DisplayFor(model => model.Abstract)
+    </div>
+
+    <div class="display-field" align="justify">
+    <span style="color: black;">Contenido :</span>
+        @Html.DisplayFor(model => model.Content)
     </div>
 
 </fieldset>
