@@ -93,6 +93,7 @@
     <Compile Include="Controllers\ItemDataController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ItemSurveysController.cs" />
+    <Compile Include="Controllers\LikeController.cs" />
     <Compile Include="Controllers\MethodsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Controllers\SendSurveysController.cs" />
     <Compile Include="Controllers\SendSurveysDbController.cs" />
     <Compile Include="Controllers\SendSurveysEmailController.cs" />
+    <Compile Include="Controllers\StartboxController.cs" />
     <Compile Include="Controllers\StudyController.cs" />
     <Compile Include="Controllers\ThesisController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -126,15 +128,18 @@
     <Compile Include="Models\GroupOption.cs" />
     <Compile Include="Models\ItemData.cs" />
     <Compile Include="Models\ItemSurvey.cs" />
+    <Compile Include="Models\Like.cs" />
     <Compile Include="Models\Mapping\ConsultaGeneralMap.cs" />
     <Compile Include="Models\Mapping\FieldMap.cs" />
     <Compile Include="Models\Mapping\FilterMap.cs" />
     <Compile Include="Models\Mapping\GroupOptionMap.cs" />
     <Compile Include="Models\Mapping\ItemDataMap.cs" />
     <Compile Include="Models\Mapping\ItemSurveyMap.cs" />
+    <Compile Include="Models\Mapping\LikeMap.cs" />
     <Compile Include="Models\Mapping\MethodMap.cs" />
     <Compile Include="Models\Mapping\RoleMethodMap.cs" />
     <Compile Include="Models\Mapping\SecureControllerMap.cs" />
+    <Compile Include="Models\Mapping\StartboxMap.cs" />
     <Compile Include="Models\Method.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -216,6 +221,7 @@
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\RoleMethod.cs" />
     <Compile Include="Models\SecureController.cs" />
+    <Compile Include="Models\Startbox.cs" />
     <Compile Include="Models\ViewModels\RoleMethodsViewModel.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Step.cs" />
