@@ -1,0 +1,30 @@
+﻿@model AplicacionBase.Models.Startbox
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Startbox</legend>
+
+    <div class="display-label">Id_Post</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Id_Post)
+    </div>
+
+    <div class="display-label">Id_User</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Id_User)
+    </div>
+
+    <div class="display-label">Qualification</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Qualification)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
