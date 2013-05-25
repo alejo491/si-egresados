@@ -1,13 +1,29 @@
-﻿@if(Request.IsAuthenticated) {
-    <text>¡Hola <strong>@User.Identity.Name</strong>!
-    [ @Html.ActionLink("Editar Perfil", "Edit", "verify") ]
-    [ @Html.ActionLink("Cerrar sesión", "LogOff", "Account") ]</text>
+﻿@if (Request.IsAuthenticated)
+{
+     <text><strong>¡ Hola @User.Identity.Name !</strong>
+
+         <div class="rigth">@Html.ActionLink("Cerrar Sesión", "LogOff", "Account")</div>           
+         <div class="rigth"><strong>  |</strong>@Html.ActionLink(" ", "LogOff", "Account", null, htmlAttributes: new { @class = "btnclose", title = "Cerrar Sesión" })</div> 
+         <div class = "rigth">@Html.ActionLink("Editar", "Edit", "verify")</div>        
+         <strong>  |</strong>@Html.ActionLink(" ", "Edit", "verify", null, htmlAttributes: new { @class = "btnedit2", title = "Editar Perfil" })
+            
+    </text>
+    
+    
+    
 }
-else {
-     @:[ @Html.ActionLink("Iniciar sesión", "LogOn", "Account") ]
-    <fb:login-button perms="email,user_checkins" onlogin="afterFacebookConnect();" 
+else
+{
+
+    <div class="rigth"><div class="left">|</div><fb:login-button perms="email,user_checkins" onlogin="afterFacebookConnect();" 
        autologoutlink="false" >Iniciar sesión</fb:login-button>
-    <div id="fb-root" style="display:inline; margin-right:0px;"></div>
+    <div id="fb-root" style="display:inline; margin-right:0px;"></div></div>
+    
+    @:<div class="rigth">@Html.ActionLink("Iniciar Sesión ", "LogOn", "Account")</div>
+    @:<div class="rigth"><strong>  |</strong>@Html.ActionLink(" ", "LogOn", "Account", null, htmlAttributes: new { @class = "btnlogin", title = "Iniciar Sesión " }) </div>
+    @:<div class="rigth">@Html.ActionLink("Regístrese ", "Register", "Account")</div> 
+    @:<div class="rigth">@Html.ActionLink(" ", "Register", "Account", null, htmlAttributes: new { @class = "btnregister", title = "Regístrese" }) </div>
+    
    
 }
 <script language="javascript" type="text/javascript">

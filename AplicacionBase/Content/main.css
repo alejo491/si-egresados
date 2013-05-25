@@ -893,3 +893,43 @@ ebutton2:hover, ebutton2:active{
         min-height: 25px;
         float: left;
 }
+
+.btnedit2
+{
+      background: #FFFFFF url(themes/base/images/edit2.png) no-repeat 0 0;
+        min-width: 20px;
+        min-height: 20px;
+        float: right;
+}
+.divrigth
+{    float: right;
+}
+div .rigth
+{
+    float: right;
+}
+
+
+.btnclose
+{
+      background: #FFFFFF url(themes/base/images/close.png) no-repeat 0 0;
+        min-width: 20px;
+        min-height: 20px;
+        float: right;
+}
+
+.btnlogin
+{
+      background: #FFFFFF url(themes/base/images/login.png) no-repeat 0 0;
+        min-width: 20px;
+        min-height: 20px;
+        float: right;
+}
+
+.btnregister
+{
+      background: #FFFFFF url(themes/base/images/register.png) no-repeat 0 0;
+        min-width: 22px;
+        min-height: 23px;
+        float: right;
+}
