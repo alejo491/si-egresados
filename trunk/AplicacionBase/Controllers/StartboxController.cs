@@ -18,7 +18,8 @@ namespace AplicacionBase.Controllers
 
         public ViewResult Index()
         {
-            return View(db.Startboxs.ToList());
+            var startboxs = db.Startboxs.Include(s => s.Post).Include(s => s.User);
+            return View(startboxs.ToList());
         }
 
         //
@@ -35,6 +36,8 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title");
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber");
             return View();
         } 
 
@@ -52,6 +55,8 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index");  
             }
 
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
             return View(startbox);
         }
         
@@ -61,6 +66,8 @@ namespace AplicacionBase.Controllers
         public ActionResult Edit(Guid id)
         {
             Startbox startbox = db.Startboxs.Find(id);
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
             return View(startbox);
         }
 
@@ -76,6 +83,8 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
+            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
             return View(startbox);
         }
 
