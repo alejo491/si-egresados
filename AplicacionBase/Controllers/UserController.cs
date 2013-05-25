@@ -152,7 +152,8 @@ namespace AplicacionBase.Controllers
                 Guid g = searchId();
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                TempData["Edit"] = "Datos Del Usuario Modificados Correctamente !";
+                return RedirectToAction("Index", "User");
             }
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
@@ -177,6 +178,57 @@ namespace AplicacionBase.Controllers
             db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Intento de registrar al usuario
+                Guid g = System.Guid.Empty;
+                MembershipCreateStatus createStatus;
+                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                foreach (var e in db.aspnet_Users)
+                {
+                    if (e.UserName == model.UserName)
+                    {
+                        g = e.UserId;
+                    }
+                }
+                return RedirectToAction("Generate", "User", new { id = g });
+            }
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View(model);
+        }
+
+        public ActionResult Generate(Guid id)
+        {
+            User user = db.Users.Find(id);
+            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName");
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Generate(User user)
+        {
+            //Guid h = System.Guid.Empty;
+            if (ModelState.IsValid)
+            {
+                //user.Id = h;
+                db.Users.Add(user);
+                db.SaveChanges();
+                TempData["Creado"] = "El Usuario se Creó Correctamente !";
+                return RedirectToAction("Index", "User");
+            }
+
+            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
+            return View(user);
         }
 
         protected override void Dispose(bool disposing)

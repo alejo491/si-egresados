@@ -6,7 +6,9 @@
 <h2>Usuarios Registrados</h2>
 
 <p>
-    @Html.ActionLink("Registrar Nuevo Usuario", "Create", "", htmlAttributes: new { @class = "ebutton blue" })
+     @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })
+    <div class="alert success">@TempData["Edit"]</div>
+    <div class="alert success">@TempData["Creado"]</div>
 </p>
 <table>
     <tr>
