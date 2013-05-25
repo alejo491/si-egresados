@@ -43,7 +43,7 @@ namespace AplicacionBase.Models
         public DbSet<FreeField> FreeFields { get; set; }
         public DbSet<FreeFieldsValue> FreeFieldsValues { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<ItemData> ItemDatas { get; set; }        
+        public DbSet<ItemData> ItemDatas { get; set; }
         public DbSet<ItemSurvey> ItemSurveys { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Question> Questions { get; set; }
@@ -73,6 +73,8 @@ namespace AplicacionBase.Models
         public DbSet<RoleMethod> RoleMethods { get; set; }
         public DbSet<SecureController> SecureControllers { get; set; }
         public DbSet<ConsultaGeneral> ConsultaGenerals { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Startbox> Startboxs { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -115,7 +117,7 @@ namespace AplicacionBase.Models
             modelBuilder.Configurations.Add(new SurveyedMap());
             modelBuilder.Configurations.Add(new SurveyMap());
             modelBuilder.Configurations.Add(new SurveysTopicMap());
-            modelBuilder.Configurations.Add(new aspnet_UsersInRolesMap()); 
+            modelBuilder.Configurations.Add(new aspnet_UsersInRolesMap());
             modelBuilder.Configurations.Add(new ThesisMap());
             modelBuilder.Configurations.Add(new TopicMap());
             modelBuilder.Configurations.Add(new UserMap());
@@ -134,6 +136,8 @@ namespace AplicacionBase.Models
             modelBuilder.Configurations.Add(new MethodMap());
             modelBuilder.Configurations.Add(new RoleMethodMap());
             modelBuilder.Configurations.Add(new SecureControllerMap());
+            modelBuilder.Configurations.Add(new LikeMap());
+            modelBuilder.Configurations.Add(new StartboxMap());
         }
     }
 }
