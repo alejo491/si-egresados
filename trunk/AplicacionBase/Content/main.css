@@ -878,6 +878,14 @@ ebutton2:hover, ebutton2:active{
         float: left;
 }
 
+.btnlike
+{
+	background: #FFFFFF url(themes/base/images/like.png) no-repeat 0 0;
+	min-width: 25px;
+	min-height: 25px;
+	float: left;
+}
+
 .btnmore
 {
       background: #FFFFFF url(themes/base/images/more.png) no-repeat 0 0;
