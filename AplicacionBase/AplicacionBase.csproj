@@ -539,8 +539,8 @@
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\ItemData\Index.cshtml" />
-    <Content Include="Views\ItemSurveys\Create.cshtml" />
-    <Content Include="Views\ItemSurveys\Delete.cshtml" />
+    <Content Include="Views\Home\ItemSurveys\Create.cshtml" />
+    <Content Include="Views\Home\ItemSurveys\Delete.cshtml" />
     <Content Include="Views\ItemData\Delete.cshtml" />
     <Content Include="Views\Vacancies\Search.cshtml" />
     <Content Include="Views\Reports\Preview.cshtml" />
