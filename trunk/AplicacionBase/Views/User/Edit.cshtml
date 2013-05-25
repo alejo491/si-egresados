@@ -95,14 +95,16 @@
             Unión Libre
             @Html.RadioButtonFor(model => model.MaritalStatus, "U Libre") 
             </div>
+            <div>
+                &nbsp
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Guardar" />
-        </p>
+        <div>
+            <input type="submit" value="Guardar" class="ebutton blue"/>&nbsp
+            
+            <!--@Html.ActionLink("Regresar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })-->
+        </div>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Regresar al listado de Usuarios", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
-</div>

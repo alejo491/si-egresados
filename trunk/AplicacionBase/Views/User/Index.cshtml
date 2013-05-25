@@ -7,7 +7,7 @@
 
 <p>
      @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })
-    <div class="alert success">@TempData["Edit"]</div>
+    <div class="alert success">@TempData["Editar"]</div>
     <div class="alert success">@TempData["Creado"]</div>
 </p>
 <table>
@@ -54,6 +54,7 @@
            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
             @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
             @Html.ActionLink("Asignar Roles", "AssignUserRoles", "UsersRoles", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+            @Html.ActionLink("Estudios", "Index", "Study", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
             @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
         </td>
     </tr>

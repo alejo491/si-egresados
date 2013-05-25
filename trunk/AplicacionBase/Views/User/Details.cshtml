@@ -48,8 +48,14 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.MaritalStatus)
     </div>
+    <div>
+        &nbsp
+    </div>
+    <div>
+        @Html.ActionLink("Editar", "Edit", "",new { id=Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        @Html.ActionLink("Regresar al listado de Usuarios", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+    </div>
 </fieldset>
-<p>
-    <!-- @Html.ActionLink("Edit", "Editar ", new { id=Model.Id }) |-->
-    @Html.ActionLink("Regresar", "Index", "Home", "", htmlAttributes: new { @class = "ebutton blue" })
-</p>
+
+    
+

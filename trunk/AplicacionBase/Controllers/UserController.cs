@@ -137,6 +137,7 @@ namespace AplicacionBase.Controllers
         {
             User user = db.Users.Find(id);
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
+            //return RedirectToAction("Index", "User");
             return View(user);
         }
 
@@ -149,11 +150,19 @@ namespace AplicacionBase.Controllers
         {
             if (ModelState.IsValid)
             {
+                String Name = HttpContext.User.Identity.Name;
                 Guid g = searchId();
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["Edit"] = "Datos Del Usuario Modificados Correctamente !";
-                return RedirectToAction("Index", "User");
+                if (Name == user.aspnet_Users.UserName)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["Editar"] = "¡ Datos Del Usuario Modificados Correctamente !";
+                    return RedirectToAction("Index", "User");
+                }
             }
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
@@ -201,6 +210,7 @@ namespace AplicacionBase.Controllers
                         g = e.UserId;
                     }
                 }
+                TempData["Registrado"] = "¡ El Usuario Registrado Correctamente !";
                 return RedirectToAction("Generate", "User", new { id = g });
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
@@ -223,7 +233,7 @@ namespace AplicacionBase.Controllers
                 //user.Id = h;
                 db.Users.Add(user);
                 db.SaveChanges();
-                TempData["Creado"] = "El Usuario se Creó Correctamente !";
+                TempData["Creado"] = "¡ El Usuario se Creó Correctamente !";
                 return RedirectToAction("Index", "User");
             }
 
