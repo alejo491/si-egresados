@@ -17,6 +17,8 @@ namespace AplicacionBase.Models
             this.Studies = new List<Study>();
             this.UsersSteps = new List<UsersStep>();
             this.Vacancies = new List<Vacancy>();
+            this.Likes = new List<Like>();
+            this.Startboxs = new List<Startbox>();
         }
 
         public System.Guid Id { get; set; }
@@ -61,5 +63,7 @@ namespace AplicacionBase.Models
         public virtual ICollection<Study> Studies { get; set; }
         public virtual ICollection<UsersStep> UsersSteps { get; set; }
         public virtual ICollection<Vacancy> Vacancies { get; set; }
+        public virtual ICollection<Like> Likes{ get; set; }
+        public virtual ICollection<Startbox> Startboxs { get; set; }
     }
 }
