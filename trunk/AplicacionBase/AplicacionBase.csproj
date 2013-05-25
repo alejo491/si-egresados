@@ -559,6 +559,8 @@
     <Content Include="Views\ExperiencesBosses\Create.cshtml" />
     <Content Include="Views\ExperiencesBosses\Edit.cshtml" />
     <Content Include="Views\ExperiencesBosses\Delete.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\Generate.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -577,7 +579,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52518</DevelopmentServerPort>
+          <DevelopmentServerPort>5013</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
