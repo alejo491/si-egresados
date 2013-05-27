@@ -24,35 +24,320 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Index(Guid  id, FormCollection form)
         {
-           /* bool allfields = false;
-            bool somefield = false;
+            ItemData item = new ItemData();
+            item.Id = Guid.NewGuid();
+            item.IdReport = id;
+            item.SQLQuey = "";
+            var ListCampos = new List<Field>();
+            var ListFiltros = new List<AplicacionBase.Models.Filter>();
+            var ListGrupos = new List<GroupOption>();
+            var Lcamposgroup = new List<Field>(); 
+            int bandsql = 0;
+            int bandcamp = 0;
+            int bandfilt = 0;
+            string auxlogic = "";
+            string auxsqlcampos = "";
+            string auxsqlfiltros = "";
+            string auxsqlgrupos = "";
+            string SQL = "";
             foreach (String key in form)
             {
-                if (key.Contains("AllFields"))
+                var k = form[key];
+                if (key == "AllFields" && k == "true,false")
                 {
-                    if (form[key].Contains("true"))
+                    SQL = "select * from ConsultaGeneral";
+                    bandsql++;
+                }
+
+                if (key == "CountFields" && k == "true,false")
+                {
+                    SQL = "select count(*) from ConsultaGeneral";
+                    bandsql++;
+                }
+
+                if (key.StartsWith("field"))
+                {
+                    if (key.StartsWith("field") && k != "Seleccione una opcion" && k != "Año" && k != "Mes" && k != "Dia" && k != "Suma" && k != "Minimo" && k != "Maximo" && k != "Contar" && k != "Promedio")
                     {
-                        allfields = true;
+                        Field objcampo = new Field();
+                        objcampo.Id = Guid.NewGuid();
+                        objcampo.IdItemData = item.Id;
+                        bandcamp = 1;
+                        objcampo.FieldName = k;
+                        ListCampos.Add(objcampo);
+                        bandsql++;
+                    }
+
+                    if (key.StartsWith("fieldaction") && bandcamp == 1)
+                    {
+                        if( k == "Seleccione una opcion")
+                        {
+                            ListCampos.Last().FieldOperation = "";
+                        }
+                        if (k == "Suma")
+                        {
+                            ListCampos.Last().FieldOperation = "SUM";
+                        }
+                        if (k == "Minimo")
+                        {
+                            ListCampos.Last().FieldOperation = "MIN";
+                        }
+                        if (k == "Maximo")
+                        {
+                            ListCampos.Last().FieldOperation = "MAX";
+                        }
+                        if (k == "Contar")
+                        {
+                            ListCampos.Last().FieldOperation = "COUNT";
+                        }
+                        if (k == "Promedio")
+                        {
+                            ListCampos.Last().FieldOperation = "AVG";
+                        }
+                        if (k == "Año")
+                        {
+                            ListCampos.Last().FieldOperation = "YEAR";
+                        }
+                        if (k == "Mes")
+                        {
+                            ListCampos.Last().FieldOperation = "MONTH";
+                        }
+                        if (k == "Dia")
+                        {
+                            ListCampos.Last().FieldOperation = "DAY";
+                        }
+                        bandcamp = 0;
+                       // db.Fields.Add(ListCampos.Last());
+                        //db.SaveChanges();
+                    }
+
+                }
+
+                if (key.StartsWith("searchfield") && k != "Seleccione una opcion")
+                {
+                    if (ListFiltros.Count == 0)
+                    {
+                        AplicacionBase.Models.Filter objfiltro = new AplicacionBase.Models.Filter();
+                        objfiltro.Id = Guid.NewGuid();
+                        objfiltro.IdItemData = item.Id;
+                        bandfilt = 1;
+                        objfiltro.FieldName = k;
+                        objfiltro.LogicOperator = "WHERE";
+                        ListFiltros.Add(objfiltro);
+                        if (auxlogic != "")
+                        {
+                            auxlogic = "";
+                        }
+                    }
+                    if(auxlogic != "Condicion" && auxlogic != "")
+                    {
+                        AplicacionBase.Models.Filter objfiltro = new AplicacionBase.Models.Filter();
+                        objfiltro.Id = Guid.NewGuid();
+                        objfiltro.IdItemData = item.Id;
+                        bandfilt = 1;
+                        if (ListFiltros.Count == 0)
+                        {
+                            objfiltro.LogicOperator = "WHERE";
+                        }
+                        else
+                        {
+                            objfiltro.LogicOperator = auxlogic;
+                        }
+                        objfiltro.FieldName = k;
+                        ListFiltros.Add(objfiltro);
+                        auxlogic = "";
+                    }
+                  
+                }
+
+                if (key.StartsWith("operator") && bandfilt == 1)
+                {
+                    if(k == "Operacion")
+                    {
+                        bandfilt = 0;
+                        ListFiltros.RemoveAt(ListFiltros.Count-1);
+                    }
+                    if (k == "Mayor_o_igual_a")
+                    {
+                        ListFiltros.Last().Operator = ">=";
+                    }
+                    if (k == "Menor_o_igual_a")
+                    {
+                        ListFiltros.Last().Operator = "<=";
+                    }
+                    if (k == "Mayor_que")
+                    {
+                        ListFiltros.Last().Operator = ">";
+                    }
+                    if (k == "Menor_que")
+                    {
+                        ListFiltros.Last().Operator = "<";
+                    }
+                    if (k == "Igual_a")
+                    {
+                        ListFiltros.Last().Operator = "=";
+                    }
+                    if (k == "Diferente_de")
+                    {
+                        ListFiltros.Last().Operator = "<>";
+                    }
+                    if (k == "Like")
+                    {
+                        ListFiltros.Last().Operator = "LIKE";
                     }
                 }
 
-                if (key.Substring(0,5) == "field")
+                if (key.StartsWith("criteria") && bandfilt == 1)
                 {
-                    if (form[key] != "Seleccione una opcion")
+                    if(k == "")
                     {
-                        somefield = true;
+                        ListFiltros.RemoveAt(ListFiltros.Count - 1);
+                        bandfilt = 0;
                     }
+                    else
+                    {
+                        ListFiltros.Last().Value = k;
+                        bandfilt = 0;
+                        bandsql++;
+                       // db.Filters.Add(ListFiltros.Last());
+                        //db.SaveChanges();
+                    }
+                    
+                }
+                if (key.StartsWith("logic"))
+                {
+                    auxlogic = k;
+                }
+                if (key.StartsWith("group") && k != "Seleccione una opcion")
+                {
+                    GroupOption objgrupo = new GroupOption();
+                    objgrupo.Id = Guid.NewGuid();
+                    objgrupo.IdItemData = item.Id;
+                    objgrupo.FieldName = k;
+                    ListGrupos.Add(objgrupo);
+                    bandsql++;
+                    //db.GroupOptions.Add(objgrupo);
+                    //db.SaveChanges();
                 }
 
             }
-            */
 
-            foreach (String key in form)
+            if (ListGrupos.Count == 0)
             {
-                db.Fields.Add(new Field());
-                db.SaveChanges();
+                foreach (Field campo in ListCampos)
+                {
+                    if (campo.Id == ListCampos.First().Id)
+                    {
+                        auxsqlcampos = "SELECT ";
+                    }
+                    if (campo.FieldOperation != "")
+                    {
+                        auxsqlcampos = auxsqlcampos + campo.FieldOperation + "(" + campo.FieldName + ")";
+                    }
+                    else
+                    {
+                        auxsqlcampos = auxsqlcampos + campo.FieldName;
+                    }
 
+                    if (campo.Id != ListCampos.Last().Id)
+                    {
+                        auxsqlcampos = auxsqlcampos + ", ";
+                    }
+                    else
+                    {
+                        auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral";
+                    }
+                    
+                }
             }
+
+            foreach (AplicacionBase.Models.Filter filtro in ListFiltros)
+            {
+                auxsqlfiltros = auxsqlfiltros + filtro.LogicOperator + " " + filtro.FieldName + " " + filtro.Operator + " ";
+                    if(filtro.Operator == "LIKE")
+                    {
+                        auxsqlfiltros = auxsqlfiltros + "'" + filtro.Value + "'" + " ";
+                    }
+                    else
+                    {
+                        auxsqlfiltros = auxsqlfiltros + filtro.Value + " ";
+                    }
+            }
+
+            foreach (GroupOption grupo in ListGrupos)
+            {
+                if (auxsqlgrupos == "")
+                {
+                    auxsqlgrupos = "GROUP BY ";
+                }
+                auxsqlgrupos = auxsqlgrupos + grupo.FieldName;
+                if (grupo.Id != ListGrupos.Last().Id)
+                {
+                    auxsqlgrupos = auxsqlgrupos + "," + " ";
+                }
+            }
+        //    ListGrupos = ListGrupos.Distinct().ToList();
+        //    ListCampos = ListCampos.Distinct().ToList();
+
+            if (SQL == "" && bandsql == 0)
+            {
+                auxsqlcampos = "SELECT * ConsultaGeneral";
+            }
+            else
+            {
+                if (ListGrupos.Count > 0 && ListCampos.Count > 0)
+                {
+                    foreach (Field nuevofield in ListCampos)
+                    {
+                        foreach (GroupOption nuevogroup in ListGrupos)
+                        {
+
+                            if (nuevofield.FieldName == nuevogroup.FieldName )
+                            {
+                                Lcamposgroup.Add(nuevofield);
+                            }
+                            if (nuevofield.FieldName != nuevogroup.FieldName && nuevofield.FieldOperation != "")
+                            {
+                                Lcamposgroup.Add(nuevofield);
+                            }
+                        }
+                    }
+                    Lcamposgroup = Lcamposgroup.Distinct().ToList();
+                    foreach (Field campo in Lcamposgroup)
+                    {
+                        if (campo.Id == Lcamposgroup.First().Id)
+                        {
+                            auxsqlcampos = "SELECT ";
+                        }
+                        if (campo.FieldOperation != "")
+                        {
+                            auxsqlcampos = auxsqlcampos + campo.FieldOperation + "(" + campo.FieldName + ")";
+                        }
+                        else
+                        {
+                            auxsqlcampos = auxsqlcampos + campo.FieldName;
+                        }
+
+                        if (campo.Id != Lcamposgroup.Last().Id)
+                        {
+                            auxsqlcampos = auxsqlcampos + ", ";
+                        }
+                        else
+                        {
+                            auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral ";
+                        }
+                    }
+                    if (Lcamposgroup.Count == 0)
+                    {
+                        auxsqlcampos = "SELECT * fROM ConsultaGeneral";
+                        auxsqlgrupos = "";
+                    }
+                }                    
+            }           
+            SQL = auxsqlcampos + auxsqlfiltros + auxsqlgrupos;
+            item.SQLQuey = SQL;
+         //   db.ItemDatas.Add(item);
+         //   db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
             
@@ -167,12 +452,12 @@ namespace AplicacionBase.Controllers
             }
             else
             {
-                list.Add(@"Mayor o igual a");
-                list.Add(@"Menor o igual a");
-                list.Add(@"Mayor que");
-                list.Add(@"Menor que");
-                list.Add(@"Igual a");
-                list.Add(@"Diferente de");
+                list.Add(@"Mayor_o_igual_a");
+                list.Add(@"Menor_o_igual_a");
+                list.Add(@"Mayor_que");
+                list.Add(@"Menor_que");
+                list.Add(@"Igual_a");
+                list.Add(@"Diferente_de");
             }
 
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);

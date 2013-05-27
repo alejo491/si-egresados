@@ -9,7 +9,7 @@
         var Fields = "#field"+l;
         var Field = "field" + l;
         var FieldsAction = "#fieldaction"+l;
-        var FieldsGroup = "#fieldgroup" + l;
+        var FieldsGroup = "#group" + l;
 
 
 
@@ -17,8 +17,8 @@
         var search = "searchfield" + l;
         var oper = "#operator"+l;
 
-        var groups = "#fieldgroup" + l;
-        var group = "fieldgroup" + l;
+        var groups = "#group" + l;
+        var group = "group" + l;
         //var FieldsGroup = "#fieldgroup" + l;
         <text> $(function () { 
 
@@ -283,7 +283,8 @@
                                 </div>
                                  
                                 <div class="c2">
-                                    <input type="text" id="criteria1" style="width: 100px"/>
+									@Html.Editor("criteria1")
+                                    @*<input type="text" id="criteria1" style="width: 100px"/>*@
                                 </div>
                                  
                                 <div class="c1 first">
@@ -315,7 +316,8 @@
                                     </div>
                                  
                                     <div class="c2">
-                                        <input type="text" id="@criteria" style="width: 100px"/>
+                                        @Html.Editor(criteria)
+                                        @*<input type="text" id="@criteria" style="width: 100px"/>*@
                                     </div>
                                  
                                     @*<div class="c1 first">
@@ -339,7 +341,7 @@
                                     <p style="font-size: 12px">Agrupar por</p>
                                 </div>
                                 <div class="c5">
-                                    @Html.DropDownList("fieldgroup1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                    @Html.DropDownList("group1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
                                 </div>
                                 <div>
                                     <div class="c1 first">
@@ -353,14 +355,14 @@
                         for (int m = 2; m < 100; m++)
                         {
                             var group = "containergroup" + m;
-                            var grouplist = "fieldgroup" + m;
+                            var grouplist = "group" + m;
                             <div id="@group">
                                 <div class="c12">
                                     <div class="c2 first">
                                         <p style="font-size: 12px">Agrupar por</p>
                                     </div>
                                     <div class="c5">
-                                        @Html.DropDownList("fieldgroup"+m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                        @Html.DropDownList("group"+m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
                                     </div>
                                     <div class="c1 first">
                                         <input type="button" onClick="hide('@group'); changeindex('@grouplist');" value="-"/>
