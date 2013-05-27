@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
@@ -10,22 +11,18 @@ namespace AplicacionBase.Controllers
     {
         //
         // GET: /ItemData/
+        
+        public readonly DbSIEPISContext db = new DbSIEPISContext();
 
-        public ActionResult Index()
+        public ActionResult Index(Guid id)
         {
             return View();
         }
 
-        public JsonResult ListLogic()
-        {
-            List<String> list = new List<string>();
-            list.Add("AND");
-            list.Add("OR");
-            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
-        }     
+       
 
         [HttpPost]
-        public ActionResult Index(FormCollection form)
+        public ActionResult Index(Guid  id, FormCollection form)
         {
            /* bool allfields = false;
             bool somefield = false;
@@ -52,6 +49,8 @@ namespace AplicacionBase.Controllers
 
             foreach (String key in form)
             {
+                db.Fields.Add(new Field());
+                db.SaveChanges();
 
             }
 
@@ -62,6 +61,15 @@ namespace AplicacionBase.Controllers
         }
 
         #region Ajax
+
+        public JsonResult ListLogic()
+        {
+            List<String> list = new List<string>();
+            list.Add("AND");
+            list.Add("OR");
+            return Json(list.ToList(), JsonRequestBehavior.AllowGet);
+        }     
+
         public JsonResult ListActions(string field, string campo)
         {
 
@@ -89,7 +97,7 @@ namespace AplicacionBase.Controllers
                     list.Add("Suma");
                     list.Add("Minimo");
                     list.Add("Maximo");
-                    //list.Add("Contar");
+                    list.Add("Contar");
                     list.Add("Promedio");
                 }
                 else
@@ -100,6 +108,7 @@ namespace AplicacionBase.Controllers
                         list.Add("Año");
                         list.Add("Mes");
                         list.Add("Dia");
+                        list.Add("Contar");
                     }
                     else
                     {
@@ -110,7 +119,16 @@ namespace AplicacionBase.Controllers
                                 list.Add("Año");
                                 list.Add("Mes");
                                 list.Add("Dia");
+                                list.Add("Contar");
                             }
+                            else
+                            {
+                                list.Add("Contar");
+                            }
+                        }
+                        else
+                        {
+                            list.Add("Contar");
                         }
                     }
 
