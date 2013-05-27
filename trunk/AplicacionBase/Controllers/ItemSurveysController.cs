@@ -66,7 +66,8 @@ namespace AplicacionBase.Controllers
             question = ((Question)(db.Questions.First(st => st.Id == idQuestion))).Sentence;
             string topic = "" + db.Topics.Where(st => st.Id== idTopic);
             string tabla = "VistaModuloEncuesta";
-            String SQL = "" + "select * from " + tabla + " where surveysName='" + surveysName + "' and topicsDescription='" + tema + "' and questionsSentence='" + question + "'";
+            //String SQL = "" + "select distinct Cantidad,(Convert(VARCHAR(2000), answerChoicesSentence)) as Respuesta from  VistaModuloEncuesta  inner JOIN  (select count(*) as cantidad,idAnswerChoices from " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and idQuestion in('" + idQuestion + "') group by idAnswerChoices ) as cdcd on cdcd.idAnswerChoices=VistaModuloEncuesta.idAnswerChoices";
+            String SQL = "" + "select count(*) as cantidad,(Convert(VARCHAR(2000), answerChoicesSentence)) as Respuesta from  " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and idQuestion in('" + idQuestion + "') group by idAnswerChoices ,(Convert(VARCHAR(2000), answerChoicesSentence)) ";
             ItemSurvey itenSurvey=new ItemSurvey();
             itenSurvey.Id = Guid.NewGuid();
             itenSurvey.IdReport = id;       //se recibe como parametro antes de entrar a crear. aqui se saca en ves de crearlo
