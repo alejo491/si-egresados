@@ -13,28 +13,36 @@ namespace AplicacionBase.Controllers
 {
     public class AccountController : Controller
     {
-        [HttpGet]
-        public ActionResult FacebookLogin(string token)
+        [HttpPost]
+        public JsonResult FacebookLogin(FacebookLoginModel model)
         {
+            Session["accessToken"] = model.accessToken;
+
             WebClient client = new WebClient();
             string JsonResult = client.DownloadString(string.Concat(
-                   "https://graph.facebook.com/me?access_token=", token));
-            // Json.Net is really helpful if you have to deal
-            // with Json from .Net http://json.codeplex.com/
+                   "https://graph.facebook.com/me?access_token=", model.accessToken));
+
             JObject jsonUserInfo = JObject.Parse(JsonResult);
-            // you can get more user's info here. Please refer to:
-            //     http://developers.facebook.com/docs/reference/api/user/
-            string username = jsonUserInfo.Value<string>("username");
+
+            string username = jsonUserInfo.Value<string>("name");
             string email = jsonUserInfo.Value<string>("email");
             string locale = jsonUserInfo.Value<string>("locale");
             string facebook_userID = jsonUserInfo.Value<string>("id");
 
-            // store user's information here...
-            FormsAuthentication.SetAuthCookie(username, true);
-            return RedirectToAction("Index", "Home");
+            
+            System.Web.Security.MembershipUserCollection uno = Membership.FindUsersByEmail(email);
+            if (uno.Count == 1)
+            {
+                FormsAuthentication.SetAuthCookie(username, true);
+                return Json(new { success = true });
+            }
+            else
+            {             
+                return Json(new { succes = false });
+            }
+
         }
 
-        //
         // GET: /Account/LogOn
 
         public ActionResult LogOn()
