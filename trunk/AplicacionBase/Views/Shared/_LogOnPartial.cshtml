@@ -15,8 +15,8 @@
 else
 {
 
-    <div class="rigth"><div class="left">|</div><fb:login-button perms="email,user_checkins" onlogin="afterFacebookConnect();" 
-       autologoutlink="false" >Iniciar sesión</fb:login-button>
+    <div class="rigth"><div class="left">|</div><fb:login-button perms="email,user_checkins" autologoutlink="true" >Entrar con Facebook</fb:login-button>
+}
     <div id="fb-root" style="display:inline; margin-right:0px;"></div></div>
     
     @:<div class="rigth">@Html.ActionLink("Iniciar Sesión ", "LogOn", "Account")</div>
@@ -27,28 +27,59 @@ else
    
 }
 <script language="javascript" type="text/javascript">
-    window.fbAsyncInit = function () {
-        FB.init({ appId: '364452153673571',
-            status: true, cookie: false, xfbml: true
-        });
-    };
-    function afterFacebookConnect() {
-        FB.getLoginStatus(function (response) {
-            if (response.session) {
-                window.location = "../Account/FacebookLogin?token=" +
-                       response.session.access_token;
-            } else {
-                // user clicked Cancel
-            }
-        });
-    };
-    $(document).ready(function () {
-        if (document.getElementById('fb-root') != undefined) {
-            var e = document.createElement('script');
-            e.type = 'text/javascript';
-            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-            e.async = true;
-            document.getElementById('fb-root').appendChild(e);
+    // Load the SDK Asynchronously
+    (function (d) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {
+            return;
         }
-    });
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/es_LA/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    } (document));
+
+    // Init the SDK upon load
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '412456318862572',
+            status: true,
+            cookie: true,
+            xfbml: true,
+            oauth: true,
+            locale: 'es_LA'
+        });
+        FB.Event.subscribe('auth.login', function (response) {
+            var credentials = { accessToken: response.authResponse.accessToken };
+            SubmitLogin(credentials);
+        });
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+
+                //alert("Usuario loggeado en Facebook");
+            }
+            else if (response.status === 'not_authorized') { alert("Usuario no autorizado"); }
+            else {
+               // alert("Usuario no conectado con Facebook");
+             }
+
+        });
+
+        function SubmitLogin(credentials) {
+            $.ajax({
+                url: "/account/facebooklogin",
+                type: "POST",
+                data: credentials,
+                error: function () {
+                    alert("Error al ingresar con tu cuenta de Facebook.");
+                },
+                success: function () {
+                    window.location.reload();
+                }
+
+            });
+        }
+
+    };
 </script>
