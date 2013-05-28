@@ -10,7 +10,7 @@ namespace AplicacionBase.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "ASP.NET MVC";
+            ViewBag.Message = "Egresados Unicauca";
 
             return View();
         }
