@@ -12,8 +12,7 @@ namespace AplicacionBase.Models.Mapping
 
             // Properties
             this.Property(t => t.SPath)
-                .IsRequired()
-                .HasMaxLength(60);
+                .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("Steps");

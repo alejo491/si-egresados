@@ -124,6 +124,7 @@ namespace AplicacionBase
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            CreateSteps();
 
         }
 
