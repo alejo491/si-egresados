@@ -1,0 +1,45 @@
+﻿@model AplicacionBase.Models.User
+@{
+    ViewBag.Title = "Begin";
+}
+<div class="grid">
+    <div class="c12">
+    </div>
+    <div class="c12">
+        <div class="c9 first">
+            <legend>Perfil Personal del Usuario: @Model.aspnet_Users.UserName</legend>
+            <br />
+            <div class="c12">
+                <div class="c1 first">
+                </div>
+                <div class="c11 last">
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <p>
+            </p>
+        </div>
+        <div class="c3 last">
+            <div class="grid">
+                <div class="c12">
+                    <div class="c1 first">
+                    </div>
+                    <div class="c11 last">
+                        <div align="center" class="sidebarcontainer">
+                            <h3>
+                                Información del Usuario</h3>
+                            <div align="center" class="sidebar">
+                                @Html.ActionLink("Perfil Personal", "Details", "User", new { id = Model.Id }, new { @class = "ebutton2 blue linkmenu" })<br />
+                                @Html.ActionLink("Estudios Realizados", "Index", "Study","", new { @class = "ebutton2 blue linkmenu" })<br />
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    &nbsp;
+</div>

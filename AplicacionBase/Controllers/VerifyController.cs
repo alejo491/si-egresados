@@ -30,7 +30,7 @@ namespace AplicacionBase.Controllers
 
                     if (!steps.Any())
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Begin", "User", new { id = g });
                     }
                     else
                     {
