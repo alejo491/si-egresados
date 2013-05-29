@@ -1,23 +1,428 @@
-﻿@model AplicacionBase.Models.Study
-
+﻿@using System.Collections.Specialized
 @{
     ViewBag.Title = "Create";
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtStartDate").datepicker();
+        $("#txtStartDate").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtEndDate").datepicker();
+        $("#txtEndDate").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 
-<h2>Información del Estudio</h2>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtSchool').autocomplete({
+            source: '@Url.Action("AutocompleteSchool")'
+        });
+    }) 
+</script>
 
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtTesis').autocomplete({
+            source: '@Url.Action("AutocompleteThesis")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective2').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective3').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective4').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective5').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript"> 
+    @for (int l = 1; l < 100; l++)
+    {
+        var Fields = "#field" + l;
+        var Field = "field" + l;
+        var FieldsAction = "#fieldaction" + l;
+        var FieldsGroup = "#fieldgroup" + l;
+        var searches = "#searchfield" + l;
+        var search = "searchfield" + l;
+        var oper = "#operator" + l;
+        var groups = "#fieldgroup" + l;
+        var group = "fieldgroup" + l;
+
+        <text> $(function () { 
+            $.getJSON("/ItemData/ListFields", null, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@Fields").html(items);
+            });
+
+            $.getJSON("/ItemData/ListSearchFields", null, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@searches").html(items);
+            });
+
+             $.getJSON("/ItemData/ListGroupFields", null, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@groups").html(items);
+            });
+        
+            $("@searches").change(function () {
+
+            var Param = { field: $("@searches > option:selected").attr("value") , campo: '@search'};
+            $.getJSON("/ItemData/ListOperators/", Param, function (data) {
+                var items = "<option>Operacion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@oper").html(items);
+            });
+        });
+ 
+            $("@Fields").change(function (){
+            var Param = { field: $("@Fields > option:selected").attr("value") , campo: '@Field'};
+            $.getJSON("/ItemData/ListActions/", Param, function (data) {
+                var items = "<option>Seleccione una opcion</option>";
+                $.each(data, function (i, item) {
+                    items += "<option value=" + item + ">" + item + "</option>";
+                });
+                $("@FieldsAction").html(items);
+            });
+        });
+    });
+        </text>  
+    }
+    $(function () {
+        $.getJSON("/ItemData/ListLogic", null, function (data) {
+            var items = "<option>Condicion</option>";
+            $.each(data, function (i, item) {
+                items += "<option value=" + item + ">" + item + "</option>";
+            });
+            $(".classlogic").html(items);
+        });
+    });
+
+    var indicecontainerfield = 1;
+    var indicecontaionersearch = 1;
+    var indicecontainergroup = 1;
+
+    function hide(id) {
+        var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+        elDiv.style.display = 'none';
+    }
+
+    function show(id) {
+        var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+        elDiv.style.display = 'block';
+    }
+    
+    function shownext(id) {
+        var b = '';
+        if (id == 'containerfield') {
+            indicecontainerfield++;
+            b = indicecontainerfield + '';
+        }
+        
+        if (id == 'containergroup') {
+            indicecontainergroup++;
+            b = indicecontainergroup + '';
+        }
+        
+        if (id == 'containersearch') {
+            indicecontaionersearch++;
+            b = indicecontaionersearch + '';
+        }
+      
+        var elDiv = document.getElementById(id+b); //se define la variable "elDiv" igual a nuestro div
+        elDiv.style.display = 'block';
+
+    }
+    
+    function hidenext(id) {
+        //alert(indice);
+        if (indice != 1) {
+            var b = indice + '';
+            var elDiv = document.getElementById(id+b); //se define la variable "elDiv" igual a nuestro div
+            elDiv.style.display = 'none';
+            indice--;
+        }
+    }
+    
+    function changeindex(id) {
+        document.getElementById(id).selectedIndex = 0;
+    }
+    
+    function changevalue(id) {
+        document.getElementById(id).value = '';
+        document.getElementById(id).Text = '';
+    }
+    
+
+    window.onload = function(){/*hace que se cargue la función */
+
+        @{
+            for (int j = 2; j < 100; j++)
+            {
+                string name = "containerfield" + j;
+                string sname = "containersearch" + j;
+                string gname = "containergroup" + j;
+                @:hide('@name');
+                @:hide('@sname');
+                @:hide('@gname');
+                
+            }
+       }
+
+    };
+
+</script>
+
+<script type="text/javascript">
+    function addElement(text) {
+        var divelement = document.getElementById("container");
+        var select = document.createElement("select");
+        select.className = text;
+        divelement.appendChild(select);
+    }
+</script>
+
+<h2>Información del Estudio</h2>
+      
+<div class="grid">
+
+    <div class="c12">
+    
+        <div class="c9 first" id=”contenido”>
+        
+            <div id="fields">
+                @using (Html.BeginForm())
+                {
+                        <div class="editor-label">
+                            <h3>Institucion</h3>
+                        </div>
+                        <div class="editor-field">
+                             <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" />
+                             @*@Html.ActionLink("Agregar Institución", "Create", "School", null, htmlAttributes: new { @class = "ebutton blue", @idSchool = "txtSchool" })*@
+                        </div>                        
+                        <div class="editor-label">
+                            <h3>Programa</h3>
+                        </div>
+                        <div class="editor-field">
+                            <select name="programas" id="txtProgramas">
+                                <option>Ingenieria de Sistemas</option>
+                                <option>Ingenieria Automatica</option>
+                                <option>Telematica</option>
+                                <option>Ingenieria Electronica</option>
+                            </select>
+                        </div>
+                        <div class="editor-label">
+                            <h3>Titulo</h3>
+                        </div>
+                        <div class="editor-field">
+                            <input type="text" name = "Grade" id="Grade" style="width: 260px"/>
+                        </div>
+                        <div class="editor-label">
+                            <h3>Electivas</h3>
+                        </div>                    
+                        <div id="containerfield1">
+                            <div class="c12">
+                                <div class="c1 first"> 
+                                    <p style="font-size: 12px">Electiva 1</p>
+                                </div>
+                                <div class="c3">
+                                    <input type="text" name="txtElective1" id="txtElective" style = "width:150px" />
+                                    @*@Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
+                                </div>
+                                <div class="c3">
+                                    
+                                </div>
+                                <div class="c1 first">
+                                    <input type="button" onClick="shownext('containerfield')" value="Agregar Electiva" class="ebutton blue"/>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    string nid = "containerfield" + 2;
+                    string nid2 = "containerfield" + 3;
+                    string nid3 = "containerfield" + 4;
+                    string nid4 = "containerfield" + 5;
+                        
+                        <div id="@nid">
+                            <div class="c12">
+                                <div class="c1 first">
+                                    <p style="font-size: 12px">Electiva 2</p>
+                                </div>
+                                <div class="c3">
+                                    <input type="text" name="txtElective2" id="txtElective2" style = "width:150px" />
+                                    @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
+                                </div>
+                                <div class="c3">
+                                       
+                                </div>
+                                @*<div class="c1 first">
+                                    <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="Quitar Electiva" class="ebutton blue"/>
+                                </div>*@
+                            </div>             
+                        </div>
+                        <div id="@nid2">
+                            <div class="c12">
+                                <div class="c1 first">
+                                    <p style="font-size: 12px">Electiva 3</p>
+                                </div>
+                                <div class="c3">
+                                    <input type="text" name="txtElective3" id="txtElective3" style = "width:150px" />
+                                    @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
+                                </div>
+                                <div class="c3">
+                                       
+                                </div>
+                                @*<div class="c1 first">
+                                    <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="Quitar Electiva" class="ebutton blue"/>
+                                </div>*@
+                            </div>             
+                        </div>
+                        <div id="@nid3">
+                            <div class="c12">
+                                <div class="c1 first">
+                                    <p style="font-size: 12px">Electiva 4</p>
+                                </div>
+                                <div class="c3">
+                                    <input type="text" name="txtElective4" id="txtElective4" style = "width:150px" />
+                                    @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
+                                </div>
+                                <div class="c3">
+                                       
+                                </div>
+                                @*<div class="c1 first">
+                                    <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="Quitar Electiva" class="ebutton blue"/>
+                                </div>*@
+                            </div>             
+                        </div>
+                        <div id="@nid4">
+                            <div class="c12">
+                                <div class="c1 first">
+                                    <p style="font-size: 12px">Electiva 5</p>
+                                </div>
+                                <div class="c3">
+                                    <input type="text" name="txtElective5" id="txtElective5" style = "width:150px" />
+                                    @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
+                                </div>
+                                <div class="c3">
+                                       
+                                </div>
+                                @*<div class="c1 first">
+                                    <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="Quitar Electiva" class="ebutton blue"/>
+                                </div>*@
+                            </div>             
+                        </div>
+                    
+                    for (int k = 2; k < 6; k++)
+                    {
+                        string sid = "containersearch" + k;
+                        string nextsid = "containersearch" + (k + 1);
+                        string nextsearchfield = "searchfield" + (k + 1);
+                        string searchfield = "searchfield" + k;
+                        string operatorfield = "operator" + k;
+                        string criteria = "criteria" + k;
+                        string logic = "logic" + k;
+                            <div id="@sid">
+                                
+                            </div>   
+                    }
+                    for (int m = 2; m < 100; m++)
+                    {
+                        var group = "containergroup" + m;
+                        var grouplist = "fieldgroup" + m;
+                            <div id="@group">
+                            </div>
+                    }
+                    <div class="editor-label">
+                           <h3>Fecha Inicio</h3>
+                        </div>
+                    <div class="editor-field">
+                        <input type="text" name="txtStartDate" id="txtStartDate" placeholder = "DD/MM/AAAA" style = "width:150px" />
+                            @*@Html.TextBoxFor(model => model.StartDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtStartDate" })*@
+                    </div>
+                    <div class="editor-label">
+                        <h3>Fecha Fin</h3>
+                    </div>
+                    <div class="editor-field">
+                            <input type="text" name="txtEndDate" id="txtEndDate" placeholder = "DD/MM/AAAA" style = "width:150px" />
+                           @*@Html.TextBoxFor(model => model.EndDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtEndDate" })*@
+                        </div>
+                    <div> 
+                        <div class="editor-label">
+                            <h3>Tesis</h3>
+                        </div>
+                        <div class="editor-field">
+                             <input type="text" name="txtTesis" id="txtTesis" style = "width:150px" />
+                        </div>
+                        <div class="editor-label">
+                            <h3>Descripción</h3>
+                        </div>
+                        <div class="editor-field">
+                             <textarea name="comentarios" rows="10" cols="40" id = "txtDescripcion">Escribe aquí la descripción de tu tesis</textarea>
+                        </div>    
+                    &nbsp
+                    </div>
+                     
+                   
+                   
+                        <div>
+                            <input type="submit" value="Crear" class="ebutton blue"/>
+                            @Html.ActionLink("Regresar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+                        </div>
+                         
+                }
+            </div>
+        </div>
+    </div>
+
+    &nbsp;
+</div>
+@*
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
@@ -27,12 +432,22 @@
         <legend>Estudios</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdSchool, "School")
+            @Html.LabelFor(model => model.IdSchool, "Institucion")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdSchool", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdSchool)
-            @Html.ActionLink("Agregar Institución", "Create", "School", null, htmlAttributes: new { @class = "ebutton blue" })
+             <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" />
+             @Html.ActionLink("Agregar Institución", "Create", "School", null, htmlAttributes: new { @class = "ebutton blue", @idSchool ="txtSchool" })
+        </div>
+        <div class="editor-label">
+            Programa
+        </div>
+        <div class="editor-field">
+            <select name="programas">
+                <option>Ingenieria de Sistemas</option>
+                <option>Ingenieria Automatica</option>
+                <option>Telematica</option>
+                <option>Ingenieria Electronica</option>
+            </select>
         </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.Grade)
@@ -41,27 +456,39 @@
             @Html.EditorFor(model => model.Grade)
             @Html.ValidationMessageFor(model => model.Grade)
         </div>
-
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Electives, "Electivas")
+        </div>
+        <div class="editor-field">
+             <input type="text" name="txtElective" id="txtElective" style = "width:150px" />
+             @Html.ActionLink("Agregar Electiva", "Create", "Elective", null, htmlAttributes: new { @class = "ebutton blue"})
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Thesis, "Tesis")
+        </div>
+        <div class="editor-field">
+             <input type="text" name="txtTesis" id="txtTesis" style = "width:150px" />
+             @Html.ActionLink("Agregar Tesis", "Create", "Thesis", null, htmlAttributes: new { @class = "ebutton blue"})
+        </div>
         <div class="editor-label">
             @Html.LabelFor(model => model.StartDate)
         </div>
         <div class="editor-field">
-            @Html.TextBox("txtStartDate", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
+             @Html.TextBoxFor(model => model.StartDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtStartDate" })
         </div>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.EndDate)
         </div>
         <div class="editor-field">
-            @Html.TextBox("txtEndDate", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
+           @Html.TextBoxFor(model => model.EndDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtEndDate" })
         </div>
-
+        <div>
+            &nbsp
+        </div>
         <p>
-            <input type="submit" value="Agregar" />
+            <input type="submit" value="Agregar" class="ebutton blue" />&nbsp
+            @Html.ActionLink("Regresar", "Index", "",htmlAttributes: new { @class = "ebutton blue" }) &nbsp
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Regresar", "Index", "",htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-</div>
+*@
