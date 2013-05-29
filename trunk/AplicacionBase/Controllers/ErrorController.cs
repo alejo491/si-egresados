@@ -21,5 +21,10 @@ namespace AplicacionBase.Controllers
             return View();
         }
 
+        public ViewResult ErrorDataUpdate()
+        {
+            return View();
+        }
+
     }
 }

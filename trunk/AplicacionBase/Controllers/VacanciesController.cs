@@ -52,41 +52,36 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Vacancy vacancy)
         {
-
-            /* Guid g = System.Guid.Empty;
-             foreach (var e in db.aspnet_Users)
-             {
-
-                 if (e.UserName == HttpContext.User.Identity.Name)
-                 {
-                     g = e.UserId;
-                 }
-
-             }
-             var IdUser = g;
-
-             */
-
-
-
-
-            var IdUser = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
-
-
-
-            if (ModelState.IsValid)
+            ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
+            ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
             {
-                vacancy.Id = Guid.NewGuid();
-                vacancy.IdUser = IdUser;
-                vacancy.PublicationDate = DateTime.Now;
-                db.Vacancies.Add(vacancy);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+            var IdUser = g;
+
+            bool dataUpdate = false;
+            foreach (var User in db.Users) // Se busca si el usuario ha actualizado los datos de la cuenta
+            {
+                if (User.Id == IdUser)
+                {
+                    dataUpdate = true;
+                }
+
             }
 
-            ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-            //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
-            return View(vacancy);
+            if (dataUpdate)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ErrorDataUpdate", "Error");
+            }
         }
 
         //
