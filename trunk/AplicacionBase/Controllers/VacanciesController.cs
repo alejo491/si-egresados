@@ -18,27 +18,34 @@ namespace AplicacionBase.Controllers
         private int pageSize = 1;
         private int pageNumber;
 
-        //
-        // GET: /Vacancies/
-
+        //! Renderiza la pagina principal de vacantes
+        /*!
+         * \return La vista con el listado de vacantes sacadas de la base de datos
+         *
+         */
         public ViewResult Index()
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
             return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
 
-        //
-        // GET: /Vacancies/Details/5
-
+        //! Muestra los detalles para una vacante en especial
+        /*!
+         * \param id Contiene el id de la vacante de la cual se desean los detalles
+         * \return La vista con la vacante en detalle
+         *
+         */
         public ViewResult Details(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
             return View(vacancy);
         }
 
-        //
-        // GET: /Vacancies/Create
-
+        //! Atiende el resultado de pulsar el boton de Crear Nueva vacante en la vista principal
+        /*!
+         * \return La vista de Creacion solamente en el caso de que el usuario este loggeado
+         *
+         */
         public ActionResult Create()
         {
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
@@ -73,8 +80,12 @@ namespace AplicacionBase.Controllers
             }
         }
 
-        //
-        // POST: /Vacancies/Create
+        //! Atiende el resultado de hacer clic en el boton de Crear Nueva desde la vista de Creacion de Vacantes
+        /*!
+         * \param vacancy Contiene los datos de la vacantes para ser llevados a la base de datos
+         * \return La vista al listado de vacantes
+         *
+         */
 
         [HttpPost]
         public ActionResult Create(Vacancy vacancy)
@@ -116,9 +127,12 @@ namespace AplicacionBase.Controllers
             return View(vacancy);
         }
 
-        //
-        // GET: /Vacancies/Edit/5
-
+        //! Atiende el resultado de hacer clic en Editar, en las opciones de cada vacante
+        /*!
+         * \param id Contiene el id de la vacante que se desea modificar
+         * \return La vista con los datos a editar de la vacante
+         *
+         */
         public ActionResult Edit(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
@@ -127,9 +141,12 @@ namespace AplicacionBase.Controllers
             return View(vacancy);
         }
 
-        //
-        // POST: /Vacancies/Edit/5
-
+        //! Atiende el resultado de hacer clic en Editar de la vista de Edicion de vacantes
+        /*!
+         * \param vacancy Contiene los datos de la vacante a actualizar
+         * \return La vista con el listado de vacantes
+         *
+         */
         [HttpPost]
         public ActionResult Edit(Vacancy vacancy)
         {
@@ -144,18 +161,24 @@ namespace AplicacionBase.Controllers
             return View(vacancy);
         }
 
-        //
-        // GET: /Vacancies/Delete/5
-
+        //! Atiende el resultado de hacer clic en Eliminar, en las opciones de cada vacante
+        /*!
+         * \param id Contiene el id de la vacante que se desea Eliminar
+         * \return La vista de confirmación
+         *
+         */
         public ActionResult Delete(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
             return View(vacancy);
         }
 
-        //
-        // POST: /Vacancies/Delete/5
-
+        //! Atiende el resultado de hacer clic en Eliminar de la vista de Confirmacion de eliminacion de vacantes
+        /*!
+         * \param id Id de la vacante que se confirma se desea eliminar
+         * \return La vista con el listado de vacantes
+         *
+         */
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -175,8 +198,14 @@ namespace AplicacionBase.Controllers
        
         private System.Linq.IOrderedEnumerable<Vacancy> results;
         private string searchText;
-   
-        
+
+        //! Atiende el resultado de hacer clic en Buscar de la vista Principal
+        /*!
+         * \param criteria Contiene las palabras clave con las que se desea hacer la busqueda
+         * \param page Elemento de control para la paginación
+         * \return La vista con el listado de vacantes encontradas para las palabras claves
+         *
+         */
         public ActionResult Search(string criteria, int? page)
         {
        
