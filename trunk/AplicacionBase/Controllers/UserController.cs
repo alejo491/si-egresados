@@ -24,6 +24,20 @@ namespace AplicacionBase.Controllers
             return View(users.ToList());
         }
 
+        public ActionResult Begin(Guid id)
+        {
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
+                return View(user);
+            }
+        }
+
         //
         // GET: /User/Details/5
 
@@ -156,7 +170,7 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 if (Name == user.aspnet_Users.UserName)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Begin", "User", new { id = g });
                 }
                 else
                 {
@@ -184,8 +198,21 @@ namespace AplicacionBase.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             User user = db.Users.Find(id);
+            //aspnet_Users w = db.aspnet_Users.Find(id);
+            foreach (var ca in db.aspnet_Roles)
+            {
+                aspnet_UsersInRoles v = db.aspnet_UsersInRoles.Find(user.Id, ca.RoleId);
+                if (v != null)
+                {
+                    v.aspnet_Roles = null;
+                    v.aspnet_Users = null;
+                    db.aspnet_UsersInRoles.Remove(v);
+                }
+            }
             db.Users.Remove(user);
+            //db.aspnet_Users.Remove(w);
             db.SaveChanges();
+            TempData["Eliminado"] = "¡ Usuario Eliminado Correctamente !";
             return RedirectToAction("Index");
         }
 
@@ -211,6 +238,7 @@ namespace AplicacionBase.Controllers
                     }
                 }
                 TempData["Registrado"] = "¡ El Usuario Registrado Correctamente !";
+                TempData["info"] = "Si desea complete la Información del Usuario";
                 return RedirectToAction("Generate", "User", new { id = g });
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario

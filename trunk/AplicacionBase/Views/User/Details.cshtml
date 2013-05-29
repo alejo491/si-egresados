@@ -1,50 +1,48 @@
 ﻿@model AplicacionBase.Models.User
-
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Detalles</h2>
-
+<h2>
+    Información Personal</h2>
 <fieldset>
-    <legend>Usuario @ViewBag.UserName</legend>
-
-    <div class="display-label">Teléfono</div>
+    <legend>Usuario @Model.aspnet_Users.UserName</legend>
+    <div class="display-label">
+        Teléfono</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.PhoneNumber)
     </div>
-
-    <div class="display-label">Nombres</div>
+    <div class="display-label">
+        Nombres</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.FirstNames)
     </div>
-
-    <div class="display-label">Apellidos</div>
+    <div class="display-label">
+        Apellidos</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.LastNames)
     </div>
-
-    <div class="display-label">Dirección</div>
+    <div class="display-label">
+        Dirección</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Address)
     </div>
-
-    <div class="display-label">Celular</div>
+    <div class="display-label">
+        Celular</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CellphoneNumber)
     </div>
-
-    <div class="display-label">Fecha de Nacimiento  (AAAA/MM/DD)</div>
+    <div class="display-label">
+        Fecha de Nacimiento (AAAA/MM/DD)</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.BirthDate)
     </div>
-
-    <div class="display-label">Género</div>
+    <div class="display-label">
+        Género</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Gender)
     </div>
-
-    <div class="display-label">Estado Civíl</div>
+    <div class="display-label">
+        Estado Civíl</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.MaritalStatus)
     </div>
@@ -52,10 +50,9 @@
         &nbsp
     </div>
     <div>
-        @Html.ActionLink("Editar", "Edit", "",new { id=Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-        @Html.ActionLink("Regresar al listado de Usuarios", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+        @Html.ActionLink("Editar", "Edit", "User", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })
+        &nbsp
+        <!--@Html.ActionLink("Eliminar", "Delete", "User", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })&nbsp-->
+        <input type="button" value="Atrás" onclick="history.go(-1)" class="ebutton blue" />
     </div>
 </fieldset>
-
-    
-

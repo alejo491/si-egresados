@@ -2,13 +2,13 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Usuarios Registrados</h2>
-
+<h2>
+    Usuarios Registrados</h2>
 <p>
-     @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })
     <div class="alert success">@TempData["Editar"]</div>
     <div class="alert success">@TempData["Creado"]</div>
+    <div class="alert success">@TempData["Eliminado"]</div>
 </p>
 <table>
     <tr>
@@ -24,40 +24,43 @@
         <th>
             Celular
         </th>
-         <th>
+        <th>
             Teléfono
         </th>
         <th>
             Opciones
         </th>
     </tr>
-
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstNames)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastNames)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CellphoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-           @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-            @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-            @Html.ActionLink("Asignar Roles", "AssignUserRoles", "UsersRoles", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-            @Html.ActionLink("Estudios", "Index", "Study", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstNames)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastNames)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellphoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                &nbsp
+                @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                &nbsp
+                @Html.ActionLink("Asignar Roles", "AssignUserRoles", "UsersRoles", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                &nbsp
+                @Html.ActionLink("Perfil del Usuario", "Begin", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                &nbsp
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                &nbsp
+            </td>
+        </tr>
+    }
 </table>
