@@ -1,7 +1,19 @@
 ﻿@{
     ViewBag.Title = "Egresados Unicauca";
 }
-
+<script type="text/javascript"> 
+$(document).ready(function () {
+        $.ajax({
+            type : "POST",
+            url :  "@(Url.Action("ShowPosts", "Post"))", // se dirige a la acción "ShowPosts" del controlado Post
+            traditional : true,
+            data : {}, // se agregan los parametros necesarios para la funcionalidad
+            success : function(data){
+                $("#VisorNoticias").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+            }
+        });  
+}) 
+</script>
 <div class="contenido-izq">
     <div class="alert error">
         @TempData["Error"]
@@ -9,89 +21,7 @@
     <div class="alert success">
         @TempData["Success"]
     </div>
-<div>
-    <h1>ESTA TABLA Y FORMULARIOS NO SON FUNCIONALES SOLO SON UN EJEMPLO PARA VISUALIZAR EL ESTILO</h1>
-    <h2>USUARIOS</h2>
-    <table>
-        <tr class="head">
-            <th>Celda 1</td>
-            <th>Celda 2</td>
-            <th>Celda 3</td>
-        </tr>
-        <tr class="alt">
-            <td>Celda 4</td>
-            <td>Celda 5</td>
-            <td>Celda 6</td>
-        </tr>
-        <tr>
-            <td>Celda 7</td>
-            <td>Celda 8</td>
-            <td>Celda 9</td>
-        </tr>
-        <tr class="alt">
-            <td>Celda 10</td>
-            <td>Celda 11</td>
-            <td>Celda 12</td>
-        </tr>
-    </table>
-</div>
-<br/>
-<br/>
-<FORM method=post action="cgi-bin/script.pl">
-Registro de un usuario
-<TABLE BORDER=0>
-<TR>
-	<TD>Apellido</TD>
-	<TD>
-	<INPUT type=text name="apellido">
-	</TD>
-</TR>
-
-<TR>
-	<TD>Nombre</TD>
-	<TD>
-	<INPUT type=text name="nombre">
-	</TD>
-</TR>
-
-<TR>
-	<TD>Género</TD>
-	<TD>
-	Hombre: 
-Mujer: <INPUT type=radio name="género" value="M">
-	<br>Mujer: <INPUT type=radio name="género" value="F">
-	</TD>
-</TR>
-
-<TR>
-	<TD>Ocupación</TD>
-	<TD>
-	<SELECT name="ocupación">
-		<OPTION VALUE="profesor">Profesor</OPTION>
-		<OPTION VALUE="estudiante">Estudiante</OPTION>
-		<OPTION VALUE="ingeniero">Ingeniero</OPTION>
-		<OPTION VALUE="jubilado">Jubilado</OPTION>
-		<OPTION VALUE="otro">Otro</OPTION>
-	</SELECT>
-	</TD>
-</TR>
-<TR>
-	<TD>Comentarios</TD>
-	<TD>
-	<TEXTAREA rows="3" name="comentarios">
-	Escriba aquí sus comentarios</TEXTAREA>
-Enviar
-	</TD>
-</TR>
-
-<TR>
-	<TD COLSPAN=2>
-	<INPUT type="submit" value="Enviar">
-	</TD>
-</TR>
-</TABLE>
-</FORM>
-
+    <div id="VisorNoticias"></div>
 </div>
 <div class="contenido-der">
 

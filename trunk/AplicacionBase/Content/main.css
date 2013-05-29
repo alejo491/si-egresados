@@ -933,3 +933,138 @@ div .rigth
         min-height: 23px;
         float: right;
 }
+
+/*HOJA DE ESTILOS PARA SHOW NOTICIAS*/
+#VisorNoticias
+{
+    min-width: 460px;
+    width: 100%;
+    padding: 0;
+}
+#Noticias
+{    
+    min-width: 456px;
+    width: 100%;
+    padding: 0;
+}
+
+#NoticiasBordeSup {
+	background: url(themes/base/images/con-noticias-borde-sup.jpg) repeat-x;
+	height: 8px;
+}
+#noticiasBordeSupIzq {
+	background: url(themes/base/images/con-noticias-sup-izq.jpg) no-repeat; 
+	width: 8px; 
+	height: 8px;
+	float: left;
+}
+#noticiasBordeSupDer {
+	background: url(themes/base/images/con-noticias-sup-der.jpg) no-repeat; 
+	width: 8px; 
+	height: 8px; 
+	float: right;
+}
+#MedioNoticias {
+    float: left;
+    width: 100%;
+    min-width: 460px;
+    background: #FFFFFF url(themes/base/images/fon-con-noticias.jpg) repeat-x top left;
+}
+#ContenidoNoticias
+{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 10px;   
+}
+
+/*HOJA DE ESTILOS PARA CARRUCEL*/
+
+.Carrucel
+{
+    border: solid 1px #ccc;
+    min-width: 425px;
+    width:100%;
+    height: 225px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #ccc;
+    text-align: center;
+}
+.Controls
+{
+    height: 18px;
+    min-width: 400px;
+    background-color: #031747;
+}
+.Controls a {
+	float: left;
+	margin-right: 8px;
+	text-align:center;
+	font-size: 9px;
+}		
+.Controls  a:link, .Controls  a:visited {
+	display: block;
+	width: 18px;
+	height: 18px;
+	line-height: 18px; 
+	color: #FFFFFF;
+	text-align: center;
+	float:left;
+	margin:0 auto;
+}
+.Controls  a.activeSlide{
+    color: #FFDDFF;
+}				
+.Controls  a:hover {
+	background: url(themes/base/images/ico-bloque-rojo.png) no-repeat;					
+}
+				
+.Controls a.linkSlideActual {
+	background: url(themes/base/images/ico-bloque-rojo.png) no-repeat;					
+}
+.Back:link, .Back:visited , .Next:link, .Next:visited {
+	display: block;
+	width: 57px;
+	height: 18px;
+	line-height: 18px;
+	background: #092368;
+	color: #FFFFFF;
+	text-align: center;
+}
+.Controls .Back:link, .Controls .Back:visited {
+	float: left;
+	border-right: 2px solid #737E99;
+}
+.Controls .Next:link, .Controls .Next:visited {
+	border-left: 2px solid #737E99;
+	border-right: 0px;
+	float:right;
+}
+.Back:hover, .Next:hover {
+	background: #990000;
+}
+
+.ContentCarrucel
+{
+    min-width: 425px;
+    width: 100%;
+    height: 225px;
+}
+.NodeCarrucel
+{
+    min-width: 425px;
+    width: 100%;
+    height: 225px;
+    float: left;    
+}
+.NodeCarrucelUnselected
+{
+    min-width: 425px;
+    width: 100%;
+    height: 225px;
+    float: left;    
+    display: none;
+}
+
+.ASelected{
+	background: url(themes/base/images/ico-bloque-rojo.png) no-repeat;
+}
