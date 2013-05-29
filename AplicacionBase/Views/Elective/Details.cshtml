@@ -4,17 +4,19 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Información de la Electiva</h2>
 
 <fieldset>
-    <legend>Elective</legend>
+    <legend>Electiva</legend>
 
     <div class="display-label">Name</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
+    <div></div>
+    <div>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+    @Html.ActionLink("Regresar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+</div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

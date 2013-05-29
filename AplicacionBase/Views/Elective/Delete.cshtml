@@ -4,11 +4,11 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Esta seguro que desea eliminar esta electiva?</h3>
 <fieldset>
-    <legend>Elective</legend>
+    <legend>Electiva</legend>
 
     <div class="display-label">Name</div>
     <div class="display-field">
@@ -17,7 +17,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Delete" class="ebutton blue"/> |
+        @Html.ActionLink("Regresar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }
