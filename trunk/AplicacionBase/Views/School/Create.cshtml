@@ -22,12 +22,12 @@
             @Html.ValidationMessageFor(model => model.Name)
         </div>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+        <div>
+            <input type="submit" value="Crear" class="ebutton blue"/>
+       
+    @Html.ActionLink("Regresar", "Begin", "User", null,htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+</div>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Regresar", "Create", "Study", null,htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-</div>
+
