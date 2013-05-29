@@ -43,17 +43,6 @@ namespace AplicacionBase.Controllers
         {
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
-            return View();
-        }
-
-        //
-        // POST: /Vacancies/Create
-
-        [HttpPost]
-        public ActionResult Create(Vacancy vacancy)
-        {
-            ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
             {
@@ -82,6 +71,49 @@ namespace AplicacionBase.Controllers
             {
                 return RedirectToAction("ErrorDataUpdate", "Error");
             }
+        }
+
+        //
+        // POST: /Vacancies/Create
+
+        [HttpPost]
+        public ActionResult Create(Vacancy vacancy)
+        {
+
+            /* Guid g = System.Guid.Empty;
+             foreach (var e in db.aspnet_Users)
+             {
+
+                 if (e.UserName == HttpContext.User.Identity.Name)
+                 {
+                     g = e.UserId;
+                 }
+
+             }
+             var IdUser = g;
+
+             */
+
+
+
+
+            var IdUser = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
+
+
+
+            if (ModelState.IsValid)
+            {
+                vacancy.Id = Guid.NewGuid();
+                vacancy.IdUser = IdUser;
+                vacancy.PublicationDate = DateTime.Now;
+                db.Vacancies.Add(vacancy);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
+            return View(vacancy);
         }
 
         //
