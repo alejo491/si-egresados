@@ -115,5 +115,10 @@ namespace AplicacionBase.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult ShowPosts()
+        {
+               return View();
+        }
     }
 }
