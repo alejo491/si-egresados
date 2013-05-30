@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -202,12 +203,31 @@ namespace AplicacionBase.Controllers
 
     #region Codigo, para generar tabla y grafico (chart pie) de los reportes
 
-        public ActionResult Preview()
+        public ActionResult Preview(Guid? id)
         {
-            var selectquery = "SELECT * FROM Topics";
-            var dataa = GetDataSet(selectquery);
+            var itemSurvey = db.ItemSurveys.Find(id);
+            
+            string selectquery = itemSurvey.SQLQuey;
+            var dataa = GetDataSet(selectquery);            
             var dataSet = dataa.ToXml();
-           // dataSet.ReadXmlSchema(Server.MapPath("data.xsd"));
+            var ds = new DataSet();
+            var stream = new StringReader(dataSet);
+            ds.ReadXml(stream);
+            var dt = ds.Tables[0];
+            Dictionary<string,int> d = new Dictionary<string,int>();
+            foreach (DataRow row in dt.Rows)
+            {
+                d.Add(row.ItemArray[0].ToString(),Int32.Parse(row.ItemArray[1].ToString()));
+            }
+            foreach (var i in d)
+            {
+                KeyValuePair<string, int> k = i;
+            }
+            ViewBag.Question = itemSurvey.Question;
+            ViewBag.graphicsvalue = d;
+            ViewBag.TipoGrafico = itemSurvey.GraphicType;
+            
+            // dataSet.ReadXmlSchema(Server.MapPath("data.xsd"));
             //dataSet.ReadXml(Server.MapPath("data.xml"));
             ViewBag.datos = dataSet;
             return View();
@@ -268,6 +288,7 @@ namespace AplicacionBase.Controllers
             }
         }
     }
+
     #endregion
 
 }

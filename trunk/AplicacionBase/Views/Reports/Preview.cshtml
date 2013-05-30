@@ -33,11 +33,70 @@
         @foreach (DataRow row in dt.Rows)
         {
             <tr>
-            @foreach (var cell in row.ItemArray)
-            {
-                <td>@cell.ToString()</td>
-            }
+                @foreach (var cell in row.ItemArray)
+                {
+                    <td>@cell.ToString()</td>
+                }
             </tr>
         }
     </tbody>
 </table>
+
+<div id="chartContainer" style="height: 300px; width: 100%;">
+</div>
+@{
+    string question = ViewBag.Question;
+    string grafico = ViewBag.TipoGrafico;
+    string tipo = "";
+    int i = 10;
+}
+
+@if (grafico == "Pastel")
+{
+    tipo = "pie";
+}
+else
+{
+    tipo = "bar";
+}
+    <script type="text/javascript">
+        window.onload = function() {
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    title: {
+                        text: "@question",
+                    },
+                    data: [
+                        {
+                            type: "@tipo",
+                            showInLegend: true,
+                            dataPoints: [
+                                @foreach (KeyValuePair<string, int> key in ViewBag.graphicsvalue)
+                                {
+                                    var value = key.Value;
+                                    var sentence = key.Key;
+                                    if (grafico == "Pastel")
+                                    {
+                                        <text>{  y: @value, legendText:"@sentence", indexLabel: "@sentence" },</text>
+                                    }
+                                    else
+                                    {
+                                        <text>{ y: @value, label: "@sentence"},</text>
+                                    }
+                                    i += 10;
+
+                                }                            
+                            ]
+                        }
+                    ]
+                });
+
+            chart.render();
+        }
+    </script>
+
+
+
+
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/canvasjs.min.js")"></script>
