@@ -23,6 +23,7 @@ namespace AplicacionBase.Models.Mapping
             this.Property(t => t.SQLQuey).HasColumnName("SQLQuey");
             this.Property(t => t.GraphicType).HasColumnName("GraphicType");
             this.Property(t => t.ItemNumber).HasColumnName("ItemNumber");
+            this.Property(t => t.Sentence).HasColumnName("Sentence");
 
             // Relationships
             this.HasRequired(t => t.Report)

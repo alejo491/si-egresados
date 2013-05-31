@@ -3,65 +3,115 @@
 @using System.Text
 @using System.Web.Script.Serialization
 @using System.Xml
+@using AplicacionBase.Models.ViewModels
 @{
-    ViewBag.Title = "preview";  
+    ViewBag.Title = "Vista previa de reporte";
+    List<ItemReportViewModel> items = ViewBag.Items;
+    int id = 0;
+    int t = 0;
 }
-
-<h2>preview</h2>
-
-@{
-    var texto = ViewBag.datos;
-
-    DataSet ds = new DataSet();
-
-    StringReader stream = new StringReader(texto);
-    ds.ReadXml(stream);
-
-    DataTable dt = ds.Tables[0];
-}
-
-<table style="border: 1px solid black">
-    <thead>
-        <tr>
-            @foreach (DataColumn column in dt.Columns)
-            {
-                <th>@column.Caption</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (DataRow row in dt.Rows)
+<div>
+<div class="c12 first">
+    
+    <h2>Vista previa Reporte</h2>
+    <div class="c2"></div>
+    <div class="c8" style="border: black 1px">
+        <p align="right">
+            Fecha: @ViewBag.ReportDate
+        </p>
+        <p align="justify">
+            @ViewBag.ReportName
+        </p>
+        <br/>
+        <hr/>
+        @foreach (var item in items)
         {
-            <tr>
-                @foreach (var cell in row.ItemArray)
-                {
-                    <td>@cell.ToString()</td>
+            <div>
+                
+                @{
+                    if (item.Type)
+                    {
+                        @: <h3>Pregunta:</h3>
+                        @: <p align="justify">@item.Sentence</p>                  
+                    }
+
+                    string container = "chartContainer" + id;
+                    string chart = "chart" + id;
+                    string chartrender = chart + ".render();";
+                    DataTable dt = item.Table;
+                    <table style="border: 1px solid black">
+                        <thead>
+                            <tr>
+                                @foreach (DataColumn column in dt.Columns)
+                                {
+                                    <th>@column.Caption</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (DataRow row in dt.Rows)
+                            {
+                                if (t%2 == 0)
+                                {
+                                    @:<tr>
+                                }
+                                else
+                                {
+                                    @:<tr class="even">
+                                }
+                                
+                                foreach (var cell in row.ItemArray)
+                                {
+                                    <td>@cell.ToString()</td>
+                                }
+                                @:</tr>
+                                t++;
+                            }
+                        </tbody>
+                    </table>
+
+                    
+                    <div id="@container" style="height: 300px; width: 100%;">
+                    </div>
+                    id++;
                 }
-            </tr>
+                
+            
+            </div>
+            <div>
+                <p>Total: @item.DataNumber </p>
+                <p align="center">Pagina @id</p>
+            </div>
+            <br/>
+            <hr/>
+            <br/>
+            
+            //id++;
         }
-    </tbody>
-</table>
-
-<div id="chartContainer" style="height: 300px; width: 100%;">
+    </div>
+    <div class="c2"></div>
 </div>
-@{
-    string question = ViewBag.Question;
-    string grafico = ViewBag.TipoGrafico;
-    string tipo = "";
-    int i = 10;
-}
-
-@if (grafico == "Pastel")
-{
-    tipo = "pie";
-}
-else
-{
-    tipo = "bar";
-}
+&nbsp;
+</div>
     <script type="text/javascript">
         window.onload = function() {
-            var chart = new CanvasJS.Chart("chartContainer",
+        @{
+          id = 0;
+        }
+            @foreach (var item2 in items)
+        {
+            string container = "chartContainer" + id;
+            string chart = "chart" + id;
+            string chartrender = chart + ".render();";
+            string question = item2.Sentence.Normalize(NormalizationForm.FormC);
+            string grafico = item2.GraphicType;
+            string tipo = "";
+            int j = 10;
+            tipo = grafico == "Pastel" ? "pie" : "bar";
+            foreach (var val in item2.DataList)
+            {
+            }
+            <text>var @chart = new CanvasJS.Chart("@container",         
                 {
                     title: {
                         text: "@question",
@@ -69,9 +119,10 @@ else
                     data: [
                         {
                             type: "@tipo",
+
                             showInLegend: true,
                             dataPoints: [
-                                @foreach (KeyValuePair<string, int> key in ViewBag.graphicsvalue)
+                                @foreach (KeyValuePair<string, int> key in item2.DataList.First())
                                 {
                                     var value = key.Value;
                                     var sentence = key.Key;
@@ -83,7 +134,7 @@ else
                                     {
                                         <text>{ y: @value, label: "@sentence"},</text>
                                     }
-                                    i += 10;
+                                    j += 10;
 
                                 }                            
                             ]
@@ -91,11 +142,11 @@ else
                     ]
                 });
 
-            chart.render();
+            @chartrender</text>
+            id++;
+        }
         }
     </script>
-
-
 
 
 

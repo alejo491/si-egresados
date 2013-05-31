@@ -336,7 +336,7 @@ namespace AplicacionBase.Controllers
             }           
             SQL = auxsqlcampos + auxsqlfiltros + auxsqlgrupos;
             item.SQLQuey = SQL;
-         //   db.ItemDatas.Add(item);
+         //  db.ItemDatas.Add(item);
          //   db.SaveChanges();
 
             return RedirectToAction("Index", "Home");

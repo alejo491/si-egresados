@@ -13,6 +13,7 @@ namespace AplicacionBase.Models
 
         public System.Guid Id { get; set; }
         public System.Guid IdReport { get; set; }
+        public string Sentence { get; set; }
         public string SQLQuey { get; set; }
         public string GraphicType { get; set; }
         public decimal ItemNumber { get; set; }

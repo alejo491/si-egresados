@@ -222,6 +222,7 @@
     <Compile Include="Models\RoleMethod.cs" />
     <Compile Include="Models\SecureController.cs" />
     <Compile Include="Models\Startbox.cs" />
+    <Compile Include="Models\ViewModels\ItemReportViewModel.cs" />
     <Compile Include="Models\ViewModels\RoleMethodsViewModel.cs" />
     <Compile Include="Models\School.cs" />
     <Compile Include="Models\Step.cs" />
