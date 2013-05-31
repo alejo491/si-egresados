@@ -9,6 +9,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Xml.Serialization;
 using AplicacionBase.Models;
+using AplicacionBase.Models.ViewModels;
 using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -203,9 +204,132 @@ namespace AplicacionBase.Controllers
 
     #region Codigo, para generar tabla y grafico (chart pie) de los reportes
 
-        public ActionResult Preview(Guid? id)
+        public ActionResult Preview(Guid id)
         {
-            var itemSurvey = db.ItemSurveys.Find(id);
+            var items = new List<ItemReportViewModel>();
+            var report = db.Reports.Find(id);
+            ViewBag.ReportName = report.Description;
+            ViewBag.ReportDate = report.ReportDate;
+            
+            if (report != null)
+            {
+                var itemsurveys = db.ItemSurveys.Where(item => item.IdReport == id).ToList();
+                foreach (var itemsurvey in itemsurveys)
+                {
+                    string selectquery = itemsurvey.SQLQuey;
+                    var dataa = GetDataSet(selectquery);
+                    var dataSet = dataa.ToXml();
+                    var ds = new DataSet();
+                    var stream = new StringReader(dataSet);
+                    ds.ReadXml(stream);
+                    DataTable dt = ds.Tables[0];
+                    var item = new ItemReportViewModel();
+                    var d = new Dictionary<string, int>();
+                    int n = 0;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                            int temp = Int32.Parse(row.ItemArray[1].ToString());
+                            d.Add(row.ItemArray[0].ToString(), temp);
+                            n+=temp;
+                    }
+
+                    item.DataNumber = n;
+                    item.GraphicType = itemsurvey.GraphicType;
+                    item.ItemNumber = (int)itemsurvey.ItemNumber;
+                    item.Sentence = itemsurvey.Question;
+                    item.Type = true;
+                    item.Table = dt;
+                    item.DataList.Add(d);
+                    items.Add(item);
+                }
+
+                var itemsDatas = db.ItemDatas.Where(it => it.IdReport == id).ToList();
+                foreach (var itemsData in itemsDatas)
+                {
+                    string selectquery = itemsData.SQLQuey;
+                    var dataa = GetDataSet(selectquery);
+                    var dataSet = dataa.ToXml();
+                    var ds = new DataSet();
+                    var stream = new StringReader(dataSet);
+                    ds.ReadXml(stream);
+                    DataTable dt = ds.Tables[0];
+                    var item = new ItemReportViewModel();
+                    var d = new Dictionary<string, int>();
+                    //int n = 0;
+                    var labels = new List<string>();
+                    var vals = new List<List<int>>();
+                    if (dt.Rows.Count > 0)
+                    {
+                        int m = dt.Rows.Count;
+                        int n = dt.Rows[0].ItemArray.Length;
+                        var valores = new int[m,n];
+                        var fila = 0;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            int indice = 0;
+                            string label = "";
+
+                            foreach (var ob in row.ItemArray)
+                            {
+
+                                int value = 0;
+                                if (int.TryParse(ob.ToString(), out value))
+                                {
+                                    valores[fila, indice] = value;
+                                }
+                                else
+                                {
+                                    label += ob.ToString() + " ";
+                                }
+                                indice++;
+                            }
+                            fila++;
+                            labels.Add(label);
+                        }
+
+
+                        var l = new List<Dictionary<string, int>>();
+                        for (int i = 0; i < n; i++)
+                        {
+                            var d1 = new Dictionary<string, int>();
+                            for (int j = 0; j < m; j++)
+                            {
+                                foreach (var label in labels)
+                                {
+                                    d1.Add(label, valores[m, n]);
+                                }
+                            }
+                            l.Add(d1);
+                        }
+
+                        item.DataNumber = 0;
+                        item.GraphicType = itemsData.GraphicType;
+                        item.ItemNumber = (int)itemsData.ItemNumber;
+                        item.Sentence = itemsData.Sentence;
+                        item.DataList = l;
+                        item.Type = false;
+                        item.Table = dt;
+
+                    }
+                    else
+                    {
+                        item.DataNumber = 0;
+                        item.GraphicType = itemsData.GraphicType;
+                        item.ItemNumber = (int)itemsData.ItemNumber;
+                        item.Sentence = itemsData.Sentence;
+                        item.DataList = new List<Dictionary<string, int>>();
+                        item.Type = false;
+                        item.Table = dt;
+                    }
+                    
+                    items.Add(item);
+                }
+
+            }
+
+            var il = items.OrderBy(ite=>ite.DataNumber).ToList();
+            ViewBag.Items = il;
+            /*var itemSurvey = db.ItemSurveys.Find(id);
             
             string selectquery = itemSurvey.SQLQuey;
             var dataa = GetDataSet(selectquery);            
@@ -213,23 +337,24 @@ namespace AplicacionBase.Controllers
             var ds = new DataSet();
             var stream = new StringReader(dataSet);
             ds.ReadXml(stream);
-            var dt = ds.Tables[0];
-            Dictionary<string,int> d = new Dictionary<string,int>();
-            foreach (DataRow row in dt.Rows)
+            DataTable dt = ds.Tables[0];*/
+            //Dictionary<string,int> d = new Dictionary<string,int>();
+            
+            /*foreach (DataRow row in dt.Rows)
             {
                 d.Add(row.ItemArray[0].ToString(),Int32.Parse(row.ItemArray[1].ToString()));
             }
             foreach (var i in d)
             {
                 KeyValuePair<string, int> k = i;
-            }
-            ViewBag.Question = itemSurvey.Question;
+            }*/
+            /*ViewBag.Question = itemSurvey.Question;
             ViewBag.graphicsvalue = d;
             ViewBag.TipoGrafico = itemSurvey.GraphicType;
             
             // dataSet.ReadXmlSchema(Server.MapPath("data.xsd"));
             //dataSet.ReadXml(Server.MapPath("data.xml"));
-            ViewBag.datos = dataSet;
+            ViewBag.datos = dataSet;*/
             return View();
         }
 /*
