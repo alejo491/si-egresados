@@ -14,6 +14,9 @@ using iTextSharp;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Diagnostics;
+using System.Web;
+using System.Web.UI;
+using iTextSharp.text.html.simpleparser;
 
 namespace AplicacionBase.Controllers
 {
@@ -200,6 +203,42 @@ namespace AplicacionBase.Controllers
             prc.Start();
 
             return View();
+        }
+
+        // GET: /Reports/GenerarPDF
+
+        public void GenerarPDF(object sender, EventArgs e)
+        {
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=Reporte.pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter hw = new HtmlTextWriter(sw);
+
+            StringReader sr = new StringReader(sw.ToString());
+            Document pdfDoc = new Document(PageSize.A4, 50, 50, 25, 25);
+            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+            pdfDoc.Open();
+            Paragraph parrafo = new Paragraph("\n");
+            pdfDoc.Add(parrafo);
+            try
+            {
+                htmlparser.StartDocument();
+                htmlparser.Parse(sr);
+                htmlparser.EndDocument();
+                htmlparser.Close();
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                pdfDoc.Close();
+            }
+
+            Response.Write(pdfDoc);
+            Response.End();
         }
 
     #region Codigo, para generar tabla y grafico (chart pie) de los reportes
@@ -415,5 +454,7 @@ namespace AplicacionBase.Controllers
     }
 
     #endregion
+
+
 
 }
