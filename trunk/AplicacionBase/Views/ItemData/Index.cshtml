@@ -1,6 +1,6 @@
 ﻿@using System.Collections.Specialized
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Crear Item a partir de datos de usuarios";
 }
 <script type="text/javascript"> 
    
@@ -206,177 +206,207 @@
         
             <div id="fields">
                 @using (Html.BeginForm())
-                    {
+                {
                     
-                        <h3>Escoja los campos a mostrar</h3>
+                    <h3>Escoja los campos a mostrar</h3>
                     
-                        <div id="containerfield1">
-                            <div class="c12">
-                                <div class="c5 first">
-                                    Seleccionar todos los campos @Html.CheckBox("AllFields", false)
-                                </div>
-                                <div class="c5">
-                                    Contar registros @Html.CheckBox("CountFields", false)
-                                </div>
+                    <div id="containerfield1">
+                        <div class="c12">
+                            <div class="c5 first">
+                                Seleccionar todos los campos @Html.CheckBox("AllFields", false)
                             </div>
-                            <br/>
-                            <br/>
-                            
-                            <div class="c12">
-                                <div class="c1 first"> 
-                                    <p style="font-size: 12px">Campo 1</p>
-                                </div>
-                                <div class="c3">
-                                    @Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
-                                </div>
-                                <div class="c3">
-                                    @Html.DropDownList("fieldaction1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
-                                </div>
-                                <div class="c1 first">
-                                    <input type="button" onClick="shownext('containerfield')" value="+"/>
-                                </div>
+                            <div class="c5">
+                                Contar registros @Html.CheckBox("CountFields", false)
                             </div>
                         </div>
+                        <br/>
+                        <br/>
+                            
+                        <div class="c12">
+                            <div class="c1 first"> 
+                                <p style="font-size: 12px">Campo 1</p>
+                            </div>
+                            <div class="c3">
+                                @Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
+                            </div>
+                            <div class="c3">
+                                @Html.DropDownList("fieldaction1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
+                            </div>
+                            <div class="c1 first">
+                                <input type="button" onClick="shownext('containerfield')" value="" class="Ibtnadd"/>
+                            </div>
+                        </div>
+                    </div>
 
-                        for (int i = 2; i < 100; i++)
-                        {
-                            string nid = "containerfield" + i;
-                            string showaction = "containerfield" + (i + 1);
-                            string hideaction = "containerfield"+i;
-                            string indice = "field" + i;
-                            string indiceaction = "fieldaction" + i;
-                            <div id="@nid">
-                                <div class="c12">
-                                    <div class="c1 first">
-                                        <p style="font-size: 12px">Campo @i</p>
-                                    </div>
-                                    <div class="c3">
-                                        @Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
-                                    </div>
-                                    <div class="c3">
-                                        @Html.DropDownList("fieldaction" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
-                                    </div>
-                                    @*<div class="c1 first">
+                    for (int i = 2; i < 100; i++)
+                    {
+                        string nid = "containerfield" + i;
+                        string showaction = "containerfield" + (i + 1);
+                        string hideaction = "containerfield"+i;
+                        string indice = "field" + i;
+                        string indiceaction = "fieldaction" + i;
+                        <div id="@nid">
+                            <div class="c12">
+                                <div class="c1 first">
+                                    <p style="font-size: 12px">Campo @i</p>
+                                </div>
+                                <div class="c3">
+                                    @Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })
+                                </div>
+                                <div class="c3">
+                                    @Html.DropDownList("fieldaction" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfieldaction" })
+                                </div>
+                                @*<div class="c1 first">
                                         <input type="button" onClick="show('@showaction');" value="+"/>                                       
                                     </div>*@
-                                    <div class="c1 first">
-                                        <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="-"/>
-                                    </div>
-                                </div>             
-                            </div>
+                                <div class="c1 first">
+                                    <input type="button" onClick="hide('@hideaction'); changeindex('@indice'); changeindex('@indiceaction');" value="" class="Ibtndelete"/>
+                                </div>
+                            </div>             
+                        </div>
                     
                     
-                        }
+                    }
                         
-                        <h3>Escoja los criterios de busqueda</h3>
-                        <div id="containersearch1">
-                            <div class="c12">
-                                <div class="c2 first"> 
+                    <h3>Escoja los criterios de busqueda</h3>
+                    <div id="containersearch1">
+                        <div class="c12">
+                            <div class="c2 first"> 
                                      
+                            </div>
+                                 
+                            <div class="c3">
+                                @Html.DropDownList("searchfield1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
+                            </div>
+                            <div class="c2">
+                                @Html.DropDownList("operator1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
+                            </div>
+                                 
+                            <div class="c3">
+                                @Html.Editor("criteria1")
+                                @*<input type="text" id="criteria1" style="width: 100px"/>*@
+                            </div>
+                                 
+                            <div class="c2 first">
+                                <input type="button" onClick="shownext('containersearch');" value="" class="Ibtnadd"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    for (int k = 2; k < 100; k++)
+                    {
+                        string sid = "containersearch" + k;
+                        string nextsid = "containersearch" + (k+1);
+                        string nextsearchfield = "searchfield" + (k+1);
+                        string searchfield = "searchfield" + k;
+                        string operatorfield = "operator" + k;
+                        string criteria = "criteria" + k;
+                        string logic = "logic" + k;
+                        <div id="@sid">
+                            <div class="c12">
+                                <div class="c2 first">
+                                    @Html.DropDownList("logic" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classlogic" })                                    
+                                </div>
+                                            
+                                <div class="c3">
+                                    @Html.DropDownList("searchfield" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
+                                </div>
+                                <div class="c2">
+                                    @Html.DropDownList("operator"+k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
                                 </div>
                                  
                                 <div class="c3">
-                                    @Html.DropDownList("searchfield1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
-                                </div>
-                                <div class="c2">
-                                    @Html.DropDownList("operator1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
+                                    @Html.Editor(criteria)
+                                    @*<input type="text" id="@criteria" style="width: 100px"/>*@
                                 </div>
                                  
-                                <div class="c2">
-									@Html.Editor("criteria1")
-                                    @*<input type="text" id="criteria1" style="width: 100px"/>*@
-                                </div>
-                                 
-                                <div class="c1 first">
-                                    <input type="button" onClick="shownext('containersearch');" value="+"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        for (int k = 2; k < 100; k++)
-                        {
-                            string sid = "containersearch" + k;
-                            string nextsid = "containersearch" + (k+1);
-                            string nextsearchfield = "searchfield" + (k+1);
-                            string searchfield = "searchfield" + k;
-                            string operatorfield = "operator" + k;
-                            string criteria = "criteria" + k;
-                            string logic = "logic" + k;
-                            <div id="@sid">
-                                <div class="c12">
-                                    <div class="c2 first">
-                                        @Html.DropDownList("logic" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classlogic" })                                    
-                                    </div>
-                                            
-                                    <div class="c3">
-                                        @Html.DropDownList("searchfield" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
-                                    </div>
-                                    <div class="c2">
-                                        @Html.DropDownList("operator"+k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
-                                    </div>
-                                 
-                                    <div class="c2">
-                                        @Html.Editor(criteria)
-                                        @*<input type="text" id="@criteria" style="width: 100px"/>*@
-                                    </div>
-                                 
-                                    @*<div class="c1 first">
+                                @*<div class="c1 first">
                                         <input type="button" onClick="show('@nextsid');" value="+"/> 
                                         
                                     </div>*@
-                                    <div class="c1 first">
-                                        <input type="button" onClick="hide('@sid'); changeindex('@searchfield'); changeindex('@operatorfield'); changevalue('@criteria'); changeindex('@logic');" value="-"/>
-                                    </div>
+                                <div class="c2 first">
+                                    <input type="button" onClick="hide('@sid'); changeindex('@searchfield'); changeindex('@operatorfield'); changevalue('@criteria'); changeindex('@logic');" value="" class="Ibtndelete"/>
                                 </div>
                             </div>
+                        </div>
                     
                             
                             
-                        }
+                    }
                         
-                        <h3>Escoja los criterios de agrupamiento</h3>
-                        <div id="containergroup1">
+                    <h3>Escoja los criterios de agrupamiento</h3>
+                    <div id="containergroup1">
+                        <div class="c12">
+                            <div class="c2 first">
+                                <p style="font-size: 12px">Agrupar por</p>
+                            </div>
+                            <div class="c5">
+                                @Html.DropDownList("group1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                            </div>
+                            <div>
+                                <div class="c1 first">
+                                    <input type="button" onClick="shownext('containergroup')" value="" class="Ibtnadd"/>
+                                </div>
+                            </div>
+                                    
+                        </div>
+                    </div>
+
+                    for (int m = 2; m < 100; m++)
+                    {
+                        var group = "containergroup" + m;
+                        var grouplist = "group" + m;
+                        <div id="@group">
                             <div class="c12">
                                 <div class="c2 first">
                                     <p style="font-size: 12px">Agrupar por</p>
                                 </div>
                                 <div class="c5">
-                                    @Html.DropDownList("group1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                    @Html.DropDownList("group"+m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
                                 </div>
-                                <div>
-                                    <div class="c1 first">
-                                    <input type="button" onClick="shownext('containergroup')" value="+"/>
+                                <div class="c1 first">
+                                    <input type="button" onClick="hide('@group'); changeindex('@grouplist');" value="" class="Ibtndelete"/>
                                 </div>
-                                </div>
-                                    
                             </div>
                         </div>
-
-                        for (int m = 2; m < 100; m++)
-                        {
-                            var group = "containergroup" + m;
-                            var grouplist = "group" + m;
-                            <div id="@group">
-                                <div class="c12">
-                                    <div class="c2 first">
-                                        <p style="font-size: 12px">Agrupar por</p>
-                                    </div>
-                                    <div class="c5">
-                                        @Html.DropDownList("group"+m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
-                                    </div>
-                                    <div class="c1 first">
-                                        <input type="button" onClick="hide('@group'); changeindex('@grouplist');" value="-"/>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
-                        <input type="submit" value="Send"/>
                     }
 
-            </div>
+                    
+                }
 
+            </div>
+            
+            <h3>Tipo de grafico</h3>
+                <div class="c12">
+                    <div class="c1 first">
+                        
+                    </div>
+                    <div class="c11">
+                        <div class="c12">
+                            @Html.RadioButton("option", "Pastel") Pastel
+                        </div>
+                        <div class="c12">
+                            @Html.RadioButton("option", "Barras") Barras
+                        </div>
+                        <div class="c12">
+                            @Html.RadioButton("option", "Ninguno") Sin grafico
+                        </div>
+                           
+                    </div>
+                    <h3>Opciones</h3>
+                    <div class="c12">
+                        <div class="c2">
+                            <p style="font-size: 13px">Numero de Pagina</p>
+                        </div>
+                        <div class="c9">
+                            @Html.TextBox("numeropagina", "")
+                        </div>
+                    </div>                  
+                </div>
+           <input type="submit" value="Send"/>
         </div>
+        
+        
 
         <div class="c3 last" id=”layoutderecho”>@Html.Partial("_LayoutSideBar")</div>
 
