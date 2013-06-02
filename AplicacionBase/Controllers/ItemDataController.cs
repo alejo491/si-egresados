@@ -27,11 +27,21 @@ namespace AplicacionBase.Controllers
             ItemData item = new ItemData();
             item.Id = Guid.NewGuid();
             item.IdReport = id;
-            item.SQLQuey = "";
+            item.SQLQuey = "SELECT * FROM Questions";
+            item.GraphicType = "Ninguno";
+            item.ItemNumber = 1;
+            item.Sentence = "Ola ke ase";
+            //db.ItemDatas.Add(item);
+            //db.SaveChanges();
             var ListCampos = new List<Field>();
             var ListFiltros = new List<AplicacionBase.Models.Filter>();
             var ListGrupos = new List<GroupOption>();
-            var Lcamposgroup = new List<Field>(); 
+            var Lcamposgroup = new List<Field>();
+
+            var sL = new List<Field>();
+            var sF = new List<AplicacionBase.Models.Filter>();
+            var sG = new List<GroupOption>();
+            
             int bandsql = 0;
             int bandcamp = 0;
             int bandfilt = 0;
@@ -107,8 +117,8 @@ namespace AplicacionBase.Controllers
                             ListCampos.Last().FieldOperation = "DAY";
                         }
                         bandcamp = 0;
-                        db.Fields.Add(ListCampos.Last());
-                        db.SaveChanges();
+                        sL.Add(ListCampos.Last());
+                        //db.SaveChanges();
                     }
 
                 }
@@ -199,8 +209,8 @@ namespace AplicacionBase.Controllers
                         ListFiltros.Last().Value = k;
                         bandfilt = 0;
                         bandsql++;
-                        db.Filters.Add(ListFiltros.Last());
-                        db.SaveChanges();
+                        sF.Add(ListFiltros.Last());
+                        //db.SaveChanges();
                     }
                     
                 }
@@ -216,8 +226,8 @@ namespace AplicacionBase.Controllers
                     objgrupo.FieldName = k;
                     ListGrupos.Add(objgrupo);
                     bandsql++;
-                    db.GroupOptions.Add(objgrupo);
-                    db.SaveChanges();
+                    sG.Add(objgrupo);
+                    //db.SaveChanges();
                 }
 
             }
@@ -334,14 +344,50 @@ namespace AplicacionBase.Controllers
                     }
                 }                    
             }           
+
             SQL = auxsqlcampos + auxsqlfiltros + auxsqlgrupos;
             item.SQLQuey = SQL;
-            db.ItemDatas.Add(item);
-            db.SaveChanges();
+            item.GraphicType = form["option"];
+            item.ItemNumber = int.Parse(form["numeropagina"]);
+            item.Sentence = form["Sentence"];
+            try
+            {
+                var ds = QueryHelper.GetDataSet(SQL);
+                var dt = ds.ToXml();
+                db.ItemDatas.Add(item);
+                db.SaveChanges();
+                foreach (var field in sL)
+                {
+                    field.IdItemData = item.Id;
+                    db.Fields.Add(field);
 
-            return RedirectToAction("Index", "Home");
-            
-            
+                }
+                db.SaveChanges();
+
+                foreach (var filter in sF)
+                {
+                    filter.IdItemData = item.Id;
+                    db.Filters.Add(filter);
+
+                }
+                db.SaveChanges();
+
+                foreach (var groupOption in sG)
+                {
+                    groupOption.IdItemData = item.Id;
+                    db.GroupOptions.Add(groupOption);
+
+                }
+
+                db.SaveChanges();
+                return RedirectToAction("Index", "Reports");
+            }
+            catch(Exception e)
+            {
+                TempData["error"] = "Criterio de consulta erroneos!";
+                return View();
+            }
+              
 
         }
 
@@ -506,7 +552,10 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+
+
     }
+
 
 
 }

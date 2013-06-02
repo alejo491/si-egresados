@@ -6,16 +6,16 @@
    
     @for (int l = 1; l < 100; l++)
     {
-        var Fields = "#field"+l;
+        var Fields = "#field" + l;
         var Field = "field" + l;
-        var FieldsAction = "#fieldaction"+l;
+        var FieldsAction = "#fieldaction" + l;
         var FieldsGroup = "#group" + l;
 
 
 
-        var searches = "#searchfield"+l;
+        var searches = "#searchfield" + l;
         var search = "searchfield" + l;
-        var oper = "#operator"+l;
+        var oper = "#operator" + l;
 
         var groups = "#group" + l;
         var group = "group" + l;
@@ -161,7 +161,7 @@
     window.onload = function(){/*hace que se cargue la función */
 
         @{
-            for (int j=2; j<100; j++)
+            for (int j = 2; j < 100; j++)
             {
                 string name = "containerfield" + j;
                 string sname = "containersearch" + j;
@@ -195,7 +195,7 @@
 <div class="grid">
 
     <div class="c12">
-
+        <div class="alert error">@TempData["Error"]</div>
        <h2>Seleccione los criterios de selección de los datos</h2>
 
     </div>
@@ -242,7 +242,7 @@
                     {
                         string nid = "containerfield" + i;
                         string showaction = "containerfield" + (i + 1);
-                        string hideaction = "containerfield"+i;
+                        string hideaction = "containerfield" + i;
                         string indice = "field" + i;
                         string indiceaction = "fieldaction" + i;
                         <div id="@nid">
@@ -296,8 +296,8 @@
                     for (int k = 2; k < 100; k++)
                     {
                         string sid = "containersearch" + k;
-                        string nextsid = "containersearch" + (k+1);
-                        string nextsearchfield = "searchfield" + (k+1);
+                        string nextsid = "containersearch" + (k + 1);
+                        string nextsearchfield = "searchfield" + (k + 1);
                         string searchfield = "searchfield" + k;
                         string operatorfield = "operator" + k;
                         string criteria = "criteria" + k;
@@ -305,14 +305,14 @@
                         <div id="@sid">
                             <div class="c12">
                                 <div class="c2 first">
-                                    @Html.DropDownList("logic" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classlogic" })                                    
+                                    @Html.DropDownList("logic" + k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classlogic" })                                    
                                 </div>
                                             
                                 <div class="c3">
-                                    @Html.DropDownList("searchfield" +k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
+                                    @Html.DropDownList("searchfield" + k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsearchfield" })
                                 </div>
                                 <div class="c2">
-                                    @Html.DropDownList("operator"+k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
+                                    @Html.DropDownList("operator" + k, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classoperators" })
                                 </div>
                                  
                                 <div class="c3">
@@ -362,7 +362,7 @@
                                     <p style="font-size: 12px">Agrupar por</p>
                                 </div>
                                 <div class="c5">
-                                    @Html.DropDownList("group"+m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
+                                    @Html.DropDownList("group" + m, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classgroup" })                                    
                                 </div>
                                 <div class="c1 first">
                                     <input type="button" onClick="hide('@group'); changeindex('@grouplist');" value="" class="Ibtndelete"/>
@@ -370,40 +370,46 @@
                             </div>
                         </div>
                     }
-
-                    
-                }
-
-            </div>
-            
-            <h3>Tipo de grafico</h3>
-                <div class="c12">
-                    <div class="c1 first">
-                        
-                    </div>
-                    <div class="c11">
-                        <div class="c12">
-                            @Html.RadioButton("option", "Pastel") Pastel
-                        </div>
-                        <div class="c12">
-                            @Html.RadioButton("option", "Barras") Barras
-                        </div>
-                        <div class="c12">
-                            @Html.RadioButton("option", "Ninguno") Sin grafico
-                        </div>
-                           
-                    </div>
-                    <h3>Opciones</h3>
+                    <h3>Descripcion del item</h3>
                     <div class="c12">
-                        <div class="c2">
-                            <p style="font-size: 13px">Numero de Pagina</p>
+                        @Html.TextArea("Sentence", htmlAttributes: new {@style = "width: 500px; height : 100px;"})
+                    </div>
+                    
+                        <h3>Tipo de grafico</h3>
+                        <div class="c12">
+                            <div class="c1 first">
+                        
+                            </div>
+                            <div class="c11">
+                                <div class="c12">
+                                    @Html.RadioButton("option", "Pastel") Pastel
+                                </div>
+                                <div class="c12">
+                                    @Html.RadioButton("option", "Barras") Barras
+                                </div>
+                                <div class="c12">
+                                    @Html.RadioButton("option", "Ninguno") Sin grafico
+                                </div>
+                           
+                            </div>
+                            <h3>Opciones</h3>
+                            <div class="c12">
+                                <div class="c2">
+                                    <p style="font-size: 13px">Numero de Pagina</p>
+                                </div>
+                                <div class="c9">
+                                    @Html.TextBox("numeropagina", "")
+                                </div>
+                            </div>                  
                         </div>
-                        <div class="c9">
-                            @Html.TextBox("numeropagina", "")
-                        </div>
-                    </div>                  
-                </div>
-           <input type="submit" value="Send"/>
+                        <input type="submit" value="Guardar"/>
+                    
+                        }
+
+                    </div>
+            
+            
+          
         </div>
         
         

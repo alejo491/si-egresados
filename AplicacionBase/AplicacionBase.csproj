@@ -96,6 +96,7 @@
     <Compile Include="Controllers\LikeController.cs" />
     <Compile Include="Controllers\MethodsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\QueryHelper.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RoleMethodsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
