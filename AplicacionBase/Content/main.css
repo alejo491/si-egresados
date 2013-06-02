@@ -1068,3 +1068,28 @@ div .rigth
 .ASelected{
 	background: url(themes/base/images/ico-bloque-rojo.png) no-repeat;
 }
+
+.Ibtnadd
+{
+      background: transparent url(themes/base/images/badd.png) no-repeat 0 0;
+        width: 32px;
+        height: 32px;
+        float: left;
+        border-radius: 4em;
+        cursor: pointer;
+        display: inline-block;
+        border: 5px solid #fff;
+        
+}
+
+.Ibtndelete
+{
+      background: #FFFFFF url(themes/base/images/bdelete.png) no-repeat;
+        width: 32px;
+        height: 32px;
+        float: left;
+        border-radius: 4em;
+        cursor: pointer;
+        display: inline-block;
+        border: 5px solid #fff;
+}

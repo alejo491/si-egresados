@@ -107,8 +107,8 @@ namespace AplicacionBase.Controllers
                             ListCampos.Last().FieldOperation = "DAY";
                         }
                         bandcamp = 0;
-                       // db.Fields.Add(ListCampos.Last());
-                        //db.SaveChanges();
+                        db.Fields.Add(ListCampos.Last());
+                        db.SaveChanges();
                     }
 
                 }
@@ -199,8 +199,8 @@ namespace AplicacionBase.Controllers
                         ListFiltros.Last().Value = k;
                         bandfilt = 0;
                         bandsql++;
-                       // db.Filters.Add(ListFiltros.Last());
-                        //db.SaveChanges();
+                        db.Filters.Add(ListFiltros.Last());
+                        db.SaveChanges();
                     }
                     
                 }
@@ -216,8 +216,8 @@ namespace AplicacionBase.Controllers
                     objgrupo.FieldName = k;
                     ListGrupos.Add(objgrupo);
                     bandsql++;
-                    //db.GroupOptions.Add(objgrupo);
-                    //db.SaveChanges();
+                    db.GroupOptions.Add(objgrupo);
+                    db.SaveChanges();
                 }
 
             }
@@ -336,8 +336,8 @@ namespace AplicacionBase.Controllers
             }           
             SQL = auxsqlcampos + auxsqlfiltros + auxsqlgrupos;
             item.SQLQuey = SQL;
-         //  db.ItemDatas.Add(item);
-         //   db.SaveChanges();
+            db.ItemDatas.Add(item);
+            db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
             

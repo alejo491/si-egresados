@@ -250,6 +250,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\main.css" />
+    <Content Include="Content\themes\base\images\badd.png" />
+    <Content Include="Content\themes\base\images\bdelete.png" />
     <Content Include="Content\themes\base\images\delete.png" />
     <Content Include="Content\themes\base\images\detail.png" />
     <Content Include="Content\themes\base\images\edit.png" />
