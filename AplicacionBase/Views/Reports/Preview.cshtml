@@ -11,95 +11,106 @@
     int t = 0;
 }
 <div id="impresion">
-<div class="c12 first">
+    <div class="c12 first">
     
-    <h2>Vista previa Reporte</h2>
-    <div class="c2"></div>
-    <div class="c8" style="border: black 1px">
-        <p align="right">
-            Fecha: @ViewBag.ReportDate
-        </p>
-        <p align="justify">
-            @ViewBag.ReportName
-        </p>
-        <br/>
-        <hr/>
-        @foreach (var item in items)
-        {
-            <div>
-                
-                @{
-                    if (item.Type)
-                    {
-                        @: <h3>Pregunta:</h3>
-                        @: <p align="justify">@item.Sentence</p>                  
-                    }
-
-                    string container = "chartContainer" + id;
-                    string chart = "chart" + id;
-                    string chartrender = chart + ".render();";
-                    DataTable dt = item.Table;
-                    <table style="border: 1px solid black">
-                        <thead>
-                            <tr>
-                                @foreach (DataColumn column in dt.Columns)
-                                {
-                                    <th>@column.Caption</th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (DataRow row in dt.Rows)
-                            {
-                                if (t%2 == 0)
-                                {
-                                    @:<tr>
-                                }
-                                else
-                                {
-                                    @:<tr class="even">
-                                }
-                                
-                                foreach (var cell in row.ItemArray)
-                                {
-                                    <td>@cell.ToString()</td>
-                                }
-                                @:</tr>
-                                t++;
-                            }
-                        </tbody>
-                    </table>
-
-                    
-                    <div id="@container" style="height: 300px; width: 100%;">
-                    </div>
-                    id++;
-                }
-                
-            
-            </div>
-            <div>
-                <p>Total: @item.DataNumber </p>
-                <p align="center">Pagina @id</p>
-            </div>
+        <h2>Vista previa Reporte</h2>
+        <div class="c2"></div>
+        <div class="c8" style="border: black 1px">
+            <p align="right">
+                Fecha: @ViewBag.ReportDate
+            </p>
+            <p align="justify">
+                @ViewBag.ReportName
+            </p>
             <br/>
             <hr/>
-            <br/>
+            @foreach (var item in items)
+            {
+                <div>
+                
+                    @{
+                        if (item.Type)
+                        {
+                            @: <h3>Pregunta:</h3>
+                            @: <p align="justify">@item.Sentence</p>                  
+                        }
+
+                        string container = "chartContainer" + id;
+                        string chart = "chart" + id;
+                        string chartrender = chart + ".render();";
+                        DataTable dt = item.Table;
+                        <table style="border: 1px solid black">
+                            <thead>
+                                <tr>
+                                    @foreach (DataColumn column in dt.Columns)
+                                    {
+                                        <th>@column.Caption</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DataRow row in dt.Rows)
+                                {
+                                    if (t%2 == 0)
+                                    {
+                                        @:<tr>
+                                    }
+                                    else
+                                    {
+                                        @:<tr class="even">
+                                    }
+                                
+                                    foreach (var cell in row.ItemArray)
+                                    {
+                                        <td>@cell.ToString()</td>
+                                    }
+                                    @:</tr>
+                                    t++;
+                                }
+                            </tbody>
+                        </table>
+
+                    
+                        <div id="@container" style="height: 300px; width: 100%;">
+                        </div>
+                        id++;
+                    }
+                
             
-            //id++;
-        }
+                </div>
+                <div>
+                    <p>Total: @item.DataNumber </p>
+                    <p align="center">Pagina @id</p>
+                </div>
+                <br/>
+                <hr/>
+                <br/>
+            
+                //id++;
+            }
+        </div>
+        <div class="c2"></div>
+    
     </div>
-    <div class="c2"></div>
-    <p>
+    &nbsp;
+    
+    
+    
+    
+
+</div>
+
+
+<p>
         @Html.ActionLink("Generar PDF", "GenerarPDF", null, htmlAttributes: new { @class = "ebutton blue" })
     </p>
     <p>
         <input type="button" value="Imprimir" id="btnImprimir" class="ebutton blue" />
     </p>
-</div>
-&nbsp;
-</div>
-    <script type="text/javascript">
+
+
+
+<script type="text/javascript">
         window.onload = function() {
         @{
           id = 0;
