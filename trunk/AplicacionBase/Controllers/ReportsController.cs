@@ -42,7 +42,7 @@ namespace AplicacionBase.Controllers
             Report report = db.Reports.Find(id);
             var user = db.Users.Find(report.IdUser);
 
-           // ViewBag.Re = id;
+            // ViewBag.Re = id;
 
             ViewBag.nombre = user.FirstNames + " " + user.LastNames;
 
@@ -167,7 +167,7 @@ namespace AplicacionBase.Controllers
             document.Add(parrafo);
 
             PdfPTable tabla = new PdfPTable(2);
-            tabla.SetWidthPercentage(new float[] { 100, 100 }, PageSize.A4);
+            tabla.SetWidthPercentage(new float[] {100, 100}, PageSize.A4);
             tabla.AddCell(new Paragraph("Genero"));
             tabla.AddCell(new Paragraph("Cantidad"));
 
@@ -241,7 +241,8 @@ namespace AplicacionBase.Controllers
             Response.End();
         }
 
-    #region Codigo, para generar tabla y grafico (chart pie) de los reportes
+
+        #region Codigo, para generar tabla y grafico (chart pie) de los reportes
 
         public ActionResult Preview(Guid id)
         {
@@ -249,14 +250,14 @@ namespace AplicacionBase.Controllers
             var report = db.Reports.Find(id);
             ViewBag.ReportName = report.Description;
             ViewBag.ReportDate = report.ReportDate;
-            
+
             if (report != null)
             {
                 var itemsurveys = db.ItemSurveys.Where(item => item.IdReport == id).ToList();
                 foreach (var itemsurvey in itemsurveys)
                 {
                     string selectquery = itemsurvey.SQLQuey;
-                    var dataa = GetDataSet(selectquery);
+                    var dataa = QueryHelper.GetDataSet(selectquery);
                     var dataSet = dataa.ToXml();
                     var ds = new DataSet();
                     var stream = new StringReader(dataSet);
@@ -267,14 +268,14 @@ namespace AplicacionBase.Controllers
                     int n = 0;
                     foreach (DataRow row in dt.Rows)
                     {
-                            int temp = Int32.Parse(row.ItemArray[1].ToString());
-                            d.Add(row.ItemArray[0].ToString(), temp);
-                            n+=temp;
+                        int temp = Int32.Parse(row.ItemArray[1].ToString());
+                        d.Add(row.ItemArray[0].ToString(), temp);
+                        n += temp;
                     }
 
                     item.DataNumber = n;
                     item.GraphicType = itemsurvey.GraphicType;
-                    item.ItemNumber = (int)itemsurvey.ItemNumber;
+                    item.ItemNumber = (int) itemsurvey.ItemNumber;
                     item.Sentence = itemsurvey.Question;
                     item.Type = true;
                     item.Table = dt;
@@ -286,7 +287,7 @@ namespace AplicacionBase.Controllers
                 foreach (var itemsData in itemsDatas)
                 {
                     string selectquery = itemsData.SQLQuey;
-                    var dataa = GetDataSet(selectquery);
+                    var dataa = QueryHelper.GetDataSet(selectquery);
                     var dataSet = dataa.ToXml();
                     var ds = new DataSet();
                     var stream = new StringReader(dataSet);
@@ -343,7 +344,7 @@ namespace AplicacionBase.Controllers
 
                         item.DataNumber = 0;
                         item.GraphicType = itemsData.GraphicType;
-                        item.ItemNumber = (int)itemsData.ItemNumber;
+                        item.ItemNumber = (int) itemsData.ItemNumber;
                         item.Sentence = itemsData.Sentence;
                         item.DataList = l;
                         item.Type = false;
@@ -354,19 +355,19 @@ namespace AplicacionBase.Controllers
                     {
                         item.DataNumber = 0;
                         item.GraphicType = itemsData.GraphicType;
-                        item.ItemNumber = (int)itemsData.ItemNumber;
+                        item.ItemNumber = (int) itemsData.ItemNumber;
                         item.Sentence = itemsData.Sentence;
                         item.DataList = new List<Dictionary<string, int>>();
                         item.Type = false;
                         item.Table = dt;
                     }
-                    
+
                     items.Add(item);
                 }
 
             }
 
-            var il = items.OrderBy(ite=>ite.DataNumber).ToList();
+            var il = items.OrderBy(ite => ite.DataNumber).ToList();
             ViewBag.Items = il;
             /*var itemSurvey = db.ItemSurveys.Find(id);
             
@@ -378,7 +379,7 @@ namespace AplicacionBase.Controllers
             ds.ReadXml(stream);
             DataTable dt = ds.Tables[0];*/
             //Dictionary<string,int> d = new Dictionary<string,int>();
-            
+
             /*foreach (DataRow row in dt.Rows)
             {
                 d.Add(row.ItemArray[0].ToString(),Int32.Parse(row.ItemArray[1].ToString()));
@@ -396,65 +397,65 @@ namespace AplicacionBase.Controllers
             ViewBag.datos = dataSet;*/
             return View();
         }
-/*
-        private static DataTable GetData(string query)
-        {
-            DataTable dt = new DataTable();
 
-            SqlCommand cmd = new SqlCommand(query);
-
-            String constr = ConfigurationManager.ConnectionStrings["mydbase"].ConnectionString;
-
-            SqlConnection con = new SqlConnection(constr);
-            SqlDataAdapter sda = new SqlDataAdapter();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            sda.SelectCommand = cmd;
-            sda.Fill(dt);
-            return dt;
-        }
-*/
-
-        DataSet GetDataSet(string sqlCommand)
-        {
-            
-            DataSet ds = new DataSet();
-            var strconn = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ToString();
-            var myCon = new SqlConnection(strconn);
-            myCon.Open();
-            var myAda = new SqlDataAdapter(sqlCommand, myCon);
-            myAda.Fill(ds);
-            myCon.Close();
-            //String connectionString = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ConnectionString;
-            /*using (SqlCommand cmd = new SqlCommand(sqlCommand, new SqlConnection(connectionString)))
-            {
-                cmd.Connection.Open();
-                DataTable table = new DataTable();
-                table.Load(cmd.ExecuteReader());
-                ds.Tables.Add(table);
-            } * */
-            return ds;
-        }
-    }
-
-    public static class Extensions
-    {
-        public static string ToXml(this DataSet ds)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                using (TextWriter streamWriter = new StreamWriter(memoryStream))
+        /*
+                private static DataTable GetData(string query)
                 {
-                    var xmlSerializer = new XmlSerializer(typeof(DataSet));
-                    xmlSerializer.Serialize(streamWriter, ds);
-                    return Encoding.UTF8.GetString(memoryStream.ToArray());
+                    DataTable dt = new DataTable();
+
+                    SqlCommand cmd = new SqlCommand(query);
+
+                    String constr = ConfigurationManager.ConnectionStrings["mydbase"].ConnectionString;
+
+                    SqlConnection con = new SqlConnection(constr);
+                    SqlDataAdapter sda = new SqlDataAdapter();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = con;
+                    sda.SelectCommand = cmd;
+                    sda.Fill(dt);
+                    return dt;
                 }
-            }
-        }
+        */
+
+        //    DataSet GetDataSet(string sqlCommand)
+        //    {
+
+        //        DataSet ds = new DataSet();
+        //        var strconn = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ToString();
+        //        var myCon = new SqlConnection(strconn);
+        //        myCon.Open();
+        //        var myAda = new SqlDataAdapter(sqlCommand, myCon);
+        //        myAda.Fill(ds);
+        //        myCon.Close();
+        //        //String connectionString = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ConnectionString;
+        //        /*using (SqlCommand cmd = new SqlCommand(sqlCommand, new SqlConnection(connectionString)))
+        //        {
+        //            cmd.Connection.Open();
+        //            DataTable table = new DataTable();
+        //            table.Load(cmd.ExecuteReader());
+        //            ds.Tables.Add(table);
+        //        } * */
+        //        return ds;
+        //    }
+        //}
+
+        //public static class Extensions
+        //{
+        //    public static string ToXml(this DataSet ds)
+        //    {
+        //        using (var memoryStream = new MemoryStream())
+        //        {
+        //            using (TextWriter streamWriter = new StreamWriter(memoryStream))
+        //            {
+        //                var xmlSerializer = new XmlSerializer(typeof(DataSet));
+        //                xmlSerializer.Serialize(streamWriter, ds);
+        //                return Encoding.UTF8.GetString(memoryStream.ToArray());
+        //            }
+        //        }
+        //    }
+        //}
+
+        #endregion
+
     }
-
-    #endregion
-
-
-
 }
