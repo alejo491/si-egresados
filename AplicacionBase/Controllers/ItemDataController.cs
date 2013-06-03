@@ -45,6 +45,9 @@ namespace AplicacionBase.Controllers
             int bandsql = 0;
             int bandcamp = 0;
             int bandfilt = 0;
+            int bandAll = 0;
+            int bandCountAll = 0;
+            int band = 0;
             string auxlogic = "";
             string auxsqlcampos = "";
             string auxsqlfiltros = "";
@@ -55,13 +58,17 @@ namespace AplicacionBase.Controllers
                 var k = form[key];
                 if (key == "AllFields" && k == "true,false")
                 {
-                    SQL = "select * from ConsultaGeneral";
+                   // SQL = "select * from ConsultaGeneral";
+                    auxsqlcampos = "SELECT * FROM ConsultaGeneral ";
+                    bandAll = 1;
                     bandsql++;
                 }
 
                 if (key == "CountFields" && k == "true,false")
                 {
-                    SQL = "select count(*) from ConsultaGeneral";
+                    //SQL = "select count(*) from ConsultaGeneral";
+                    auxsqlcampos = "SELECT COUNT(*) FROM ConsultaGeneral ";
+                    bandCountAll = 1;
                     bandsql++;
                 }
 
@@ -232,35 +239,6 @@ namespace AplicacionBase.Controllers
 
             }
 
-            if (ListGrupos.Count == 0)
-            {
-                foreach (Field campo in ListCampos)
-                {
-                    if (campo.Id == ListCampos.First().Id)
-                    {
-                        auxsqlcampos = "SELECT ";
-                    }
-                    if (campo.FieldOperation != "")
-                    {
-                        auxsqlcampos = auxsqlcampos + campo.FieldOperation + "(" + campo.FieldName + ")";
-                    }
-                    else
-                    {
-                        auxsqlcampos = auxsqlcampos + campo.FieldName;
-                    }
-
-                    if (campo.Id != ListCampos.Last().Id)
-                    {
-                        auxsqlcampos = auxsqlcampos + ", ";
-                    }
-                    else
-                    {
-                        auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral";
-                    }
-                    
-                }
-            }
-
             foreach (AplicacionBase.Models.Filter filtro in ListFiltros)
             {
                 auxsqlfiltros = auxsqlfiltros + filtro.LogicOperator + " " + filtro.FieldName + " " + filtro.Operator + " ";
@@ -274,28 +252,79 @@ namespace AplicacionBase.Controllers
                     }
             }
 
-            foreach (GroupOption grupo in ListGrupos)
+            if (bandCountAll == 0 && bandAll == 0)
             {
-                if (auxsqlgrupos == "")
+                foreach (GroupOption grupo in ListGrupos)
                 {
-                    auxsqlgrupos = "GROUP BY ";
-                }
-                auxsqlgrupos = auxsqlgrupos + grupo.FieldName;
-                if (grupo.Id != ListGrupos.Last().Id)
-                {
-                    auxsqlgrupos = auxsqlgrupos + "," + " ";
+                    if (auxsqlgrupos == "")
+                    {
+                        auxsqlgrupos = "GROUP BY ";
+                    }
+                    auxsqlgrupos = auxsqlgrupos + grupo.FieldName;
+                    if (grupo.Id != ListGrupos.Last().Id)
+                    {
+                        auxsqlgrupos = auxsqlgrupos + "," + " ";
+                    }
                 }
             }
-        //    ListGrupos = ListGrupos.Distinct().ToList();
-        //    ListCampos = ListCampos.Distinct().ToList();
 
-            if (SQL == "" && bandsql == 0)
+            if (bandsql == 0)
             {
-                auxsqlcampos = "SELECT * ConsultaGeneral";
+                auxsqlcampos = "SELECT * FROM ConsultaGeneral";
             }
             else
             {
-                if (ListGrupos.Count > 0 && ListCampos.Count > 0)
+                if (ListGrupos.Count == 0 && ListCampos.Count > 0 && bandAll == 0 && bandCountAll == 0)
+                {
+                    auxsqlcampos = "SELECT ";
+                    foreach (Field field in ListCampos)
+                    {
+                        if (field.FieldOperation != "")
+                        {
+                            band = band + 1;
+                        }
+                    }
+
+                    if (band != 0)
+                    {
+                        foreach (Field field in ListCampos)
+                        {
+                            if (field.FieldOperation != "")
+                            {
+                                Lcamposgroup.Add(field);
+                            }
+                        }
+                        foreach (Field campo in Lcamposgroup)
+                        {
+                            auxsqlcampos = auxsqlcampos + campo.FieldOperation + "(" + campo.FieldName + ")";
+                            if (campo.Id != Lcamposgroup.Last().Id)
+                            {
+                                auxsqlcampos = auxsqlcampos + ", ";
+                            }
+                            else
+                            {
+                                auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral";
+                            }
+                        }
+                    }
+                    if (band == 0)
+                    {
+                        foreach (Field campo in ListCampos)
+                        {
+                            auxsqlcampos = auxsqlcampos + campo.FieldName;
+                            if (campo.Id != ListCampos.Last().Id)
+                            {
+                                auxsqlcampos = auxsqlcampos + ", ";
+                            }
+                            else
+                            {
+                                auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral";
+                            }
+                        }
+                    }
+                }
+
+                if (ListGrupos.Count > 0 && ListCampos.Count > 0 && bandAll == 0 && bandCountAll == 0)
                 {
                     foreach (Field nuevofield in ListCampos)
                     {
@@ -339,7 +368,7 @@ namespace AplicacionBase.Controllers
                     }
                     if (Lcamposgroup.Count == 0)
                     {
-                        auxsqlcampos = "SELECT * fROM ConsultaGeneral";
+                        auxsqlcampos = "SELECT * FROM ConsultaGeneral";
                         auxsqlgrupos = "";
                     }
                 }                    
