@@ -70,9 +70,20 @@
                             </tbody>
                         </table>
 
-                    
-                        <div id="@container" style="height: 300px; width: 100%;">
-                        </div>
+                        if (item.GraphicType != "Ninguno")
+                        {
+                            <div id="@container" style="height: 300px; width: 100%;">
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="@container" style="height: 0px; width: 100%; display:none;">
+                            </div>
+                        }
+
+
+
+
                         id++;
                     }
                 
@@ -113,55 +124,100 @@
 <script type="text/javascript">
         window.onload = function() {
         @{
-          id = 0;
+            id = 0;
         }
             @foreach (var item2 in items)
-        {
-            string container = "chartContainer" + id;
-            string chart = "chart" + id;
-            string chartrender = chart + ".render();";
-            string question = item2.Sentence.Normalize(NormalizationForm.FormC);
-            string grafico = item2.GraphicType;
-            string tipo = "";
-            int j = 10;
-            tipo = grafico == "Pastel" ? "pie" : "bar";
-            foreach (var val in item2.DataList)
             {
-            }
-            <text>var @chart = new CanvasJS.Chart("@container",         
+                string container = "chartContainer" + id;
+                string chart = "chart" + id;
+                string chartrender = chart + ".render();";
+                string question = item2.Sentence.Normalize(NormalizationForm.FormC);
+                string grafico = item2.GraphicType;
+                string tipo = "";
+                int j = 10;
+                tipo = grafico == "Pastel" ? "pie" : "bar";
+
+
+                if (tipo == "pie")
                 {
-                    title: {
-                        text: "@question",
-                    },
-                    data: [
-                        {
-                            type: "@tipo",
+                    <text>var @chart = new CanvasJS.Chart("@container",         
+                    {
+                        title: {
+                            text: "@question",
+                        },
+                        data: [
+                            {
+                                type: "@tipo",
 
-                            showInLegend: true,
-                            dataPoints: [
-                                @foreach (KeyValuePair<string, int> key in item2.DataList.First())
+                                showInLegend: true,
+                                dataPoints: [
+                                    @foreach (KeyValuePair<string, int> key in item2.DataList.First())
+                                    {
+                                        var value = key.Value;
+                                        var sentence = key.Key;
+                                        if (grafico == "Pastel")
+                                        {
+                                            <text>{  y: @value, legendText:"@sentence", indexLabel: "@sentence" },</text>
+                                        }
+                                        else
+                                        {
+                                            <text>{ y: @value, label: "@sentence"},</text>
+                                        }
+                                        j += 10;
+
+                                    }                            
+                                ]
+                            }
+                        ]
+                    });
+
+                    @chartrender</text>
+                }
+                else
+                {
+                    <text>var @chart = new CanvasJS.Chart("@container",         
+                    {
+                        title: {
+                            text: "@question",
+                        },
+                        data: [
+                            
+                                @foreach (var val in item2.DataList)
                                 {
-                                    var value = key.Value;
-                                    var sentence = key.Key;
-                                    if (grafico == "Pastel")
-                                    {
-                                        <text>{  y: @value, legendText:"@sentence", indexLabel: "@sentence" },</text>
-                                    }
-                                    else
-                                    {
-                                        <text>{ y: @value, label: "@sentence"},</text>
-                                    }
-                                    j += 10;
+                                    @:{
+                                    @:type: "@tipo",
 
-                                }                            
-                            ]
-                        }
-                    ]
-                });
+                                        @:showInLegend: false,
+                                        @:dataPoints: [
+                                    foreach (KeyValuePair<string, int> key in val)
+                                    {
 
-            @chartrender</text>
-            id++;
-        }
+
+                                        var value = key.Value;
+                                        var sentence = key.Key;
+                                        if (grafico == "Pastel")
+                                        {
+                                            <text>{  y: @value, legendText:"@sentence", indexLabel: "@sentence" },</text>
+                                        }
+                                        else
+                                        {
+                                            <text>{ y: @value, label: "@sentence"},</text>
+                                        }
+                                        j += 10;
+
+                                    }
+                                    @: ]},
+                                }
+                            
+                        ]
+                    });
+
+                @chartrender</text>
+                }
+
+
+                id++;
+            }
         }
     </script>
 

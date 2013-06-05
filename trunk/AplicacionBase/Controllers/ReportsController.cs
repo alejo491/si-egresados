@@ -336,7 +336,7 @@ namespace AplicacionBase.Controllers
                             {
                                 foreach (var label in labels)
                                 {
-                                    d1.Add(label, valores[m, n]);
+                                    d1.Add(label, valores[i, j]);
                                 }
                             }
                             l.Add(d1);
