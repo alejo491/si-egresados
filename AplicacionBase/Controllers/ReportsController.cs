@@ -242,9 +242,15 @@ namespace AplicacionBase.Controllers
         }
 
 
+        public ActionResult Preview(Guid id)
+        {
+            ViewBag.IdReport = id;
+            return View();
+        }
+
         #region Codigo, para generar tabla y grafico (chart pie) de los reportes
 
-        public ActionResult Preview(Guid id)
+        public ActionResult RenderReport(Guid id)
         {
             var items = new List<ItemReportViewModel>();
             var report = db.Reports.Find(id);
