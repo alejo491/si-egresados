@@ -106,23 +106,7 @@
     </div>
     &nbsp;
     
-    
-    
-    
-
-</div>
-
-
-<p>
-        @Html.ActionLink("Generar PDF", "GenerarPDF", null, htmlAttributes: new { @class = "ebutton blue" })
-    </p>
-    <p>
-        <input type="button" value="Imprimir" id="btnImprimir" class="ebutton blue" />
-    </p>
-
-
-
-<script type="text/javascript">
+    <script type="text/javascript">
         window.onload = function() {
         @{
             id = 0;
@@ -221,6 +205,22 @@
             }
         }
     </script>
+    
+    
+
+</div>
+
+
+<p>
+        @Html.ActionLink("Generar PDF", "GenerarPDF", null, htmlAttributes: new { @class = "ebutton blue" })
+    </p>
+    <p>
+        <input type="button" value="Imprimir" id="btnImprimir" class="ebutton blue" />
+    </p>
+
+
+
+
 
 
 
@@ -231,7 +231,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btnImprimir').click(function () {
-            $('#impresion').printElement();
+            $('#impresion').printElement({ overrideElementCSS: [
+		'Site.css',
+		{ href: '@Url.Content("~/Content/Site.css")', media: 'print'}],
+                pageTitle: '@ViewBag.ReportName'
+            });
         });
     });
 </script>
