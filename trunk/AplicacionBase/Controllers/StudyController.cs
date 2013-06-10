@@ -16,10 +16,18 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Study/
 
-        public ViewResult Index()
+        public ActionResult Index(Guid id)
         {
-            var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis);
-            return View(studies.ToList());
+            User user = db.Users.Find(id);
+            if (user != null)
+            {
+                var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == id);
+                return View(studies.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Begin", "User");
+            }
         }
 
         //
@@ -85,6 +93,7 @@ namespace AplicacionBase.Controllers
                         school.Name = var;
                         db.Schools.Add(school);
                         db.SaveChanges();
+                        study.IdSchool = school.Id;
                     }
                 }
                 if(key.Contains("Programas")) 
@@ -116,6 +125,7 @@ namespace AplicacionBase.Controllers
                             elective.Name = var;
                             db.Electives.Add(elective);
                             db.SaveChanges();
+                            study.Electives.Add(elective);
                         }
                     }
                 }
@@ -133,12 +143,19 @@ namespace AplicacionBase.Controllers
                 {
                     Tesis.IdStudies = study.Id;
                     Tesis.Title = form[key].ToString();
+                    study.Thesis = Tesis;
                 }
                 if (key.Contains("txtDescripcion"))
                 {
-                    if (form[key].Length == 0) { study.Thesis = Tesis;}
-                    Tesis.Description = form[key].ToString();
-                    study.Thesis = Tesis;
+                    if (form[key].Length == 0)
+                    {
+                        study.Thesis = Tesis;
+                    }
+                    else
+                    {
+                        Tesis.Description = form[key].ToString();
+                        study.Thesis = Tesis;
+                    }
                 }
 
             }
@@ -146,35 +163,7 @@ namespace AplicacionBase.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        //public ActionResult Create(Study study)
-        //{
-        //    Guid g = System.Guid.Empty;
-        //    foreach (var e in db.aspnet_Users)
-        //    {
-
-        //        if (e.UserName == HttpContext.User.Identity.Name)
-        //        {
-        //            g = e.UserId;
-        //        }
-
-        //    }
-        //    var IdUser = g;
-        //    if (ModelState.IsValid)
-        //    {
-        //        ViewBag.IdUser = IdUser;
-        //        study.Id = Guid.NewGuid();
-        //        study.IdUser = IdUser;
-        //        db.Studies.Add(study);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");  
-        //    }
-            
-        //    ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
-        //    //ViewBag.IdUser = new SelectList(db.Users, "Id", "Name", study.IdUser);
-        //    ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
-        //    return View(study);
-        //}
-        
+       
         //
         // GET: /Study/Edit/5
  
@@ -184,6 +173,12 @@ namespace AplicacionBase.Controllers
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
             ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
             ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
+            var electives = study.Electives;
+            for (int i = electives.Count; i < 5;  i++)
+            {
+                electives.Add(new Elective());
+            }
+
             return View(study);
         }
 
@@ -191,18 +186,94 @@ namespace AplicacionBase.Controllers
         // POST: /Study/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Study study)
+        public ActionResult Edit(Guid id, Study study, FormCollection form)
         {
-            if (ModelState.IsValid)
+            var last = db.Studies.Find(id);
+            var s = study.School.Name;
+            var flag = false;
+            var electives = study.Electives;
+            foreach (var i in db.Schools)
             {
-                db.Entry(study).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (i.Name == study.School.Name)
+                {
+                    last.IdSchool = i.Id;
+                    flag = true;
+                }
             }
-            ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
-            ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
-            return View(study);
+            if (flag == false) 
+            {    
+                var newid = Guid.NewGuid();
+                db.Schools.Add(new School { Id = newid, Name = s });
+                db.SaveChanges();
+                last.IdSchool = newid;
+            }
+            
+            // falta lo de programa
+
+            last.Grade = study.Grade;
+
+            last.Electives.Clear();
+            foreach (String key in form)
+            {
+                if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") || key.Contains("Elective4") || key.Contains("Elective5"))
+                {
+                    if (form[key].Length != 0)
+                    {
+                        string var = form[key].ToString();
+                        bool temp = false;
+                        foreach (Elective elective in db.Electives)
+                        {
+                            if (elective.Name == var)
+                            {
+                                bool el2 = false;
+                                foreach (var i in last.Electives)
+                                {
+                                    if (i.Id == elective.Id) {el2 = true;}
+                                }
+                                if (el2 == false)
+                                {
+                                    last.Electives.Add(elective);
+                                }
+                                temp = true;
+                            }
+                        }
+                        if (temp == false)
+                        {
+                            Elective elective = new Elective();
+                            elective.Id = Guid.NewGuid();
+                            elective.Name = var;
+                            db.Electives.Add(elective);
+                            last.Electives.Add(elective); 
+                        }
+                    }
+                }
+            }
+            
+            last.StartDate = study.StartDate;
+            last.EndDate = study.EndDate;
+
+            Thesis tesis = new Thesis();
+            if(study.Thesis.Title != null)
+            {
+                tesis.IdStudies = last.Id;
+                tesis.Title = study.Thesis.Title;
+                tesis.Description = study.Thesis.Description;
+                if (last.Thesis != null) { db.Theses.Remove(last.Thesis); }
+                db.Theses.Add(tesis);
+                last.Thesis = tesis;
+            }            
+            
+            if(ModelState.IsValid)
+            {
+                db.Entry(last).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            //var n = new DateTime();
+            //TimeSpan t = new TimeSpan();
+            //var t = n.Subtract(n);
+            //var b = DateTime.TryParse("12jsdajfjsdgds", out n);
+            return RedirectToAction("Index");
         }
 
         //
@@ -221,6 +292,8 @@ namespace AplicacionBase.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {            
             Study study = db.Studies.Find(id);
+            db.Theses.Remove(study.Thesis);
+            study.Thesis = null;
             db.Studies.Remove(study);
             db.SaveChanges();
             return RedirectToAction("Index");

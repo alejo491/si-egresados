@@ -32,7 +32,7 @@
                                 Información del Usuario</h3>
                             <div align="center" class="sidebar">
                                 @Html.ActionLink("Perfil Personal", "Details", "User", new { id = Model.Id }, new { @class = "ebutton2 blue linkmenu" })<br />
-                                @Html.ActionLink("Estudios Realizados", "Index", "Study","", new { @class = "ebutton2 blue linkmenu" })<br />
+                                @Html.ActionLink("Estudios Realizados", "Index", "Study",new {id = Model.Id}, new { @class = "ebutton2 blue linkmenu" })<br />
                             </div>
                             <br />
                         </div>

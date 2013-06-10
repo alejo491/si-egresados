@@ -78,7 +78,6 @@ namespace AplicacionBase.Controllers
             }
             return View(school);
         }
-
         //
         // GET: /School/Delete/5
  

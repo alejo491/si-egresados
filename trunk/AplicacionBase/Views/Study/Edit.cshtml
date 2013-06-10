@@ -2,55 +2,286 @@
 
 @{
     ViewBag.Title = "Edit";
+    var institucion = Model.School.Name;
+    var electivas1 = Model.Electives.Count;
+    var electivas2 = electivas1 - 1;
+    var electivas3 = electivas2 - 1;
+    var electivas4 = electivas3 - 1;
+    var electivas5 = electivas4 - 1;
+    var titulo = Model.Thesis;
+    
+    
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtStartDate").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtEndDate").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtSchool').autocomplete({
+            source: '@Url.Action("AutocompleteSchool")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtTesis').autocomplete({
+            source: '@Url.Action("AutocompleteThesis")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective1').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective2').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective3').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective4').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('#txtElective5').autocomplete({
+            source: '@Url.Action("AutocompleteElective")'
+        });
+    }) 
+</script>
 
 <h2>Editar</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Estudio</legend>
-
+             
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdSchool, "Institucion")
+            <h3>Institucion</h3>
         </div>
         <div class="editor-field">
-            @Html.DropDownList("IdSchool", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdSchool)
+                @Html.EditorFor(model => model.School.Name)
+        </div>    
+
+        <div class="editor-label">
+            <h3>Programa</h3>
+        </div>
+        <div class="editor-field">
+            <select name="txtprogramas" id="txtProgramas">
+                <option>Ingenieria de Sistemas</option>
+                <option>Ingenieria Automatica</option>
+                <option>Telematica</option>
+                <option>Ingenieria Electronica</option>
+            </select>
         </div>
 
         <div class="editor-label">
-            Título
+            <h3>Título</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Grade)
-            @Html.ValidationMessageFor(model => model.Grade)
         </div>
-
         <div class="editor-label">
-            Fecha de Inicio
+            <h3>Electivas</h3>
+        </div>
+       @* 
+        @for (int indice = 0; indice < 5; indice++)
+        {
+            var ni = indice + 1;
+            <div class="c12">
+                <div class= "c1 first">
+                    <p style="font-size: 12px">Electiva @ni</p>&nbsp;
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.Electives.ElementAt(indice).Name)
+                </div>      
+            </div>
+        }*@
+
+        
+
+        <div class="c12">
+            <div class= "c1 first">
+                <p style="font-size: 12px">Electiva 1</p>&nbsp;
+            </div>
+            @if (electivas1 > 0)
+            {   
+                <div class = "c3">
+
+                    <input type="text" name = "txtElective1" id="txtElective1" style="width: 260px" value = "@Model.Electives.ToList()[0].Name"/>
+                </div>
+            }
+            else
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective1" id="txtElective1" style="width: 260px"/>
+                </div>
+            }
+        </div>
+        <div class = "c12">
+            <div class= "c1 first">
+                <p style="font-size: 12px">Electiva 2 </p>&nbsp;
+            </div>
+            @if (electivas2 > 0)
+            {   <div class = "c3">
+                    <input type="text" name = "txtElective2" id="txtElective2" style="width: 260px" value = "@Model.Electives.ToList()[1].Name"/>
+                </div>
+            }
+            else
+            {   <div class = "c3">
+                <input type="text" name = "txtElective2" id="txtElective2" style="width: 260px"/>
+                </div>
+            }
+        </div>
+        <div class="c12">
+            <div class= "c1 first">
+                <p style="font-size: 12px">Electiva 3 </p>&nbsp;
+            </div>
+            @if (electivas3 > 0)
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective3" id="txtElective3" style="width: 260px" value = "@Model.Electives.ToList()[2].Name"/>
+                </div>
+            }
+            else
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective3" id="txtElective3" style="width: 260px"/>
+                </div>
+            }
+        </div>
+        <div class = "c12">
+            <div class= "c1 first">
+                <p style="font-size: 12px">Electiva 4 </p>&nbsp;
+            </div>
+            @if (electivas4 > 0)
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective4" id="txtElective4" style="width: 260px" value = "@Model.Electives.ToList()[3].Name"/>
+                </div>
+            }
+            else
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective4" id="txtElective4" style="width: 260px"/>
+                </div>
+            }
+        </div>
+        <div class = "c12">
+            <div class= "c1 first">
+                <p style="font-size: 12px">Electiva 5 </p>&nbsp;
+            </div>
+            @if (electivas5 > 0)
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective5" id="txtElective5" style="width: 260px" value = "@Model.Electives.ToList()[4].Name"/>
+                </div>
+            }
+            else
+            {
+                <div class = "c3">
+                    <input type="text" name = "txtElective5" id="txtElective5" style="width: 260px"/>
+                </div>
+            }
+        </div>
+        <div class="editor-label">
+            <h3>Fecha de Inicio</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.StartDate)
-            @Html.ValidationMessageFor(model => model.StartDate)
         </div>
 
         <div class="editor-label">
-            Fecha Final
+            <h3>Fecha Final</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.EndDate)
-            @Html.ValidationMessageFor(model => model.EndDate)
         </div>
 
-        @Html.HiddenFor(model => model.Id)
-        <div>
-        &nbsp
-        </div>
+        <div> 
+            <div class="editor-label">
+                <h3>Tesis</h3>
+            </div>
+           @* @if (titulo != null)
+            {*@
+                <div class="editor-field">
+                        @Html.EditorFor(model => model.Thesis.Title)
+                        @*<input type="text" name="txtTesis" id="txtTesis" style = "width:150px" value = "@Model.Thesis.Title"/>*@
+                </div>
+                <div class="editor-label">
+                    <h3>Descripción</h3>
+                </div>
+                @*if (@Model.Thesis.Description != null)
+                {
+                 <div class="editor-field">
+                        <textarea name="txtDeswcription" rows="10" cols="40" id = "txtDescripcion">@Model.Thesis.Description</textarea>
+                </div>    
+                }
+                else
+                {*@
+                <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Thesis.Description)
+                        @*<textarea name="txtDescription" rows="10" cols="40" id = "txtDescripcion2">Escribe aquí la descripción de tu tesis</textarea>*@
+                </div>    
+             @*   }
 
+            }
+            else
+            {
+                <div class="editor-field">
+                        <input type="text" name="txtTesis" id="txtTesis" style = "width:150px"/>
+                </div>
+                <div class="editor-label">
+                    <h3>Descripción</h3>
+                </div>
+                <div class="editor-field">
+                        <textarea name="txtDescription" rows="10" cols="40" id = "txtDescripcion1">Escribe aquí la descripción de tu tesis</textarea>
+                </div>  
+            }*@
+            &nbsp
+            </div>
+                @Html.HiddenFor(model => model.IdUser)
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.IdSchool)
+            <div>
+            &nbsp
+        </div>
         <div>
             <input type="submit" value="Guardar" class="ebutton blue"/> &nbsp
             @Html.ActionLink("Regresar", "Index", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })
