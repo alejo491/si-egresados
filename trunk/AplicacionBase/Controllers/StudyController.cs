@@ -273,7 +273,7 @@ namespace AplicacionBase.Controllers
             //TimeSpan t = new TimeSpan();
             //var t = n.Subtract(n);
             //var b = DateTime.TryParse("12jsdajfjsdgds", out n);
-            return RedirectToAction("Index");
+            return RedirectToAction("Begin", "User", new { id = last.IdUser });
         }
 
         //
