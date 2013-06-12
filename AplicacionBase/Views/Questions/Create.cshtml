@@ -1,12 +1,8 @@
 ﻿@model AplicacionBase.Models.Question
 @{
     ViewBag.Title = "Crear Pregunta del Tema " + @ViewBag.Topic.Description;
-    if ((string)Session["Wizard"] != "0")
-    {
-        Layout = "~/Views/Shared/_LayoutW.cshtml";
-        Session["Wizard"] = "0";
-    }
 }
+
 <div class="grid">
     <div class="c12">
         <h2>
@@ -21,14 +17,7 @@
             {
                 @Html.ValidationSummary(true)
                 <fieldset>
-                    <legend>Pregunta</legend>@* <div class="editor-label">
-            @Html.LabelFor(model => model.IdTopic, "Topic")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdTopic", String.Empty)
-            @Html.ValidationMessageFor(model => model.IdTopic)
-        </div>
-        *@
+                    <legend>Pregunta</legend>
                     <div class="editor-label">
                         @Html.LabelFor(model => model.Type)
                     </div>
@@ -40,8 +29,7 @@
                             <br />
                             @Html.RadioButtonFor(model => model.Type, "Corta", false) Respuesta Abierta Corta
                             <br />
-                            @Html.RadioButtonFor(model => model.Type, "Larga", false) Respuesta Abierta Larga @*Html.RadioButtonFor(model =>model.Type,"Mixta",false) Respuesta Mixta*@
-                            @*@Html.EditorFor(model => model.Type)*@
+                            @Html.RadioButtonFor(model => model.Type, "Larga", false) Respuesta Abierta Larga
                             <div class="alert error">
                                 @Html.ValidationMessageFor(model => model.Type)
                             </div>
@@ -77,7 +65,6 @@
                     </div>
                     <div class="editor-field">
                         <p>
-                            @*@Html.EditorFor(model => model.IsObligatory)*@
                             @Html.RadioButtonFor(model => model.IsObligatory, 0, true) No Obligatorio
                             @Html.RadioButtonFor(model => model.IsObligatory, 1, false) Obligatoria
                             <div class="alert error">
