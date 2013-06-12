@@ -11,11 +11,9 @@ namespace AplicacionBase.Controllers
     public class AnswerChoicesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
-       
 
 
-        //
-        // GET: /AnswerChoices/
+        #region Listar
         /// <summary>
         /// Muestra todas las opciones de respuesta de una pregunta
         /// </summary>
@@ -42,14 +40,27 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        #endregion
 
+        #region Detalles
+        /// <summary>
+        /// Muestara en detalle una opcion de respuesta
+        /// </summary>
+        /// <param name="id">identificador de la opcion de respuesta</param>
+        /// <returns></returns>
         public ViewResult Details(Guid id)
         {
                 AnswerChoice AnswerChoice = db.AnswerChoices.Find(id);
                 return View(AnswerChoice);
         }
-        //
-        // GET: /AnswerChoice/Create
+        #endregion
+
+        #region Crear opcion de respuesta
+        /// <summary>
+        /// Permite la creacion de una nueva opcion de respuesta
+        /// </summary>
+        /// <param name="id">identificador de la pregunta</param>
+        /// <returns></returns>
         public ActionResult Create(Guid? id)
         {
             if (id != Guid.Empty && id != null)
@@ -70,8 +81,15 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        //
-        // POST: /AnswerChoice/Create
+        #endregion
+
+        #region Crear opcion de respuesta HttpPost
+        /// <summary>
+        /// Guarda la opcion de respuesta que se recibe en un formulario
+        /// </summary>
+        /// <param name="id">identificador de la pregunta</param>
+        /// <param name="answerChoice">opcion de respuesta recibida desde un formulario</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(Guid? id, AnswerChoice answerChoice)
         {
@@ -102,10 +120,14 @@ namespace AplicacionBase.Controllers
             // ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
             return View(answerChoice);			
         }
+        #endregion
 
-
-        //
-        // GET: /AnswerChoice/Edit/5
+        #region Editar opcion de respuesta
+        /// <summary>
+        /// Da la opcion de editar una opcion de respuesta que ya esta guardada
+        /// </summary>
+        /// <param name="id">identificador de la opcion de respuesta</param>
+        /// <returns></returns>
         public ActionResult Edit(Guid? id)
         {
             if (id != Guid.Empty && id != null )
@@ -126,10 +148,15 @@ namespace AplicacionBase.Controllers
                     return RedirectToAction("Index", "Home");
                 }
          }
+        #endregion
 
+        #region Editar opcion de respuesta HttpPost
 
-        //
-        // POST: /AnswerChoice/Edit/5
+        /// <summary>
+        /// Guarda las modificaciones hechas a una ocpion de respuesta
+        /// </summary>
+        /// <param name="answerChoice">opcion de respuesta que se modifico y que se va a actualizar</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(AnswerChoice answerChoice)
         {
@@ -162,10 +189,14 @@ namespace AplicacionBase.Controllers
             //ViewBag.IdQuestion = new SelectList(db.Preguntas, "Id", "Enunciado", AnswerChoice.IdQuestion);
             return View(answerChoice);
         }
+        #endregion
 
-
-        //
-        // GET: /AnswerChoice/Delete/5
+        #region Eliminar opcion de respuesta
+        /// <summary>
+        /// Da la opcion de elimianr la opcion de respuesta
+        /// </summary>
+        /// <param name="id">identificador de la opcion de respuesta</param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
 
@@ -187,8 +218,14 @@ namespace AplicacionBase.Controllers
                     return RedirectToAction("Index", "Home");
                 }
          }
-        //
-        // POST: /AnswerChoice/Delete/5
+        #endregion
+
+        #region Eliminar opcion de respuesta HttpPost
+        /// <summary>
+        /// Elimina la opcion de respuesta ala que corresponde el id
+        /// </summary>
+        /// <param name="id">identificador de la opcion de respuesta</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -198,17 +235,14 @@ namespace AplicacionBase.Controllers
 			TempData["Success"] = "Se ha eliminado la Opción de respuesta correctamente";
             return RedirectToAction("Index", new { id = AnswerChoice.IdQuestion });
         }
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-		
+        #endregion
+
+        #region Verificar existencia de numero 
+        /// </summary>
         /// Metodo que retorna una validacion si el número de orden que se le va asignar a la opcion de respuesta es único
         /// </summary>
         /// <param name="TopicNumber">Numero de la Opción de respuesta</param>
         /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>
-
         public bool ExisteNumero(Decimal TopicNumber, Guid IdQuestion, Guid IdChoice)
         {
             //var question = db.Questions.Where(a => a.Id == IdAnswer).
@@ -224,5 +258,14 @@ namespace AplicacionBase.Controllers
             }
             return true;
         }
+        #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
+   
     }
 }
