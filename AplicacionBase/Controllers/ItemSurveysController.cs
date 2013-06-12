@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
-using iTextSharp.text;
 
 namespace AplicacionBase.Controllers
 {
@@ -17,9 +18,11 @@ namespace AplicacionBase.Controllers
         #region index
         DbSIEPISContext _db = new DbSIEPISContext();
 
-        public ActionResult Index()
+        public ActionResult Index(Guid id)
         {
-            return RedirectToAction("Index","Home");
+            //var itemsurveys = db.ItemSurveys.Include(i => i.Report);
+            var itemsurveys = db.ItemSurveys.Where(i=>i.IdReport==id);
+            return View(itemsurveys.ToList());
         }
 
         public ActionResult Create(Guid id)
@@ -30,7 +33,8 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection postedForm,Guid id)
         {
-
+            var tam = postedForm.Count;
+            if (tam > 4) { 
             var conGrafico = postedForm[3];
             int numPagina = 0;
             try
@@ -66,8 +70,7 @@ namespace AplicacionBase.Controllers
             question = ((Question)(db.Questions.First(st => st.Id == idQuestion))).Sentence;
             string topic = "" + db.Topics.Where(st => st.Id== idTopic);
             string tabla = "VistaModuloEncuesta";
-            //String SQL = "" + "select distinct Cantidad,(Convert(VARCHAR(2000), answerChoicesSentence)) as Respuesta from  VistaModuloEncuesta  inner JOIN  (select count(*) as cantidad,idAnswerChoices from " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and idQuestion in('" + idQuestion + "') group by idAnswerChoices ) as cdcd on cdcd.idAnswerChoices=VistaModuloEncuesta.idAnswerChoices";
-            String SQL = "" + "select (Convert(VARCHAR(2000), answerChoicesSentence)) as 'Opcion de respuesta', count(*) as Cantidad from  " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and IdQuestion in('" + idQuestion + "') group by IdAnswer ,(Convert(VARCHAR(2000), answerChoicesSentence)) ";
+            String SQL = "" + "select * from " + tabla + " where surveysName='" + surveysName + "' and topicsDescription='" + tema + "' and questionsSentence='" + question + "'";
             ItemSurvey itenSurvey=new ItemSurvey();
             itenSurvey.Id = Guid.NewGuid();
             itenSurvey.IdReport = id;       //se recibe como parametro antes de entrar a crear. aqui se saca en ves de crearlo
@@ -77,13 +80,45 @@ namespace AplicacionBase.Controllers
             itenSurvey.Report = db.Reports.First(a => a.Id == itenSurvey.IdReport);
             itenSurvey.SQLQuey = SQL;
 
-
+if(numPagina!=0){
             db.ItemSurveys.Add(itenSurvey);
             db.SaveChanges();
+    }
+            }
+            //return View();
+            return RedirectToAction("Index", new { id = id });
+        }
+        //
+        // GET: /itemsurveys/Details/5
 
-            return View();
+        public ViewResult Details(Guid id)
+        {
+            ItemSurvey itemsurvey = db.ItemSurveys.Find(id);
+            return View(itemsurvey);
         }
 
+
+        //
+        // GET: /itemsurveys/Delete/5
+
+        public ActionResult Delete(Guid id)
+        {
+            ItemSurvey itemsurvey = db.ItemSurveys.Find(id);
+            return View(itemsurvey);
+        }
+
+        //
+        // POST: /itemsurveys/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(Guid id)
+        {
+            ItemSurvey itemsurvey = db.ItemSurveys.Find(id);
+            db.ItemSurveys.Remove(itemsurvey);
+            db.SaveChanges();
+            TempData["Success"] = "Se ha Eliminado el Item correctamente";
+            return RedirectToAction("Index", new { id = itemsurvey.IdReport });
+        }
         #region utilidades
         public JsonResult SurveysList()
         {

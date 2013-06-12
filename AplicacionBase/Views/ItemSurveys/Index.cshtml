@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AplicacionBase.Models.ItemSurvey>
+
+@{
+    ViewBag.Title = "Listado de Reportes";
+}
+
+<h2>Listar</h2>
+ <div></div>
+ <div>
+
+                                                                                       
+ </div>
+ <div class="alert success">
+            @TempData["Success"]
+        </div>
+
+<table>
+    <tr>
+        <th>
+            Reporte
+        </th>
+        <th>
+            Pregunta
+        </th>
+        <th>
+            Tipo de grafico
+        </th>
+        
+       <th>
+            Acciones
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Report.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Question)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GraphicType)
+        </td>
+      
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        </td>
+    </tr>
+}
+
+</table>
