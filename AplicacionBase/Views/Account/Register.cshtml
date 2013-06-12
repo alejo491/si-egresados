@@ -36,7 +36,7 @@
             <div class="editor-field">
                 @Html.TextBoxFor(m => m.Email)
                 @Html.ValidationMessageFor(m => m.Email)
-                @TempData["Error"]
+                <div class="alert success">@TempData["Error"]</div>      
             </div>
 
             <div class="editor-label">
@@ -54,10 +54,10 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
             </div>
-
+            <div></div>
             <div>
                 <input type="submit" value="Registrar" class="ebutton blue" />&nbsp
-                @Html.ActionLink("Cancelar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink("Cancelar", "Index", "", null, htmlAttributes: new { @class = "ebutton blue" })
             </div>
         </fieldset>
     </div>

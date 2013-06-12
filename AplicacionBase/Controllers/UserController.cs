@@ -21,6 +21,7 @@ namespace AplicacionBase.Controllers
         public ViewResult Index()
         {
             var users = db.Users.Include(u => u.aspnet_Users);
+            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", users.ToList());
             return View(users.ToList());
         }
 
@@ -64,30 +65,12 @@ namespace AplicacionBase.Controllers
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
             {
-
                 if (e.UserName == HttpContext.User.Identity.Name)
                 {
                     g = e.UserId;
                 }
-
             }
             return g;
-        }
-
-        public Guid searchUser()
-        {
-            Guid h = System.Guid.Empty;
-            foreach (var e in db.aspnet_Users)
-            {
-                foreach (var i in db.Users)
-                {
-                    if (e.UserId != i.Id)
-                    {
-                        h = e.UserId;
-                    }
-                }
-            }
-            return h;
         }
 
         [HttpPost]
@@ -97,29 +80,25 @@ namespace AplicacionBase.Controllers
             if (ModelState.IsValid && !g.Equals(System.Guid.Empty))
             {
                 //string nombre = HttpContext.cu .User.Identity
-
                 user.Id = g;
+                user.States = "true";
                 db.Users.Add(user);
                 db.SaveChanges();
                 StepsLoad(g);
-
                 var steps = db.UsersSteps.Where(s => s.UserId == g).OrderBy(s => s.Step.SOrder);
-
                 if (!steps.Any())
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Begin", "User", new { id = g });
                 }
                 else
                 {
                     var tmp = (List<UsersStep>)steps.ToList();
-                    Session["steps"] = tmp; 
+                    Session["steps"] = tmp;
                     var ActualStep = Convert.ToInt16(tmp.ElementAt(0).Step.SOrder);
                     return RedirectToAction("Index", "Wizard", ActualStep);
                 }
-
                 //return RedirectToAction("Index", "Home");
             }
-
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
@@ -140,12 +119,10 @@ namespace AplicacionBase.Controllers
                 db.UsersSteps.Add(obj);
                 db.SaveChanges();
             }
-
         }
 
         //
         // GET: /User/Edit/5
-
 
         public ActionResult Edit(Guid id)
         {
@@ -154,7 +131,6 @@ namespace AplicacionBase.Controllers
             //return RedirectToAction("Index", "User");
             return View(user);
         }
-
 
         //
         // POST: /User/Edit/5
@@ -182,38 +158,29 @@ namespace AplicacionBase.Controllers
             return View(user);
         }
 
-        //
-        // GET: /User/Delete/5
 
-        public ActionResult Delete(Guid id)
+        public ActionResult State(Guid id)
         {
             User user = db.Users.Find(id);
+            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
 
         //
         // POST: /User/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(Guid id)
+        [HttpPost]
+        public ActionResult State(User user)
         {
-            User user = db.Users.Find(id);
-            //aspnet_Users w = db.aspnet_Users.Find(id);
-            foreach (var ca in db.aspnet_Roles)
+            if (user != null)
             {
-                aspnet_UsersInRoles v = db.aspnet_UsersInRoles.Find(user.Id, ca.RoleId);
-                if (v != null)
-                {
-                    v.aspnet_Roles = null;
-                    v.aspnet_Users = null;
-                    db.aspnet_UsersInRoles.Remove(v);
-                }
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                TempData["Estado"] = "¡ Estado del Usuario Modificado Correctamente !";
+                return RedirectToAction("Index", "User");
             }
-            db.Users.Remove(user);
-            //db.aspnet_Users.Remove(w);
-            db.SaveChanges();
-            TempData["Eliminado"] = "¡ Usuario Eliminado Correctamente !";
-            return RedirectToAction("Index");
+            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
+            return View(user);
         }
 
         public ActionResult Register()
@@ -259,20 +226,80 @@ namespace AplicacionBase.Controllers
             if (ModelState.IsValid)
             {
                 //user.Id = h;
+                user.States = "true";
                 db.Users.Add(user);
                 db.SaveChanges();
                 TempData["Creado"] = "¡ El Usuario se Creó Correctamente !";
                 return RedirectToAction("Index", "User");
             }
-
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+
+        public ActionResult Out(Guid id)
+        {
+            Guid g = System.Guid.Empty;
+            User user = db.Users.Find(id);
+            VerifyController v = new VerifyController();
+            if (user.aspnet_Users.UserName != HttpContext.User.Identity.Name)
+            {
+                g = searchId();
+            }
+            else
+            {
+                g = user.Id;
+            }
+            bool salir = v.Begin(g);
+            if (salir)
+            {
+                return RedirectToAction("Index", "User"); ;
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        //
+        // GET: /User/Delete/5
+        /*
+                public ActionResult Delete(Guid id)
+                {
+                    User user = db.Users.Find(id);
+                    return View(user);
+                }
+
+                //
+                // POST: /User/Delete/5
+
+                [HttpPost, ActionName("Delete")]
+                public ActionResult DeleteConfirmed(Guid id)
+                {
+                    User user = db.Users.Find(id);
+                    //aspnet_Users w = db.aspnet_Users.Find(id);
+                    foreach (var ca in db.aspnet_Roles)
+                    {
+                        aspnet_UsersInRoles v = db.aspnet_UsersInRoles.Find(user.Id, ca.RoleId);
+                        if (v != null)
+                        {
+                            v.aspnet_Roles = null;
+                            v.aspnet_Users = null;
+                            db.aspnet_UsersInRoles.Remove(v);
+                        }
+                    }
+                    db.Users.Remove(user);
+                    //db.aspnet_Users.Remove(w);
+                    db.SaveChanges();
+                    TempData["Eliminado"] = "¡ Usuario Eliminado Correctamente !";
+                    return RedirectToAction("Index");
+                }
+        */
     }
 }

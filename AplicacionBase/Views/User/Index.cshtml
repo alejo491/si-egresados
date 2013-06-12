@@ -5,10 +5,12 @@
 <h2>
     Usuarios Registrados</h2>
 <p>
-    @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })&nbsp
+    @Html.ActionLink("Regresar", "Begin", "User", new {  }, htmlAttributes: new { @class = "ebutton blue" })
     <div class="alert success">@TempData["Editar"]</div>
     <div class="alert success">@TempData["Creado"]</div>
-    <div class="alert success">@TempData["Eliminado"]</div>
+    <div class="alert success">@TempData["Estado"]</div>
+    <div class="alert success">@TempData["Success"]</div>  
 </p>
 <table>
     <tr>
@@ -24,13 +26,11 @@
         <th>
             Celular
         </th>
-        <th>
-            Teléfono
-        </th>
-        <th>
+        <th >
             Opciones
         </th>
     </tr>
+    @{ int i = 0;}
     @foreach (var item in Model)
     {
         <tr>
@@ -47,20 +47,26 @@
                 @Html.DisplayFor(modelItem => item.CellphoneNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
+            
                 @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                &nbsp
+                &nbsp       
                 @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                &nbsp
-                @Html.ActionLink("Asignar Roles", "AssignUserRoles", "UsersRoles", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                &nbsp
-                @Html.ActionLink("Perfil del Usuario", "Begin", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                &nbsp
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                &nbsp
+                
+                <div class="accordion" >
+                    @{
+           string refacor = "#acc" + i;
+           string idaccor = "acc" + i;
+                    }
+                    <section>
+                            <a href="@refacor" id="@idaccor" class ="ebutton">Más</a>
+                            <p>@Html.ActionLink("Asignar Roles", "AssignUserRoles", "UsersRoles", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                               @Html.ActionLink("Perfil del Usuario", "Begin", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                               @Html.ActionLink("Cambiar Estado", "State", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })                 
+                             </p> 
+                    </section>
+                </div>
             </td>
         </tr>
+                          i++;
     }
 </table>

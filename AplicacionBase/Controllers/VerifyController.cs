@@ -66,8 +66,28 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Create", "User");
         }
 
-        
-        
-    }
+        public Boolean Begin(Guid e2)
+        {
+            User user = db.Users.Find(e2);
+            bool roluser = false;
 
+            foreach (var ca in db.aspnet_Roles)
+            {
+                if (ca.LoweredRoleName == "administrador")
+                {
+                    aspnet_UsersInRoles v = db.aspnet_UsersInRoles.Find(user.Id, ca.RoleId);
+                    if (v != null)
+                    {
+                        roluser = true;
+                    }
+                    else { roluser = false; }
+                }
+            }
+            if (db.Users.LongCount() == 1)
+            {
+                roluser = true;
+            }
+            return roluser;
+        }      
+    }
 }

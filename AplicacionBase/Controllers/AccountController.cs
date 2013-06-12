@@ -13,6 +13,8 @@ namespace AplicacionBase.Controllers
 {
     public class AccountController : Controller
     {
+        private DbSIEPISContext db = new DbSIEPISContext();
+
         [HttpPost]
         public JsonResult FacebookLogin(FacebookLoginModel model)
         {
@@ -43,6 +45,32 @@ namespace AplicacionBase.Controllers
 
         }
 
+        public int searchUser(LogOnModel model)
+        {
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == model.UserName)
+                {
+                    g = e.UserId;
+                }
+            }
+            var id = g;
+            int data = 2;
+            foreach (var w in db.Users)
+            {
+                if (w.Id == id)
+                {
+                    if (w.States == "false")
+                    {
+                        data = 0;
+                    }
+                    else { data = 1; }
+                }
+            }
+            return data;
+        }
+
         // GET: /Account/LogOn
 
         public ActionResult LogOn()
@@ -60,23 +88,33 @@ namespace AplicacionBase.Controllers
             {
                 if (Membership.ValidateUser(model.UserName, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    int userstate = searchUser(model);
+                    if (userstate == 1 || userstate == 2)
                     {
-                        return Redirect(returnUrl);
+                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                             && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Verify");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Verify");
+                        TempData["Inactivo"] = "¡ El Usuario se encuentra Inactivo !";
+                        TempData["info"] = " Pongase en contacto con el Administrador del Sistema";
+                        //return RedirectToAction("LogOn", "Account"); }
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+                    TempData["Invalidos"] = "El nombre de usuario o la contraseña especificados son incorrectos.";
+                    //ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
                 }
             }
-
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);
         }
@@ -127,7 +165,7 @@ namespace AplicacionBase.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = "Correo Utilizado";
+                    TempData["Error"] = "El Correo ya fue Registrado por otro Usuario";
                     model.Email = "";
                 }
             }
@@ -174,7 +212,8 @@ namespace AplicacionBase.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "La contraseña actual es incorrecta o la nueva contraseña no es válida.");
+                    TempData["Error"] = "La contraseña actual es incorrecta o la nueva contraseña no es válida.";
+                    //ModelState.AddModelError("", "La contraseña actual es incorrecta o la nueva contraseña no es válida.");
                 }
             }
 
