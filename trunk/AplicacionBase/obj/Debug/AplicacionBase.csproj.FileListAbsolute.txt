@@ -265,3 +265,14 @@ C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\MvcSiteMapProvider.xml
 C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\bin\PagedList.xml
 C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\user\Desktop\SIEPIS-PagedList\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\EntityFramework.dll
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\PagedList.dll
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\EntityFramework.xml
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\bin\PagedList.xml
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\PC11\Documents\Visual Studio 2010\Projects\Proyecto\AplicacionBase\obj\Debug\AplicacionBase.pdb
