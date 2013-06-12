@@ -34,6 +34,9 @@ namespace AplicacionBase.Models.Mapping
             this.Property(t => t.MaritalStatus)
                 .HasMaxLength(10);
 
+            this.Property(t => t.States)
+               .HasMaxLength(5);
+
             // Table & Column Mappings
             this.ToTable("Users");
             this.Property(t => t.Id).HasColumnName("Id");
@@ -45,6 +48,7 @@ namespace AplicacionBase.Models.Mapping
             this.Property(t => t.BirthDate).HasColumnName("BirthDate");
             this.Property(t => t.Gender).HasColumnName("Gender");
             this.Property(t => t.MaritalStatus).HasColumnName("MaritalStatus");
+            this.Property(t => t.States).HasColumnName("States");
 
             // Relationships
             this.HasRequired(t => t.aspnet_Users)

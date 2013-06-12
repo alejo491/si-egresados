@@ -14,11 +14,16 @@
 
 @Html.ValidationSummary(true, "")
 
+<div class="alert success">@TempData["Inactivo"]</div>
+<div class="alert success">@TempData["info"]</div>
+
 @using (Html.BeginForm()) {
     <div>
         <fieldset>
             <legend>Información de Cuenta</legend>
 
+            <div></div>
+            <div class="alert success">@TempData["invalidos"]</div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.UserName)
             </div>
@@ -39,10 +44,12 @@
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.LabelFor(m => m.RememberMe)
             </div>
+            <div>
+            </div>
 
             <p>
                 <input type="submit" value="Enviar" class="ebutton blue"/>&nbsp
-                @Html.ActionLink("Cancelar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink("Cancelar", "Index", "Home", null,htmlAttributes: new { @class = "ebutton blue" })
             </p>
             <fb:login-button perms="email,user_checkins" autologoutlink="true" >O entra con tu cuenta de Facebook</fb:login-button>
                  <div id="fb-root" style="display:inline; margin-right:60px"></div>

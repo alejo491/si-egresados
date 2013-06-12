@@ -54,6 +54,9 @@ namespace AplicacionBase.Models
         [DisplayName("Estado Civil")]
         public string MaritalStatus { get; set; }
 
+        [DisplayName("Estado")]
+        public string States { get; set; }
+
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual aspnet_Users aspnet_Users { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
@@ -63,7 +66,7 @@ namespace AplicacionBase.Models
         public virtual ICollection<Study> Studies { get; set; }
         public virtual ICollection<UsersStep> UsersSteps { get; set; }
         public virtual ICollection<Vacancy> Vacancies { get; set; }
-        public virtual ICollection<Like> Likes{ get; set; }
+        public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Startbox> Startboxs { get; set; }
     }
 }

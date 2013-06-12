@@ -1,45 +1,32 @@
 ﻿@model AplicacionBase.Models.User
+@using AplicacionBase.Controllers
+
 @{
     ViewBag.Title = "Begin";
+    VerifyController ver = new VerifyController();
+    var i = ver.Begin(Model.Id);
 }
-<div class="grid">
-    <div class="c12">
-    </div>
-    <div class="c12">
-        <div class="c9 first">
-            <legend>Perfil Personal del Usuario: @Model.aspnet_Users.UserName</legend>
-            <br />
-            <div class="c12">
-                <div class="c1 first">
-                </div>
-                <div class="c11 last">
-                </div>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+   <Fieldset> 
+    <div class="grid">
+        <div class="c12">
+            <div class="c9 first">
+                <legend>Perfil Personal del Usuario: @Model.aspnet_Users.UserName</legend>     
             </div>
-            <br />
-            <br />
-            <br />
-            <p>
-            </p>
-        </div>
-        <div class="c3 last">
-            <div class="grid">
-                <div class="c12">
-                    <div class="c1 first">
-                    </div>
-                    <div class="c11 last">
-                        <div align="center" class="sidebarcontainer">
-                            <h3>
-                                Información del Usuario</h3>
-                            <div align="center" class="sidebar">
-                                @Html.ActionLink("Perfil Personal", "Details", "User", new { id = Model.Id }, new { @class = "ebutton2 blue linkmenu" })<br />
-                                @Html.ActionLink("Estudios Realizados", "Index", "Study",new {id = Model.Id}, new { @class = "ebutton2 blue linkmenu" })<br />
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @if (i == true)
+            {
+              <div class="c3 first" id="layout1">
+                  @Html.Partial("_LayoutUser")
+                  @Html.Partial("_LayoutSeguridad") 
+              </div>
+            }
+            else
+            {
+                <div class="c3 last" id="layout">@Html.Partial("_LayoutUser")</div>         
+            }
+            
+        </div>   
     </div>
-    &nbsp;
-</div>
+    </Fieldset>
+
