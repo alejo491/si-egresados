@@ -11,8 +11,16 @@ namespace AplicacionBase.Controllers
     public class AnswerChoicesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
+       
+
+
         //
         // GET: /AnswerChoices/
+        /// <summary>
+        /// Muestra todas las opciones de respuesta de una pregunta
+        /// </summary>
+        /// <param name="id">identificador de la pregunta a la cual corresponden las opciones de respuesta</param>
+        /// <returns></returns>
         public ActionResult Index(Guid? id)
         {
             if (id != Guid.Empty && id != null)
