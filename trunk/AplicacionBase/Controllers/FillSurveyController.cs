@@ -14,9 +14,16 @@ namespace AplicacionBase.Controllers
     public class FillSurveyController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
+         
+        #region Contestar Encuesta
         //
         // GET: /FillSurvey/
-
+        /// <summary>
+        /// Da la opcion de contestar una encuesta
+        /// </summary>
+        /// <param name="ids">identificador de la encuesta</param>
+        /// <param name="Email">Email del encuestado</param>
+        /// <returns></returns>
         public ActionResult Fill(Guid ids, string Email)
         {
             
@@ -55,7 +62,16 @@ namespace AplicacionBase.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
+        #region Contestar Encuesta HttpPost
+        /// <summary>
+        /// Guarda la encuesta recibida en el Formulario
+        /// </summary>
+        /// <param name="ids">identificador de la encuesta</param>
+        /// <param name="Email">Email del encuestado</param>
+        /// <param name="postedForm">Formulario con la informacion que contesto el encuestado</param>
+        /// <returns></returns>
         [HttpPost]
     public ActionResult Fill(Guid ids, string Email, FormCollection postedForm)
         {
@@ -240,8 +256,15 @@ namespace AplicacionBase.Controllers
             TempData["Success"] = "¡Muchas gracias por llenar la encuesta!";
             return RedirectToAction("Index", "Home");
         }
+        #endregion
 
-
+        #region Guaradar encuesta contestada
+        /// <summary>
+        /// Guarda el ejemplar de encuesta contestada
+        /// </summary>
+        /// <param name="Email">Email del Encuestado</param>
+        /// <param name="id">identificador de la encuesta de la que se va a aguardar el ejemplar</param>
+        /// <returns></returns>
         public Exemplar SaveSurveyed(string Email, Guid id)
         {
             var encuestado = db.Surveyeds.Where(s=>s.Email == Email);
@@ -328,7 +351,17 @@ namespace AplicacionBase.Controllers
             return tempex;
 
         }
+        #endregion
 
+        #region Guradar Ejemplares de respuesta
+        /// <summary>
+        /// Gurada las opciones de respuesta escojidas por el encuestado
+        /// </summary>
+        /// <param name="idExemplar">identificador del ejemplar</param>
+        /// <param name="idQuestion">identificador de la pregunta</param>
+        /// <param name="opc">opciones de respuesta escojidas</param>
+        /// <param name="valores">respuestas que dio a las opciones escojidas</param>
+        /// <returns></returns>
         public Boolean SaveExemplarAnswers(Guid idExemplar, Guid idQuestion, List<string> opc, List<string> valores)
         {
             try
@@ -364,7 +397,7 @@ namespace AplicacionBase.Controllers
 
 
         }
-
+        #endregion
 
     }
 }

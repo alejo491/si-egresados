@@ -13,23 +13,41 @@ namespace AplicacionBase.Controllers
     {
 
         private DbSIEPISContext db = new DbSIEPISContext();
-        //
-        // GET: /ItemSurveys/
-        #region index
+        
+        #region Listar Items de Encuesta
         DbSIEPISContext _db = new DbSIEPISContext();
-
+        /// <summary>
+        /// Muestra el listado de Items de la encuesta a la que corresponda el id
+        /// </summary>
+        /// <param name="id">Identificador de la encuesta a la aque pertenecen los items</param>
+        /// <returns></returns>
         public ActionResult Index(Guid id)
         {
             //var itemsurveys = db.ItemSurveys.Include(i => i.Report);
             var itemsurveys = db.ItemSurveys.Where(i=>i.IdReport==id);
             return View(itemsurveys.ToList());
         }
+        #endregion
 
+        #region Crear Item de Encuesta
+        /// <summary>
+        /// Da la opcion de crear un Item para un reporte desde una encuesta
+        /// </summary>
+        /// <param name="id">Identificador del Reporte</param>
+        /// <returns></returns>
         public ActionResult Create(Guid id)
         {
             return View();
         }
-#endregion
+        #endregion
+
+        #region Crear Item de Encuesta HttpPost
+        /// <summary>
+        /// Guarda el Item de encuesta para un reporte
+        /// </summary>
+        /// <param name="postedForm">Formulario donde esta contenida la informacion del Item a agrregar</param>
+        /// <param name="id">Identificador del Reporte</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(FormCollection postedForm,Guid id)
         {
@@ -88,28 +106,48 @@ if(numPagina!=0){
             //return View();
             return RedirectToAction("Index", new { id = id });
         }
+        #endregion
+
+        #region Detalles
+       
         //
         // GET: /itemsurveys/Details/5
-
+        /// <summary>
+        /// Muestra en detalle la informacion del Iten de encuesta a que corresponda el identificador
+        /// </summary>
+        /// <param name="id">Identificador del Item de encuesta</param>
+        /// <returns></returns>
         public ViewResult Details(Guid id)
         {
             ItemSurvey itemsurvey = db.ItemSurveys.Find(id);
             return View(itemsurvey);
         }
+        #endregion
 
+        #region Eliminar Item De encuesta
 
         //
         // GET: /itemsurveys/Delete/5
-
+        /// <summary>
+        /// Da la opcion de eliminar Un item de encuesta
+        /// </summary>
+        /// <param name="id">Identificador del item de encuesta a eliminar</param>
+        /// <returns></returns>
         public ActionResult Delete(Guid id)
         {
             ItemSurvey itemsurvey = db.ItemSurveys.Find(id);
             return View(itemsurvey);
         }
+        #endregion
 
+        #region Eliminar Item de Encuesta HttpPost
         //
         // POST: /itemsurveys/Delete/5
-
+        /// <summary>
+        /// Elimina el Item de encuesta al aque corresponda el identificador
+        /// </summary>
+        /// <param name="id">Identificador del Item de encuesta a eliminar</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -119,7 +157,15 @@ if(numPagina!=0){
             TempData["Success"] = "Se ha Eliminado el Item correctamente";
             return RedirectToAction("Index", new { id = itemsurvey.IdReport });
         }
+        #endregion
+      
         #region utilidades
+       
+        #region Listado de Encuestas
+        /// <summary>
+        /// Retorna el listado de Encuestas
+        /// </summary>
+        /// <returns></returns>
         public JsonResult SurveysList()
         {
             //List<String> surveys = new List<string>();
@@ -136,7 +182,14 @@ if(numPagina!=0){
             }        
             return Json(d, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region Listado de Temas de una encuesta
+        /// <summary>
+        /// Retorna le listado de temas en una encuesta alque corresponda el id
+        /// </summary>
+        /// <param name="ids">identificador de la encuesta</param>
+        /// <returns></returns>
         public JsonResult TopicsList(string ids)
         {
             var g = new Guid(ids);
@@ -151,7 +204,14 @@ if(numPagina!=0){
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region Listado de preguntas
+        /// <summary>
+        /// retorna el listado de preguntas de un tema de la encuesta al que corresponda el id
+        /// </summary>
+        /// <param name="idt">identificador del tema</param>
+        /// <returns></returns>
         public JsonResult QuestionsList(string idt)
         {
             var g = new Guid(idt);
@@ -164,7 +224,9 @@ if(numPagina!=0){
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+       
         #endregion
     }
 }
