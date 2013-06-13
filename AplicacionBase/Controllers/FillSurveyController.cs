@@ -11,8 +11,14 @@ using System.Collections.Generic;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador para el llenado de encuestas
+    /// </summary>
     public class FillSurveyController : Controller
     {
+        /// <summary>
+        /// Atributo que consulta la base de datos.
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
          
         #region Contestar Encuesta

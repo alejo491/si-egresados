@@ -9,33 +9,46 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Helper con metodos para obtener atributos de clases y funciones de manera automatica mediante el uso de Ensambles
+    /// </summary>
     public class AssemblyHelper
     {
+        /// <summary>
+        /// Atributo DbContext que realiza las consultas a la base de datos.
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
+
+        /// <summary>
+        /// Metodo que devuelve una lista de tipos de datos que sean subclases del tipo T
+        /// </summary>
+        /// <typeparam name="T">Tipo de dato</typeparam>
+        /// <returns>Lista con todos los tipos de datos que son subclases del tipo T</returns>
         private static List<Type> GetSubClasses<T>()
         {
             return Assembly.GetCallingAssembly().GetTypes().Where(
                 type => type.IsSubclassOf(typeof(T))).ToList();
         }
 
-        private static List<Type> GetClass()
+        
+        /// <summary>
+        /// Metodo que busca una clase con a traves de su nombre
+        /// </summary>
+        /// <param name="nombreClase">Nombre de la clase que se va a buscar</param>
+        /// <returns>Lista de tipos de datos</returns>
+        private static List<Type> GetClass(string nombreClase)
         {
-            return Assembly.GetCallingAssembly().GetTypes().Where(s=>s.Name == "ConsultaGeneral").ToList();
+            return Assembly.GetCallingAssembly().GetTypes().Where(s=>s.Name == nombreClase).ToList();
         }
 
+
+        /// <summary>
+        /// Metodo que obtiene los atributos y su respectivo tipo de dato a partir de la clase "ConsultaGeneral" 
+        /// </summary>
+        /// <returns>Un diccionario con los atributos como llave y sus tipos de dato como valor</returns>
         public Dictionary<string, string> GetFieldsType()
         {
             var result = new Dictionary<string, string>();
-            /*string k = "";
-            foreach (var variable in GetClass())
-            {
-                var v = variable;
-                k = variable.ToString();
-
-            }
-
-            var c = 
-            c.GetFields();*/
             var clase = typeof(ConsultaGeneral);
             var att = clase.GetProperties();
             foreach (var fieldInfo in att)
@@ -45,29 +58,15 @@ namespace AplicacionBase.Controllers
             return result;
         }
 
+        
+        /// <summary>
+        /// Metodo que guarda en la base de datos los nombres de los controladores existentes en el sistema, esto con para su uso en el modulo de seguridad
+        /// </summary>
+        /// <returns>Retorna verdadero si puede realizar el guardado, falso si ocurre un error</returns>
         public bool GetControllerNames()
         {
             try
             {
-                /*
-                foreach (var roleMethod in db.RoleMethods)
-                {
-                    db.RoleMethods.Remove(roleMethod);
-                    //db.SaveChanges();
-                }
-
-                foreach (var method in db.Methods)
-                {
-                    db.Methods.Remove(method);
-                   // db.SaveChanges();
-                }
-
-                foreach (var secureController in db.SecureControllers)
-                {
-                    db.SecureControllers.Remove(secureController);
-                    //db.SaveChanges();
-                }
-                */
                 var controllerNames = new List<string>();
                 foreach (var controllerName in GetSubClasses<Controller>())
                 {
@@ -134,6 +133,12 @@ namespace AplicacionBase.Controllers
             
         }
 
+        /// <summary>
+        /// Metodo que devuelve los roles que tienen acceso a determinado metodo de determinado controlador.
+        /// </summary>
+        /// <param name="controllerName">Nombre del controlador</param>
+        /// <param name="methodName">Nombre del metodo del controlador</param>
+        /// <returns>Un array de strings que contiene los roles que tienen acceso a ese metodo de ese controlador</returns>
         public string[] GetRolesMethods(string controllerName, string methodName)
         {
             List<String> roles = new List<string>();

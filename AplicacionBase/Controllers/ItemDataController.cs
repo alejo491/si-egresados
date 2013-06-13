@@ -7,20 +7,38 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
+
+    /// <summary>
+    /// Controlador para crear items a partir de datos 
+    /// </summary>
     public class ItemDataController : Controller
     {
         //
         // GET: /ItemData/
         
+        /// <summary>
+        /// Atributo que consulta la base de datos
+        /// </summary>
         public readonly DbSIEPISContext db = new DbSIEPISContext();
 
+
+        /// <summary>
+        /// Metodo que crea un item de datos
+        /// </summary>
+        /// <param name="id">Id del reporte al que estara asociado el item</param>
+        /// <returns>Retorna la vista de creacion del item</returns>
         public ActionResult Index(Guid id)
         {
             return View();
         }
 
        
-
+        /// <summary>
+        /// Metodo post de la vista de crear item
+        /// </summary>
+        /// <param name="id">Id del reporte al que estara asociado el item</param>
+        /// <param name="form">Valores que devuelve el formulario</param>
+        /// <returns>Una reidreccion al listado de reportes si el item es correcto, o a la misma vista si no lo es</returns>
         [HttpPost]
         public ActionResult Index(Guid  id, FormCollection form)
         {
@@ -422,6 +440,10 @@ namespace AplicacionBase.Controllers
 
         #region Ajax
 
+        /// <summary>
+        /// Metodo que retorna el listado de operadores logicos
+        /// </summary>
+        /// <returns>Listado de operadores logicos</returns>
         public JsonResult ListLogic()
         {
             List<String> list = new List<string>();
@@ -430,6 +452,12 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }     
 
+        /// <summary>
+        /// Retorna lista de funciones deacuerdo al tipo de dato de un campo
+        /// </summary>
+        /// <param name="field">Nombre del campo</param>
+        /// <param name="campo">Valor del campo</param>
+        /// <returns></returns>
         public JsonResult ListActions(string field, string campo)
         {
 
@@ -516,6 +544,12 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Retorna la lista de operadores segun sea el tipo de dato de un campo
+        /// </summary>
+        /// <param name="field">Nombre del campo</param>
+        /// <param name="campo">Valor del campo</param>
+        /// <returns>Retorna la lista de operadores</returns>
         public JsonResult ListOperators(string field, string campo)
         {
             List<String> list = new List<string>();
@@ -538,6 +572,11 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// Metodo que lista los campos que se van a mostrar en la busqueda
+        /// </summary>
+        /// <returns>Lista de los campos que se van a mostrar en la busqueda</returns>
         public JsonResult ListSearchFields()
         {
             var list = new List<string>();
@@ -550,6 +589,10 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Lista los campos que se van a mostrar en la opcion de grupos
+        /// </summary>
+        /// <returns>Lista de campos</returns>
         public JsonResult ListGroupFields()
         {
             var list = new List<string>();
@@ -563,6 +606,11 @@ namespace AplicacionBase.Controllers
             return Json(list.ToList(), JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// Lista todos los campos que se pueden mostrar en la parte de select
+        /// </summary>
+        /// <returns>Lista de todos los campos</returns>
         public JsonResult ListFields()
         {
             var assembly = new AssemblyHelper();
