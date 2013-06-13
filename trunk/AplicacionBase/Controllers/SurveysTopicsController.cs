@@ -9,6 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AplicacionBase.Controllers
 { 
+    /// <summary>
+    /// Controlador para asignar temas a una encuesta.
+    /// </summary>
     public class SurveysTopicsController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();

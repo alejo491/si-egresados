@@ -9,6 +9,9 @@ using AplicacionBase.Models.ViewModels;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Clase controlador que sirver para manejar permisos de los metodos a los roles.
+    /// </summary>
     public class RoleMethodsController : Controller
     {
         //
@@ -16,7 +19,11 @@ namespace AplicacionBase.Controllers
         private DbSIEPISContext db = new DbSIEPISContext();
 
        
-
+        /// <summary>
+        /// Metodo que carga la vista para asignar permisos  de acceso a un rol
+        /// </summary>
+        /// <param name="id">Id del rol al cual se le van a asignar los permisos</param>
+        /// <returns>v¿Vista para asignar permisos  de acceso a un rol</returns>
         public ActionResult AssignRolesMethods(Guid id)
         {
             var aspnet_Role = db.aspnet_Roles.Find(id);
@@ -35,6 +42,12 @@ namespace AplicacionBase.Controllers
 
         }
 
+       /// <summary>
+       /// Metodo POST del formulario
+       /// </summary>
+        /// <param name="id">Id del rol al cual se le van a asignar los permisos</param>
+       /// <param name="postedForm">Contiene los datos que vienen del formulario</param>
+       /// <returns>Redieccion al listado de Roles</returns>
         [HttpPost]
         public ActionResult AssignRolesMethods(Guid id, FormCollection postedForm)
         {
@@ -54,6 +67,11 @@ namespace AplicacionBase.Controllers
         }
 
         
+        /// <summary>
+        /// Metodo que reasigna los permisos de acceso a un rol
+        /// </summary>
+        /// <param name="aspnet_Role">Rol que se va a asignar</param>
+        /// <param name="MethodToAdd">Metodos a los cuales va a tener permiso.</param>
         public void ReassignMethod(aspnet_Roles aspnet_Role, List<Method> MethodToAdd)
         {           
             foreach (var cat in db.Methods)

@@ -13,11 +13,19 @@ using AplicacionBase.Models.ViewModels;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Helper para realizar consultas manuales a la base de datos.
+    /// </summary>
     public static class QueryHelper
     {
 
         #region Codigo, para generar tabla y grafico (chart pie) de los reportes
 
+        /// <summary>
+        /// Metodo que obtiene un dataset a partir de una consula
+        /// </summary>
+        /// <param name="sqlCommand">Comando SQL a ejecutar</param>
+        /// <returns>Dataset con los resultados de la consulta</returns>
         public static DataSet GetDataSet(string sqlCommand)
         {
             
@@ -35,6 +43,11 @@ namespace AplicacionBase.Controllers
 
     public static class Extensions
     {
+        /// <summary>
+        /// Metodo que convierte el dataset a XML 
+        /// </summary>
+        /// <param name="ds">Dataset a convertir</param>
+        /// <returns>String con el XML</returns>
         public static string ToXml(this DataSet ds)
         {
             using (var memoryStream = new MemoryStream())
