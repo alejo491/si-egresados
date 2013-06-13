@@ -15,7 +15,7 @@ namespace AplicacionBase.Controllers
     public class VacanciesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
-        private int pageSize = 1;
+        private int pageSize = 2;
         private int pageNumber;
 
         //! Renderiza la pagina principal de vacantes
@@ -23,10 +23,12 @@ namespace AplicacionBase.Controllers
          * \return La vista con el listado de vacantes sacadas de la base de datos
          *
          */
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
-            return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
+            pageNumber = (page ?? 1);
+            return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate).ToPagedList(pageNumber, pageSize));
+           // return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
 
         //! Muestra los detalles para una vacante en especial
@@ -119,11 +121,13 @@ namespace AplicacionBase.Controllers
                 vacancy.PublicationDate = DateTime.Now;
                 db.Vacancies.Add(vacancy);
                 db.SaveChanges();
+                TempData["Create"] = "Se ha ingresado correctamente la vacante !";
                 return RedirectToAction("Index");
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
+           
             return View(vacancy);
         }
 
@@ -154,10 +158,12 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(vacancy).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Update"] = "Se ha actualizado correctamente la información de la vacante !";
                 return RedirectToAction("Index");
             }
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
             //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
+          
             return View(vacancy);
         }
 
@@ -185,6 +191,7 @@ namespace AplicacionBase.Controllers
             Vacancy vacancy = db.Vacancies.Find(id);
             db.Vacancies.Remove(vacancy);
             db.SaveChanges();
+            TempData["Delete"] = "Se ha borrado la vacante seleccionada!";
             return RedirectToAction("Index");
         }
 
@@ -196,8 +203,8 @@ namespace AplicacionBase.Controllers
 
 
        
-        private System.Linq.IOrderedEnumerable<Vacancy> results;
-        private string searchText;
+        //private System.Linq.IOrderedEnumerable<Vacancy> results;
+        //private string searchText;
 
         //! Atiende el resultado de hacer clic en Buscar de la vista Principal
         /*!
@@ -226,7 +233,7 @@ namespace AplicacionBase.Controllers
 
            
 
-           searchText= criteria.ToLower().Trim();
+           string searchText= criteria.ToLower().Trim();
 
            
             //Búsqueda
@@ -234,10 +241,9 @@ namespace AplicacionBase.Controllers
                 v.ProfessionalProfile.Contains(criteria));
 
             //Ordenar por fecha de publicación
-            results = vacancies.ToList().OrderByDescending(c => c.PublicationDate);
+            var results = vacancies.ToList().OrderByDescending(c => c.PublicationDate);
 
-
-
+            
             pageNumber = (page ?? 1);            
             return View(results.ToPagedList(pageNumber, pageSize));
 

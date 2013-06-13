@@ -51,6 +51,7 @@ namespace AplicacionBase.Controllers
                 company.Id = Guid.NewGuid();
                 db.Companies.Add(company);
                 db.SaveChanges();
+                TempData["Create"] = "Se ha ingresado correctamente la compañía!";
                 return RedirectToAction("Create","Vacancies");  
             }
 
@@ -76,6 +77,7 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Update"] = "Se ha actualizado correctamente la información de la compañía!";
                 return RedirectToAction("Index");
             }
             return View(company);
@@ -99,6 +101,7 @@ namespace AplicacionBase.Controllers
             Company company = db.Companies.Find(id);
             db.Companies.Remove(company);
             db.SaveChanges();
+            TempData["Delete"] = "Se ha borrado la compañía seleccionada!";
             return RedirectToAction("Index");
         }
 
