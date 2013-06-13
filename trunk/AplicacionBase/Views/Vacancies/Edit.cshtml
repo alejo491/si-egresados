@@ -4,7 +4,7 @@
     ViewBag.Title = "Editar";
 }
 
-<h1>Editar</h1>
+<h1>Editar datos de la vacante</h1>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -12,7 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Información de la vacante/legend>
+        <legend>Información registrada de la vacante</legend>
 
         @Html.HiddenFor(model => model.Id)      
         @Html.HiddenFor(model => model.PublicationDate)
@@ -20,7 +20,7 @@
 
 
         <div class="editor-label">
-            Cargo
+            Cargo ofrecido
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Charge)
@@ -28,7 +28,7 @@
         </div>
 
         <div class="editor-label">
-            Jornada
+            Jornada de trabajo
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.DayTrip)
@@ -36,7 +36,7 @@
         </div>
 
         <div class="editor-label">
-            Número de Horas
+            Número de horas de la jornada de trabajo
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.HoursNumber)
@@ -44,7 +44,7 @@
         </div>
 
         <div class="editor-label">
-            Perfil Profesional
+            Perfil Profesional requerido
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.ProfessionalProfile)
@@ -52,7 +52,7 @@
         </div>
 
         <div class="editor-label">
-            Fecha de Cierre
+            Fecha de Cierre (dd/mm/yyyy)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.ClosingDate, new { id = "closingdate" })
@@ -68,7 +68,7 @@
         </script>
 
         <div class="editor-label">
-            Número de Vacantes
+            Número de Vacantes ofrecidas
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.VacanciesNumber)
@@ -76,12 +76,29 @@
         </div>
 
         <div class="editor-label">
-            Salario
+            Salario ofrecido
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Salary)
             @Html.ValidationMessageFor(model => model.Salary)
         </div>
+
+
+        <script type="text/javascript">
+            $.validator.methods.number = function (value, element) {
+                value = floatValue(value);
+                return this.optional(element) || !isNaN(value);
+            }
+            $.validator.methods.range = function (value, element, param) {
+                value = floatValue(value);
+                return this.optional(element) || (value >= param[0] && value <= param[1]);
+            }
+
+            function floatValue(value) {
+                return parseFloat(value.replace(",", "."));
+            }  
+        </script>
+
 
         <div class="editor-label">
            Descripción
@@ -93,7 +110,7 @@
 
        
         <div class="editor-label">
-            @Html.LabelFor(model => model.IdCompanie, "Compañía")
+            @Html.LabelFor(model => model.IdCompanie, "Compañía que ofrece el cargo (seleccione una de la lista)")
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdCompanie", String.Empty)

@@ -22,45 +22,28 @@
 
 @if (Model.Count() != 0)
 {
-    <table>
-        <tr class="head">
-            <th>
-                Cargo
-            </th>
-            <th>
-                Publicada por
-            </th>
-            <th>
-                Empresa contratante
-            </th>
-            <th>
-                Acciones
-            </th>
-        
-        </tr>
+ 
 
-    @foreach (var item in Model)
+    foreach (var item in Model)
     {
-        <tr class="alt">
-            <td>
-                @Html.DisplayFor(modelItem => item.Charge)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.FirstNames)
-                @Html.DisplayFor(modelItem => item.User.LastNames)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+        <div class="vacancy">
+            <h2 class="title">Cargo: @Html.DisplayFor(modelItem => item.Charge)</h2>
+            <p class="meta"><small>Publicada por @Html.DisplayFor(modelItem => item.User.FirstNames)
+            @Html.DisplayFor(modelItem => item.User.LastNames) el   @Html.DisplayFor(modelItem => item.PublicationDate)</small><br />
+            
+            <div>         
+                <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                <p>Esta vacante cierra el @Html.DisplayFor(modelItem => item.ClosingDate)</p>  
+                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                &nbsp
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                &nbsp
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+            </div>
+        </div>
     }
 
-    </table>
+ 
     
     <div>
     Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
@@ -68,7 +51,7 @@
      
     @if (Model.HasPreviousPage)
     {
-        @Html.ActionLink("<<", "Search", new { criteria = ViewBag.CurrentFilter,  page = 1})
+        @Html.ActionLink("<<", "Search", new { criteria = ViewBag.CurrentFilter, page = 1 })
         @Html.Raw(" ");
         @Html.ActionLink("< Prev", "Search", new { criteria = ViewBag.CurrentFilter, page = Model.PageNumber - 1 })
     }
@@ -83,8 +66,8 @@
     {
         @Html.ActionLink("Next>", "Search", new { criteria = ViewBag.CurrentFilter, page = Model.PageNumber + 1 })
         @Html.Raw(" ");
-        @Html.ActionLink(">>", "Search", new {  criteria = ViewBag.CurrentFilter, page = Model.PageCount })
-     }
+        @Html.ActionLink(">>", "Search", new { criteria = ViewBag.CurrentFilter, page = Model.PageCount })
+    }
     else
     {
         @:Next >

@@ -383,7 +383,7 @@ input[type="submit"] {
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-/*.field-validation-error {
+.field-validation-error {
     color: #ff0000;
 }
 
@@ -403,7 +403,7 @@ input[type="submit"] {
 
 .validation-summary-valid {
     display: none;
-}*/
+}
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
@@ -449,3 +449,20 @@ div#title {
 
 */
 
+.vacancy {
+	padding: 12px 50px;	
+}
+
+.vacancy .title {
+	letter-spacing: -1px;
+	font-size: 1.4em;
+	color: #0C2876;
+}
+
+.vacancy .meta {
+	margin: 0 0 20px 0;
+	padding: 0 0 20px 0;
+	border-bottom: 1px solid #EFEFEF;
+	line-height: normal;
+	color: #666666;
+}
