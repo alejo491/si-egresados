@@ -60,6 +60,11 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
+    <br/>
+    <p><strong>Información de contacto de la compañía @Html.DisplayFor(model => model.Company.Name)</strong><br/>
+                Dirección: @Html.DisplayFor(model => model.Company.Address) - @Html.DisplayFor(model => model.Company.City)<br/>
+                Teléfono: @Html.DisplayFor(model => model.Company.Phone)<br/>
+                E-Mail: @Html.DisplayFor(model => model.Company.Email)</p>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
