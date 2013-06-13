@@ -31,13 +31,18 @@
 @foreach (var item in Model)
 {
     <div class="vacancy">
-        <h2 class="title">Cargo: @Html.DisplayFor(modelItem => item.Charge)</h2>
+        <h2 class="title">@Html.DisplayFor(modelItem => item.Charge) en @Html.DisplayFor(modelItem => item.Company.Name) </h2>
         <p class="meta"><small>Publicada por @Html.DisplayFor(modelItem => item.User.FirstNames)
         @Html.DisplayFor(modelItem => item.User.LastNames) el   @Html.DisplayFor(modelItem => item.PublicationDate)</small><br />
             
         <div>         
             <p>@Html.DisplayFor(modelItem => item.Description)</p>
             <p>Esta vacante cierra el @Html.DisplayFor(modelItem => item.ClosingDate)</p>  
+            <p><strong>Información de contacto de la compañía @Html.DisplayFor(modelItem => item.Company.Name)</strong><br/>
+                Dirección: @Html.DisplayFor(modelItem => item.Company.Address) - @Html.DisplayFor(modelItem => item.Company.City)<br/>
+                Teléfono: @Html.DisplayFor(modelItem => item.Company.Phone)<br/>
+                E-Mail: @Html.DisplayFor(modelItem => item.Company.Email)</p>
+
             @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
              &nbsp
              @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
