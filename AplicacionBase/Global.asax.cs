@@ -142,6 +142,9 @@ namespace AplicacionBase
         }
 
         /*Lineas Necesarias, para Administrar el Wizard*/
+        /// <summary>
+        /// Se Crean los pasos del Wizard
+        /// </summary>
         private void CreateSteps()
         {
             var db = new DbSIEPISContext();
@@ -156,7 +159,7 @@ namespace AplicacionBase
             db.Surveys.Add(survey);
             db.SaveChanges();
             var count = 0;
-            while (count < 5)
+            while (count < 4)
             {
                 var obj = new Step
                 {
@@ -165,19 +168,17 @@ namespace AplicacionBase
                 };
                 switch (count)
                 {
+                   
                     case 0:
-                        obj.SPath = @"/User/Index?wizardStep=1";
-                        break;
-                    case 1:
                         obj.SPath = @"/Study/Index?wizardStep=1";
                         break;
-                    case 2:
-                        obj.SPath = @"/Experience/Index?wizardStep=1";
+                    case 1:
+                        obj.SPath = @"/Experiences/Index?wizardStep=1";
                         break;
-                    case 3:
+                    case 2:
                         obj.SPath = @"/Elective/Index?wizardStep=1";
                         break;
-                    case 4:
+                    case 3:
                         //obj.SPath = @"/Surveys/Index";
                         obj.SPath = @"/FillSurvey/Fill?ids=" + survey.Id.ToString() + @"&wizardStep=1";
                         break;
