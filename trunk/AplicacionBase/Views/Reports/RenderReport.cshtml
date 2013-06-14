@@ -113,12 +113,13 @@
         }
             @foreach (var item2 in items)
             {
-                string container = "chartContainer" + id;
-                string chart = "chart" + id;
+                string container = @"chartContainer" + id;
+                string chart = @"chart" + id;
                 string chartrender = chart + ".render();";
-                string question = item2.Sentence.Normalize(NormalizationForm.FormC);
-                string grafico = item2.GraphicType;
+                string question = @item2.Sentence.Normalize(NormalizationForm.FormC);
+                string grafico = @item2.GraphicType;
                 string tipo = "";
+                string k = "eé";
                 int j = 10;
                 tipo = grafico == "Pastel" ? "pie" : "bar";
 
@@ -128,25 +129,25 @@
                     <text>var @chart = new CanvasJS.Chart("@container",         
                     {
                         title: {
-                            text: "@question",
+                            text: "@Html.Raw(question)",
                         },
                         data: [
                             {
-                                type: "@tipo",
+                                type: "@Html.Raw(tipo)",
 
                                 showInLegend: true,
                                 dataPoints: [
                                     @foreach (KeyValuePair<string, int> key in item2.DataList.First())
                                     {
-                                        var value = key.Value;
-                                        var sentence = key.Key;
+                                        var value = @key.Value;
+                                        var sentence = @key.Key;
                                         if (grafico == "Pastel")
                                         {
-                                            <text>{  y: @value, legendText:"@sentence", indexLabel: "@sentence" },</text>
+                                            <text>{  y: @value, legendText:"@Html.Raw(sentence)", indexLabel: "@Html.Raw(sentence)" },</text>
                                         }
                                         else
                                         {
-                                            <text>{ y: @value, label: "@sentence"},</text>
+                                            <text>{ y: @value, label: "@Html.Raw(sentence)"},</text>
                                         }
                                         j += 10;
 
@@ -163,7 +164,7 @@
                     <text>var @chart = new CanvasJS.Chart("@container",         
                     {
                         title: {
-                            text: "@question",
+                            text: "@Html.Raw(question)",
                         },
                         data: [
                             
@@ -182,11 +183,11 @@
                                         var sentence = key.Key;
                                         if (grafico == "Pastel")
                                         {
-                                            <text>{  y: @value, legendText:"@sentence", indexLabel: "@sentence" },</text>
+                                            <text>{  y: @value, legendText:"@Html.Raw(sentence)", indexLabel: "@Html.Raw(sentence)" },</text>
                                         }
                                         else
                                         {
-                                            <text>{ y: @value, label: "@sentence"},</text>
+                                            <text>{ y: @value, label: "@Html.Raw(sentence)"},</text>
                                         }
                                         j += 10;
 
