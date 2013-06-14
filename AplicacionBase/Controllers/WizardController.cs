@@ -120,8 +120,8 @@ namespace AplicacionBase.Controllers
 
             /*MACHETAZO*/
             var use = new UserController();
-            
-            return RedirectToAction("Begin", "User", new { id = use.searchId() });
+
+            return RedirectToAction("Begin", "User", new { id = db.aspnet_Users.First(u => u.UserName == HttpContext.User.Identity.Name).UserId });
         }
 
         /// <summary>
