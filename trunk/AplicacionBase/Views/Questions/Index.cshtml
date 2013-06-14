@@ -36,7 +36,9 @@
                     <th>
                         Es Obligatorio
                     </th>
-                    <th></th>
+                    <th>
+                        Acciones
+                    </th>
                 </tr>
                 @{ int i = 0;}
 
@@ -65,9 +67,10 @@
                         }
                     </td>
                     <td>
-                        @Html.ActionLink("Editar", "Edit", new { idT = item.IdTopic, idQ = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-                        @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+                        @Html.ActionLink(" ", "Edit", new { idT = item.IdTopic, idQ = item.Id }, htmlAttributes: new { @class = "btnedit" }) &nbsp
+                        @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails" }) &nbsp
+                        @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete" }) &nbsp
+                        &nbsp
                         @if (item.Type != "Larga" && item.Type != "Corta")
                         {
                             @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })

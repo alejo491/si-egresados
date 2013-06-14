@@ -13,6 +13,12 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Wizard/
 
+        /// <summary>
+        /// Determina la vista que se mostrara en el Wizard, la primera vez que se inicia muestra la vista 0
+        /// </summary>
+        /// <param name="ActualStep">Recibe el numero de pagina del Wizard</param>
+        /// <returns>Retorna Vista, que en su interior contiene una de las vista seleccionadas</returns>
+        
         public ActionResult Index(int ActualStep = 0)
         {
             @ViewBag.ActualStep = ActualStep;
@@ -46,12 +52,19 @@ namespace AplicacionBase.Controllers
                 ViewBag.StepId = step.Id;
                 return View();
             }
-
+            //En Caso de Error
             return RedirectToAction("Index", "Home");
 
 
         }
-
+        
+        /// <summary>
+        /// Responde a la opcion del Usuario de Omitir un paso en el Wizard, si es el ultimo paso lo salta y finaliza el wizard
+        /// </summary>
+        /// <param name="step">Indica el numero del paso en el que se encuentra</param>
+        /// <param name="end">Valor que sirve para determinar que hacer si es el ultimo paso</param>
+        /// <returns></returns>
+        
         public ActionResult Skip(int step, int end = 0)
         {
             //Add BD record
@@ -69,6 +82,13 @@ namespace AplicacionBase.Controllers
             
         }
 
+        /// <summary>
+        /// Cuando el Usuario Selecciona siguiente, se asume que ya no desea ver este paso o que finalizo correctamente
+        /// </summary>
+        /// <param name="step">Paso en el que se encuentra</param>
+        /// <param name="end">Determina que hacer si esta en el ultimo paso</param>
+        /// <returns></returns>
+        
         public ActionResult Next(int step, int end = 0)
         {
             //Remove BD record
@@ -89,12 +109,38 @@ namespace AplicacionBase.Controllers
             
         }
 
+        /// <summary>
+        /// Finaliza el Wizard, modifica la variable de Session["Wizard"] para que la vistas se muestren bien fuera del wizard
+        /// </summary>
+        /// <returns>Llama a la vista que le sigue</returns>
+
         public ActionResult End()
         {
             Session["Wizard"] = "0";
-            return RedirectToAction("Index", "Home");
+
+            /*MACHETAZO*/
+            var use = new UserController();
+            
+            return RedirectToAction("Begin", "User", new { id = use.searchId() });
         }
 
+        /// <summary>
+        /// Obtiene el GUID de un Usuario, especificamente el que se acaba de loguear
+        /// </summary>
+        /// <returns>GUID (Identificador) </returns>
+        private Guid GetUserId()
+        {
+            var result = Guid.Empty;
+            foreach (var e in db.aspnet_Users.Where(e => e.UserName == HttpContext.User.Identity.Name))
+            {
+                result = e.UserId;
+            }
+            return result;
+        }
+
+
+
+        /*
         private UsersStep CreateUserStep(Guid sId)
         {
             var obj = new UsersStep {IdSteps = sId, Ok = "f"};
@@ -105,15 +151,6 @@ namespace AplicacionBase.Controllers
 
             return obj;
         }
-
-        private Guid GetUserId()
-        {
-            var result = Guid.Empty;
-            foreach (var e in db.aspnet_Users.Where(e => e.UserName == HttpContext.User.Identity.Name))
-            {
-                result = e.UserId;
-            }
-            return result;
-        }
+        */
     }
 }
