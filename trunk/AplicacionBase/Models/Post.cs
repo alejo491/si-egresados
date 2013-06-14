@@ -19,7 +19,8 @@ namespace AplicacionBase.Models
         public string Abstract { get; set; }
         public string Content { get; set; }
         public System.DateTime PublicationDate { get; set; }
-        public Nullable<System.DateTime> UpdateDate { get; set; }        
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public int Autorizado { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<aspnet_Roles> aspnet_Roles { get; set; }
