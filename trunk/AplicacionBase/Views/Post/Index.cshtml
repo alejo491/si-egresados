@@ -26,6 +26,9 @@
         <th width = "190">
             Acciones
         </th>
+        <th width = "130">
+            Autorizado
+        </th>
     </tr>
 
     @foreach (var item in Model) {
@@ -49,6 +52,66 @@
                 @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
                 @Html.ActionLink(" ", "", null, htmlAttributes: new { @class = "btnmore", @title = "Más" })
             </td>
+            <td>
+                <script type = "" language="JavaScript">
+                    function validarFormulario() {
+                        var form = document.formulario;
+                        var s = "0";
+                        for (var i = 0; i < form.Autorizado.length; i++) {
+                            if (form.Autorizado.checked) {
+                                s = "1";
+                                break;
+                            }
+                        }
+                        if (s == "0") {
+                            alert("Debe seleccionar Si o No");
+                        }
+                    }
+                </script>
+                <form action ="" name="formulario">
+                    @Html.DisplayFor(modelItem => item.Autorizado)
+                    Si <input type="radio" name="rad" value="1"/>
+                    No <input type="radio" name="rad" value="0" checked='0'/>
+                    <a href="javascript: submitForm()">Si</a>
+                    <input type="button" name="enviar" value="enviar" onclick="validarFormulario()"/>
+                </form>
+            </td>
         </tr>
     }
 </table>
+<!--Pilas Con lo siguiente-->
+<!--
+<script type = "" language="JavaScript">
+    function validarFormulario() {
+        var form = document.formulario;
+        var s = "no";
+        for (var i = 0; i < form.sexo.length; i++) {
+            if (form.sexo.checked) {
+                s = "si";
+                break;
+            }
+        }
+        if (s == "no") {
+            alert("Debe seleccionar hombre o mujer");
+        }
+    }
+</script>
+
+  <BODY>
+    <FORM name="formulario">
+      <B>Sexo:</B>
+      <INPUT TYPE="radio" NAME="sexo" VALUE="hombre">Hombre
+      <INPUT TYPE="radio" NAME="sexo" VALUE="mujer" >Mujer
+      <BR>
+      <INPUT TYPE="button" NAME="enviar" VALUE="enviar" onClick="validarFormulario()">
+    </FORM>
+  </BODY>
+
+<script>
+    for (i = 0; i < document.formu.valora.length; i++) {
+        if (document.formu.rad[i].checked) {
+            marcado = i;
+        }
+    }
+    alert("El valor seleccionado es: " + document.formulario.rad[marcado].value);
+                </script>-->
