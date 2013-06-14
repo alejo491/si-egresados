@@ -159,7 +159,7 @@ namespace AplicacionBase
             db.Surveys.Add(survey);
             db.SaveChanges();
             var count = 0;
-            while (count < 4)
+            while (count < 3)
             {
                 var obj = new Step
                 {
@@ -176,9 +176,6 @@ namespace AplicacionBase
                         obj.SPath = @"/Experiences/Index?wizardStep=1";
                         break;
                     case 2:
-                        obj.SPath = @"/Elective/Index?wizardStep=1";
-                        break;
-                    case 3:
                         //obj.SPath = @"/Surveys/Index";
                         obj.SPath = @"/FillSurvey/Fill?ids=" + survey.Id.ToString() + @"&wizardStep=1";
                         break;

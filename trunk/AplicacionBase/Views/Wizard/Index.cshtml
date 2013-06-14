@@ -58,7 +58,7 @@
             </div>
         </div>
      </div>
-    <div style="padding-top: 20px">
+    <div >
         <br />
         <br />
         @if (temporal >= 0 && temporal < stepsCount)
@@ -77,7 +77,7 @@
         @*<a href="/Wizard/Index?actualStep=@temporal" class="ebutton2 blue">Siguiente</a>*@
     </div>
     @{ TempData["uStep"] = ViewBag.StepId;}
-    <div style="padding-top: 20px">
+    <div >
         <iframe id="wizardConteiner" src="@ViewBag.ActualRoute" style="width: 100%; border: 0px;" onload="autoResize('wizardConteiner')">
         </iframe>
     </div>
