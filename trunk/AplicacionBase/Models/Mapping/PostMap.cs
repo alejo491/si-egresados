@@ -23,7 +23,7 @@ namespace AplicacionBase.Models.Mapping
             this.Property(t => t.Content).HasColumnName("Content");
             this.Property(t => t.PublicationDate).HasColumnName("PublicationDate");
             this.Property(t => t.UpdateDate).HasColumnName("UpdateDate");
-
+            this.Property(t => t.Autorizado).HasColumnName("Autorizado");
             // Relationships
             this.HasRequired(t => t.User)
                 .WithMany(t => t.Posts)
