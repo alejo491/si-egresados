@@ -740,6 +740,12 @@ namespace AplicacionBase.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Muestra una previsualización del correo electrónico a enviar. Sigue la plantilla SurveyEmailTemplate.htm
+        /// ubicada en el directorio Templete. Previsualiza Asunto, link y cuerpo del correo electrónico
+        /// </summary>
+        /// <param name="id">Identificador de la encuesta a enviar</param>
+        /// <returns>Una Vista con la previsualización del correo a enviar</returns>
         public ActionResult Preview(Guid id) {
 
             //var name = ((Dictionary<string, string>)TempData["d"])["jaimejn@unicauca.edu.co"];

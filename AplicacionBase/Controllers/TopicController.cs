@@ -15,7 +15,10 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /Topic/
-
+        /// <summary>
+        /// Esta función muestra un listado de todos los temas(Topics) registrados en el sistema
+        /// </summary>
+        /// <returns>Listado de temas</returns>
         public ViewResult Index()
         {
             return View(db.Topics.ToList());
@@ -24,6 +27,11 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Topic/Details/5
 
+        /// <summary>
+        /// Muestra en detalle un determinado tema(Topic)
+        /// </summary>
+        /// <param name="id">Identificador del tema(Topic)</param>
+        /// <returns>Una Vista que contiene la información del Tema</returns>
         public ViewResult Details(Guid id)
         {
             Topic topic = db.Topics.Find(id);
@@ -33,6 +41,10 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Topic/Create
 
+        /// <summary>
+        /// Crea una Tema(Topic) por medio de una vista
+        /// </summary>
+        /// <returns>Una Vista donde se diligenciaran los datos del nuevo tema(Topic)</returns>
         public ActionResult Create()
         {
             return View();
@@ -58,7 +70,11 @@ namespace AplicacionBase.Controllers
         
         //
         // GET: /Topic/Edit/5
- 
+        /// <summary>
+        /// Edita un tema(Topic) en especifico
+        /// </summary>
+        /// <param name="id">Identificador del Tema(Topic)</param>
+        /// <returns>Una Vista donde podra actualizar los datos del tema(Topic) que desea modificar</returns>
         public ActionResult Edit(Guid id)
         {
             Topic topic = db.Topics.Find(id);
@@ -83,7 +99,12 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /Topic/Delete/5
- 
+        /// <summary>
+        /// Elimina un tema(Topic) determinado
+        /// </summary>
+        /// <param name="id">Identificador del Tema(Topic)</param>
+        /// <returns>Una Vista con la información del tema(Topic).
+        /// Tendra las opciones para eliminar el tema si así lo desea</returns>
         public ActionResult Delete(Guid id)
         {
             Topic topic = db.Topics.Find(id);
