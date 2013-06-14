@@ -207,35 +207,36 @@ namespace AplicacionBase.Controllers
 
         // GET: /Reports/GenerarPDF
 
-        public void GenerarPDF(object sender, EventArgs e)
+        //public void GenerarPDF(object sender, EventArgs e)
+        public void GenerarPDF()
         {
+            ControllerContext context = this.ControllerContext;
             Response.ContentType = "application/pdf";
             Response.AddHeader("content-disposition", "attachment;filename=Reporte.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
-
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 50, 50, 25, 25);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
-            Paragraph parrafo = new Paragraph("\n");
-            pdfDoc.Add(parrafo);
-            try
-            {
+           // Paragraph parrafo = new Paragraph("\n");
+           // pdfDoc.Add(parrafo);
+          //  try
+           // {
                 htmlparser.StartDocument();
                 htmlparser.Parse(sr);
                 htmlparser.EndDocument();
                 htmlparser.Close();
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
+           // }
+           // catch (Exception ex)
+            //{
+        //    }
+          //  finally
+            //{
                 pdfDoc.Close();
-            }
+            //}
 
             Response.Write(pdfDoc);
             Response.End();
@@ -247,6 +248,100 @@ namespace AplicacionBase.Controllers
             ViewBag.IdReport = id;
             return View();
         }
+
+        public ActionResult Reporte()
+        {
+
+            ControllerContext context = this.ControllerContext;
+
+            List<String> list = new List<String>();
+
+            string partialViewName = "Preview";
+            byte[] buf = null;
+
+            MemoryStream pdfTemp = new MemoryStream();
+            ViewEngineResult result = ViewEngines.Engines.FindPartialView(context, partialViewName);
+
+            if (result.View != null)
+            {
+                string htmlTextView = GetViewToString(context, result);
+                Document doc = new iTextSharp.text.Document();
+                PdfWriter writer = PdfWriter.GetInstance(doc, pdfTemp);
+                writer.CloseStream = false;
+                doc.Open();
+
+                AddHTMLText(doc, htmlTextView);
+                doc.Close();
+
+                buf = new byte[pdfTemp.Position];
+                pdfTemp.Position = 0;
+
+                pdfTemp.Read(buf, 0, buf.Length);
+                string path = Server.MapPath("Reports");
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=Reporte.pdf");
+                Response.Buffer = true;
+                Response.Clear();
+                Response.OutputStream.Write(pdfTemp.GetBuffer(), 0, pdfTemp.GetBuffer().Length);
+                Response.OutputStream.Flush();
+                Response.End();
+            }
+            return RedirectToAction("Index", "Inicio");
+
+
+        }
+
+
+        private string GetViewToString(ControllerContext context, ViewEngineResult result)
+        {
+
+            string viewResult = "";
+
+            ViewDataDictionary viewData = new ViewDataDictionary();
+
+            TempDataDictionary tempData = new TempDataDictionary();
+
+            StringBuilder sb = new StringBuilder();
+
+            using (StringWriter sw = new StringWriter(sb))
+            {
+
+                using (HtmlTextWriter output = new HtmlTextWriter(sw))
+                {
+
+                    ViewContext viewContext = new ViewContext(context, result.View, viewData, tempData, output);
+
+                    result.View.Render(viewContext, output);
+
+                }
+
+                viewResult = sb.ToString();
+
+            }
+
+            return viewResult;
+
+        }
+
+
+        private void AddHTMLText(iTextSharp.text.Document doc, string html)
+        {
+
+            List<iTextSharp.text.IElement> htmlarraylist = HTMLWorker.ParseToList(
+
+                            new StringReader(html), null);
+
+
+
+            foreach (var item in htmlarraylist)
+            {
+
+                doc.Add(item);
+
+            }
+
+        }
+
 
         #region Codigo, para generar tabla y grafico (chart pie) de los reportes
 
