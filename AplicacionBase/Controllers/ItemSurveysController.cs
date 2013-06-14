@@ -88,7 +88,8 @@ namespace AplicacionBase.Controllers
             question = ((Question)(db.Questions.First(st => st.Id == idQuestion))).Sentence;
             string topic = "" + db.Topics.Where(st => st.Id== idTopic);
             string tabla = "VistaModuloEncuesta";
-            String SQL = "" + "select * from " + tabla + " where surveysName='" + surveysName + "' and topicsDescription='" + tema + "' and questionsSentence='" + question + "'";
+            //String SQL = "" + "select * from " + tabla + " where surveysName='" + surveysName + "' and topicsDescription='" + tema + "' and questionsSentence='" + question + "'";
+            String SQL = "" + "select (Convert(VARCHAR(2000), answerChoicesSentence)) as 'Opcion de respuesta', count(*) as Cantidad from  " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and IdQuestion in('" + idQuestion + "') group by IdAnswer ,(Convert(VARCHAR(2000), answerChoicesSentence)) ";
             ItemSurvey itenSurvey=new ItemSurvey();
             itenSurvey.Id = Guid.NewGuid();
             itenSurvey.IdReport = id;       //se recibe como parametro antes de entrar a crear. aqui se saca en ves de crearlo
