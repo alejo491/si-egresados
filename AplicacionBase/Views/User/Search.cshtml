@@ -6,25 +6,22 @@
 }
 <h1>Resultados de la Búsqueda para "@ViewBag.CurrentFilter" </h1> 
 
-<form method="get" action="/User/Search">
-    <fieldset>
-        
-        <div class="editor-field">
-         
+<form method="get">
+    <fieldset>  
+        <div class="editor-field"> 
             Usar otras palabras clave: @Html.TextBox("nameuser", ViewBag.CurrentFilter as string)
             &nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
-        </div>
-            
+        </div>         
     </fieldset>
 </form>
 
 <table>
     <tr><th>Nombres</th><th>Apellidos</th><th>Dirección</th><th>Celular</th><th>Teléfono</th></tr>
-
-    @if (ViewBag.Busqueda != null)
+    @if (Model.Count() != 0)
     {
-
-        foreach (User v in ViewBag.Busqueda)
+    if (ViewBag.Busqueda != null)
+    {
+        foreach (var v in Model)
         {  
             <tr class = "head"> 
                 <td>    @Html.DisplayFor(modelItem => v.FirstNames)      </td>
@@ -35,13 +32,12 @@
             </tr>    
         }
     }
+    }
 </table>
-
-
+<div></div>
  <div>
-    Resultados @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-    de @Model.PageCount
-     
+    Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    de @Model.PageCount  
     @if (Model.HasPreviousPage)
     {
         @Html.ActionLink("<<", "Search", new { nameuser = ViewBag.CurrentFilter, page = 1 })
@@ -53,8 +49,7 @@
         @:<<
         @Html.Raw("   ");
         @:< Prev
-    }
-     
+    }  
     @if (Model.HasNextPage)
     {
         @Html.ActionLink("Next>", "Search", new { nameuser = ViewBag.CurrentFilter, page = Model.PageNumber + 1 })
@@ -68,12 +63,10 @@
         @:>>
     }
     </div>
-
     @if (Model.Count() == 0)
-{
-    
+    { 
    <h2>El usuario -@ViewBag.CurrentFilter- no existe</h2> 
-}
+    }
 <br/>
 
     <p>    

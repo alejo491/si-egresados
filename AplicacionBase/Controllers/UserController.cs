@@ -22,18 +22,14 @@ namespace AplicacionBase.Controllers
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
         /// <summary>
-        /// Atributos que permite controlar la paginación del buscador.
+        /// Atributos que permite controlar la paginación de las vistas.
         /// </summary>
-        private int pageSize = 1;
+        private int pageSize = 6;
         private int pageNumber;
         /// <summary>
         /// Atributo que recorre la lista de usuarios.
         /// </summary>
         private System.Linq.IOrderedEnumerable<User> results;
-        /// <summary>
-        /// Atributos que perm.
-        /// </summary>
-        private string searchText;
 
         //
         // GET: /User/
@@ -42,11 +38,12 @@ namespace AplicacionBase.Controllers
         /// Método que carga la vista que contiene todos los usuarios registrados en el sistema
         /// </summary>
         /// <returns>Vista que contine todos los usuarios</returns>
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
+            pageNumber = (page ?? 1);
             var users = db.Users.Include(u => u.aspnet_Users);
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", users.ToList());
-            return View(users.ToList());
+            return View(users.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         /// <summary>
