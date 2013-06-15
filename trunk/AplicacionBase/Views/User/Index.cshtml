@@ -1,17 +1,31 @@
 ﻿@model IEnumerable<AplicacionBase.Models.User> 
+@using AplicacionBase.Models;
 @{
     ViewBag.Title = "Index";
 }
 <h2>
-    Usuarios Registrados</h2>
+    Usuarios Registrados
+
+</h2>
+
+@*Busqueda *@
+
+@*--------------------------------------------------------------------------------------------------------------------------------------*@
+<form method="get" action="/User/Search" class = "rigth">
+        <div class="editor-field">
+          @Html.TextBox("nameuser", ViewBag.CurrentFilter as string)&nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
+        </div>
+</form>
+@*--------------------------------------------------------------------------------------------------------------------------------------*@
 <p>
     @Html.ActionLink("Registrar Nuevo Usuario", "Register", "", htmlAttributes: new { @class = "ebutton blue" })&nbsp
-    @Html.ActionLink("Regresar", "Begin", "User", new {  }, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Regresar", "Begin", "User", new {}, htmlAttributes: new { @class = "ebutton blue" })
     <div class="alert success">@TempData["Editar"]</div>
     <div class="alert success">@TempData["Creado"]</div>
     <div class="alert success">@TempData["Estado"]</div>
-    <div class="alert success">@TempData["Success"]</div>  
+    <div class="alert success">@TempData["Success"]</div> 
 </p>
+
 <table>
     <tr>
         <th>
@@ -47,11 +61,12 @@
                 @Html.DisplayFor(modelItem => item.CellphoneNumber)
             </td>
             <td>
-            
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                &nbsp       
-                @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
-                
+            <div>
+                <div class="left"> @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit", title = "Editar Perfil" }) &nbsp</div>
+                <div class="left"> @Html.ActionLink("Editar", "Edit", new { id = item.Id })  |&nbsp</div>
+                <div class="left"> @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", title = "Ver Perfíl" }) &nbsp</div>
+                <div class="left"> @Html.ActionLink("Ver", "Details", new { id = item.Id }) |&nbsp</div>&nbsp
+                </div>&nbsp
                 <div class="accordion" >
                     @{
            string refacor = "#acc" + i;
