@@ -6,12 +6,22 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador que apoya al UserController verificando direccionamientos
+    /// </summary>
     public class VerifyController : Controller
     {
+        /// <summary>
+        /// Atributo que consulta la base de datos.
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
+
         //
         // GET: /Verify/
-        
+        /// <summary>
+        /// Metodo que ayuda al direccionamiento a la hora de autenticarse en el sistema
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             Guid g = System.Guid.Empty;
@@ -26,7 +36,7 @@ namespace AplicacionBase.Controllers
             {
                 if (e2.Id == g)
                 {
-                    var steps = db.UsersSteps.Where(s=>s.UserId==e2.Id).OrderBy(s=>s.Step.SOrder);
+                    var steps = db.UsersSteps.Where(s => s.UserId == e2.Id).OrderBy(s => s.Step.SOrder);
 
                     if (!steps.Any())
                     {
@@ -39,13 +49,15 @@ namespace AplicacionBase.Controllers
                         var ActualStep = Convert.ToInt16(tmp.ElementAt(0).Step.SOrder);
                         return RedirectToAction("Index", "Wizard", ActualStep);
                     }
-
-                    
                 }
             }
             return RedirectToAction("Create", "User");
         }
-        
+
+        /// <summary>
+        /// Metodo que ayuda al direccionamiento dependiendo del usuario
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Edit()
         {
             Guid g = System.Guid.Empty;
@@ -66,9 +78,14 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Create", "User");
         }
 
-        public Boolean Begin(Guid e2)
+        /// <summary>
+        /// Metodo que verifica si el usuario tiene el rol de administrador
+        /// </summary>
+        /// <param name="id">Id del usuario que ingresa al sistema</param>
+        /// <returns>TRUE, si tiene el rol administrador, sino FALSE</returns>
+        public Boolean Begin(Guid id)
         {
-            User user = db.Users.Find(e2);
+            User user = db.Users.Find(id);
             bool roluser = false;
 
             foreach (var ca in db.aspnet_Roles)
@@ -83,11 +100,7 @@ namespace AplicacionBase.Controllers
                     else { roluser = false; }
                 }
             }
-            if (db.Users.LongCount() == 1)
-            {
-                roluser = true;
-            }
             return roluser;
-        }      
+        }
     }
 }
