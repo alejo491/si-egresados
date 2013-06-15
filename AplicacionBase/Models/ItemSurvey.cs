@@ -12,12 +12,16 @@ namespace AplicacionBase.Models
         [Display(Name = "Pregunta")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public string Question { get; set; }
+
         [Display(Name = "Tipo de Gràfico")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         public string GraphicType { get; set; }
+
         [Display(Name = "Numero de Item")]
-        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio y debe ser Numerico!")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
         public decimal ItemNumber { get; set; }
+
         public string SQLQuey { get; set; }
         public virtual Report Report { get; set; }
     }
