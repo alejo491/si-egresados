@@ -118,7 +118,8 @@ namespace AplicacionBase.Controllers
 
         public ActionResult ShowPosts()
         {
-               return View();
+            var posts = db.Posts.Include(p => p.User);
+            return View();
         }
     }
 }
