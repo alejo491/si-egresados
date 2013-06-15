@@ -24,6 +24,15 @@ namespace AplicacionBase.Controllers
         }
 
         //
+        // GET: /Post/Indexpublic
+
+        public ViewResult Indexpublic()
+        {
+            var posts = db.Posts.Include(p => p.User);
+            return View(posts.ToList());
+        }
+
+        //
         // GET: /Post/Details/5
 
         public ViewResult Details(Guid id)
