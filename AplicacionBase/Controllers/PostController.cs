@@ -10,49 +10,71 @@ using System.Web.Security;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador para la gestión de noticias
+    /// </summary>
     public class PostController : Controller
     {
+        /// <summary>
+        /// Atributo que consulta la base de datos
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        //
-        // GET: /Post/
-
+        #region ListarNoticiasAdministrador
+        /// <summary>
+        /// Muestra todas las noticias que han publicado los usuarios
+        /// </summary>
+        /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult Index()
         {
             var posts = db.Posts.Include(p => p.User);
             return View(posts.ToList());
         }
+        #endregion
 
-        //
-        // GET: /Post/Indexpublic
-
+        #region ListarNoticiasUsuario
+        /// <summary>
+        /// Muestra todas las noticias que ha publicado el usuario
+        /// </summary>
+        /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult Indexpublic()
         {
             var posts = db.Posts.Include(p => p.User);
             return View(posts.ToList());
         }
+        #endregion
 
-        //
-        // GET: /Post/Details/5
-
+        #region Detalles
+        /// <summary>
+        /// Muestra en detalle una noticia
+        /// </summary>
+        /// <param name="id">Identificador de la noticia</param>
+        /// <returns>Retorna el contenido de la noticia para el id correspondiente</returns>
         public ViewResult Details(Guid id)
         {
             Post post = db.Posts.Find(id);
             Guid us = (Guid)Membership.GetUser().ProviderUserKey;
             return View(post);
         }
+        #endregion
 
-        //
-        // GET: /Post/Create
-
+        #region Crear noticia
+        /// <summary>
+        /// Permite crear una nueva noticia
+        /// </summary>
+        /// <returns>Retorna la vista para crear la noticia</returns>
         public ActionResult Create()
         {
             return View();
         }
+        #endregion
 
-        //
-        // POST: /Post/Create
-
+        #region Crear noticia HttpPost
+        /// <summary>
+        /// Guarda la noticia que se recibe en el formulario
+        /// </summary>
+        /// <param name="post">Noticia recibida desde un formulario</param>
+        /// <returns>Retorna las noticias recibidas en el formulario</returns>
         [HttpPost]
         public ActionResult Create(Post post)
         {
@@ -65,24 +87,31 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "LastNames", post.IdUser);
             return View(post);
         }
+        #endregion
 
-        //
-        // GET: /Post/Edit/5
-
+        #region Editar noticia
+        /// <summary>
+        /// Da la opción de editar una noticia que ha sido guardada
+        /// </summary>
+        /// <param name="id">Identificador de la noticia</param>
+        /// <returns>Retorna la noticia a editar</returns>
         public ActionResult Edit(Guid id)
         {
             Post post = db.Posts.Find(id);
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
             return View(post);
         }
+        #endregion
 
-        //
-        // POST: /Post/Edit/5
-
+        #region Editar noticia HttpPost
+        /// <summary>
+        /// Guarda las modificaciones hechas en una noticia
+        /// </summary>
+        /// <param name="post">Noticia que se modificó y que se va a actualizar en el formulario</param>
+        /// <returns>Retorna la noticia que se editó</returns>
         [HttpPost]
         public ActionResult Edit(Post post)
         {
@@ -97,19 +126,27 @@ namespace AplicacionBase.Controllers
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
             return View(post);
         }
+        #endregion
 
-        //
-        // GET: /Post/Delete/5
-
+        #region Eliminar noticia
+        /// <summary>
+        /// Da la opción de eliminar una noticia
+        /// </summary>
+        /// /// <param name="id">Identificador de la noticia</param>
+        /// <returns>Retorna la noticia a eliminar</returns>
         public ActionResult Delete(Guid id)
         {
             Post post = db.Posts.Find(id);
             return View(post);
         }
+        #endregion
 
-        //
-        // POST: /Post/Delete/5
-
+        #region Eliminar noticia HttpPost
+        /// <summary>
+        /// Elimina la noticia que corresponde al id
+        /// </summary>
+        /// <param name="id">Identificador de la noticia</param>
+        /// <returns>Retorna el resultado de la eliminación de la noticia</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -118,6 +155,13 @@ namespace AplicacionBase.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
+
+        public ActionResult ShowPosts()
+        {
+            var posts = db.Posts.Include(p => p.User);
+            return View();
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -125,10 +169,5 @@ namespace AplicacionBase.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult ShowPosts()
-        {
-            var posts = db.Posts.Include(p => p.User);
-            return View();
-        }
     }
 }
