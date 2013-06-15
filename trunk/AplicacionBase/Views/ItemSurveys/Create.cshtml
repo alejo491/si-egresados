@@ -1,6 +1,7 @@
-﻿@using System.Collections.Specialized
+﻿@model AplicacionBase.Models.ItemSurvey
+@using System.Collections.Specialized
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear Item desde encuesta";
 }
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -8,7 +9,7 @@
 <script type="text/javascript">
     $(function () {
         $.getJSON("/ItemSurveys/SurveysList", null, function (data) {
-            var items = "<option>Seleccione la encuesta</option>";
+            var items = "<option></option>";
             $.each(data, function (i, item) {
                 items += "<option value=" + i + ">" + item + "</option>";
             });
@@ -18,7 +19,7 @@
         $("#C2").change(function () {
             var Param = { ids: $("#C2 > option:selected").attr("value") };
             $.getJSON("/ItemSurveys/TopicsList/", Param, function (data) {
-                var items = "<option>Seleccione el tema</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + i + ">" + item + "</option>";
                 });
@@ -29,7 +30,7 @@
         $("#C3").change(function () {
             var Param = { idt: $("#C3 > option:selected").attr("value") };
             $.getJSON("/ItemSurveys/QuestionsList/", Param, function (data) {
-                var items = "<option>Seleccione Pregunta</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + i + ">" + item + "</option>";
                 });
@@ -43,20 +44,38 @@
 
     <div class="c12">
 
-        <h2>Seleccione los datos que va consultar</h2>
+        <h2>Creacion de Item desde encuesta</h2>
 
+    </div>
+   <div>
+        <div class="alert success">  
+        @TempData["Success"]
+        </div>
+        
     </div>
     <div class="c12">
     
         <div class="c9 first" id=”contenido”>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
             @using (Html.BeginForm())
             {
+                @Html.ValidationSummary(true)
+                 <fieldset>
+                 <div class="c1 first">
+                        <p> </p>
+                    </div>
                 <div class="c12">
                     <div class="c1 first">
                         <p>Encuesta</p>
                     </div>
                     <div class="c11">
-                        @Html.DropDownList("surveysfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys" , @id="C2"})                      
+                        @Html.DropDownList("surveysfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C2" })                      
+                        <div class="alert error">                   
+                        
+                         @TempData["erro1"]
+                        </div>
+                       
                     </div>
                 </div>
                 <div class="c12">
@@ -65,14 +84,19 @@
                     </div>
                     <div class="c11">
                         @Html.DropDownList("topicsfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C3" })  
+
                     </div>
                 </div>
                 <div class="c12">
                     <div class="c1 first">
                         <p>Pregunta</p>
                     </div>
-                    <div class="c11">
-                        @Html.DropDownList("questionfield", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C4" })                           
+                     <div class="editor-field">
+                        @Html.DropDownList("Question", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classsurveys", @id = "C4" })                           
+                        <div class="alert error">                   
+                        
+                        @Html.ValidationMessageFor(model => model.Question)
+                        </div>
                     </div>
                 </div>
                 <h3>Tipo de grafico</h3>
@@ -82,27 +106,41 @@
                     </div>
                     <div class="c11">
                         <div class="c12">
-                            @Html.RadioButton("option", "Pastel") Pastel
+                            @Html.RadioButton("GraphicType", "Pastel") Pastel
+
                         </div>
                         <div class="c12">
-                            @Html.RadioButton("option", "Barras") Barras
+                            @Html.RadioButton("GraphicType", "Barras") Barras
                         </div>
-                           
+                           @Html.ValidationMessageFor(model => model.GraphicType)
                     </div>
                     <h3>Opciones</h3>
                     <div class="c12">
                         <div class="c2">
                             <p style="font-size: 13px">Numero de Pagina</p>
                         </div>
-                        <div class="c9">
-                            @Html.TextBox("numeropagina", "")
+                       <div class="editor-field">
+                            @Html.TextBox("ItemNumber", "")
+                            <div >                   
+                        
+                        @Html.ValidationMessageFor(model => model.ItemNumber)
+                        </div>
                         </div>
                     </div>                  
                 </div>
-                <input type="submit" value="Previsualizar"/>
-                              
+                <input type="submit" value="Guardar" class="ebutton2 blue" />
+                 <div>
+                    </div>     <div>
+                    </div><div>
+                    </div><div>
+                    </div>
+                </fieldset>               
             }
         </div>
-        <div class="c3 last" id=”layoutderecho”>@Html.Partial("_LayoutSideBar")</div>
+
+       <div class="c3 last" id=”layout”>@Html.Partial("_LayoutSideBar")</div>
+
     </div>
- </div>
+
+    &nbsp;
+</div>

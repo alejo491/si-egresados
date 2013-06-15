@@ -52,60 +52,72 @@ namespace AplicacionBase.Controllers
         public ActionResult Create(FormCollection postedForm,Guid id)
         {
             var tam = postedForm.Count;
-            if (tam > 4) { 
-            var conGrafico = postedForm[3];
-            int numPagina = 0;
-            try
+            if (tam > 4)
             {
-                 numPagina = Convert.ToInt32(postedForm[4]);
-            }
-            catch(Exception e) {
-                numPagina = 0;
-            }
-            Guid idSurvey = Guid.Empty;
-            Guid idTopic = Guid.Empty;
-            Guid idQuestion = Guid.Empty;
-            string question = "";
-            foreach (string v in postedForm)
-            {
-                if (v.StartsWith("surveysfield")) {
-                    idSurvey=new Guid(postedForm[v]);
-                    
-                }
-                if (v.StartsWith("topicsfield"))
+                var conGrafico = postedForm[3];
+                int numPagina = 0;
+                try
                 {
-                    idTopic=new Guid(postedForm[v]);
+                    numPagina = Convert.ToInt32(postedForm[4]);
                 }
-                if (v.StartsWith("questionfield"))
+                catch (Exception e)
                 {
-                    idQuestion=new Guid(postedForm[v]);
+                    numPagina = 0;
+                }
+                Guid idSurvey = Guid.Empty;
+                Guid idTopic = Guid.Empty;
+                Guid idQuestion = Guid.Empty;
+                string question = "";
+                foreach (string v in postedForm)
+                {
+                    if (v.StartsWith("surveysfield"))
+                    {
+                        idSurvey = new Guid(postedForm[v]);
+
+                    }
+                    if (v.StartsWith("topicsfield"))
+                    {
+                        idTopic = new Guid(postedForm[v]);
+                    }
+                    if (v.StartsWith("Question"))
+                    {
+                        idQuestion = new Guid(postedForm[v]);
+
+                    }
 
                 }
-             
-            }
-            string tema = ((Topic)db.Topics.First(t => t.Id == idTopic)).Description; 
-            string surveysName = ((Survey)db.Surveys.First(f => f.Id == idSurvey)).Name;
-            question = ((Question)(db.Questions.First(st => st.Id == idQuestion))).Sentence;
-            string topic = "" + db.Topics.Where(st => st.Id== idTopic);
-            string tabla = "VistaModuloEncuesta";
-            //String SQL = "" + "select * from " + tabla + " where surveysName='" + surveysName + "' and topicsDescription='" + tema + "' and questionsSentence='" + question + "'";
-            String SQL = "" + "select (Convert(VARCHAR(2000), answerChoicesSentence)) as 'Opcion de respuesta', count(*) as Cantidad from  " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and IdQuestion in('" + idQuestion + "') group by IdAnswer ,(Convert(VARCHAR(2000), answerChoicesSentence)) ";
-            ItemSurvey itenSurvey=new ItemSurvey();
-            itenSurvey.Id = Guid.NewGuid();
-            itenSurvey.IdReport = id;       //se recibe como parametro antes de entrar a crear. aqui se saca en ves de crearlo
-            itenSurvey.Question = question;
-            itenSurvey.GraphicType = conGrafico;
-            itenSurvey.ItemNumber = numPagina;
-            itenSurvey.Report = db.Reports.First(a => a.Id == itenSurvey.IdReport);
-            itenSurvey.SQLQuey = SQL;
+                string tema = ((Topic)db.Topics.First(t => t.Id == idTopic)).Description;
+                string surveysName = ((Survey)db.Surveys.First(f => f.Id == idSurvey)).Name;
+                question = ((Question)(db.Questions.First(st => st.Id == idQuestion))).Sentence;
+                string topic = "" + db.Topics.Where(st => st.Id == idTopic);
+                string tabla = "VistaModuloEncuesta";
+                //String SQL = "" + "select * from " + tabla + " where surveysName='" + surveysName + "' and topicsDescription='" + tema + "' and questionsSentence='" + question + "'";
+                String SQL = "" + "select (Convert(VARCHAR(2000), answerChoicesSentence)) as 'Opcion de respuesta', count(*) as Cantidad from  " + tabla + " where surveysName in('" + surveysName + "') and topicsDescription in('" + tema + "') and IdQuestion in('" + idQuestion + "') group by IdAnswer ,(Convert(VARCHAR(2000), answerChoicesSentence)) ";
+                ItemSurvey itenSurvey = new ItemSurvey();
+                itenSurvey.Id = Guid.NewGuid();
+                itenSurvey.IdReport = id;       //se recibe como parametro antes de entrar a crear. aqui se saca en ves de crearlo
+                itenSurvey.Question = question;
+                itenSurvey.GraphicType = conGrafico;
+                itenSurvey.ItemNumber = numPagina;
+                itenSurvey.Report = db.Reports.First(a => a.Id == itenSurvey.IdReport);
+                itenSurvey.SQLQuey = SQL;
 
-if(numPagina!=0){
-            db.ItemSurveys.Add(itenSurvey);
-            db.SaveChanges();
-    }
+                if (numPagina != 0)
+                {
+                    db.ItemSurveys.Add(itenSurvey);
+                    db.SaveChanges();
+                    TempData["Success"] = "El Item se ha Creado  correctamente";
+                }
+                else
+                {
+                    TempData["Success"] = "El Item se ha Creado !!!";
+                }
+             return View(itenSurvey);
             }
             //return View();
-            return RedirectToAction("Index", new { id = id });
+
+            return View();
+            //return RedirectToAction("Index", new { id = id });
         }
         #endregion
 
@@ -193,7 +205,15 @@ if(numPagina!=0){
         /// <returns></returns>
         public JsonResult TopicsList(string ids)
         {
-            var g = new Guid(ids);
+            var g=Guid.NewGuid();
+            try
+            {
+               g = new Guid(ids);
+               TempData["erro1"] = null;
+            }
+            catch {
+                TempData["erro1"] = "Se ha Eliminado el Item correctamente";
+            }
             var topics = _db.SurveysTopics.Where(s => s.IdSurveys == g).ToList();
             var list = new Dictionary<string, string>();
             foreach (var surveysTopic in topics)
