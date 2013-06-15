@@ -910,6 +910,15 @@ div .rigth
 }
 
 
+.btnsearch
+{
+      background: #FFFFFF url(themes/base/images/search.png) no-repeat 0 0;
+        min-width: 35px;
+        min-height: 25px;
+        float: right;
+}
+
+
 .btnclose
 {
       background: #FFFFFF url(themes/base/images/close.png) no-repeat 0 0;

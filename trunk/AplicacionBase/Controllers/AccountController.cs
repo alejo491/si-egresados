@@ -11,8 +11,14 @@ using System.Net;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador que gestiona el registro y la autenticación de los usuarios
+    /// </summary>
     public class AccountController : Controller
     {
+        /// <summary>
+        /// Atributo que consulta la base de datos.
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
 
         [HttpPost]
@@ -45,6 +51,11 @@ namespace AplicacionBase.Controllers
 
         }
 
+        /// <summary>
+        /// Método que verifica si un usuario esta activo en el sistema
+        /// </summary>
+        /// <param name="model">Usuario registrado en el sistema</param>
+        /// <returns>un entero entre 0 y 2, dependiendo el caso</returns>
         public int searchUser(LogOnModel model)
         {
             Guid g = System.Guid.Empty;
@@ -72,7 +83,10 @@ namespace AplicacionBase.Controllers
         }
 
         // GET: /Account/LogOn
-
+        /// <summary>
+        /// Método que carga la vista con el formulario que permite al usuario ingresar al sistema
+        /// </summary>
+        /// <returns>Vista que despliega el formulario para loguearse en el sistema</returns>
         public ActionResult LogOn()
         {
             return View();
@@ -80,7 +94,12 @@ namespace AplicacionBase.Controllers
 
         //
         // POST: /Account/LogOn
-
+        /// <summary>
+        /// Valida si los datos recibidos en el formulario pertenecen a un usuario e inicia sesion 
+        /// </summary>
+        /// <param name="model">Datos del usuario</param>
+        /// <param name="returnUrl">Direccion</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
@@ -106,13 +125,11 @@ namespace AplicacionBase.Controllers
                     {
                         TempData["Inactivo"] = "¡ El Usuario se encuentra Inactivo !";
                         TempData["info"] = " Pongase en contacto con el Administrador del Sistema";
-                        //return RedirectToAction("LogOn", "Account"); }
                     }
                 }
                 else
                 {
                     TempData["Invalidos"] = "El nombre de usuario o la contraseña especificados son incorrectos.";
-                    //ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
                 }
             }
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
@@ -121,17 +138,22 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /Account/LogOff
-
+        /// <summary>
+        /// Método que permite cerrar sesión
+        /// </summary>
+        /// <returns>Vista principal del Home de la aplicación</returns>
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-
             return RedirectToAction("Index", "Home");
         }
 
         //
         // GET: /Account/Register
-
+        /// <summary>
+        /// Método que carga la vista con el formulario que permite al usuario registrarse en el sistema
+        /// </summary>
+        /// <returns>Vista que despliega el formulario para registrarse en el sistema</returns>
         public ActionResult Register()
         {
             return View();
@@ -139,7 +161,11 @@ namespace AplicacionBase.Controllers
 
         //
         // POST: /Account/Register
-
+        /// <summary>
+        /// Guarda los datos recibido en el formulario y crea el usuario 
+        /// </summary>
+        /// <param name="model">Datos del usuario</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -169,15 +195,17 @@ namespace AplicacionBase.Controllers
                     model.Email = "";
                 }
             }
-
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);
         }
 
         //
         // GET: /Account/ChangePassword
-
-        [Authorize]
+        /// <summary>
+        /// Método que carga la vista con el formulario que permite al usuario cambiar su contraseña
+        /// </summary>
+        /// <returns>Vista que despliega el formulario para cambiar contraseña</returns>
+        //[Authorize]
         public ActionResult ChangePassword()
         {
             return View();
@@ -185,14 +213,17 @@ namespace AplicacionBase.Controllers
 
         //
         // POST: /Account/ChangePassword
-
+        /// <summary>
+        /// Guarda los datos recibido en el formulario y actualiza la contraseña del usuario 
+        /// </summary>
+        /// <param name="model">Datos del usuario</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {
-
                 // ChangePassword iniciará una excepción en lugar de
                 // devolver false en determinados escenarios de error.
                 bool changePasswordSucceeded;
@@ -208,25 +239,24 @@ namespace AplicacionBase.Controllers
 
                 if (changePasswordSucceeded)
                 {
-                    return RedirectToAction("ChangePasswordSuccess");
+                    Guid g = System.Guid.Empty;
+                    foreach (var e in db.aspnet_Users)
+                    {
+                        if (e.UserName == HttpContext.User.Identity.Name)
+                        {
+                            g = e.UserId;
+                        }
+                    }
+                    TempData["NewPassword"] = "Su contraseña a sido cambiada satisfactoriamente.";
+                    return RedirectToAction("Begin", "User", new { id = g });
                 }
                 else
                 {
                     TempData["Error"] = "La contraseña actual es incorrecta o la nueva contraseña no es válida.";
-                    //ModelState.AddModelError("", "La contraseña actual es incorrecta o la nueva contraseña no es válida.");
                 }
             }
-
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);
-        }
-
-        //
-        // GET: /Account/ChangePasswordSuccess
-
-        public ActionResult ChangePasswordSuccess()
-        {
-            return View();
         }
 
         #region Status Codes
