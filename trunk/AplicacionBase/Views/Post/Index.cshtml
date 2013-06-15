@@ -53,7 +53,7 @@
                 @Html.ActionLink(" ", "", null, htmlAttributes: new { @class = "btnmore", @title = "Más" })
             </td>
             <td>
-                <script type = "" language="JavaScript">
+                <!--<script type = "" language="JavaScript">
                     function validarFormulario() {
                         var form = document.formulario;
                         var s = "0";
@@ -67,13 +67,25 @@
                             alert("Debe seleccionar Si o No");
                         }
                     }
-                </script>
-                <form action ="" name="formulario">
-                    @Html.DisplayFor(modelItem => item.Autorizado)
-                    Si <input type="radio" name="rad" value="1"/>
-                    No <input type="radio" name="rad" value="0" checked='0'/>
-                    <a href="javascript: submitForm()">Si</a>
-                    <input type="button" name="enviar" value="enviar" onclick="validarFormulario()"/>
+                </script>-->
+                <!--<form action ="" name="formulario">-->
+                    <!--Con esta linea solo muestro el valor del campo autorizado
+                    @Html.DisplayFor(modelItem => item.Autorizado)-->
+
+                    <!--Si <input type="radio" name="rad" value="1"/>
+                    No <input type="radio" name="rad" value="0" checked='0'/>-->
+                    <!--<a href="javascript: submitForm()">Si</a>-->
+                    <!--<input type="button" name="enviar" value="enviar" onclick="validarFormulario()"/>-->
+                    <!--<input type="button" name="campoprueba" disabled="0"/>-->
+                <!--</form>-->
+                <!--<input type="text" name="campoprueba" disabled=""/>-->
+               <!-- <form name="formulario" action="" method="post">
+                    <input type="checkbox" value="aprobado" onclick="document.formulario.enviar.disabled=!document.formulario.enviar.disabled">
+                    <input type="submit" name="enviar" value="Aprobar" disabled=""/>
+                </form>-->
+                <form name="formulario" action="" method=post>
+                    <input type="checkbox" onclick="document.formulario.enviar.disabled=!document.formulario.enviar.disabled" value="acepto"/>
+                    <input disabled="" type="submit" value="Aprobar" name="enviar"/>
                 </form>
             </td>
         </tr>
