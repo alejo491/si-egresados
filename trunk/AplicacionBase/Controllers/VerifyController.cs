@@ -55,7 +55,7 @@ namespace AplicacionBase.Controllers
         }
 
         /// <summary>
-        /// Metodo que ayuda al direccionamiento dependiendo del usuario
+        /// Metodo que ayuda al crear información personal del usuario
         /// </summary>
         /// <returns></returns>
         public ActionResult Edit()
@@ -101,6 +101,23 @@ namespace AplicacionBase.Controllers
                 }
             }
             return roluser;
+        }
+
+        /// <summary>
+        /// Metodo que ayuda al direccionamiento dependiendo del usuario
+        /// </summary>
+        /// <returns>A la vista principal del Usuario</returns>
+        public ActionResult Out() 
+        {
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+            return RedirectToAction("Begin", "User", new { id = g });
         }
     }
 }
