@@ -35,9 +35,14 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            <div class = " left "> @Html.ActionLink(" ", "Edit", new {}, htmlAttributes: new { @class = "btnedit", title = "Editar Tésis" }) &nbsp</div>
+            <div class = " left ">@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | &nbsp</div>
+           
+           <div class = " left "> @Html.ActionLink(" ", "Details", new {}, htmlAttributes: new { @class = "btndetails", title = "Ver Tésis" }) &nbsp</div>
+            <div class = " left ">@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |&nbsp</div>
+
+            
+            
         </td>
     </tr>
 }

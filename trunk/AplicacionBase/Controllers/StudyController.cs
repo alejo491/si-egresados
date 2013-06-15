@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using System.Web.Security;
 
 namespace AplicacionBase.Controllers
 { 
@@ -21,6 +22,7 @@ namespace AplicacionBase.Controllers
             User user = db.Users.Find(id);
             if (user != null)
             {
+                ViewBag.UserId = id;
                 var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == id);
                 return View(studies.ToList());
             }
@@ -42,31 +44,22 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Study/Create
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
+            User user = db.Users.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber");
+            ViewBag.IdUser = new SelectList(db.Users, "Id", "Name");
             ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title");
-            return View();
+            return View(user);
         } 
 
         //
         // POST: /Study/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection form) 
+        public ActionResult Create(FormCollection form, Guid id) 
         {
-            Guid g = System.Guid.Empty;
-            foreach (var e in db.aspnet_Users)
-            {
-
-                if (e.UserName == HttpContext.User.Identity.Name)
-                {
-                    g = e.UserId;
-                }
-
-            }
-            var IdUser = g;
+            var IdUser = id;
             Study study = new Study();
             Thesis Tesis = new Thesis();
             study.IdUser = IdUser;
@@ -161,7 +154,7 @@ namespace AplicacionBase.Controllers
             }
             db.Studies.Add(study);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new {id = IdUser});
         }
        
         //
@@ -267,13 +260,9 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(last).State = EntityState.Modified;
                 db.SaveChanges();
+                
             }
-
-            //var n = new DateTime();
-            //TimeSpan t = new TimeSpan();
-            //var t = n.Subtract(n);
-            //var b = DateTime.TryParse("12jsdajfjsdgds", out n);
-            return RedirectToAction("Begin", "User", new { id = last.IdUser });
+            return RedirectToAction("Index", "Study", new {ids = last.IdUser});
         }
 
         //
