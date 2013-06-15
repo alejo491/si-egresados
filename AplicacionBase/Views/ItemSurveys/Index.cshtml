@@ -44,7 +44,13 @@
         </td>
       
         <td>
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+        <div class="c12">
+                                              <div class="c1 first">                                          
+                            
+                            
+            @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
+            </div>
+            </div>
         </td>
     </tr>
 }

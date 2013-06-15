@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<AplicacionBase.Models.AnswerChoice>
 
 @{
-    ViewBag.Title = "Listar Opciones de Respuesta";
+    ViewBag.Title = "Listado de Opciones de Respuesta";
 }
 
 
@@ -36,7 +36,7 @@
                         <th>
                             Número de Orden 
                         </th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
 
                 @foreach (var item in Model)
@@ -56,9 +56,18 @@
                             @Html.DisplayFor(modelItem => item.AnswerNumber)
                         </td>
                         <td>
-                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
-                            @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp 
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                        <div class="c12">
+                                              <div class="c1 first">
+                                                  
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit", @title = "Editar" }) 
+                            </div>
+                                              <div class="c1">
+                            @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", @title = "Detalles" }) 
+                            </div>
+                                              <div class="c1">
+                            @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
+                            </div>
+                         </div>
                         </td>
                     @:</tr>
     
@@ -72,3 +81,5 @@
     &nbsp;
 </div>
 
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu.js")" type="text/javascript"></script>
