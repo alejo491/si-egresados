@@ -136,6 +136,14 @@
       <mvcSiteMapNode title="Buscar" controller="Vacancies" action="Search"/>
     </mvcSiteMapNode>
 
+	<mvcSiteMapNode title="Noticias" controller="Post" action="Index">
+		<mvcSiteMapNode title="Index publico" controller="Post" action="Indexpublic"/>
+		<mvcSiteMapNode title="Detalles" controller="Post" action="Details"/>
+		<mvcSiteMapNode title="Crear" controller="Post" action="Create"/>
+		<mvcSiteMapNode title="Editar" controller="Post" action="Edit"/>
+		<mvcSiteMapNode title="Eliminar" controller="Post" action="Delete"/>
+	</mvcSiteMapNode>
+
   </mvcSiteMapNode>
 
 </mvcSiteMap>
