@@ -14,6 +14,9 @@
 <form method="get" class = "rigth">
         <div class="editor-field">
           @Html.TextBox("nameuser", ViewBag.CurrentFilter as string) 
+
+          <div class="left"> @Html.ActionLink(" ", " ", null, htmlAttributes: new { @class = "btnsearch", title = "Buscar Usuario" }) &nbsp</div>
+                
           <input type="submit" value="Buscar" class="ebutton blue" /> 
         </div>
 </form>

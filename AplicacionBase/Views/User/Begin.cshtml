@@ -12,8 +12,10 @@
     <div class="grid">
         <div class="c12">
             <div class="c9 first">
-                <legend>Perfil Personal del Usuario: @Model.aspnet_Users.UserName</legend>     
+                <legend>Perfil Personal del Usuario: @Model.aspnet_Users.UserName</legend>
+                <div class="alert success">@TempData["NewPassword"]</div>     
             </div>
+             
             @if (i == true)
             {
               <div class="c3 first" id="layout1">
