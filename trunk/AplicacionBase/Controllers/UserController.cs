@@ -38,12 +38,20 @@ namespace AplicacionBase.Controllers
         /// Método que carga la vista que contiene todos los usuarios registrados en el sistema
         /// </summary>
         /// <returns>Vista que contine todos los usuarios</returns>
-        public ViewResult Index(int? page)
+        public ActionResult Index(int? page)
         {
-            pageNumber = (page ?? 1);
-            var users = db.Users.Include(u => u.aspnet_Users);
-            ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", users.ToList());
-            return View(users.ToList().ToPagedList(pageNumber, pageSize));
+            Guid g = searchId();
+            var list = Roles.GetRolesForUser();
+            var temp = false;
+            foreach (var i in list) { if (i == "Administrador") { temp = true;}}
+            if (temp)
+            {
+                pageNumber = (page ?? 1);
+                var users = db.Users.Include(u => u.aspnet_Users);
+                ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", users.ToList());
+                return View(users.ToList().ToPagedList(pageNumber, pageSize));
+            }
+            else { return RedirectToAction("Begin", "User", new { id = g }); }
         }
 
         /// <summary>
@@ -152,6 +160,56 @@ namespace AplicacionBase.Controllers
                 db.UsersSteps.Add(obj);
                 db.SaveChanges();
             }
+        }
+
+        /*Lineas Necesarias, para Administrar el Wizard*/
+        /// <summary>
+        /// Se Crean los pasos del Wizard
+        /// </summary>
+        private void CreateSteps(Guid id)
+        {
+            var db = new DbSIEPISContext();
+            var steps = db.Steps;
+            if (steps.Any()) return;
+            var survey = new Survey
+            {
+                Id = Guid.NewGuid(),
+                Name = "Información Adicional",
+                Aim = "Reunir información adicional de los usuarios"
+            };
+            db.Surveys.Add(survey);
+            db.SaveChanges();
+            var count = 0;
+
+            while (count < 3)
+            {
+                var obj = new Step
+                {
+                    Id = Guid.NewGuid(),
+                    SOrder = count
+                };
+
+                switch (count)
+                {
+
+                    case 0:
+
+                        obj.SPath = @"/Study/Index?id=" + id.ToString() + @"&wizardStep=1";
+                        break;
+                    case 1:
+                        obj.SPath = @"/Experiences/Index?wizardStep=1";
+                        break;
+                    case 2:
+                        //obj.SPath = @"/Surveys/Index";
+                        obj.SPath = @"/FillSurvey/Fill?ids=" + survey.Id.ToString() + @"&wizardStep=1";
+                        break;
+                }
+
+                db.Steps.Add(obj);
+                db.SaveChanges();
+                count++;
+            }
+
         }
 
         //

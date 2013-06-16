@@ -7,9 +7,10 @@ using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Web.Security;
+using System.Web.Routing;
 
 namespace AplicacionBase.Controllers
-{ 
+{
     public class StudyController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -51,13 +52,13 @@ namespace AplicacionBase.Controllers
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Name");
             ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title");
             return View(user);
-        } 
+        }
 
         //
         // POST: /Study/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection form, Guid id) 
+        public ActionResult Create(FormCollection form, Guid id)
         {
             var IdUser = id;
             Study study = new Study();
@@ -71,7 +72,7 @@ namespace AplicacionBase.Controllers
                 {
                     string var = form[key].ToString();
                     bool temp = false;
-                    foreach (School school in db.Schools) 
+                    foreach (School school in db.Schools)
                     {
                         if (school.Name == var)
                         {
@@ -89,15 +90,15 @@ namespace AplicacionBase.Controllers
                         study.IdSchool = school.Id;
                     }
                 }
-                if(key.Contains("Programas")) 
+                if (key.Contains("Programas"))
                 {
-                    
+
                 }
-                if (key.Contains("Grade")) 
+                if (key.Contains("Grade"))
                 {
                     study.Grade = form[key].ToString();
                 }
-                if (key.Contains("Elective1")|| key.Contains("Elective2")|| key.Contains("Elective3")|| key.Contains("Elective4")|| key.Contains("Elective5"))
+                if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") || key.Contains("Elective4") || key.Contains("Elective5"))
                 {
                     if (form[key].Length != 0)
                     {
@@ -122,7 +123,7 @@ namespace AplicacionBase.Controllers
                         }
                     }
                 }
-                if (key.Contains("txtStartDate")) 
+                if (key.Contains("txtStartDate"))
                 {
                     DateTime var = DateTime.Parse(form[key].ToString());
                     study.StartDate = var;
@@ -132,13 +133,13 @@ namespace AplicacionBase.Controllers
                     DateTime var = DateTime.Parse(form[key].ToString());
                     study.EndDate = var;
                 }
-                if (key.Contains("txtTesis"))
+                if (key.Contains("txtTesis") && form[key].Length != 0)
                 {
                     Tesis.IdStudies = study.Id;
                     Tesis.Title = form[key].ToString();
                     study.Thesis = Tesis;
                 }
-                if (key.Contains("txtDescripcion"))
+                if (key.Contains("txtDescripcion") && study.Thesis != null)
                 {
                     if (form[key].Length == 0)
                     {
@@ -154,12 +155,12 @@ namespace AplicacionBase.Controllers
             }
             db.Studies.Add(study);
             db.SaveChanges();
-            return RedirectToAction("Index", new {id = IdUser});
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = id }));
         }
-       
+
         //
         // GET: /Study/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             Study study = db.Studies.Find(id);
@@ -167,7 +168,7 @@ namespace AplicacionBase.Controllers
             ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
             ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
             var electives = study.Electives;
-            for (int i = electives.Count; i < 5;  i++)
+            for (int i = electives.Count; i < 5; i++)
             {
                 electives.Add(new Elective());
             }
@@ -193,14 +194,14 @@ namespace AplicacionBase.Controllers
                     flag = true;
                 }
             }
-            if (flag == false) 
-            {    
+            if (flag == false)
+            {
                 var newid = Guid.NewGuid();
                 db.Schools.Add(new School { Id = newid, Name = s });
                 db.SaveChanges();
                 last.IdSchool = newid;
             }
-            
+
             // falta lo de programa
 
             last.Grade = study.Grade;
@@ -221,7 +222,7 @@ namespace AplicacionBase.Controllers
                                 bool el2 = false;
                                 foreach (var i in last.Electives)
                                 {
-                                    if (i.Id == elective.Id) {el2 = true;}
+                                    if (i.Id == elective.Id) { el2 = true; }
                                 }
                                 if (el2 == false)
                                 {
@@ -236,17 +237,17 @@ namespace AplicacionBase.Controllers
                             elective.Id = Guid.NewGuid();
                             elective.Name = var;
                             db.Electives.Add(elective);
-                            last.Electives.Add(elective); 
+                            last.Electives.Add(elective);
                         }
                     }
                 }
             }
-            
+
             last.StartDate = study.StartDate;
             last.EndDate = study.EndDate;
 
             Thesis tesis = new Thesis();
-            if(study.Thesis.Title != null)
+            if (study.Thesis.Title != null)
             {
                 tesis.IdStudies = last.Id;
                 tesis.Title = study.Thesis.Title;
@@ -254,20 +255,20 @@ namespace AplicacionBase.Controllers
                 if (last.Thesis != null) { db.Theses.Remove(last.Thesis); }
                 db.Theses.Add(tesis);
                 last.Thesis = tesis;
-            }            
-            
-            if(ModelState.IsValid)
+            }
+
+            if (ModelState.IsValid)
             {
                 db.Entry(last).State = EntityState.Modified;
                 db.SaveChanges();
-                
+
             }
-            return RedirectToAction("Index", "Study", new {ids = last.IdUser});
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = last.IdUser }));
         }
 
         //
         // GET: /Study/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             Study study = db.Studies.Find(id);
@@ -279,13 +280,19 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             Study study = db.Studies.Find(id);
-            db.Theses.Remove(study.Thesis);
-            study.Thesis = null;
             db.Studies.Remove(study);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = g }));
         }
 
         public ActionResult AutocompleteSchool(string term)

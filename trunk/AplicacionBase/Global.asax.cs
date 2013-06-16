@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.ClientServices.Providers;
@@ -21,7 +23,7 @@ namespace AplicacionBase
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            
+
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -65,7 +67,7 @@ namespace AplicacionBase
             //            configuration.For<AccountController>().Ignore();
 
             //        #endregion
-     
+
             //        //****************************************************************************************************//
             //        //*********************¡AQUI VAN TODAS LAS REGLAS QUE SE VAN A AGREGAR! *******************************//
             //        //****************************************************************************************************//
@@ -104,7 +106,7 @@ namespace AplicacionBase
             //                              .RequireAnyRole(rolesSurveysDetails);
 
             //            #endregion
-                        
+
             //        #endregion
 
             //        //****************************************************************************************************//
@@ -116,15 +118,15 @@ namespace AplicacionBase
 
             //});
             //#endregion
-            
-            
+
+
             ////Se añaden las reglas
             //GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
             //GlobalFilters.Filters.Add(new DenyAnonymousAccessPolicyViolationHandler());
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            CreateSteps();
+            //CreateSteps();
 
         }
 
@@ -138,53 +140,6 @@ namespace AplicacionBase
             Session["steps"] = null;
             Session["firstTime"] = false;
             /*--------------------------------*/
-
-        }
-
-        /*Lineas Necesarias, para Administrar el Wizard*/
-        /// <summary>
-        /// Se Crean los pasos del Wizard
-        /// </summary>
-        private void CreateSteps()
-        {
-            var db = new DbSIEPISContext();
-            var steps = db.Steps;
-            if (steps.Any()) return;
-            var survey = new Survey
-            {
-                Id = Guid.NewGuid(),
-                Name = "Información Adicional",
-                Aim = "Reunir información adicional de los usuarios"
-            };
-            db.Surveys.Add(survey);
-            db.SaveChanges();
-            var count = 0;
-            while (count < 3)
-            {
-                var obj = new Step
-                {
-                    Id = Guid.NewGuid(),
-                    SOrder = count
-                };
-                switch (count)
-                {
-                   
-                    case 0:
-                        obj.SPath = @"/Study/Index?wizardStep=1";
-                        break;
-                    case 1:
-                        obj.SPath = @"/Experiences/Index?wizardStep=1";
-                        break;
-                    case 2:
-                        //obj.SPath = @"/Surveys/Index";
-                        obj.SPath = @"/FillSurvey/Fill?ids=" + survey.Id.ToString() + @"&wizardStep=1";
-                        break;
-                }
-
-                db.Steps.Add(obj);
-                db.SaveChanges();
-                count++;
-            }
 
         }
     }
