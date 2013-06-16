@@ -53,8 +53,29 @@ namespace AplicacionBase.Controllers
         public ViewResult Details(Guid id)
         {
             Post post = db.Posts.Find(id);
-            Guid us = (Guid)Membership.GetUser().ProviderUserKey;
-            return View(post);
+            Post post2 =new Post();
+            IList<Post> datos = new List<Post>();
+            datos.Add(post);
+
+            AplicacionBase.Controllers.LikeController lc = new LikeController();
+            int cont = 0;
+            
+            IList<Like> likes = lc.Index();
+
+            foreach (Like l in likes) 
+            {
+                if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
+                {
+                    cont++;
+                    post2.Id = l.Id;
+                }
+            }
+
+            if (likes.Count == 1) post2.Autorizado = 1;
+            else post2.Autorizado = 0;
+
+            datos.Add(post2);
+            return View(datos);
         }
         #endregion
 
