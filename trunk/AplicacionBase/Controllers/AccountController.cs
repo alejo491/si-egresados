@@ -7,7 +7,9 @@ using System.Web.Routing;
 using System.Web.Security;
 using AplicacionBase.Models;
 using Newtonsoft.Json.Linq;
+using System.Net.Mail;
 using System.Net;
+using AplicacionBase.Controllers;
 
 namespace AplicacionBase.Controllers
 {
@@ -173,7 +175,6 @@ namespace AplicacionBase.Controllers
             {
                 // Intento de registrar al usuario
                 MembershipCreateStatus createStatus;
-                DbSIEPISContext db = new DbSIEPISContext();
                 System.Web.Security.MembershipUserCollection uno = Membership.FindUsersByEmail(model.Email);
                 if (uno.Count == 0)
                 {
@@ -258,6 +259,76 @@ namespace AplicacionBase.Controllers
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
             return View(model);
         }
+
+        /// <summary>
+        /// Método que carga la vista que permite al usuario recuperar su contraseña
+        /// </summary>
+        /// <returns>Vista para recuperar contraseña</returns>
+        public ActionResult ChangePasswordSuccess()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/ChangePasswordSuccess
+        /// <summary>
+        /// Envia al correo del usuario la contraseña recuperada 
+        /// </summary>
+        /// <param name="model">Datos del usuario</param>
+        /// <returns></returns>
+        //[Authorize]
+        [HttpPost]
+        public ActionResult ChangePasswordSuccess(RegisterModel model)
+        {
+            Boolean aux = false;
+            aspnet_Membership tem;
+            foreach (var i in db.aspnet_Membership)
+            {
+                if (i.Email == model.Email)
+                {
+                    tem = i;
+                    aux = true;
+                }
+            }
+            if (aux == false)
+            {
+                TempData["Email"] = "El correo no ha sido registrado por ningún usuario en el sistema";
+            }
+            else {
+
+            }
+            return View(model);
+        }
+
+        //#region Enviar email
+        ///// <summary>
+        ///// Enviar el html formateado en un correo
+        ///// </summary>
+        ///// <param name="recepientEmail">Email del destinatario</param>
+        ///// <param name="subject">Asunto del email</param>
+        ///// <param name="body">Cuerpo del email</param>
+        //public static void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
+        //{
+        //    using (MailMessage mailMessage = new MailMessage())
+        //    {
+        //        mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["UserName"]);
+        //        mailMessage.Subject = subject;
+        //        mailMessage.Body = body;
+        //        mailMessage.IsBodyHtml = true;
+        //        mailMessage.To.Add(new MailAddress(recepientEmail));
+        //        SmtpClient smtp = new SmtpClient();
+        //        smtp.Host = ConfigurationManager.AppSettings["Host"];
+        //        smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
+        //        System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+        //        NetworkCred.UserName = ConfigurationManager.AppSettings["UserName"];
+        //        NetworkCred.Password = ConfigurationManager.AppSettings["Password"];
+        //        smtp.UseDefaultCredentials = true;
+        //        smtp.Credentials = NetworkCred;
+        //        smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
+        //        smtp.Send(mailMessage);
+        //    }
+        //}
+       // #endregion
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)

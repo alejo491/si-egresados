@@ -1,28 +1,25 @@
 ﻿@model AplicacionBase.Models.LogOnModel
-
 @{
     ViewBag.Title = "Log On";
 }
-
-<h2>Página de Registro</h2>
+<h2>
+    Página de Registro</h2>
 <p>
-    Por favor ingrese su nombre de usuario y contraseña. Si aún no tiene una cuenta, @Html.ActionLink("Regístrese", "Register").
+    Por favor ingrese su nombre de usuario y contraseña. Si aún no tiene una cuenta,
+    @Html.ActionLink("Regístrese", "Register").
 </p>
-
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
 @Html.ValidationSummary(true, "")
-
 <div class="alert success">@TempData["Inactivo"]</div>
 <div class="alert success">@TempData["info"]</div>
-
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <div>
         <fieldset>
             <legend>Información de Cuenta</legend>
-
-            <div></div>
+            <div>
+            </div>
             <div class="alert success">@TempData["invalidos"]</div>
             <div class="editor-label">
                 @Html.LabelFor(m => m.UserName)
@@ -31,7 +28,6 @@
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
-
             <div class="editor-label">
                 @Html.LabelFor(m => m.Password)
             </div>
@@ -39,20 +35,21 @@
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
-
             <div class="editor-label">
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.LabelFor(m => m.RememberMe)
             </div>
-            <div>
-            </div>
-
+            <div></div>
             <p>
-                <input type="submit" value="Enviar" class="ebutton blue"/>&nbsp
-                @Html.ActionLink("Cancelar", "Index", "Home", null,htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink("¿Ha olvidado su contraseña?", "ChangePasswordSuccess").
             </p>
-            <fb:login-button perms="email,user_checkins" autologoutlink="true" >O entra con tu cuenta de Facebook</fb:login-button>
-                 <div id="fb-root" style="display:inline; margin-right:60px"></div>
+            <div>
+                <input type="submit" value="Enviar" class="ebutton blue" />&nbsp
+                @Html.ActionLink("Cancelar", "Index", "Home", null, htmlAttributes: new { @class = "ebutton blue" })
+            </div>
+            <fb:login-button perms="email,user_checkins" autologoutlink="true">O entra con tu cuenta de Facebook</fb:login-button>
+            <div id="fb-root" style="display: inline; margin-right: 60px">
+            </div>
         </fieldset>
     </div>
 }
