@@ -10,6 +10,8 @@ using Newtonsoft.Json.Linq;
 using System.Net.Mail;
 using System.Net;
 using AplicacionBase.Controllers;
+using System.IO;
+using System.Configuration;
 
 namespace AplicacionBase.Controllers
 {
@@ -272,7 +274,7 @@ namespace AplicacionBase.Controllers
         //
         // POST: /Account/ChangePasswordSuccess
         /// <summary>
-        /// Envia al correo del usuario la contraseña recuperada 
+        /// Valida el correo digitado para cambiar la contraseña 
         /// </summary>
         /// <param name="model">Datos del usuario</param>
         /// <returns></returns>
@@ -281,12 +283,15 @@ namespace AplicacionBase.Controllers
         public ActionResult ChangePasswordSuccess(RegisterModel model)
         {
             Boolean aux = false;
-            aspnet_Membership tem;
+            string correo = "";
+            string contra = "";
+
             foreach (var i in db.aspnet_Membership)
             {
                 if (i.Email == model.Email)
                 {
-                    tem = i;
+                    correo = i.Email;
+                    contra = i.PasswordFormat.ToString();
                     aux = true;
                 }
             }
@@ -294,41 +299,43 @@ namespace AplicacionBase.Controllers
             {
                 TempData["Email"] = "El correo no ha sido registrado por ningún usuario en el sistema";
             }
-            else {
-
+            else 
+            {
+                SendHtmlFormattedEmail(correo, "Recuperacion de Contraseña", contra);
+                TempData["Email"] = "Correo enviado satisfactoriamente";
             }
             return View(model);
         }
 
-        //#region Enviar email
-        ///// <summary>
-        ///// Enviar el html formateado en un correo
-        ///// </summary>
-        ///// <param name="recepientEmail">Email del destinatario</param>
-        ///// <param name="subject">Asunto del email</param>
-        ///// <param name="body">Cuerpo del email</param>
-        //public static void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
-        //{
-        //    using (MailMessage mailMessage = new MailMessage())
-        //    {
-        //        mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["UserName"]);
-        //        mailMessage.Subject = subject;
-        //        mailMessage.Body = body;
-        //        mailMessage.IsBodyHtml = true;
-        //        mailMessage.To.Add(new MailAddress(recepientEmail));
-        //        SmtpClient smtp = new SmtpClient();
-        //        smtp.Host = ConfigurationManager.AppSettings["Host"];
-        //        smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
-        //        System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
-        //        NetworkCred.UserName = ConfigurationManager.AppSettings["UserName"];
-        //        NetworkCred.Password = ConfigurationManager.AppSettings["Password"];
-        //        smtp.UseDefaultCredentials = true;
-        //        smtp.Credentials = NetworkCred;
-        //        smtp.Port = int.Parse(ConfigurationManager.AppSettings["Port"]);
-        //        smtp.Send(mailMessage);
-        //    }
-        //}
-       // #endregion
+        #region Enviar email con contraseña nueva
+        /// <summary>
+        /// Envia una nueva contraseña al correo de un usuario en particular
+        /// </summary>
+        /// <param name="recepientEmail">Email del destinatario</param>
+        /// <param name="subject">Asunto del email</param>
+        /// <param name="body">Cuerpo del email</param>
+        public static void SendHtmlFormattedEmail(string recepientEmail, string subject, string body)
+        {
+            using (MailMessage mailMessage = new MailMessage())
+            {
+                mailMessage.From = new MailAddress("siepisunicauca@gmail.com");
+                mailMessage.Subject = subject;
+                mailMessage.Body = body;
+                mailMessage.IsBodyHtml = true;
+                mailMessage.To.Add(new MailAddress(recepientEmail));
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+                NetworkCred.UserName = "siepisunicauca@gmail.com";
+                NetworkCred.Password = "sistemapis";
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mailMessage);
+            }
+        }
+        #endregion
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
