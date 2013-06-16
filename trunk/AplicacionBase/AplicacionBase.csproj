@@ -584,7 +584,6 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
-    <Content Include="Views\ItemData\Index.cshtml" />
     <Content Include="Views\ItemSurveys\Create.cshtml" />
     <Content Include="Views\ItemSurveys\Delete.cshtml" />
     <Content Include="Views\ItemData\Delete.cshtml" />
@@ -612,6 +611,9 @@
     <Content Include="Views\Reports\Preview.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
+    <Content Include="Views\Items\GeneralItems.cshtml" />
+    <Content Include="Views\ItemData\Crear.cshtml" />
+    <Content Include="Views\ItemData\Create.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
