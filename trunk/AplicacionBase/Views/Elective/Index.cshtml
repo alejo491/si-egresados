@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Elective>
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -17,20 +18,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
 
-            <div class = " left "> @Html.ActionLink(" ", "Edit", new {}, htmlAttributes: new { @class = "btnedit", title = "Editar Electiva" }) &nbsp</div>
+            <div class = " left "> @Html.ActionLink(" ", "Edit", new { }, htmlAttributes: new { @class = "btnedit", title = "Editar Electiva" }) &nbsp</div>
             <div class = " left "> @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |&nbsp</div> 
             <div class = " left "> @Html.ActionLink(" ", "Details", new { }, htmlAttributes: new { @class = "btndetails", title = "Ver Electiva" }) &nbsp</div>
-            <div class = " left "> @Html.ActionLink("Ver", "Details", new { id = item.Id }) |&nbsp</div>
+            <div class = " left "> @Html.ActionLink("Ver", "Details", new { id = item.Id }) &nbsp</div>
                 
         </td>
     </tr>
 }
 
 </table>
+
+
