@@ -1,4 +1,4 @@
-﻿@model AplicacionBase.Models.Post
+﻿@model ICollection<AplicacionBase.Models.Post> 
 
 @{
     ViewBag.Title = "Detalles";
@@ -10,31 +10,36 @@
     <legend>Noticia</legend>
     <div class="display-field">
         <span style="color: black;">Usuario : </span>
-        @Html.DisplayFor(model => model.User.FirstNames)
-        @Html.DisplayFor(model => model.User.LastNames)
+        @Html.DisplayFor(model => model.ElementAt(0).User.FirstNames)
+        @Html.DisplayFor(model => model.ElementAt(0).User.LastNames)
     </div>
     <div class="display-field">
         <span style="color: black;">Título :</span>
-        @Html.DisplayFor(model => model.Title)
+        @Html.DisplayFor(model => model.ElementAt(0).Title)
     </div>
     <div class="display-field">
         <span style="color: black;">Fecha de Publicación :</span> 
-        @Html.DisplayFor(model => model.PublicationDate)
+        @Html.DisplayFor(model => model.ElementAt(0).PublicationDate)
     </div>
     <div class="display-field">
         <span style="color: black;">Última Modificación :</span>
-        @Html.DisplayFor(model => model.UpdateDate)
+        @Html.DisplayFor(model => model.ElementAt(0).UpdateDate)
     </div>
     <div class="display-field" align="justify">
         <span style="color: black;">Resumen : </span>
-        @Html.DisplayFor(model => model.Abstract)
+        @Html.DisplayFor(model => model.ElementAt(0).Abstract)
     </div>
     <div class="display-field" align="justify">
         <span style="color: black;">Contenido :</span> 
-        @Html.DisplayFor(model => model.Content)
+        @Html.DisplayFor(model => model.ElementAt(0).Content)
     </div>
+    <br/>
+    <br/>
+    @if (Model.ElementAt(1).Autorizado==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
+    @if (Model.ElementAt(1).Autorizado==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
+   @* @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })*@
 </fieldset>
 <div>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton blue" }) 
     @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </div>
