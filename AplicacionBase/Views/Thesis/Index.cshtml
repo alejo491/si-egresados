@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Tesis</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,13 +12,13 @@
 <table>
     <tr>
         <th>
-            Study
+            Estudio
         </th>
         <th>
-            Title
+            Título
         </th>
         <th>
-            Description
+            Descripción
         </th>
         <th></th>
     </tr>
@@ -36,10 +36,10 @@
         </td>
         <td>
             <div class = " left "> @Html.ActionLink(" ", "Edit", new {}, htmlAttributes: new { @class = "btnedit", title = "Editar Tésis" }) &nbsp</div>
-            <div class = " left ">@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | &nbsp</div>
+            <div class = " left ">@Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) | &nbsp</div>
            
-           <div class = " left "> @Html.ActionLink(" ", "Details", new {}, htmlAttributes: new { @class = "btndetails", title = "Ver Tésis" }) &nbsp</div>
-            <div class = " left ">@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |&nbsp</div>
+            <div class = " left "> @Html.ActionLink(" ", "Details", new {}, htmlAttributes: new { @class = "btndetails", title = "Ver Tésis" }) &nbsp</div>
+            <div class = " left ">@Html.ActionLink("Ver", "Details", new { /* id=item.PrimaryKey */ }) |&nbsp</div>
 
             
             

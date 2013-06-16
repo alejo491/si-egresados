@@ -8,24 +8,30 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Web.Security;
 using System.Web.Routing;
+using PagedList;
 
 namespace AplicacionBase.Controllers
 {
     public class StudyController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
-
+        /// <summary>
+        /// Atributos que permite controlar la paginación de las vistas.
+        /// </summary>
+        private int pageSize = 6;
+        private int pageNumber;
         //
         // GET: /Study/
 
-        public ActionResult Index(Guid id)
+        public ActionResult Index(Guid id, int? page)
         {
             User user = db.Users.Find(id);
             if (user != null)
             {
+                pageNumber = (page ?? 1);
                 ViewBag.UserId = id;
                 var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == id);
-                return View(studies.ToList());
+                return View(studies.ToList().ToPagedList(pageNumber, pageSize));
             }
             else
             {

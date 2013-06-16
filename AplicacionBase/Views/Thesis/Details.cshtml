@@ -4,27 +4,27 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <fieldset>
-    <legend>Thesis</legend>
+    <legend>Tesis</legend>
 
-    <div class="display-label">Study</div>
+    <div class="display-label">Estudio</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Study.Grade)
     </div>
 
-    <div class="display-label">Title</div>
+    <div class="display-label">Título</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Title)
     </div>
 
-    <div class="display-label">Description</div>
+    <div class="display-label">Descripción</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </p>
