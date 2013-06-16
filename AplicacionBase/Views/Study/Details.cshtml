@@ -65,5 +65,5 @@
 </fieldset>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
-    @Html.ActionLink("Regresar", "Index", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Regresar", "Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = Model.IdUser }), htmlAttributes: new { @class = "ebutton blue" })
 </p>
