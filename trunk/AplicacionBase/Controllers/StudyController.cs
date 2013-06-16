@@ -12,8 +12,14 @@ using PagedList;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador para gestionar los estudios que estan registrados en el sistema
+    /// </summary>
     public class StudyController : Controller
     {
+        /// <summary>
+        /// Atributo que consulta la base de datos.
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
         /// <summary>
         /// Atributos que permite controlar la paginación de las vistas.
@@ -23,6 +29,13 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Study/
 
+        /// <summary>
+        /// Método que carga la vista que contiene todos los estudios registrados en el sistema de un usuario en particular
+        /// </summary>
+        /// <param name="id">Id del usuario</param>
+        /// <param name="page">Paginación</param>
+        /// <returns>Vista que contine los datos de los estudios de un usuario</returns>
+        #region Index(id page)
         public ActionResult Index(Guid id, int? page)
         {
             User user = db.Users.Find(id);
@@ -38,19 +51,31 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Begin", "User");
             }
         }
+        #endregion 
 
         //
         // GET: /Study/Details/5
-
+        /// <summary>
+        /// Método que carga la vista que contine los datos del estudio de un usuario
+        /// </summary>
+        /// <param name="id">Id del estudio</param>
+        /// <returns>Vista para consultar los datos de un estudio</returns>
+        #region details(id)
         public ViewResult Details(Guid id)
         {
             Study study = db.Studies.Find(id);
             return View(study);
         }
+        #endregion
 
         //
         // GET: /Study/Create
-
+        /// <summary>
+        /// Método que carga la vista con el formulario para crear la información del estudio de un usuario
+        /// </summary>
+        /// <param name="id">Id del usuario</param>
+        /// <returns>Vista que despliega el formulario que permite crear los datos</returns>
+        #region Create(id)
         public ActionResult Create(Guid id)
         {
             User user = db.Users.Find(id);
@@ -59,11 +84,18 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title");
             return View(user);
         }
+        #endregion
 
         //
         // POST: /Study/Create
-
+        /// <summary>
+        /// Guarda los datos del estudio recibidos en el formulario, ademas de los datos adicionales en las demas tablas asociadas al estudio
+        /// </summary>
+        /// <param name="form">formulario con toda la información</param>
+        /// <param name="id">Id del usuario</param>
+        /// <returns></returns>
         [HttpPost]
+        #region create(form, id)
         public ActionResult Create(FormCollection form, Guid id)
         {
             var IdUser = id;
@@ -163,10 +195,16 @@ namespace AplicacionBase.Controllers
             db.SaveChanges();
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = id }));
         }
+        #endregion
 
         //
         // GET: /Study/Edit/5
-
+        /// <summary>
+        /// Método que carga la vista con el formulario para editar la información de un estudio
+        /// </summary>
+        /// <param name="id">Id del estudio</param>
+        /// <returns>Vista que despliega el formulario con los datos para editarlos</returns>
+        #region Edit(id)
         public ActionResult Edit(Guid id)
         {
             Study study = db.Studies.Find(id);
@@ -181,11 +219,19 @@ namespace AplicacionBase.Controllers
 
             return View(study);
         }
-
+        #endregion
+        
         //
         // POST: /Study/Edit/5
-
+        /// <summary>
+        /// Guarda los cambios de la información del estudio recibido en el formulario, asi como de las tablas relacionadas
+        /// </summary>
+        /// <param name="id">Id del estudio</param>
+        /// <param name="form">formulario con la información digitada</param>
+        /// <param name="study">Estudio modificado</param>
+        /// <returns></returns>
         [HttpPost]
+        #region Edit(id, study, form)
         public ActionResult Edit(Guid id, Study study, FormCollection form)
         {
             var last = db.Studies.Find(id);
@@ -271,20 +317,33 @@ namespace AplicacionBase.Controllers
             }
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = last.IdUser }));
         }
+        #endregion
 
         //
         // GET: /Study/Delete/5
-
+        /// <summary>
+        /// Método que carga la vista con el formulario para eliminar un estudio
+        /// </summary>
+        /// <param name="id">Id del estudio</param>
+        /// <returns>Vista que despliega el formulario con los datos para eliminar</returns>
+        #region Delete(id)
         public ActionResult Delete(Guid id)
         {
             Study study = db.Studies.Find(id);
             return View(study);
         }
+        #endregion
 
         //
         // POST: /Study/Delete/5
-
+        /// <summary>
+        /// Elimina el estudio solicitado por el usuario
+        /// </summary>
+        /// <param name="id">Id del estudio</param>
+        /// <param name="form">formulario con la información digitada</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
+        #region Delete(id)
         public ActionResult DeleteConfirmed(Guid id)
         {
             Study study = db.Studies.Find(id);
@@ -300,7 +359,14 @@ namespace AplicacionBase.Controllers
             }
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = g }));
         }
+        #endregion
 
+        /// <summary>
+        /// Permite hacer autocompletar en las vistas, consultando en la tabla de schools de la base de datos
+        /// </summary>
+        /// <param name="term">Termino digitado</param>
+        /// <returns>resultados de la consulta</returns>
+        #region AutocompleteSchool(term)
         public ActionResult AutocompleteSchool(string term)
         {
             var items = (from u in db.Schools select u.Name).ToArray();
@@ -308,6 +374,14 @@ namespace AplicacionBase.Controllers
                 item => item.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        /// <summary>
+        /// Permite hacer autocompletar en las vistas, consultando en la tabla de Electivas de la base de datos
+        /// </summary>
+        /// <param name="term">Termino digitado</param>
+        /// <returns>resultados de la consulta</returns>
+        #region AutocompleteElective(term)
         public ActionResult AutocompleteElective(string term)
         {
             var items = (from u in db.Electives select u.Name).ToArray();
@@ -315,6 +389,14 @@ namespace AplicacionBase.Controllers
                 item => item.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        /// <summary>
+        /// Permite hacer autocompletar en las vistas, consultando en la tabla de Tesis de la base de datos
+        /// </summary>
+        /// <param name="term">Termino digitado</param>
+        /// <returns>resultados de la consulta</returns>
+        #region AutocompleteThesis(term)
         public ActionResult AutocompleteThesis(string term)
         {
             var items = (from u in db.Theses select u.Title).ToArray();
@@ -322,11 +404,14 @@ namespace AplicacionBase.Controllers
                 item => item.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
+        #region Dispose
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
     }
 }
