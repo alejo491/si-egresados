@@ -71,7 +71,7 @@ namespace AplicacionBase.Controllers
                 }
             }
 
-            if (likes.Count == 1) post2.Autorizado = 1;
+            if (cont == 1) post2.Autorizado = 1;
             else post2.Autorizado = 0;
 
             datos.Add(post2);
