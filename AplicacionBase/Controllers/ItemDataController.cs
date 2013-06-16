@@ -27,11 +27,26 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del reporte al que estara asociado el item</param>
         /// <returns>Retorna la vista de creacion del item</returns>
-        public ActionResult Index(Guid id)
+        public ActionResult Create(Guid id)
         {
             return View();
         }
 
+        #region Eliminar Item de Base de Datos
+
+        //
+        // GET: /itemData/Delete/5
+        /// <summary>
+        /// Da la opcion de eliminar Un item de Base de Datos
+        /// </summary>
+        /// <param name="id">Identificador del item de Base de datos a eliminar</param>
+        /// <returns></returns>
+        public ActionResult Delete(Guid id)
+        {
+            ItemData itemdata = db.ItemDatas.Find(id);
+            return View(itemdata);
+        }
+        #endregion
        
         /// <summary>
         /// Metodo post de la vista de crear item
@@ -40,7 +55,7 @@ namespace AplicacionBase.Controllers
         /// <param name="form">Valores que devuelve el formulario</param>
         /// <returns>Una reidreccion al listado de reportes si el item es correcto, o a la misma vista si no lo es</returns>
         [HttpPost]
-        public ActionResult Index(Guid  id, FormCollection form)
+        public ActionResult Create(Guid  id, FormCollection form)
         {
             ItemData item = new ItemData();
             item.Id = Guid.NewGuid();
@@ -437,6 +452,25 @@ namespace AplicacionBase.Controllers
               
 
         }
+
+        #region Eliminar Item de Base de Datos HttpPost
+        //
+        // POST: /itemdata/Delete/5
+        /// <summary>
+        /// Elimina el Item de Base de Datos al que corresponda el identificador
+        /// </summary>
+        /// <param name="id">Identificador del Item de Base de Datos a eliminar</param>
+        /// <returns></returns>
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(Guid id)
+        {
+            ItemData itemdata = db.ItemDatas.Find(id);
+            db.ItemDatas.Remove(itemdata);
+            db.SaveChanges();
+            TempData["Success"] = "Se ha Eliminado el Item correctamente";
+            return RedirectToAction("GeneralItems", "Items", new { id = itemdata.IdReport });
+        }
+        #endregion
 
         #region Ajax
 

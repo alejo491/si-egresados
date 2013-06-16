@@ -48,7 +48,8 @@
             @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
             @Html.ActionLink("Vista previa informe", "Preview", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
             @Html.ActionLink("Crear Item survey", "Create", "ItemSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
-            @Html.ActionLink("Crear Item Datos", "Index", "ItemData", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+            @Html.ActionLink("Crear Item Datos", "Create", "ItemData", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
+            @Html.ActionLink("Gestionar Items", "GeneralItems", "Items", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
             
 
 

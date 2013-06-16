@@ -8,6 +8,9 @@ namespace AplicacionBase.Models.ViewModels
 {
     public class ItemReportViewModel
     {
+        public Guid Id { get; set; }
+        public Guid IdReporte { get; set; }
+        public string Reporte { get; set; }        
         public string Sentence { get; set; }
         public string GraphicType { get; set; }
         public int ItemNumber { get; set; }

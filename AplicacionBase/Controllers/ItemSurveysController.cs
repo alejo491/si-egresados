@@ -168,7 +168,7 @@ namespace AplicacionBase.Controllers
             db.ItemSurveys.Remove(itemsurvey);
             db.SaveChanges();
             TempData["Success"] = "Se ha Eliminado el Item correctamente";
-            return RedirectToAction("Index", new { id = itemsurvey.IdReport });
+            return RedirectToAction("GeneralItems","Items", new { id = itemsurvey.IdReport });
         }
         #endregion
       

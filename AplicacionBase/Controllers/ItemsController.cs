@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using AplicacionBase.Models.ViewModels;
 
 namespace AplicacionBase.Controllers
 {
@@ -21,6 +22,52 @@ namespace AplicacionBase.Controllers
               var items = db.Items.Include(i => i.Report);
               return View(items.ToList());
           }*/
+
+        public ActionResult GeneralItems(Guid? id)
+        {
+            if (id != Guid.Empty && id != null)
+            {
+                var ListGeneralItems = new List<ItemReportViewModel>();
+                var itemsurveys = db.ItemSurveys.Where(i => i.IdReport == id);
+                var itemdata = db.ItemDatas.Where(i => i.IdReport == id);
+                var ListItemData = itemdata.ToList();
+                var ListItemSurveys = itemsurveys.ToList();
+
+                foreach(ItemSurvey itemS in ListItemSurveys)
+                {
+                    ItemReportViewModel objReport = new ItemReportViewModel();
+                    objReport.Id = itemS.Id;
+                    objReport.IdReporte = itemS.IdReport;
+                    objReport.Reporte = itemS.Report.Description;
+                    objReport.GraphicType = itemS.GraphicType;
+                    objReport.ItemNumber = Convert.ToInt32(itemS.ItemNumber);
+                    objReport.Sentence = itemS.Question;
+                    objReport.DataNumber = 0;
+                    ListGeneralItems.Add(objReport);
+                }
+
+                foreach (ItemData itemD in ListItemData)
+                {
+                    ItemReportViewModel objReport = new ItemReportViewModel();
+                    objReport.Id = itemD.Id;
+                    objReport.IdReporte = itemD.IdReport;
+                    objReport.Reporte = itemD.Report.Description;
+                    objReport.GraphicType = itemD.GraphicType;
+                    objReport.ItemNumber = Convert.ToInt32(itemD.ItemNumber);
+                    objReport.Sentence = itemD.Sentence;
+                    objReport.DataNumber = 1;
+                    ListGeneralItems.Add(objReport);
+                }
+
+                ListGeneralItems.OrderBy(ItemReportViewModel => ItemReportViewModel.ItemNumber);
+
+                return View(ListGeneralItems);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
         public ActionResult Index(Guid? id)
         {
