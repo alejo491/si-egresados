@@ -58,7 +58,7 @@ namespace AplicacionBase.Controllers
                     objReport.DataNumber = 1;
                     ListGeneralItems.Add(objReport);
                 }
-
+                ViewBag.IdReport = id;
                 ListGeneralItems.OrderBy(ItemReportViewModel => ItemReportViewModel.ItemNumber);
 
                 return View(ListGeneralItems);
