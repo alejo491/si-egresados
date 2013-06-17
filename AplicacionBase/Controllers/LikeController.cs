@@ -64,7 +64,7 @@ namespace AplicacionBase.Controllers
                 db.Likes.Add(like);
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", "Post", new { id = post});
+            return RedirectToAction("showPost", "Post", new { id = post});
         }
         #endregion
 
@@ -131,9 +131,46 @@ namespace AplicacionBase.Controllers
             db.Likes.Remove(like);
             db.SaveChanges();
 
-            return RedirectToAction("Details", "Post", new { id = post });
+            return RedirectToAction("showPost", "Post", new { id = post });
         }
         #endregion
+		
+		public ActionResult ShowPost(Guid id)
+        {
+            //Post post = db.Posts.Find(id);
+            //Guid us = (Guid)Membership.GetUser().ProviderUserKey;
+            //return View(post);
+
+            Post post = db.Posts.Find(id);
+            Post post2 = new Post();
+            IList<Post> datos = new List<Post>();
+            datos.Add(post);
+
+            AplicacionBase.Controllers.LikeController lc = new LikeController();
+            int cont = 0;
+
+            IList<Like> likes = lc.Index();
+            //bool b= (Guid)Membership.GetUser().ProviderUserKey;
+
+            if (Request.IsAuthenticated)
+            {
+                foreach (Like l in likes)
+                {
+                    if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
+                    {
+                        cont++;
+                        post2.Id = l.Id;
+                    }
+                }
+
+                if (cont == 1) post2.Autorizado = 1;
+                else post2.Autorizado = 0;
+            }
+            else post2.Autorizado = -1;
+            datos.Add(post2);
+            return View(datos);
+        }
+
 
         protected override void Dispose(bool disposing)
         {
