@@ -283,15 +283,18 @@ namespace AplicacionBase.Controllers
         public ActionResult ChangePasswordSuccess(RegisterModel model)
         {
             Boolean aux = false;
+            aspnet_Membership tem = new aspnet_Membership();
             string correo = "";
             string contra = "";
+            Guid user = new Guid();
 
             foreach (var i in db.aspnet_Membership)
             {
                 if (i.Email == model.Email)
                 {
+                    tem = i;
                     correo = i.Email;
-                    contra = i.PasswordFormat.ToString();
+                    user = i.UserId;
                     aux = true;
                 }
             }
@@ -301,8 +304,15 @@ namespace AplicacionBase.Controllers
             }
             else 
             {
-                SendHtmlFormattedEmail(correo, "Recuperacion de Contraseña", contra);
-                TempData["Email"] = "Correo enviado satisfactoriamente";
+                aspnet_Users userr = db.aspnet_Users.Find(user);
+                string usuario = userr.UserName.ToString();
+                string subject = "SISTEMA CONTROL DE EGRESADOS UNICAUCA, recuperación de contraseña";
+                MembershipUser userM = Membership.GetUser(usuario);
+                String pass = userM.ResetPassword();
+                userM.ChangePassword(tem.Password, pass);
+                string body = "Hola: " + usuario + " su nueva contraseña es: " + pass + " le recomendamos cambiarla";
+                SendHtmlFormattedEmail(correo, subject, body);              
+                TempData["Email"] = "Se envió un correo a su cuenta: " + tem.Email + "  con la nueva contraseña. Verifique.";
             }
             return View(model);
         }

@@ -47,7 +47,7 @@ namespace AplicacionBase.Controllers
             }
             else
             {
-                return RedirectToAction("Begin", "User");
+                return RedirectToAction("Begin", "User", new RouteValueDictionary(new { controller = "User", action = "Begin", Id = id }));
             }
         }
         #endregion 
@@ -60,8 +60,9 @@ namespace AplicacionBase.Controllers
         /// <param name="id">Id del estudio</param>
         /// <returns>Vista para consultar los datos de un estudio</returns>
         #region details(id)
-        public ViewResult Details(Guid id)
+        public ViewResult Details(Guid id, Guid idUser)
         {
+            ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             return View(study);
         }
@@ -77,6 +78,7 @@ namespace AplicacionBase.Controllers
         #region Create(id)
         public ActionResult Create(Guid id)
         {
+            ViewBag.UserId = id;
             User user = db.Users.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Name");
@@ -97,6 +99,7 @@ namespace AplicacionBase.Controllers
         #region create(form, id)
         public ActionResult Create(FormCollection form, Guid id)
         {
+            ViewBag.UserId = id;
             var IdUser = id;
             Study study = new Study();
             Thesis Tesis = new Thesis();
@@ -127,9 +130,9 @@ namespace AplicacionBase.Controllers
                         study.IdSchool = school.Id;
                     }
                 }
-                if (key.Contains("Programas"))
+                if (key.Contains("programas"))
                 {
-
+                    study.Programs = form[key];
                 }
                 if (key.Contains("Grade"))
                 {
@@ -204,8 +207,9 @@ namespace AplicacionBase.Controllers
         /// <param name="id">Id del estudio</param>
         /// <returns>Vista que despliega el formulario con los datos para editarlos</returns>
         #region Edit(id)
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(Guid id, Guid idUser)
         {
+            ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
             ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
@@ -233,6 +237,7 @@ namespace AplicacionBase.Controllers
         #region Edit(id, study, form)
         public ActionResult Edit(Guid id, Study study, FormCollection form)
         {
+            ViewBag.userId = id;
             var last = db.Studies.Find(id);
             var s = study.School.Name;
             var flag = false;
@@ -253,13 +258,15 @@ namespace AplicacionBase.Controllers
                 last.IdSchool = newid;
             }
 
-            // falta lo de programa
-
             last.Grade = study.Grade;
 
             last.Electives.Clear();
             foreach (String key in form)
             {
+                if (key.Contains("programas"))
+                {
+                    last.Programs = form[key];
+                }
                 if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") || key.Contains("Elective4") || key.Contains("Elective5"))
                 {
                     if (form[key].Length != 0)
@@ -325,9 +332,10 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del estudio</param>
         /// <returns>Vista que despliega el formulario con los datos para eliminar</returns>
-        #region Delete(id)
-        public ActionResult Delete(Guid id)
+        #region Delete(id, idUser)
+        public ActionResult Delete(Guid id, Guid idUser)
         {
+            ViewBag.IdUser = idUser;
             Study study = db.Studies.Find(id);
             return View(study);
         }
@@ -342,21 +350,14 @@ namespace AplicacionBase.Controllers
         /// <param name="form">formulario con la información digitada</param>
         /// <returns></returns>
         [HttpPost, ActionName("Delete")]
-        #region Delete(id)
-        public ActionResult DeleteConfirmed(Guid id)
+        #region Delete(id, idUser)
+        public ActionResult DeleteConfirmed(Guid id, Guid idUser)
         {
+            ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             db.Studies.Remove(study);
             db.SaveChanges();
-            Guid g = System.Guid.Empty;
-            foreach (var e in db.aspnet_Users)
-            {
-                if (e.UserName == HttpContext.User.Identity.Name)
-                {
-                    g = e.UserId;
-                }
-            }
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = g }));
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = idUser }));
         }
         #endregion
 
