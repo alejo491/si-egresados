@@ -35,9 +35,6 @@
     </div>
     <br/>
     <br/>
-    @if (Model.ElementAt(1).Autorizado==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
-    @if (Model.ElementAt(1).Autorizado==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
-   @* @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })*@
 </fieldset>
 <div>
     @Html.ActionLink("Editar", "Edit", new { id = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton blue" }) 

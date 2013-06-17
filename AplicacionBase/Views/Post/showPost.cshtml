@@ -1,12 +1,23 @@
-﻿@model AplicacionBase.Models.Post
+﻿@model ICollection<AplicacionBase.Models.Post> 
 
 @{
-    ViewBag.Title = "Show Noticia";
+    ViewBag.Title = "Detalles";
 }
 
 <div class="center">
     <div class="display-field">
-        <div class="shownoticiatitle"><h2>@Html.DisplayFor(model => model.Title)</h2>
+    
+     <div id="startbox">
+        <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="calificar(1,  2)"></div>
+        <div class="startunselected" id="star2" onmouseover="hover(2)" onmouseout="unhover()" onclick="calificar(2,  2)"></div>
+        <div class="startunselected" id="star3" onmouseover="hover(3)" onmouseout="unhover()" onclick="calificar(3,  2)"></div>
+        <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,  2)"></div>
+        <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,  2)"></div>
+    </div>
+      @if (Model.ElementAt(1).Autorizado==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
+      @if (Model.ElementAt(1).Autorizado==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
+
+        <div class="shownoticiatitle"><h2>@Html.DisplayFor(model => model.ElementAt(0).Title)</h2>
             <div>
                 15 Me Gusta
                 Calificacion: <div class="startvalue">3</div>
@@ -56,27 +67,22 @@
     </div>
     </div>
     <br /><br />
-
-   
     <div class="display-field" align="justify">
         <span style="color: black;">Contenido :</span> 
-        @Html.DisplayFor(model => model.Content)
+        @Html.DisplayFor(model => model.ElementAt(0).Content)
     </div>
-
-
     <div class="display-field">
-        <span style="color: black;">publicado por : </span>
-        @Html.DisplayFor(model => model.User.FirstNames)
-        @Html.DisplayFor(model => model.User.LastNames)
+        <span style="color: black;">Publicado por : </span>
+        @Html.DisplayFor(model => model.ElementAt(0).User.FirstNames)
+        @Html.DisplayFor(model => model.ElementAt(0).User.LastNames)
     </div>
     <div class="display-field">
         <span style="color: black;">Fecha de Publicación :</span> 
-        @Html.DisplayFor(model => model.PublicationDate)
+        @Html.DisplayFor(model => model.ElementAt(0).PublicationDate)
     </div>
     <div class="display-field">
         <span style="color: black;">Última Modificación :</span>
-        @Html.DisplayFor(model => model.UpdateDate)
+        @Html.DisplayFor(model => model.ElementAt(0).UpdateDate)
     </div>
 </div>
-
 <script type="text/javascript">    create_carrucel(2);</script>
