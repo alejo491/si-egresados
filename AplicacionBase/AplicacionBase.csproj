@@ -248,6 +248,9 @@
     <Compile Include="Models\vw_aspnet_WebPartState_Shared.cs" />
     <Compile Include="Models\vw_aspnet_WebPartState_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\themes\base\images\starselected.png" />
+    <Content Include="Content\themes\base\images\starunselected.png" />
+    <Content Include="Scripts\startox.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\main.css" />
@@ -614,6 +617,7 @@
     <Content Include="Views\Items\GeneralItems.cshtml" />
     <Content Include="Views\ItemData\Crear.cshtml" />
     <Content Include="Views\ItemData\Create.cshtml" />
+    <Content Include="Views\Post\showPost.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

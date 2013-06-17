@@ -1,0 +1,82 @@
+﻿@model AplicacionBase.Models.Post
+
+@{
+    ViewBag.Title = "Show Noticia";
+}
+
+<div class="center">
+    <div class="display-field">
+        <div class="shownoticiatitle"><h2>@Html.DisplayFor(model => model.Title)</h2>
+            <div>
+                15 Me Gusta
+                Calificacion: <div class="startvalue">3</div>
+            </div>
+        </div>
+    </div>
+     <div id="carrucel-main" class="Carrucel">
+        <div class="ContentCarrucel" id="Content">    
+            <div class="NodeCarrucel" id="Node1" >
+                <div class="inner">
+                    <div class="fondo_noticia">
+                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
+                    </div>
+                    <div class="noticia">
+                    </div>   
+                </div>                                               
+            </div>                        
+               
+            <div class="NodeCarrucelUnselected" id="Node2" > 
+                <div class="inner"> 
+                    <div class="fondo_noticia">
+                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
+                    </div>
+                    <div class="noticia">                       
+                    </div>                                                  
+                </div>
+            </div>              
+    </div>
+    <div class="Controls">
+        @{
+            @Html.ActionLink("<<<", "", new { }, htmlAttributes: new { @class = "Back", @id = "BackCarrucel", @onclick = "Back()", @href = "javascript:void(0);" })
+            @Html.ActionLink(">>>", "", new { }, htmlAttributes: new { @class = "Next", @id = "NextCarrucel", @onclick = "Next()", @href = "javascript:void(0);" })
+            
+            string a;}            
+            @for (var i = 1;  i < 3; i++)
+            {
+                a = "A" + i;
+                if (i == 1)
+                {
+                    @Html.ActionLink(i.ToString(), "", new { }, htmlAttributes: new { @class = "ASelected", @id = a, @onclick = "goToPosition('" + i + "')", @href = "javascript:void(0);" })                                          
+                }
+                else
+                { 
+                    @Html.ActionLink(i.ToString(), "", new { }, htmlAttributes: new { @class = "Position", @id = a, @onclick = "goToPosition('" + i + "')", @href = "javascript:void(0);" })                                                                         
+                }
+            } 
+    </div>
+    </div>
+    <br /><br />
+
+   
+    <div class="display-field" align="justify">
+        <span style="color: black;">Contenido :</span> 
+        @Html.DisplayFor(model => model.Content)
+    </div>
+
+
+    <div class="display-field">
+        <span style="color: black;">publicado por : </span>
+        @Html.DisplayFor(model => model.User.FirstNames)
+        @Html.DisplayFor(model => model.User.LastNames)
+    </div>
+    <div class="display-field">
+        <span style="color: black;">Fecha de Publicación :</span> 
+        @Html.DisplayFor(model => model.PublicationDate)
+    </div>
+    <div class="display-field">
+        <span style="color: black;">Última Modificación :</span>
+        @Html.DisplayFor(model => model.UpdateDate)
+    </div>
+</div>
+
+<script type="text/javascript">    create_carrucel(2);</script>
