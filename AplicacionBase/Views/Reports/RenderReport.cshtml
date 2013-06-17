@@ -213,9 +213,6 @@
 
 
 <p>
-    @Html.ActionLink("Generar PDF", "Reporte", null, htmlAttributes: new { @class = "ebutton blue" })
-</p>
-<p>
     <input type="button" value="Imprimir" id="btnImprimir" class="ebutton blue" />
 </p>
 
@@ -232,11 +229,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btnImprimir').click(function () {
-            $('#impresion').printElement({ overrideElementCSS: [
-		'Site.css',
-		{ href: '@Url.Content("~/Content/Site.css")', media: 'print'}],
-                pageTitle: '@ViewBag.ReportName'
-            });
+            window.print();
         });
     });
 </script>
