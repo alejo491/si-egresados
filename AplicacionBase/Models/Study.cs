@@ -15,6 +15,9 @@ namespace AplicacionBase.Models
         [DisplayName("Institución")]
         public System.Guid IdSchool { get; set; }
 
+        [DisplayName("Programa")]
+        public System.String Programs { get; set; }
+
         public System.Guid IdUser { get; set; }
 
         [DisplayName("Título")]

@@ -6,7 +6,7 @@
 
 <h2>Eliminar Estudios</h2>
 
-<h3>¿Está seguro de eliminar un studio?</h3>
+<h3>¿Está seguro de eliminar este studio?</h3>
 <fieldset>
     <legend>Estudio</legend>
 
@@ -37,7 +37,8 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Regresar", "Index")
+       
+        <input type="submit" value="Eliminar" class="ebutton blue"/> &nbsp
+        @Html.ActionLink("Regresar", "Index", "Study", new { id = ViewBag.IdUser }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }

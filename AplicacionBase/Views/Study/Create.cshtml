@@ -1,6 +1,7 @@
 ﻿@using System.Collections.Specialized
 @{
     ViewBag.Title = "Create";
+    
 }
 
 <script type="text/javascript">
@@ -234,7 +235,7 @@
 
     <div class="c12">
     
-        <div class="c9 first" id="contenido">
+        <div>
         
             <div id="fields">
                 @using (Html.BeginForm())
@@ -397,6 +398,13 @@
                            @*@Html.TextBoxFor(model => model.EndDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtEndDate" })*@
                         </div>
                     <div> 
+                    @{
+                        //var n = new DateTime();
+                        //TimeSpan t = new TimeSpan();
+                        //datetime DateTime.Now.Date;
+                        //var tt = n.Subtract(n);
+                        //var b = DateTime.TryParse("12jsdajfjsdgds", out n);
+                        }
                         <div class="editor-label">
                             <h3>Tesis</h3>
                         </div>
@@ -412,9 +420,10 @@
                     &nbsp
                     </div>
                         <div>
+                            
                             <input type="submit" value="Crear" class="ebutton blue"/>
-                            @Html.ActionLink("Regresar", "Index", "", htmlAttributes: new { @class = "ebutton blue" })
-                        </div>
+                            @Html.ActionLink("Regresar", "Index", "Study", new { id = ViewBag.UserId }, htmlAttributes: new { @class = "ebutton blue" })
+                       </div>
                 }
             </div>
         </div>

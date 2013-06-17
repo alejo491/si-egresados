@@ -56,6 +56,7 @@ namespace AplicacionBase.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Dirección de correo electrónico")]
+        [RegularExpression(@"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", ErrorMessage = " No tiene el formato de un correo electrónico")]
         public string Email { get; set; }
 
         [Required]

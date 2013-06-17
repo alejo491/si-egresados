@@ -15,6 +15,11 @@
         @Html.DisplayFor(model => model.School.Name)
     </div>
 
+    <div class="display-label">Programa</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Programs)
+    </div>
+
     <div class="display-label">Usuario</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.User.FirstNames)&nbsp;
@@ -64,6 +69,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
-    @Html.ActionLink("Regresar", "Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = Model.IdUser }), htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id, idUser = ViewBag.UserId }, htmlAttributes: new { @class = "ebutton blue" }) 
+    @Html.ActionLink("Regresar", "Index", new {id = ViewBag.UserId }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
