@@ -881,7 +881,7 @@ ebutton2:hover, ebutton2:active{
 .btnlike
 {
 	background: #0a256c url(themes/base/images/mg.jpg) no-repeat 0 0;
-	width: 111px;
+	width: 130px;
 	height: 30px;
 	float: left;
 }
@@ -889,7 +889,7 @@ ebutton2:hover, ebutton2:active{
 .btnnolike
 {
 	background: #0a256c url(themes/base/images/nmg.jpg) no-repeat 0 0;
-	width: 111px;
+	width: 130px;
 	height: 30px;
 	float: left;
 }
