@@ -249,7 +249,13 @@ namespace AplicacionBase.Controllers
 
         }
 
-     
+        public ActionResult AutocompleteCompanies(string term)
+        {
+            var items = (from u in db.Companies select u.Name).ToArray();
+            var filteredItems = items.Where(
+                item => item.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
+            return Json(filteredItems, JsonRequestBehavior.AllowGet);
+        }
       
        
     }
