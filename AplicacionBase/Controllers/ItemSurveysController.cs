@@ -5,7 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
@@ -38,6 +37,7 @@ namespace AplicacionBase.Controllers
         /// <returns></returns>
         public ActionResult Create(Guid id)
         {
+            TempData["idr"] = id;
             return View();
         }
         #endregion
@@ -71,12 +71,12 @@ namespace AplicacionBase.Controllers
                 string question = "";
                 foreach (string v in postedForm)
                 {
-                    if (v.StartsWith("surveysfield"))
+                    if (v.StartsWith("IdSurvey"))
                     {
                         idSurvey = new Guid(postedForm[v]);
 
                     }
-                    if (v.StartsWith("topicsfield"))
+                    if (v.StartsWith("IdTopic"))
                     {
                         idTopic = new Guid(postedForm[v]);
                     }
@@ -108,12 +108,11 @@ namespace AplicacionBase.Controllers
                     db.ItemSurveys.Add(itenSurvey);
                     db.SaveChanges();
                     TempData["Success"] = "El Item se ha Creado  correctamente";
-                    return RedirectToAction("GeneralItems", "Items", new { @id = id });
+                    return RedirectToAction("Index", new { id = id });
                 }
                 else
                 {
                     TempData["Success"] = "El Item se ha Creado !!!";
-                    
                 }
              return View(itenSurvey);
             }
@@ -171,7 +170,7 @@ namespace AplicacionBase.Controllers
             db.ItemSurveys.Remove(itemsurvey);
             db.SaveChanges();
             TempData["Success"] = "Se ha Eliminado el Item correctamente";
-            return RedirectToAction("GeneralItems","Items", new { id = itemsurvey.IdReport });
+            return RedirectToAction("Index", new { id = itemsurvey.IdReport });
         }
         #endregion
       
