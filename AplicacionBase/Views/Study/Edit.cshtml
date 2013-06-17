@@ -9,8 +9,13 @@
     var electivas4 = electivas3 - 1;
     var electivas5 = electivas4 - 1;
     var titulo = Model.Thesis;
-    
-    
+
+    var wizard = ViewBag.WizardStep;
+
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }  
 }
 
 <script type="text/javascript">

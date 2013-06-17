@@ -33,10 +33,12 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del usuario</param>
         /// <param name="page">Paginación</param>
+        /// <param name="wizard">paso del wizard</param>
         /// <returns>Vista que contine los datos de los estudios de un usuario</returns>
         #region Index(id page)
-        public ActionResult Index(Guid id)
+        public ActionResult Index(Guid id, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             User user = db.Users.Find(id);
             if (user != null)
             {
@@ -58,10 +60,13 @@ namespace AplicacionBase.Controllers
         /// Método que carga la vista que contine los datos del estudio de un usuario
         /// </summary>
         /// <param name="id">Id del estudio</param>
+        /// <param name="idUser">Id del usuario</param>
+        /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista para consultar los datos de un estudio</returns>
         #region details(id)
-        public ViewResult Details(Guid id, Guid idUser)
+        public ViewResult Details(Guid id, Guid idUser, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             return View(study);
@@ -205,10 +210,12 @@ namespace AplicacionBase.Controllers
         /// Método que carga la vista con el formulario para editar la información de un estudio
         /// </summary>
         /// <param name="id">Id del estudio</param>
+        /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista que despliega el formulario con los datos para editarlos</returns>
         #region Edit(id)
-        public ActionResult Edit(Guid id, Guid idUser)
+        public ActionResult Edit(Guid id, Guid idUser, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
@@ -331,10 +338,12 @@ namespace AplicacionBase.Controllers
         /// Método que carga la vista con el formulario para eliminar un estudio
         /// </summary>
         /// <param name="id">Id del estudio</param>
+        /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista que despliega el formulario con los datos para eliminar</returns>
         #region Delete(id, idUser)
-        public ActionResult Delete(Guid id, Guid idUser)
+        public ActionResult Delete(Guid id, Guid idUser, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             ViewBag.IdUser = idUser;
             Study study = db.Studies.Find(id);
             return View(study);

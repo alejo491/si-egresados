@@ -15,6 +15,7 @@ namespace AplicacionBase.Models
         public System.Guid Id { get; set; }
 
         [DisplayName("Nombre de la Institución")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string Name { get; set; }
         public virtual ICollection<Study> Studies { get; set; }
     }
