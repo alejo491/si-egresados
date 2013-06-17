@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Web.Security;
 using System.Web.Routing;
-using PagedList;
+
 
 namespace AplicacionBase.Controllers
 {
@@ -24,8 +24,7 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Atributos que permite controlar la paginación de las vistas.
         /// </summary>
-        private int pageSize = 6;
-        private int pageNumber;
+       
         //
         // GET: /Study/
 
@@ -36,15 +35,15 @@ namespace AplicacionBase.Controllers
         /// <param name="page">Paginación</param>
         /// <returns>Vista que contine los datos de los estudios de un usuario</returns>
         #region Index(id page)
-        public ActionResult Index(Guid id, int? page)
+        public ActionResult Index(Guid id)
         {
             User user = db.Users.Find(id);
             if (user != null)
             {
-                pageNumber = (page ?? 1);
+               
                 ViewBag.UserId = id;
                 var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == id);
-                return View(studies.ToList().ToPagedList(pageNumber, pageSize));
+                return View(studies.ToList());
             }
             else
             {
