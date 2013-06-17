@@ -193,12 +193,6 @@ namespace AplicacionBase.Controllers
             return View(posts);
         }
 
-        public ActionResult ShowPost(Guid id)
-        {
-            Post post = db.Posts.Find(id);
-            Guid us = (Guid)Membership.GetUser().ProviderUserKey;
-            return View(post);
-        }
 		public ActionResult ShowPost(Guid id)
         {
             //Post post = db.Posts.Find(id);
