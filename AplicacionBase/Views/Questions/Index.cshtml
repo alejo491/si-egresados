@@ -73,7 +73,27 @@
                         &nbsp
                         @if (item.Type != "Larga" && item.Type != "Corta")
                         {
-                            @Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                             <div class="c1 first">
+                                                  
+                                              </div>
+                                              <div class="c1">
+                                                  <div class="boton">
+                                                      &#9660;                                       
+                                                      @*<img src="@Url.Content("~/Content/themes/base/images/more.png")"/>*@
+                                                      <div class="informa">
+                                                          <div class="contenido">
+                                                              <div class="arrow_box"></div>
+                                                              <div class="titulo">Más opciones</div>
+                                                              <ul>
+                                                                  <li class="lmenu">@Html.ActionLink("Crear Opciones Respuesta", "Index", "AnswerChoices", new { id = item.Id }, null)</li>                                                          
+                                                                  @***************MAS OPCIONES**************************************** *@
+                                                                  @*<li><a href="#">Twitter</a></li>
+                                                                  <li><a href="#">Email</a></li>*@
+                                                              </ul>	
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
                         }
                     </td>
                     @:</tr>
@@ -86,4 +106,5 @@
 &nbsp;
 </div>
 
-
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/menu.js")" type="text/javascript"></script>
