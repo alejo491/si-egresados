@@ -87,7 +87,7 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Guarda las modificaciones hechas en un like
         /// </summary>
-        /// <param name="post">Like que se modificó y que se va a actualizar en el formulario</param>
+        /// <param name="like">Like que se modificó y que se va a actualizar en el formulario</param>
         /// <returns>Retorna el like que se modificó</returns>
         [HttpPost]
         public ActionResult Edit(Like like)
@@ -122,6 +122,7 @@ namespace AplicacionBase.Controllers
         /// Elimina el like que corresponde al id
         /// </summary>
         /// <param name="id">Identificador del like</param>
+        /// <param name="post">Identificador de la noticia</param>
         /// <returns>Retorna el resultado del cambio del like</returns>
         //[HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid post, Guid id)
