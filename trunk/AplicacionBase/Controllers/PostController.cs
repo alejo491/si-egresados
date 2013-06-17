@@ -189,13 +189,15 @@ namespace AplicacionBase.Controllers
         public ActionResult ShowPosts()
         {
             var posts = db.Posts.Include(p => p.User);
-            return View();
+            //var posts = db.Posts.SqlQuery("exec dbo.Post_getPostPrincipales");
+            return View(posts);
         }
 
-        protected override void Dispose(bool disposing)
+        public ActionResult ShowPost(Guid id)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            Post post = db.Posts.Find(id);
+            Guid us = (Guid)Membership.GetUser().ProviderUserKey;
+            return View(post);
         }
 
     }

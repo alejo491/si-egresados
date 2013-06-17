@@ -1,6 +1,8 @@
-﻿@{
+﻿@model IEnumerable<AplicacionBase.Models.Post>
+@{
     Layout = "";  
 }
+
 <div id="Noticias">
     <div id="NoticiasBordeSup">
 		<div id="noticiasBordeSupIzq"></div>
@@ -12,49 +14,81 @@
                     <div id="ContenidoNoticias">
                         <h2>Noticias</h2>
                         <div id="carrucel-main" class="Carrucel">
-                            <div class="ContentCarrucel" id="Content">            
-                                    <div class="NodeCarrucel" id="Node1">
-                                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
-                                    </div>
-                                    <div class="NodeCarrucelUnselected" id="Node2">informacion 2</div>  
-                                    <div class="NodeCarrucelUnselected" id="Node3">informacion 3</div>
-                                    <div class="NodeCarrucelUnselected" id="Node4">informacion 4</div>
-                                    <div class="NodeCarrucelUnselected" id="Node5">informacion 5</div>
-                                    <div class="NodeCarrucelUnselected" id="Node6">informacion 6</div>        
+                             <div class="ContentCarrucel" id="Content">    
+                                @{
+                                    int i = 1;
+                                    string node;}            
+                                    @foreach (var item in Model)
+                                    {
+                                        node = "Node" + i;
+                                        if(i == 1){
+                                            <div class="NodeCarrucel" id=@node >
+                                                <div class="inner">
+                                                    <div class="fondo_noticia">
+                                                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
+                                                    </div>
+                                                    <div class="noticia">
+                                                        @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
+                                                        @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "abstract" })
+                                                    </div>   
+                                                </div>                                               
+                                            </div>                        
+                                        }
+                                        else{ 
+                                            <div class="NodeCarrucelUnselected" id=@node > 
+                                                <div class="inner"> 
+                                                    <div class="fondo_noticia">
+                                                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
+                                                    </div>
+                                                    <div class="noticia">
+                                                        @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
+                                                        @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "abstract" })
+                                                    </div>                                                  
+                                                </div>
+                                            </div>                                                                                                                      
+                                        }
+                                        i++;
+                                    } 
+                                   
                             </div>
                             <div class="Controls">
-                                <a href="javascript:void(0)" class="Back" id="BackCarrucel" onclick="Back();">&lt;&lt;&lt;</a>
-                                <a href="javascript:void(0)" class="Next" id="NextCarrucel" onclick="Next();">&gt;&gt;&gt;</a>
-                                <a href="javascript:void(0)" class="ASelected" id="A1" onclick="goToPosition(1);">1</a>
-                                <a href="javascript:void(0)" class="Position" id="A2" onclick="goToPosition(2);">2</a>
-                                <a href="javascript:void(0)" class="Position" id="A3" onclick="goToPosition(3);">3</a>
-                                <a href="javascript:void(0)" class="Position" id="A4" onclick="goToPosition(4);">4</a>
-                                <a href="javascript:void(0)" class="Position" id="A5" onclick="goToPosition(5);">5</a>
-                                <a href="javascript:void(0)" class="Position" id="A6" onclick="goToPosition(6);">6</a>
+                                @{
+                                    @Html.ActionLink("<<<", "", new { }, htmlAttributes: new { @class = "Back", @id = "BackCarrucel", @onclick = "Back()", @href = "javascript:void(0);" })
+                                    @Html.ActionLink(">>>", "", new { }, htmlAttributes: new { @class = "Next", @id = "NextCarrucel", @onclick = "Next()", @href = "javascript:void(0);" })
+                                    i = 1;
+                                    string a;}            
+                                    @foreach (var item in Model)
+                                    {
+                                        a = "A" + i;
+                                        if (i == 1)
+                                        {
+                                            @Html.ActionLink(i.ToString(), "", new { }, htmlAttributes: new { @class = "ASelected", @id = a, @onclick = "goToPosition('" + i + "')", @href = "javascript:void(0);" })                                          
+                                        }
+                                        else
+                                        { 
+                                            @Html.ActionLink(i.ToString(), "", new { }, htmlAttributes: new { @class = "Position", @id = a, @onclick = "goToPosition('" + i + "')", @href = "javascript:void(0);" })                                                                         
+                                        }
+                                        i++;
+                                    } 
                             </div>
                             <div class="view-content">
-                              <div class="views-row views-row-1 views-row-odd views-row-first">
-                                  <li class="postNoticias">
-	                              <span class="categoriaNoticia">Interinstitucional | </span>
-                                  <a href="/versionP/noticias/interinstitucional/servicio-social-universitario-para-entidades">Vicerrectoría de Cultura y Bienestar invita a entidades externas a contar con estudiantes voluntarios</a></li>  
-                              </div>
-                              <div class="views-row views-row-2 views-row-even">
-                                  <li class="postNoticias">
-	                              <span class="categoriaNoticia">Universidad | </span>
-                                  <a href="/versionP/noticias/universidad/se-firm%C3%B3-acuerdo-entre-empleados-p%C3%BAblicos-y-administraci%C3%B3n-universitaria">Se firmó acuerdo entre empleados públicos y administración universitaria</a></li>  
-                              </div>
-                              <div class="views-row views-row-3 views-row-odd">
-                                  <li class="postNoticias">
-	                              <span class="categoriaNoticia">Universidad | </span>
-                                  <a href="/versionP/noticias/universidad/unicauca-abrir%C3%A1-cohorte-especial-del-programa-de-derecho">Unicauca abrirá cohorte especial del Programa de Derecho</a></li>  
-                              </div>
-                              <div class="views-row views-row-4 views-row-even views-row-last">
-                                  <li class="postNoticias">
-	                              <span class="categoriaNoticia">Universidad | </span>
-                                  <a href="/versionP/noticias/universidad/museo-de-historia-natural-abre-esta-semana-sala-l%C3%BAdica">Museo de Historia Natural abre esta semana sala lúdica</a></li>  
-                              </div>
+                                 @foreach (var item in Model)
+                                 {
+                                      <div class="views-row views-row-1 views-row-odd views-row-first">
+                                          <li class="postNoticias">
+	                                      <span class="categoriaNoticia">@item.Title | </span>
+                                          @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id })                                        
+                                      </div>
+                                 }                             
                             </div>
-                            <a href="/versionP/noticias-y-actualidad" class="ebutton blue" id="btMasNoticias" title="Ver m�s noticias">Más noticias</a>               
+                            <div id="startbox">
+                                <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="calificar(1,  2)"></div>
+                                <div class="startunselected" id="star2" onmouseover="hover(2)" onmouseout="unhover()" onclick="calificar(2,  2)"></div>
+                                <div class="startunselected" id="star3" onmouseover="hover(3)" onmouseout="unhover()" onclick="calificar(3,  2)"></div>
+                                <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,  2)"></div>
+                                <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,  2)"></div>
+                            </div>
+                            <a href="/versionP/noticias-y-actualidad" class="ebutton blue" id="btMasNoticias" title="Ver más noticias">Más noticias</a>               
                         </div>
                     </div>
         </div>
@@ -65,3 +99,5 @@
         <div id="noticiasBordeInfDer"><!-- abajo der --></div>
 	</div>
 </div>
+
+<script type="text/javascript">create_carrucel(@ViewData.Model.Count());</script>

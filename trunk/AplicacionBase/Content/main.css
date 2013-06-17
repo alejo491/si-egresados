@@ -1082,6 +1082,39 @@ div .rigth
     display: none;
 }
 
+.ContentCarrucel .inner
+{
+    position: relative;
+}
+.ContentCarrucel  .fondo_noticia
+{
+    position: absolute;
+    min-width: 425px;
+    width: 549px;
+    text-align: left;
+}
+.ContentCarrucel .noticia
+{
+    position: absolute;
+    float: left;
+    z-index: 9999999;
+    min-width: 425px;
+    width: 549px;
+    text-align: left;
+    margin-top: 180px;
+    height: 45px;
+    background-color: black;
+    opacity: 0.8;
+}
+.ContentCarrucel .noticia a.title
+{
+    color: White;
+}
+.ContentCarrucel .noticia a.abstract
+{
+    font-size: small;
+    color: White;
+}
 .ContentCarrucel img
 {
     min-width: 425px;
@@ -1278,4 +1311,38 @@ background: url(themes/base/images/con-noticias-inf-der.jpg) no-repeat;
 
 li .lmenu {
     font-size: 10px;
+}
+
+.startbox
+{
+    width: 100px;
+    height: 20px;
+    background: url(themes/base/images/starselected.png) no-repeat;
+}
+
+div .startselected
+{
+    width: 20px;
+    height: 20px;
+    background: url(themes/base/images/starselected.png) no-repeat;
+    float: left;
+}
+div .startunselected
+{
+    width: 20px;
+    height: 20px;
+    background: url(themes/base/images/starunselected.png) no-repeat;
+    float: left;
+}
+
+div .startvalue
+{
+    width: 30px;
+    height: 30px;
+    background: url(themes/base/images/starselected.png) no-repeat;
+    float: none;
+}
+div .center
+{
+    text-align: center;
 }
