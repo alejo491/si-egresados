@@ -8,6 +8,18 @@ namespace AplicacionBase.Models
     {
         public System.Guid Id { get; set; }
         public System.Guid IdReport { get; set; }
+
+        /**************campos agregados para validacion**********************/
+        [Display(Name = "Encuesta")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        public System.Guid IdSurvey { get; set; }
+
+        [Display(Name = "Tema")]
+        [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        public System.Guid IdTopic { get; set; }
+        /**************************************/
+
+
        
         [Display(Name = "Pregunta")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
