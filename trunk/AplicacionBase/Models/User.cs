@@ -44,7 +44,7 @@ namespace AplicacionBase.Models
         [RegularExpression(@"[0-9]{10}", ErrorMessage = "El formato es incorrecto")]
         public string CellphoneNumber { get; set; }
 
-        [DisplayName("Fecha de Nacimiento")]
+        [DisplayName("Fecha de Nacimiento (dd/mm/yyyy)")]
 
         public Nullable<System.DateTime> BirthDate { get; set; }
 

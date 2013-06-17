@@ -12,7 +12,9 @@ namespace AplicacionBase.Models
             this.Electives = new List<Elective>();
         }
 
+        [Required]
         [DisplayName("Institución")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public System.Guid IdSchool { get; set; }
 
         [DisplayName("Programa")]
@@ -20,13 +22,16 @@ namespace AplicacionBase.Models
 
         public System.Guid IdUser { get; set; }
 
+        [Required]
         [DisplayName("Título")]
         public string Grade { get; set; }
 
-        [DisplayName("Fecha de Inicio")]
+        [Required]
+        [DisplayName("Fecha de Inicio (dd/mm/yyyy)")]
         public System.DateTime StartDate { get; set; }
 
-        [DisplayName("Fecha de Finalización")]
+        [Required]
+        [DisplayName("Fecha de Finalización (dd/mm/yyyy)")]
         public System.DateTime EndDate { get; set; }
         public System.Guid Id { get; set; }
 

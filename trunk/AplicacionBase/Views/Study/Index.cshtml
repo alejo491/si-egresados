@@ -3,12 +3,12 @@
 
 @{
     ViewBag.Title = "Index";
-
-    if ((string)Session["Wizard"] == "1")
-    {
-        Layout = "~/Views/Shared/_LayoutW.cshtml";
-
-    }
+    var wizard = ViewBag.WizardStep;
+    //if ((string)Session["Wizard"] == "1")
+        if (wizard == 1)
+        {
+            Layout = "~/Views/Shared/_LayoutW.cshtml";
+        }
 }
 
 <h2>Estudios Realizados</h2>

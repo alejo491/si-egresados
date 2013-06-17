@@ -3,6 +3,12 @@
 
 @{
     ViewBag.Title = "Detalles";
+    var wizard = ViewBag.WizardStep;
+
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <h2>Detalles</h2>
