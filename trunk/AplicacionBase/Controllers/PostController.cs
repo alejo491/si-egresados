@@ -61,18 +61,26 @@ namespace AplicacionBase.Controllers
             int cont = 0;
             
             IList<Like> likes = lc.Index();
+            //bool b= (Guid)Membership.GetUser().ProviderUserKey;
 
-            foreach (Like l in likes) 
+            if (Request.IsAuthenticated)
             {
-                if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
+                foreach (Like l in likes)
                 {
-                    cont++;
-                    post2.Id = l.Id;
+                    if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
+                    {
+                        cont++;
+                        post2.Id = l.Id;
+                    }
                 }
-            }
 
-            if (cont == 1) post2.Autorizado = 1;
-            else post2.Autorizado = 0;
+                if (cont == 1) post2.Autorizado = 1;
+                else post2.Autorizado = 0;
+            }
+            else post2.Autorizado = -1;
+            
+
+           
 
             datos.Add(post2);
             return View(datos);
