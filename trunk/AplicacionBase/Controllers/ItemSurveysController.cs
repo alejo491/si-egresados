@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
@@ -107,10 +108,12 @@ namespace AplicacionBase.Controllers
                     db.ItemSurveys.Add(itenSurvey);
                     db.SaveChanges();
                     TempData["Success"] = "El Item se ha Creado  correctamente";
+                    return RedirectToAction("GeneralItems", "Items", new { @id = id });
                 }
                 else
                 {
                     TempData["Success"] = "El Item se ha Creado !!!";
+                    
                 }
              return View(itenSurvey);
             }
