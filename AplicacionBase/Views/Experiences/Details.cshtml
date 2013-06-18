@@ -9,11 +9,11 @@
 <fieldset>
     <legend>Experiencia Laboral</legend>
 
-    <div class="display-label">Nombre Compañia</div>
+    <div class="display-label">Nombre de la Compañía</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
-    <div class="display-label">Descripcion del trabajo</div>
+    <div class="display-label">Descripción del trabajo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
@@ -30,9 +30,10 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.EndDate)
     </div>
-
-</fieldset>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Volver", "Index")
+    <br/>
+    <p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })&nbsp
+    @Html.ActionLink("Volver", "Index",null, htmlAttributes: new { @class = "ebutton blue" }) 
 </p>
+</fieldset>
+

@@ -32,7 +32,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Eliminar" /> |
-        @Html.ActionLink("Volver", "Index")
+        <input type="submit" value="Eliminar" class="ebutton blue"/> &nbsp
+        @Html.ActionLink("Volver", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }

@@ -21,15 +21,15 @@ namespace AplicacionBase.Controllers
         /// <returns>Retorna la vista con el mensaje de error.</returns>
         public ViewResult Index(string aspxerrorpath)
         {
-            
+
             if (aspxerrorpath != null)
             {
-                ViewBag.ErrorType = "La pagina "+aspxerrorpath+" no existe";
+                ViewBag.ErrorType = "La pagina " + aspxerrorpath + " no existe";
             }
             return View();
         }
 
-        /*/// <summary>
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
@@ -37,6 +37,6 @@ namespace AplicacionBase.Controllers
         {
             return View();
         }
-        */
+
     }
 }

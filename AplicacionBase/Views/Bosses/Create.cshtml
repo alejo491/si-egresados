@@ -1,10 +1,10 @@
 ﻿@model AplicacionBase.Models.Boss
 
 @{
-    ViewBag.Title = "Crear nuevo jefe";
+    ViewBag.Title = "Registrar nuevo jefe";
 }
 
-<h2>Crear</h2>
+<h2>Registrar nuevo jefe</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -14,12 +14,13 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Jefe</legend>
+        <legend>Información del Jefe</legend>
+        <p>(*) Campos Obligatorios</p>
         <TABLE BORDER=0>
             <TR>
                 <td>
                     <div class="editor-label">
-                        Nombre
+                        Nombre (*)
                     </div>
                 </td>
                 <td>
@@ -32,7 +33,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        Correo Electronico
+                        Correo Electrónico  (*)
                     </div>
                 </td>
                 <td>
@@ -45,7 +46,7 @@
             <tr>
                 <td>
                     <div class="editor-label">
-                        Telefono
+                        Teléfono de contacto
                     </div>
                 </td>
                 <td>
@@ -58,7 +59,8 @@
         <tr>
         <td>
         <p>
-            <input type="submit" value="Crear" class="ebutton blue" />
+            <input type="submit" value="Crear" class="ebutton blue" />&nbsp
+             @Html.ActionLink("Volver al listado", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
         </p>
         </td>
         </tr>
@@ -66,11 +68,6 @@
     </fieldset>
 }
 </div>
-<div class="contenido-der">
 
-</div>
-<div>
-      @Html.ActionLink("Volver al registro de vacantes", "../Vacancies/Create", null, htmlAttributes: new { @class = "ebutton blue" })
-</div>
 
 

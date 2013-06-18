@@ -57,6 +57,33 @@ namespace AplicacionBase.Controllers
 
             return View(company);
         }
+
+        //
+        // GET: /Companies/CreateForExperience
+
+        public ActionResult CreateForExperience()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Companies/CreateForExperience
+
+        [HttpPost]
+        public ActionResult CreateForExperience(Company company)
+        {
+            if (ModelState.IsValid)
+            {
+                company.Id = Guid.NewGuid();
+                db.Companies.Add(company);
+                db.SaveChanges();
+                TempData["Create"] = "Se ha ingresado correctamente la compañía!";
+                return RedirectToAction("Create", "Experiences");
+            }
+
+            return View(company);
+        }
+
         
         //
         // GET: /Companies/Edit/5

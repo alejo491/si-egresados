@@ -634,6 +634,8 @@
     <Content Include="Views\FilePost\Create.cshtml" />
     <Content Include="Views\FilePost\Edit.cshtml" />
     <Content Include="Views\FilePost\Delete.cshtml" />
+    <Content Include="Views\Companies\CreateForExperience.cshtml" />
+    <Content Include="Views\Error\ErrorDataUpdate.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
