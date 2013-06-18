@@ -1,0 +1,35 @@
+﻿@model AplicacionBase.Models.File
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>File</legend>
+
+    <div class="display-label">Patch</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Patch)
+    </div>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">Size</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Size)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
