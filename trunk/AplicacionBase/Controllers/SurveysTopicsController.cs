@@ -243,6 +243,11 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Index", new {id = ids});
         }
 
+
+        /// <summary>
+        /// Metodo dispose
+        /// </summary>
+        /// <param name="disposing">bandera dispose</param>
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
@@ -253,8 +258,7 @@ namespace AplicacionBase.Controllers
         /// Metodo que retorna una validacion si el numero para la el tema que se va a asociar a la encuesta  es único
         /// </summary>
         /// <param name="TopicNumber">Numero del tema</param>
-        /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>
-        
+        /// <returns>Verdadero si el numero no existe, falso si el numero ya existe</returns>       
         public bool  ExisteNumero(Decimal TopicNumber, Guid IdSurveys, Guid IdTopic)
         {
             var surveys = db.SurveysTopics.Where(s => s.IdSurveys == IdSurveys).Where(s => s.TopicNumber == TopicNumber);
