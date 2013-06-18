@@ -36,6 +36,8 @@
             <input type="text" name="txtCompanie" id="txtCompanie" style = "width:150px" />
             ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
         </div>
+        
+        @Html.EditorFor(model => model.IdCompanie)
 
         <div class="editor-label">
             Cargo ofrecido
