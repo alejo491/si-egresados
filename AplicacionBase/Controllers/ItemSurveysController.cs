@@ -108,7 +108,7 @@ namespace AplicacionBase.Controllers
                     db.ItemSurveys.Add(itenSurvey);
                     db.SaveChanges();
                     TempData["Success"] = "El Item se ha Creado  correctamente";
-                    return RedirectToAction("Index", new { id = id });
+                    return RedirectToAction("../Items/GeneralItems", new { id = id });
                 }
                 else
                 {
@@ -170,7 +170,8 @@ namespace AplicacionBase.Controllers
             db.ItemSurveys.Remove(itemsurvey);
             db.SaveChanges();
             TempData["Success"] = "Se ha Eliminado el Item correctamente";
-            return RedirectToAction("Index", new { id = itemsurvey.IdReport });
+            return RedirectToAction("../Items/GeneralItems", new { id = itemsurvey.IdReport });
+           // return RedirectToAction("../Items/GeneralItems", new { id = id });
         }
         #endregion
       

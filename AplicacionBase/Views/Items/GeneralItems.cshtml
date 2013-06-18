@@ -50,11 +50,11 @@
         <td>
             @if(item.DataNumber == 0)
             {
-                @Html.ActionLink("Eliminar", "Delete", "ItemSurveys", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                @Html.ActionLink(" ", "Delete", "ItemSurveys", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
             }
-            @if(item.DataNumber == 1)
+            @if (item.DataNumber == 1)
             {
-                @Html.ActionLink("Eliminar", "Delete", "ItemData", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                @Html.ActionLink(" ", "Delete", "ItemData", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
             }
             
         </td>
