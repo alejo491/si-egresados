@@ -1,7 +1,12 @@
 ﻿@using System.Collections.Specialized
 @{
     ViewBag.Title = "Create";
-    
+    var wizard = ViewBag.WizardStep;
+    //if ((string)Session["Wizard"] == "1")
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <script type="text/javascript">
