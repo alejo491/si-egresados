@@ -6,7 +6,7 @@
 
 <h2>Borrar</h2>
 
-<h3>¿Está seguro de que quiere borrar Jefe?</h3>
+<h3>¿Está seguro de que quiere borrar este Jefe?</h3>
 <fieldset>
     <legend>Jefe</legend>
 
@@ -28,7 +28,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Borrar" /> |
-        @Html.ActionLink("Volver a la lista", "Index")
+        <input type="submit" value="Borrar" class="ebutton blue"/> &nbsp
+        @Html.ActionLink("Volver a la lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }

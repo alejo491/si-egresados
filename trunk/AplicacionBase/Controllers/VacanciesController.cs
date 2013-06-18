@@ -15,7 +15,7 @@ namespace AplicacionBase.Controllers
     public class VacanciesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
-        private int pageSize = 2;
+        private int pageSize = 10;
         private int pageNumber;
 
         //! Renderiza la pagina principal de vacantes

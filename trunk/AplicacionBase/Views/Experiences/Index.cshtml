@@ -11,19 +11,19 @@
 <table>
     <tr>
         <th>
-            Nombre Compañia
+            Compañía donde laboró
         </th>
         <th>
-            Cargo
+            Descripción de la labor ejercida
         </th>
         <th>
-            Fecha Inicio
+           Cargo desempeñando
         </th>
         <th>
-            Fecha Finalización
+            Fecha de Inicio
         </th>
         <th>
-            Descripción
+            Fecha de finalización
         </th>       
         <th>Acciones</th>
     </tr>
@@ -47,9 +47,9 @@
         </td>
         
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Ver", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })  &nbsp
+            @Html.ActionLink("Ver", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })  &nbsp
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
         </td>
     </tr>
 }

@@ -34,12 +34,20 @@
         </div>
 
         <div class="editor-label">
-            Fecha Finalizaciósn de Trabajo
+            Fecha Finalización de Trabajo
         </div>
+        
         <div class="editor-field">
             @Html.EditorFor(model => model.EndDate)
             @Html.ValidationMessageFor(model => model.EndDate)
         </div>
+
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  $("#endDate").datepicker({ dateFormat: 'dd/mm/yy' });
+                  $("#startDate").datepicker({ dateFormat: 'dd/mm/yy' });
+              });
+        </script>
 
         <div class="editor-label">
             Descripción
@@ -56,18 +64,13 @@
             @Html.DropDownList("IdCompanie", String.Empty)
             @Html.ValidationMessageFor(model => model.IdCompanie)
         </div>
-
+        <br/>
         <p>
-            <input type="submit" value="Actualizar" />
+            <input type="submit" value="Actualizar" class ="ebutton blue"/>&nbsp
+              @Html.ActionLink("Volver a la lista", "Index",null, htmlAttributes: new { @class = "ebutton blue" })  
         </p>
     </fieldset>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#closingdate").datepicker({ dateFormat: 'dd/mm/yy' });
-        });
-    </script>
+      
+   
 }
 
-<div>
-    @Html.ActionLink("Volver a la lista", "Index")
-</div>

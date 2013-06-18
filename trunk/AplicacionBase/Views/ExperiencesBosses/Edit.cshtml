@@ -56,12 +56,11 @@
                 $("#endDate").datepicker({ dateFormat: 'dd/mm/yy' });
             });
     </script>
+    <br/>
         <p>
-            <input type="submit" value="Actualizar" />
+            <input type="submit" value="Actualizar"  class="ebutton blue"/>
+             @Html.ActionLink("Volver", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
         </p>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Volver", "Index")
-</div>

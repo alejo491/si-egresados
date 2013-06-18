@@ -10,17 +10,17 @@
 <fieldset>
     <legend>Experiencia Laboral</legend>
 
-    <div class="display-label">Nombre Compañia</div>
+    <div class="display-label">Nombre Compañía</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
 
-    <div class="display-label">Descripcion</div>
+    <div class="display-label">Descripción</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
     </div>
 
-    <div class="display-label">Charge</div>
+    <div class="display-label">Cargo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Charge)
     </div>
@@ -38,7 +38,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Eliminar" /> |
-        @Html.ActionLink("Volver a la Lista", "Index")
+        <input type="submit" value="Eliminar" class="ebutton blue"/> 
+        @Html.ActionLink("Volver a la Lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" }) 
     </p>
 }
