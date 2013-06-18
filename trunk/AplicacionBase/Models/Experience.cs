@@ -20,12 +20,12 @@ namespace AplicacionBase.Models
 
         [Required(ErrorMessage = "Por favor ingrese esta fecha")]
         [Display(Name = "Fecha de Inicio")]
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:D}")]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:d}")]
         public System.DateTime StartDate { get; set; }
 
         [Required(ErrorMessage = "Por favor ingrese esta fecha")]
         [Display(Name = "Fecha de Finalización")]
-        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:D}")]
+        [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:d}")]
         public System.DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Por favor ingrese una descripción")]
