@@ -74,8 +74,19 @@
                 }
 
                 </table>
+                  <div class="c12">
+        <h2> </h2>
+        <h2> </h2>
+        
 
+        @*<div class="validation-summary-success">@TempData["Success"]</div>*@
+
+        <p>
+            @Html.ActionLink("Regresar al Listado de Preguntas", "../Questions/Index", new { id = ViewBag.Question.IdTopic }, htmlAttributes: new { @class = "ebutton blue" })
+        </p>
+    </div>
         </div>
+
         <div class="c3 last">@Html.Partial("_LayoutSideBar")</div>
     </div>
     &nbsp;

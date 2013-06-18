@@ -26,6 +26,7 @@ namespace AplicacionBase.Models
 
         [Display(Name = "Valor Cuantitativo")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [Range(1, double.MaxValue)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
         public decimal NumericValue { get; set; }
 
@@ -36,6 +37,7 @@ namespace AplicacionBase.Models
         [Display(Name = "Número de Orden")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
+        [Range(1, double.MaxValue)]
         public decimal AnswerNumber { get; set; }
 
         public virtual Question Question { get; set; }

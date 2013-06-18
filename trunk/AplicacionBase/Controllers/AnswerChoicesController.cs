@@ -98,6 +98,36 @@ namespace AplicacionBase.Controllers
                 
                 answerChoice.Id = Guid.NewGuid();
                 answerChoice.IdQuestion = new Guid(""+id);
+                if (answerChoice.AnswerNumber < 1)
+                {
+                    if (answerChoice.AnswerNumber == 0)
+                    {
+                        answerChoice.AnswerNumber = 1;
+
+                    }
+                    else
+                    {
+                        answerChoice.AnswerNumber = answerChoice.AnswerNumber * -1;
+                    }
+
+                }
+
+                
+                    if (answerChoice.NumericValue < 1)
+                {
+                    if (answerChoice.NumericValue == 0)
+                    {
+                        answerChoice.NumericValue = 1;
+
+                    }
+                    else
+                    {
+                        answerChoice.NumericValue = answerChoice.NumericValue * -1;
+                    }
+
+
+
+                }
                 var questions = (Question)db.Questions.Find(id);                
                 bool existeNumero = ExisteNumero(answerChoice.AnswerNumber, answerChoice.IdQuestion, answerChoice.Id);
 				if(existeNumero)

@@ -32,6 +32,8 @@ namespace AplicacionBase.Models
         [Display(Name = "Numero de Item")]
         [Required(ErrorMessage = " ¡El campo es obligatorio y debe ser Numerico!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
+        [Range(1,double.MaxValue)]
+       
         public decimal ItemNumber { get; set; }
 
         public string SQLQuey { get; set; }
