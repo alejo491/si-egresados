@@ -524,7 +524,7 @@ namespace AplicacionBase
                     //Se configuran las reglas de acceso para el controlador Study.
                     configuration.For<StudyController>(x => x.Index(default(Guid), 0)).RequireAnyRole(rolesStudyIndex);
 
-                    configuration.For<StudyController>(x => x.Create(default(Guid))).RequireAnyRole(rolesStudyCreate);
+                    configuration.For<StudyController>(x => x.Create(default(Guid), 0)).RequireAnyRole(rolesStudyCreate);
 
                     configuration.For<StudyController>(x => x.Edit(default(Guid), default(Guid), 0)).RequireAnyRole(rolesStudyEdit);
 
