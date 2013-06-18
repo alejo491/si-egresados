@@ -183,16 +183,24 @@ namespace AplicacionBase.Controllers
                 db.Entry(question).State = EntityState.Modified;
 
                 bool existeNumero = ExisteNumero(question.QuestionNumber, question.IdTopic, question.Id);
+                TempData["Error2"] = "";
+                
                 if (!existeNumero)
                 {
                     var question_ = db.Questions.Find(idQ);
                     var auxTopic = db.Topics.Find(idT);
-                    
+                    ViewBag.Topic = auxTopic;
+
+                    if (question.QuestionNumber < 0)
+                    {
+                        TempData["Error2"] = "El número de pregunta no puede ser negativo";
+                        return View();
+                    }
 
                     if (question_ != null || auxTopic != null)
                     {
                         //ViewBag.IdTopic = new SelectList(db.Topics, "Id", "Description", question.IdTopic);
-                        ViewBag.Topic = auxTopic;
+ 
                         TempData["Error2"] = "Este número ya ha sido asignado a otra pregunta";
                         return View(question);
                     }
