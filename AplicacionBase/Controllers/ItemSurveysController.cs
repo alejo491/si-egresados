@@ -60,6 +60,18 @@ namespace AplicacionBase.Controllers
                 try
                 {
                     numPagina = Convert.ToInt32(postedForm[4]);
+                    if (numPagina < 1) {
+                        if (numPagina == 0)
+                        {
+                            numPagina = 1;
+
+                        }
+                        else {
+                            numPagina = numPagina * -1;
+                        }
+                        
+
+                    }
                 }
                 catch (Exception e)
                 {
