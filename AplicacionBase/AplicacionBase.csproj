@@ -89,6 +89,8 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ExperiencesBossesController.cs" />
     <Compile Include="Controllers\ExperiencesController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\FilePostController.cs" />
     <Compile Include="Controllers\FillSurveyController.cs" />
     <Compile Include="Controllers\ItemDataController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -125,6 +127,8 @@
     </Compile>
     <Compile Include="Models\ConsultaGeneral.cs" />
     <Compile Include="Models\Field.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\FilesPost.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\GroupOption.cs" />
     <Compile Include="Models\ItemData.cs" />
@@ -132,6 +136,8 @@
     <Compile Include="Models\Like.cs" />
     <Compile Include="Models\Mapping\ConsultaGeneralMap.cs" />
     <Compile Include="Models\Mapping\FieldMap.cs" />
+    <Compile Include="Models\Mapping\FileMap.cs" />
+    <Compile Include="Models\Mapping\FilesPostMap.cs" />
     <Compile Include="Models\Mapping\FilterMap.cs" />
     <Compile Include="Models\Mapping\GroupOptionMap.cs" />
     <Compile Include="Models\Mapping\ItemDataMap.cs" />
@@ -618,6 +624,16 @@
     <Content Include="Views\ItemData\Crear.cshtml" />
     <Content Include="Views\ItemData\Create.cshtml" />
     <Content Include="Views\Post\showPost.cshtml" />
+    <Content Include="Views\File\Index.cshtml" />
+    <Content Include="Views\File\Details.cshtml" />
+    <Content Include="Views\File\Create.cshtml" />
+    <Content Include="Views\File\Edit.cshtml" />
+    <Content Include="Views\File\Delete.cshtml" />
+    <Content Include="Views\FilePost\Index.cshtml" />
+    <Content Include="Views\FilePost\Details.cshtml" />
+    <Content Include="Views\FilePost\Create.cshtml" />
+    <Content Include="Views\FilePost\Edit.cshtml" />
+    <Content Include="Views\FilePost\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
