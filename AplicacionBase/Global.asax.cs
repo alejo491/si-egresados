@@ -628,8 +628,183 @@ namespace AplicacionBase
 
                     #endregion
 
+                    #region Reglas de seguridad del controlador Vacancies
+                    
+                    //Se obtienen los roles que tienen acceso al controlador Vacancies y a los métodos de este controlador.
+                    string[] rolesVacanciesIndex = assembly.GetRolesMethods("VacanciesController", "Index");
+
+                    var rolesVacanciesCreate = assembly.GetRolesMethods("VacanciesController", "Create");
+                    var rolesVacanciesDetails = assembly.GetRolesMethods("VacanciesController", "Details");
+                    var rolesVacanciesEdit = assembly.GetRolesMethods("VacanciesController", "Edit");
+                    var rolesVacanciesDelete = assembly.GetRolesMethods("VacanciesController", "Delete");
+                    var rolesVacanciesDeleteConfirmed = assembly.GetRolesMethods("VacanciesController", "DeleteConfirmed");
+                    var rolesVacanciesSearch = assembly.GetRolesMethods("VacanciesController", "Search");
+                
+                    
+                    //Se configuran las reglas de acceso para el controlador Vacancies.
+
+                    configuration.For<VacanciesController>(x => x.Index(default(int)))
+                                .RequireAnyRole(rolesVacanciesIndex);
+
+                    
+                    configuration.For<VacanciesController>(x => x.Create())
+                                 .RequireAnyRole(rolesVacanciesCreate);
+
+                    configuration.For<VacanciesController>(x => x.Details(default(Guid)))
+                                  .RequireAnyRole(rolesVacanciesDetails);
+
+                    configuration.For<VacanciesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesEdit);
+
+                    configuration.For<VacanciesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesDelete);
+
+                    configuration.For<VacanciesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesDeleteConfirmed);
+
+                    configuration.For<VacanciesController>(x => x.Search(default(string), default(int)))
+                                 .RequireAnyRole(rolesVacanciesSearch);
+              
                     #endregion
-                    //****************************************************************************************************//
+
+                    #region Reglas de seguridad del controlador Companies
+
+                    //Se obtienen los roles que tienen acceso al controlador Companies y a los métodos de este controlador.
+                    string[] rolesCompaniesIndex = assembly.GetRolesMethods("CompaniesController", "Index");
+
+                    var rolesCompaniesCreate = assembly.GetRolesMethods("CompaniesController", "Create");
+                    var rolesCompaniesDetails = assembly.GetRolesMethods("CompaniesController", "Details");
+                    var rolesCompaniesEdit = assembly.GetRolesMethods("CompaniesController", "Edit");
+                    var rolesCompaniesDelete = assembly.GetRolesMethods("CompaniesController", "Delete");
+                    var rolesCompaniesDeleteConfirmed = assembly.GetRolesMethods("CompaniesController", "DeleteConfirmed");
+                   
+                    //Se configuran las reglas de acceso para el controlador Companies.
+
+                    configuration.For<CompaniesController>(x => x.Index())
+                                .RequireAnyRole(rolesCompaniesIndex);
+
+
+                    configuration.For<CompaniesController>(x => x.Create())
+                                 .RequireAnyRole(rolesCompaniesCreate);
+
+                    configuration.For<CompaniesController>(x => x.Details(default(Guid)))
+                                  .RequireAnyRole(rolesCompaniesDetails);
+
+                    configuration.For<CompaniesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesCompaniesEdit);
+
+                    configuration.For<CompaniesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesCompaniesDelete);
+
+                    configuration.For<CompaniesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesCompaniesDeleteConfirmed);
+                    
+                    #endregion
+
+                    #region Reglas de seguridad del controlador Experiences
+
+                    //Se obtienen los roles que tienen acceso al controlador Experiences y a los métodos de este controlador.
+                    string[] rolesExperiencesIndex = assembly.GetRolesMethods("ExperiencesController", "Index");
+
+                    var rolesExperiencesCreate = assembly.GetRolesMethods("ExperiencesController", "Create");
+                    var rolesExperiencesDetails = assembly.GetRolesMethods("ExperiencesController", "Details");
+                    var rolesExperiencesEdit = assembly.GetRolesMethods("ExperiencesController", "Edit");
+                    var rolesExperiencesDelete = assembly.GetRolesMethods("ExperiencesController", "Delete");
+                    var rolesExperiencesDeleteConfirmed = assembly.GetRolesMethods("ExperiencesController", "DeleteConfirmed");
+
+                    //Se configuran las reglas de acceso para el controlador Experiences.
+
+                    configuration.For<ExperiencesController>(x => x.Index())
+                                .RequireAnyRole(rolesExperiencesIndex);
+
+
+                    configuration.For<ExperiencesController>(x => x.Create())
+                                 .RequireAnyRole(rolesExperiencesCreate);
+
+                    configuration.For<ExperiencesController>(x => x.Details(default(Guid)))
+                                  .RequireAnyRole(rolesExperiencesDetails);
+
+                    configuration.For<ExperiencesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesExperiencesEdit);
+
+                    configuration.For<ExperiencesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesExperiencesDelete);
+
+                    configuration.For<ExperiencesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesExperiencesDeleteConfirmed);
+
+                    #endregion
+
+                    #region Reglas de seguridad del controlador Bosses
+
+                    //Se obtienen los roles que tienen acceso al controlador Bosses y a los métodos de este controlador.
+                    string[] rolesBossesIndex = assembly.GetRolesMethods("BossesController", "Index");
+
+                    var rolesBossesCreate = assembly.GetRolesMethods("BossesController", "Create");
+                    var rolesBossesDetails = assembly.GetRolesMethods("BossesController", "Details");
+                    var rolesBossesEdit = assembly.GetRolesMethods("BossesController", "Edit");
+                    var rolesBossesDelete = assembly.GetRolesMethods("BossesController", "Delete");
+                    var rolesBossesDeleteConfirmed = assembly.GetRolesMethods("BossesController", "DeleteConfirmed");
+
+                    //Se configuran las reglas de acceso para el controlador Bosses.
+
+                    configuration.For<BossesController>(x => x.Index())
+                                .RequireAnyRole(rolesBossesIndex);
+
+
+                    configuration.For<BossesController>(x => x.Create())
+                                 .RequireAnyRole(rolesBossesCreate);
+
+                    configuration.For<BossesController>(x => x.Details(default(Guid)))
+                                  .RequireAnyRole(rolesBossesDetails);
+
+                    configuration.For<BossesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesBossesEdit);
+
+                    configuration.For<BossesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesBossesDelete);
+
+                    configuration.For<BossesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesBossesDeleteConfirmed);
+
+                    #endregion
+                
+                    #region Reglas de seguridad del controlador ExperiencesBosses
+
+                    //Se obtienen los roles que tienen acceso al controlador ExperiencesBosses y a los métodos de este controlador.
+                    string[] rolesExperiencesBossesIndex = assembly.GetRolesMethods("ExperiencesBossesController", "Index");
+
+                    var rolesExperiencesBossesCreate = assembly.GetRolesMethods("ExperiencesBossesController", "Create");
+                    var rolesExperiencesBossesDetails = assembly.GetRolesMethods("ExperiencesBossesController", "Details");
+                    var rolesExperiencesBossesEdit = assembly.GetRolesMethods("ExperiencesBossesController", "Edit");
+                    var rolesExperiencesBossesDelete = assembly.GetRolesMethods("ExperiencesBossesController", "Delete");
+                    var rolesExperiencesBossesDeleteConfirmed = assembly.GetRolesMethods("ExperiencesBossesController", "DeleteConfirmed");
+
+                    //Se configuran las reglas de acceso para el controlador ExperiencesBosses.
+
+                    configuration.For<ExperiencesBossesController>(x => x.Index())
+                                .RequireAnyRole(rolesExperiencesBossesIndex);
+
+
+                    configuration.For<ExperiencesBossesController>(x => x.Create())
+                                 .RequireAnyRole(rolesExperiencesBossesCreate);
+
+                    configuration.For<ExperiencesBossesController>(x => x.Details(default(Guid)))
+                                  .RequireAnyRole(rolesExperiencesBossesDetails);
+
+                    configuration.For<ExperiencesBossesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesExperiencesBossesEdit);
+
+                    configuration.For<ExperiencesBossesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesExperiencesBossesDelete);
+
+                    configuration.For<ExperiencesBossesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesExperiencesBossesDeleteConfirmed);
+
+                    #endregion    
+
+                #endregion
+                //****************************************************************************************************//
                     //****************************************************************************************************//
                     //****************************************************************************************************//
                 
