@@ -94,8 +94,19 @@ namespace AplicacionBase.Controllers
                 var topic = db.Topics.Find(id); 
                 bool existeNumero = ExisteNumero(question.QuestionNumber, question.IdTopic, question.Id);
 
+                if (topic != null)
+                {
+                    ViewBag.Topic = topic;
+                }
+                TempData["Error2"] = "";
                 if (existeNumero)
                 {
+                    
+                    if (question.QuestionNumber < 0)
+                    {
+                        TempData["Error2"] = "El número de pregunta no puede ser negativo";
+                        return View();
+                    }
                     db.Questions.Add(question);
                     db.SaveChanges();
                     TempData["Success"] = "Se ha creado la pregunta correctamente";
@@ -110,16 +121,11 @@ namespace AplicacionBase.Controllers
                         aux.Type = "Normal";
                         db.AnswerChoices.Add(aux);
                         db.SaveChanges();
-                        
                     }
 
-                  
                     return RedirectToAction("Index", new {id = id});
                }
-                if (topic != null)
-                {
-                    ViewBag.Topic = topic;
-                }
+
                 TempData["Error2"] = "Este número ya ha sido asignado a otra pregunta";
                 return View();
             }

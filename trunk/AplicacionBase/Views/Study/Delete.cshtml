@@ -7,6 +7,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -45,6 +46,6 @@
     <p>
        
         <input type="submit" value="Eliminar" class="ebutton blue"/> &nbsp
-        @Html.ActionLink("Regresar", "Index", "Study", new { id = ViewBag.IdUser }, htmlAttributes: new { @class = "ebutton blue" })
+        @Html.ActionLink("Regresar", "Index", "Study", new { id = ViewBag.IdUser, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }
