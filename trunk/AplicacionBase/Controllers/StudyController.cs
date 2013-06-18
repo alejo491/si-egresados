@@ -81,8 +81,9 @@ namespace AplicacionBase.Controllers
         /// <param name="id">Id del usuario</param>
         /// <returns>Vista que despliega el formulario que permite crear los datos</returns>
         #region Create(id)
-        public ActionResult Create(Guid id)
+        public ActionResult Create(Guid id, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             ViewBag.UserId = id;
             User user = db.Users.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
