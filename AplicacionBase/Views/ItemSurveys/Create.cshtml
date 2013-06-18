@@ -12,7 +12,7 @@
 <script type="text/javascript">
     $(function () {
         $.getJSON("/ItemSurveys/SurveysList", null, function (data) {
-            var items = null;
+            var items = "<option>Seleccione la encuesta</option>";
             $.each(data, function (i, item) {
                 items += "<option value=" + i + ">" + item + "</option>";
             });
@@ -23,7 +23,7 @@
         $("#C2").change(function () {
             var Param = { ids: $("#C2 > option:selected").attr("value") };
             $.getJSON("/ItemSurveys/TopicsList/", Param, function (data) {
-                var items = null;
+                var items = "<option>Seleccione el tema</option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + i + ">" + item + "</option>";
                 });
@@ -34,7 +34,7 @@
         $("#C3").change(function () {
             var Param = { idt: $("#C3 > option:selected").attr("value") };
             $.getJSON("/ItemSurveys/QuestionsList/", Param, function (data) {
-                var items = null;
+                var items = "<option>Seleccione Pregunta</option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + i + ">" + item + "</option>";
                 });
