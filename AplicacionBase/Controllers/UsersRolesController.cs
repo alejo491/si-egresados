@@ -62,8 +62,6 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Index", "User");
         }
 
-        
-
         /// <summary>
         /// Metodo que reasigna los roles de un usuario especifico
         /// </summary>

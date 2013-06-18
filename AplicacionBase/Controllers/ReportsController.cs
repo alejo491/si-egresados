@@ -20,13 +20,17 @@ using iTextSharp.text.html.simpleparser;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador de reportes
+    /// </summary>
     public class ReportsController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
-
-        //
-        // GET: /Reports/
-
+   
+        /// <summary>
+        /// Carga el listado de reportes
+        /// </summary>
+        /// <returns>Vista con el listado de reportes</returns>
         public ViewResult Index()
         {
             var te = db.aspnet_Users.First(u => u.UserName == HttpContext.User.Identity.Name).UserId;
@@ -34,9 +38,12 @@ namespace AplicacionBase.Controllers
             return View(reports.ToList());
         }
 
-        //
-        // GET: /Reports/Details/5
 
+        /// <summary>
+        /// Permite ver en detalle 
+        /// </summary>
+        /// <param name="id">Codigo del reporte</param>
+        /// <returns>Vista con los detalles del reporte</returns>
         public ViewResult Details(Guid id)
         {
             Report report = db.Reports.Find(id);
@@ -49,18 +56,23 @@ namespace AplicacionBase.Controllers
             return View(report);
         }
 
-        //
-        // GET: /Reports/Create
-
+       
+        /// <summary>
+        /// Permite crear un reporte nuevo
+        /// </summary>
+        /// <returns>Vista para crear el reporte</returns>
         public ActionResult Create()
         {
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber");
             return View();
         }
 
-        //
-        // POST: /Reports/Create
-
+       
+        /// <summary>
+        ///  Metodo Httpost de crear un reporte nuevo
+        /// </summary>
+        /// <param name="report"></param>
+        /// <returns>Retorna el listado de reportes si no hay errores, si los hay devuelve la misma vista.</returns>
         [HttpPost]
         public ActionResult Create(Report report)
         {
@@ -78,9 +90,12 @@ namespace AplicacionBase.Controllers
             return View(report);
         }
 
-        //
-        // GET: /Reports/Edit/5
-
+        
+        /// <summary>
+        /// Permite editar un reporte 
+        /// </summary>
+        /// <param name="id">Codigo del reporte</param>
+        /// <returns>La vista para crear un reporte</returns>
         public ActionResult Edit(Guid id)
         {
             Report report = db.Reports.Find(id);
@@ -88,9 +103,12 @@ namespace AplicacionBase.Controllers
             return View(report);
         }
 
-        //
-        // POST: /Reports/Edit/5
 
+        /// <summary>
+        ///  Metodo Httpost de editar reporte
+        /// </summary>
+        /// <param name="report">Objeto de tipo de reporte que trae los elementos de la vista</param>
+        /// <returns>Retorna el listado de reportes si no hay errores, si los hay devuelve la misma vista.</returns>
         [HttpPost]
         public ActionResult Edit(Report report)
         {
@@ -107,18 +125,24 @@ namespace AplicacionBase.Controllers
             return View(report);
         }
 
-        //
-        // GET: /Reports/Delete/5
-
+        
+        /// <summary>
+        /// Metodo para eliminar un reporte
+        /// </summary>
+        /// <param name="id">Codigo del reporte</param>
+        /// <returns>La vista para eliminar un reporte</returns>
         public ActionResult Delete(Guid id)
         {
             Report report = db.Reports.Find(id);
             return View(report);
         }
 
-        //
-        // POST: /Reports/Delete/5
 
+        /// <summary>
+        /// Metodo para confirmar la  eliminacion de un reporte
+        /// </summary>
+        /// <param name="id">Codigo del reporte</param>
+        /// <returns>Retorna el listado de reportes</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -129,20 +153,32 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Metodo dispose
+        /// </summary>
+        /// <param name="disposing">Bandera</param>
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Metodo que pasa los parametros para renderizar el reporte
+        /// </summary>
+        /// <param name="id">Codigo del reporte</param>
+        /// <returns>Vista </returns>
         public ActionResult Preview(Guid id)
         {
             ViewBag.IdReport = id;
             return View();
         }
-
-        #region Codigo, para generar tabla y grafico (chart pie) de los reportes
-
+      
+        /// <summary>
+        /// Metodo que renderiza la vista para ver un reporte graficamente.
+        /// </summary>
+        /// <param name="id">Codigo del reporte que se va  mostrar</param>
+        /// <returns>Una vista parcial que se renderiza dentro de la vista de preview</returns>
         public ActionResult RenderReport(Guid id)
         {
             var items = new List<ItemReportViewModel>();
@@ -296,65 +332,7 @@ namespace AplicacionBase.Controllers
             ViewBag.datos = dataSet;*/
             return View();
         }
-
-        /*
-                private static DataTable GetData(string query)
-                {
-                    DataTable dt = new DataTable();
-
-                    SqlCommand cmd = new SqlCommand(query);
-
-                    String constr = ConfigurationManager.ConnectionStrings["mydbase"].ConnectionString;
-
-                    SqlConnection con = new SqlConnection(constr);
-                    SqlDataAdapter sda = new SqlDataAdapter();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = con;
-                    sda.SelectCommand = cmd;
-                    sda.Fill(dt);
-                    return dt;
-                }
-        */
-
-        //    DataSet GetDataSet(string sqlCommand)
-        //    {
-
-        //        DataSet ds = new DataSet();
-        //        var strconn = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ToString();
-        //        var myCon = new SqlConnection(strconn);
-        //        myCon.Open();
-        //        var myAda = new SqlDataAdapter(sqlCommand, myCon);
-        //        myAda.Fill(ds);
-        //        myCon.Close();
-        //        //String connectionString = ConfigurationManager.ConnectionStrings["DbSIEPISContext"].ConnectionString;
-        //        /*using (SqlCommand cmd = new SqlCommand(sqlCommand, new SqlConnection(connectionString)))
-        //        {
-        //            cmd.Connection.Open();
-        //            DataTable table = new DataTable();
-        //            table.Load(cmd.ExecuteReader());
-        //            ds.Tables.Add(table);
-        //        } * */
-        //        return ds;
-        //    }
-        //}
-
-        //public static class Extensions
-        //{
-        //    public static string ToXml(this DataSet ds)
-        //    {
-        //        using (var memoryStream = new MemoryStream())
-        //        {
-        //            using (TextWriter streamWriter = new StreamWriter(memoryStream))
-        //            {
-        //                var xmlSerializer = new XmlSerializer(typeof(DataSet));
-        //                xmlSerializer.Serialize(streamWriter, ds);
-        //                return Encoding.UTF8.GetString(memoryStream.ToArray());
-        //            }
-        //        }
-        //    }
-        //}
-
-        #endregion
+   
 
     }
 }
