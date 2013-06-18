@@ -74,10 +74,10 @@ namespace AplicacionBase.Controllers
                     }
                 }
 
-                if (cont == 1) post2.Autorizado = 1;
-                else post2.Autorizado = 0;
+                if (cont == 1) post2.Autorized = 1;
+                else post2.Autorized = 0;
             }
-            else post2.Autorizado = -1;
+            else post2.Autorized = -1;
             
 
            
@@ -109,6 +109,10 @@ namespace AplicacionBase.Controllers
         {
             post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
             post.PublicationDate = DateTime.Now;
+            post.Autorized = 0; //queda pendiente validar que rol tiene
+            post.Main = 0;
+            post.Estate = 1;
+
             if (ModelState.IsValid)
             {
                 post.Id = Guid.NewGuid();
@@ -221,10 +225,10 @@ namespace AplicacionBase.Controllers
                     }
                 }
 
-                if (cont == 1) post2.Autorizado = 1;
-                else post2.Autorizado = 0;
+                if (cont == 1) post2.Autorized = 1;
+                else post2.Autorized= 0;
             }
-            else post2.Autorizado = -1;
+            else post2.Autorized = -1;
             datos.Add(post2);
             return View(datos);
         }

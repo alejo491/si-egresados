@@ -14,8 +14,8 @@
         <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,  2)"></div>
         <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,  2)"></div>
     </div>
-      @if (Model.ElementAt(1).Autorizado==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
-      @if (Model.ElementAt(1).Autorizado==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
+      @if (Model.ElementAt(1).Autorized==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
+      @if (Model.ElementAt(1).Autorized==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
 
         <div class="shownoticiatitle"><h2>@Html.DisplayFor(model => model.ElementAt(0).Title)</h2>
             <div>

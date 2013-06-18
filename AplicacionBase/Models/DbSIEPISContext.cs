@@ -41,6 +41,8 @@ namespace AplicacionBase.Models
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<ExperiencesBoss> ExperiencesBosses { get; set; }
         public DbSet<FreeField> FreeFields { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<FilesPost> FilesPosts { get; set; }
         public DbSet<FreeFieldsValue> FreeFieldsValues { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemData> ItemDatas { get; set; }
@@ -103,6 +105,8 @@ namespace AplicacionBase.Models
             modelBuilder.Configurations.Add(new FreeFieldMap());
             modelBuilder.Configurations.Add(new FreeFieldsValueMap());
             modelBuilder.Configurations.Add(new FieldMap());
+            modelBuilder.Configurations.Add(new FileMap());
+            modelBuilder.Configurations.Add(new FilesPostMap());
             modelBuilder.Configurations.Add(new FilterMap());
             modelBuilder.Configurations.Add(new ItemDataMap());
             modelBuilder.Configurations.Add(new ItemMap());

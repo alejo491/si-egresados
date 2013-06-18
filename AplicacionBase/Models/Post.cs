@@ -11,6 +11,7 @@ namespace AplicacionBase.Models
             this.aspnet_Roles = new List<aspnet_Roles>();
             this.Likes = new List<Like>();
             this.Startboxs = new List<Startbox>();
+            this.FilesPosts = new List<FilesPost>();
         }
 
         public System.Guid Id { get; set; }
@@ -20,11 +21,16 @@ namespace AplicacionBase.Models
         public string Content { get; set; }
         public System.DateTime PublicationDate { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
-        public int Autorizado { get; set; }
+        public int Autorized { get; set; }
+        public int Main { get; set; }
+        public int Estate { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<aspnet_Roles> aspnet_Roles { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Startbox> Startboxs { get; set; }
+
+        public virtual ICollection<FilesPost> FilesPosts { get; set; }
     }
 }
