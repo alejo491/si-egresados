@@ -8,6 +8,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -75,6 +76,6 @@
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id, idUser = ViewBag.UserId }, htmlAttributes: new { @class = "ebutton blue" }) 
-    @Html.ActionLink("Regresar", "Index", new {id = ViewBag.UserId }, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id, idUser = ViewBag.UserId, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" }) 
+    @Html.ActionLink("Regresar", "Index", new { id = ViewBag.UserId, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })
 </p>
