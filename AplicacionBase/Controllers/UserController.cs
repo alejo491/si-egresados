@@ -126,6 +126,7 @@ namespace AplicacionBase.Controllers
                 user.States = "true";
                 db.Users.Add(user);
                 db.SaveChanges();
+                CreateSteps(g);
                 StepsLoad(g);
                 var steps = db.UsersSteps.Where(s => s.UserId == g).OrderBy(s => s.Step.SOrder);
                 if (!steps.Any())
