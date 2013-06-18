@@ -25,6 +25,11 @@ namespace AplicacionBase.Controllers
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
 
+        /// <summary>
+        /// Metodo que permite obtener los datos personales de la cuenta de facebook del usuario que ingresa al sistema
+        /// </summary>
+        /// <param name="model">usuario registrado en el sistema</param>
+        /// <returns>true o false, dependiendo el caso</returns>
         [HttpPost]
         public JsonResult FacebookLogin(FacebookLoginModel model)
         {
