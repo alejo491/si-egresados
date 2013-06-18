@@ -49,7 +49,6 @@ namespace AplicacionBase.Controllers
         {
             if (ModelState.IsValid)
             {
-                filespost.IdPost = Guid.NewGuid();
                 db.FilesPosts.Add(filespost);
                 db.SaveChanges();
                 return RedirectToAction("Index");  
