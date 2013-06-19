@@ -11,26 +11,26 @@ namespace AplicacionBase.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.Patch)
+            this.Property(t => t.Path)
                 .IsRequired()
-                .HasMaxLength(300);
+                .HasMaxLength(600);
 
             this.Property(t => t.Name)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(300);
 
             this.Property(t => t.Type)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(600);
 
             this.Property(t => t.Size)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(100);
 
             // Table & Column Mappings
             this.ToTable("Files");
             this.Property(t => t.Id).HasColumnName("Id");
-            this.Property(t => t.Patch).HasColumnName("Patch");
+            this.Property(t => t.Path).HasColumnName("Path");
             this.Property(t => t.Name).HasColumnName("Name");
             this.Property(t => t.Type).HasColumnName("Type");
             this.Property(t => t.Size).HasColumnName("Size");

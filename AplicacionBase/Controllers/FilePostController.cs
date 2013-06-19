@@ -36,7 +36,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.IdFile = new SelectList(db.Files, "Id", "Patch");
+            ViewBag.IdFile = new SelectList(db.Files, "Id", "Path");
             ViewBag.IdPost = new SelectList(db.Posts, "Id", "Title");
             return View();
         } 
