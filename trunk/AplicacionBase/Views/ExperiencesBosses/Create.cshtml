@@ -23,13 +23,15 @@
         <div class="editor-field">
             @Html.DropDownList("IdBoss", String.Empty)
             @Html.ValidationMessageFor(model => model.IdBoss)
+            ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="../Bosses/CreateForExperienceBosses">Crear Nuevo</a>
         </div>
+        
 
-        <div class="editor-label">
+@*        <div class="editor-label">
             Cargo desempeñado
         </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdExperiences", String.Empty)
+*@        <div class="editor-field">
+            @Html.Hidden("IdExperiences")
             @Html.ValidationMessageFor(model => model.IdExperiences)
         </div>
 

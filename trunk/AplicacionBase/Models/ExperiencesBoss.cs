@@ -20,8 +20,7 @@ namespace AplicacionBase.Models
         [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:D}")]
         public System.DateTime EndDate { get; set; }
 
-        [Display(Name = "Jefe")]
-        [Required(ErrorMessage = "Por favor seleccione un jefe")]
+
         public virtual Boss Boss { get; set; }
 
 

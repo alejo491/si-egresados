@@ -7,6 +7,7 @@
                         <div align="center" class="sidebar">       
                             @Html.ActionLink("Detalles del Perfil", "Details", "User", new { id = Model.Id }, new { @class = "ebutton2 blue linkmenu" })<br />
                             @Html.ActionLink("Estudios Realizados", "Index", "Study", new { id= Model.Id}, new { @class = "ebutton2 blue linkmenu" })<br />
+                            @Html.ActionLink("Experiencias Laborales", "Index", "Experiences", new { id= Model.Id}, new { @class = "ebutton2 blue linkmenu" })<br />
                             @Html.ActionLink("Cambiar Contraseña", "ChangePassword", "Account", new { id = Model.Id }, new { @class = "ebutton2 blue linkmenu" })<br />
                             @Html.ActionLink("Salir del Perfil", "Out", "User", new { id = Model.Id }, new { @class = "ebutton2 blue linkmenu" })<br />
                             </div>

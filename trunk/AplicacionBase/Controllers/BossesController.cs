@@ -17,7 +17,7 @@ namespace AplicacionBase.Controllers
         private DbSIEPISContext db = new DbSIEPISContext();
 
         public ActionResult Index()
-        {            
+        {
             return View(db.Bosses.ToList());
         }
 
@@ -26,17 +26,27 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Details(Guid id)
         {
-            Boss boss= db.Bosses.Find(id);
+            Boss boss = db.Bosses.Find(id);
             return View(boss);
         }
+
+        //obtener detalles del jefe desde la vista de experiences
+        // GET: /Bosses/Details/5
+
+        public ActionResult DetailsForExperiences(Guid id)
+        {
+            Boss boss = db.Bosses.Find(id);
+            return View(boss);
+        }
+
 
         //
         // GET: /Bosses/Create
 
         public ActionResult Create()
-        {            
+        {
             return View();
-        } 
+        }
 
         //
         // POST: /Bosses/Create
@@ -52,15 +62,39 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Create", "Bosses");
             }
-            return View();            
+            return View();
         }
-        
+
+        public ActionResult CreateForExperienceBosses()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Companies/CreateForExperience
+
+        [HttpPost]
+        public ActionResult CreateForExperienceBosses(Boss boss)
+        {
+            if (ModelState.IsValid)
+            {
+                boss.Id = Guid.NewGuid();
+                db.Bosses.Add(boss);
+                db.SaveChanges();
+                TempData["Create"] = "Se ha ingresado correctamente el jefe!";
+                return RedirectToAction("Create", "ExperiencesBosses");
+            }
+
+            return View(boss);
+        }
+
+
         //
         // GET: /Bosses/Edit/5
 
         public ActionResult Edit(Guid id)
         {
-            Boss boss= db.Bosses.Find(id);
+            Boss boss = db.Bosses.Find(id);
             return View(boss);
         }
 
@@ -81,7 +115,7 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /Bosses/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             Boss boss = db.Bosses.Find(id);
@@ -94,7 +128,7 @@ namespace AplicacionBase.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Boss boss= db.Bosses.Find(id);
+            Boss boss = db.Bosses.Find(id);
             db.Bosses.Remove(boss);
             db.SaveChanges();
             return RedirectToAction("Index");
