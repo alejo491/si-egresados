@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ClientDependency.Core
+@using ClientDependency.Core.Mvc
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -22,7 +24,26 @@
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-    </head>
+    
+
+    @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath>
+												{
+													new BasicPath("Base", "~/Content/themes/base"),
+													new BasicPath("Content", "~/Content")
+												}))
+
+	@MvcHtmlString.Create(Html.RenderJsHere(new List<IClientDependencyPath>
+											   {
+												   new BasicPath("Scripts", "~/Scripts"),
+												   new BasicPath("googleCDN", "http://ajax.googleapis.com/ajax/libs/"),
+												   new BasicPath("Content", "~/Content")
+												   
+											   }))
+
+	@{
+		Html.RequiresCss("Site.css", "Content", 1);
+	}
+</head>
 <body>
     <div id="Maqueta">
         <div id="izquierda">
