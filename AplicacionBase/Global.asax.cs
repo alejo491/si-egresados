@@ -786,7 +786,7 @@ namespace AplicacionBase
                                 .RequireAnyRole(rolesExperiencesBossesIndex);
 
 
-                    configuration.For<ExperiencesBossesController>(x => x.Create())
+                    configuration.For<ExperiencesBossesController>(x => x.Create(default(Guid)))
                                  .RequireAnyRole(rolesExperiencesBossesCreate);
 
                     configuration.For<ExperiencesBossesController>(x => x.Details(default(Guid)))
