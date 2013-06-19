@@ -148,11 +148,10 @@ namespace AplicacionBase.Controllers
                 if (e.IdExperiences == id)
                 {
                     EB = db.ExperiencesBosses.Find(e.Id);
+                    db.ExperiencesBosses.Remove(EB);
                 }
-            }
-            if(EB!=null) db.ExperiencesBosses.Remove(EB);
-            db.Experiences.Remove(experience);
-
+            }            
+            db.Experiences.Remove(experience);            
             db.SaveChanges();
             return RedirectToAction("Index");
         }
