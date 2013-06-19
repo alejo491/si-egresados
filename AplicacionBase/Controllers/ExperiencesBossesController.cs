@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
-{ 
+{
     public class ExperiencesBossesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -34,12 +34,13 @@ namespace AplicacionBase.Controllers
         //
         // GET: /ExperiencesBosses/Create
 
-        public ActionResult Create()
+        public ActionResult Create(Guid id)
         {
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name");
-            ViewBag.IdExperiences = new SelectList(db.Experiences, "Id", "Charge");
+            ViewBag.IdExperiences = id;
             return View();
-        } 
+        }
+
 
         //
         // POST: /ExperiencesBosses/Create
@@ -52,17 +53,17 @@ namespace AplicacionBase.Controllers
                 experiencesboss.Id = Guid.NewGuid();
                 db.ExperiencesBosses.Add(experiencesboss);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectPermanent("/Experiences/index/");
             }
 
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name", experiencesboss.IdBoss);
-            ViewBag.IdExperiences = new SelectList(db.Experiences, "Id", "Charge", experiencesboss.IdExperiences);
+            ViewBag.IdExperiences = experiencesboss.IdExperiences;
             return View(experiencesboss);
         }
-        
+
         //
         // GET: /ExperiencesBosses/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
@@ -90,7 +91,7 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /ExperiencesBosses/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
@@ -102,7 +103,7 @@ namespace AplicacionBase.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
-        {            
+        {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
             db.ExperiencesBosses.Remove(experiencesboss);
             db.SaveChanges();

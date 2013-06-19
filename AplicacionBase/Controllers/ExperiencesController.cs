@@ -27,7 +27,7 @@ namespace AplicacionBase.Controllers
 
             }
             var IdUser = g;
-            Guid nulo = System.Guid.Empty;            
+            Guid nulo = System.Guid.Empty;
             if (g != nulo)
             {
                 return View(db.Experiences.Where(l => l.IdUser == g));
@@ -40,7 +40,18 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Details(Guid id)
         {
-            Experience experience= db.Experiences.Find(id);
+            Experience experience = db.Experiences.Find(id);
+            Boss b = new Boss();
+            foreach (var e in db.ExperiencesBosses)
+            {
+                if (e.IdExperiences == id)
+                {
+                    b = db.Bosses.Find(e.IdBoss);
+                }
+            }
+            Session["IdBoss"] = b.Id;
+            Session["IdExperience"] = id;
+            ViewBag.NameBoss = b.Name;
             return View(experience);
         }
 
@@ -52,7 +63,7 @@ namespace AplicacionBase.Controllers
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
             return View();
-        } 
+        }
 
         //
         // POST: /Experiences/Create
@@ -78,20 +89,20 @@ namespace AplicacionBase.Controllers
                 experience.IdUser = IdUser;
                 db.Experiences.Add(experience);
                 db.SaveChanges();
-                return RedirectPermanent("/ExperiencesBosses/Create");
+                return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id);
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
             return View(experience);
         }
-        
+
         //
         // GET: /Experiences/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
-            Experience experience= db.Experiences.Find(id);
+            Experience experience = db.Experiences.Find(id);
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
             // ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
             return View(experience);
@@ -119,7 +130,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Delete(Guid id)
         {
-            Experience experience= db.Experiences.Find(id);
+            Experience experience = db.Experiences.Find(id);
             return View(experience);
         }
 
@@ -130,7 +141,18 @@ namespace AplicacionBase.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Experience experience = db.Experiences.Find(id);
+            ExperiencesBoss EB = new ExperiencesBoss();
+            foreach (var e in db.ExperiencesBosses)
+            {
+                if (e.IdExperiences == id)
+                {
+                    EB = db.ExperiencesBosses.Find(e.Id);
+                }
+            }
+
+            db.ExperiencesBosses.Remove(EB);
             db.Experiences.Remove(experience);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

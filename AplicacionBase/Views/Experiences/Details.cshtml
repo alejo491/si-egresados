@@ -13,6 +13,11 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
     </div>
+    <div class="display-label">Nombre del jefe directo</div>
+    <div class="display-field">
+        @Html.Display("NameBoss")
+        @Html.ActionLink("Ver Contacto", "DetailsForExperiences", "Bosses", new { id= Session["IdBoss"]}, new { @class = "ebutton2 blue linkmenu" })<br />
+    </div>
     <div class="display-label">Descripción del trabajo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Description)
