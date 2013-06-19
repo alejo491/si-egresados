@@ -82,7 +82,7 @@ namespace AplicacionBase.Controllers
                 db.Bosses.Add(boss);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente el jefe!";
-                return RedirectToAction("Create", "ExperiencesBosses");
+                return RedirectToAction("Create/"+Session["IdExp"], "ExperiencesBosses");
             }
 
             return View(boss);
