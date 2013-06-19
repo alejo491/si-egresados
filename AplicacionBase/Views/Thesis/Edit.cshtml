@@ -37,13 +37,14 @@
             @Html.EditorFor(model => model.Description)
             @Html.ValidationMessageFor(model => model.Description)
         </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <div></div>
+        <div>
+            <input type="submit" value="Guardar" class="ebutton blue" />
+        </div>
+        <div>
+          @Html.ActionLink("Regresar", "Index","", htmlAttributes: new { @class = "ebutton blue" })
+    </div>
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Regresar", "Index")
-</div>
+

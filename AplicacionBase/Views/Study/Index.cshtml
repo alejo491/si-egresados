@@ -63,13 +63,9 @@
         <td>
             <div class = " left "> @Html.ActionLink(" ", "Edit", new { id = item.Id, idUser = @i, wizardStep = wizard }, htmlAttributes: new { @class = "btnedit", title = "Editar Estudio" }) &nbsp</div>
             
-            <div class = " left "> @Html.ActionLink("Editar", "Edit", new { id = item.Id, idUser = @i, wizardStep = wizard }) |&nbsp</div>
-
             <div class = " left "> @Html.ActionLink(" ", "Details", new { id = item.Id, idUser = @i, wizardStep = wizard }, htmlAttributes: new { @class = "btndetails", title = "Ver Estudio" }) &nbsp</div>
-            <div class = " left "> @Html.ActionLink("Ver", "Details", new { id = item.Id, idUser = @i, wizardStep = wizard }) |&nbsp</div>
 
             <div class = " left "> @Html.ActionLink(" ", "Delete", new { id = item.Id, idUser = @i, wizardStep = wizard }, htmlAttributes: new { @class = "btndelete", title = "Borrar Estudio" }) &nbsp</div>
-            <div class = " left "> @Html.ActionLink("Eliminar", "Delete", new { id = item.Id, idUser = @i, wizardStep = wizard }) &nbsp</div>
         </td>
     </tr>
 }
