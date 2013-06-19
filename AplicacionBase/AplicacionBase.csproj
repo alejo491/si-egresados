@@ -260,6 +260,25 @@
     <Compile Include="Models\vw_aspnet_WebPartState_Shared.cs" />
     <Compile Include="Models\vw_aspnet_WebPartState_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Content\Bootstrap\bootstrap-image-gallery.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-image-gallery.min.js" />
+    <Content Include="Content\Bootstrap\bootstrap-responsive.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.js" />
+    <Content Include="Content\FileUpload\canvas-to-blob.min.js" />
+    <Content Include="Content\FileUpload\jquery.fileupload-ip.js" />
+    <Content Include="Content\FileUpload\jquery.fileupload-ui.css" />
+    <Content Include="Content\FileUpload\jquery.fileupload-ui.js" />
+    <Content Include="Content\FileUpload\jquery.fileupload.js" />
+    <Content Include="Content\FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Content\FileUpload\load-image.min.js" />
+    <Content Include="Content\FileUpload\locale.js" />
+    <Content Include="Content\FileUpload\main.js" />
+    <Content Include="Content\FileUpload\tmpl.min.js" />
+    <Content Include="Content\img\generalFile.png" />
+    <Content Include="Content\img\glyphicons-halflings-white.png" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\progressbar.gif" />
     <Content Include="Content\themes\base\images\starselected.png" />
     <Content Include="Content\themes\base\images\starunselected.png" />
     <Content Include="Scripts\startox.js" />
@@ -392,6 +411,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
