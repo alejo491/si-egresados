@@ -25,11 +25,11 @@ namespace AplicacionBase.Models
         public string Grade { get; set; }
 
         
-        [DisplayName("Fecha de Inicio (dd/mm/yyyy)")]
+        [DisplayName("Fecha de Inicio")]
         public System.DateTime StartDate { get; set; }
 
         
-        [DisplayName("Fecha de Finalización (dd/mm/yyyy)")]
+        [DisplayName("Fecha de Finalización")]
         public System.DateTime EndDate { get; set; }
         public System.Guid Id { get; set; }
 

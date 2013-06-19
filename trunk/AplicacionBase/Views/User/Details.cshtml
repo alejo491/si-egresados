@@ -32,7 +32,7 @@
         @Html.DisplayFor(model => model.CellphoneNumber)
     </div>
     <div class="display-label">
-        Fecha de Nacimiento (AAAA/MM/DD)</div>
+        Fecha de Nacimiento</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.BirthDate)
     </div>
@@ -52,7 +52,6 @@
     <div>
         @Html.ActionLink("Editar", "Edit", "User", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })
         &nbsp
-        <!--@Html.ActionLink("Eliminar", "Delete", "User", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })&nbsp-->
         <input type="button" value="Atrás" onclick="history.go(-1)" class="ebutton blue" />
     </div>
 </fieldset>

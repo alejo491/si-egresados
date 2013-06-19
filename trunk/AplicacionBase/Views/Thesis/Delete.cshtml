@@ -26,8 +26,10 @@
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
-    <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Regresar", "Index")
-    </p>
+    <div>
+        <input type="submit" value="Eliminar" class="ebutton blue" /> 
+        </div>
+        <div>
+             @Html.ActionLink("Regresar", "Index","", htmlAttributes: new { @class = "ebutton blue" })
+        </div>
 }
