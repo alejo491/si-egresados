@@ -652,6 +652,8 @@
     <Content Include="Views\Startbox\Details.cshtml" />
     <Content Include="Views\Startbox\Edit.cshtml" />
     <Content Include="Views\Startbox\Index.cshtml" />
+    <Content Include="Views\Bosses\CreateForExperienceBosses.cshtml" />
+    <Content Include="Views\Bosses\DetailsForExperiences.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

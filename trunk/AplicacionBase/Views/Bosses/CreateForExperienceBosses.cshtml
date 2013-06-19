@@ -60,7 +60,7 @@
         <td>
         <p>
             <input type="submit" value="Crear" class="ebutton blue" />&nbsp
-             @Html.ActionLink("Volver al registro de experiencia", "../ExperiencesBosses/Create", null, htmlAttributes: new { @class = "ebutton blue" })
+             @Html.ActionLink("Volver", "../ExperiencesBosses/Create/"+Session["IdExperience"], null, htmlAttributes: new { @class = "ebutton blue" })
         </p>
         </td>
         </tr>
