@@ -89,6 +89,7 @@ namespace AplicacionBase.Controllers
                 experience.IdUser = IdUser;
                 db.Experiences.Add(experience);
                 db.SaveChanges();
+                Session["IdExp"] = experience.Id;
                 return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id);
             }
 
