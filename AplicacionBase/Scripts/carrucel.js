@@ -5,9 +5,6 @@ $(window).load(function () {
     setInterval("Next()", 4000);
 });
 
-function create_carrucel(t) {
-    Tamaño = t;
-}
 function Next() {
     var nodoactual = "#Node" + Position;
     var Aactual = "#A" + Position;
