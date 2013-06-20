@@ -60,10 +60,10 @@ namespace AplicacionBase.Controllers
             ItemData item = new ItemData();
             item.Id = Guid.NewGuid();
             item.IdReport = id;
-            item.SQLQuey = "SELECT * FROM Questions";
+            item.SQLQuey = "SELECT DISTINCT * FROM Questions";
             item.GraphicType = "Ninguno";
             item.ItemNumber = 1;
-            item.Sentence = "Ola ke ase";
+            item.Sentence = "Hola";
             //db.ItemDatas.Add(item);
             //db.SaveChanges();
             var ListCampos = new List<Field>();
@@ -79,7 +79,7 @@ namespace AplicacionBase.Controllers
             int bandcamp = 0;
             int bandfilt = 0;
             int bandAll = 0;
-            int bandCountAll = 0;
+           // int bandCountAll = 0;
             int band = 0;
             string auxlogic = "";
             string auxsqlcampos = "";
@@ -92,18 +92,18 @@ namespace AplicacionBase.Controllers
                 if (key == "AllFields" && k == "true,false")
                 {
                    // SQL = "select * from ConsultaGeneral";
-                    auxsqlcampos = "SELECT * FROM ConsultaGeneral ";
+                    auxsqlcampos = "SELECT DISTINCT * FROM ConsultaGeneral ";
                     bandAll = 1;
                     bandsql++;
                 }
 
-                if (key == "CountFields" && k == "true,false")
+              /*  if (key == "CountFields" && k == "true,false")
                 {
                     //SQL = "select count(*) from ConsultaGeneral";
                     auxsqlcampos = "SELECT COUNT(*) FROM ConsultaGeneral ";
                     bandCountAll = 1;
                     bandsql++;
-                }
+                }*/
 
                 if (key.StartsWith("field"))
                 {
@@ -275,7 +275,7 @@ namespace AplicacionBase.Controllers
             foreach (AplicacionBase.Models.Filter filtro in ListFiltros)
             {
                 auxsqlfiltros = auxsqlfiltros + filtro.LogicOperator + " " + filtro.FieldName + " " + filtro.Operator + " ";
-                    if(filtro.Operator == "LIKE")
+                    if(filtro.Operator == "LIKE" || filtro.FieldName.StartsWith("Fecha"))
                     {
                         auxsqlfiltros = auxsqlfiltros + "'" + filtro.Value + "'" + " ";
                     }
@@ -285,7 +285,7 @@ namespace AplicacionBase.Controllers
                     }
             }
 
-            if (bandCountAll == 0 && bandAll == 0)
+            if (bandAll == 0)
             {
                 foreach (GroupOption grupo in ListGrupos)
                 {
@@ -303,13 +303,13 @@ namespace AplicacionBase.Controllers
 
             if (bandsql == 0)
             {
-                auxsqlcampos = "SELECT * FROM ConsultaGeneral";
+                auxsqlcampos = "SELECT DISTINCT * FROM ConsultaGeneral ";
             }
             else
             {
-                if (ListGrupos.Count == 0 && ListCampos.Count > 0 && bandAll == 0 && bandCountAll == 0)
+                if (ListGrupos.Count == 0 && ListCampos.Count > 0 && bandAll == 0)
                 {
-                    auxsqlcampos = "SELECT ";
+                    auxsqlcampos = "SELECT DISTINCT ";
                     foreach (Field field in ListCampos)
                     {
                         if (field.FieldOperation != "")
@@ -336,7 +336,7 @@ namespace AplicacionBase.Controllers
                             }
                             else
                             {
-                                auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral";
+                                auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral ";
                             }
                         }
                     }
@@ -351,13 +351,13 @@ namespace AplicacionBase.Controllers
                             }
                             else
                             {
-                                auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral";
+                                auxsqlcampos = auxsqlcampos + " FROM ConsultaGeneral ";
                             }
                         }
                     }
                 }
 
-                if (ListGrupos.Count > 0 && ListCampos.Count > 0 && bandAll == 0 && bandCountAll == 0)
+                if (ListGrupos.Count > 0 && ListCampos.Count > 0 && bandAll == 0 )
                 {
                     foreach (Field nuevofield in ListCampos)
                     {
@@ -379,7 +379,7 @@ namespace AplicacionBase.Controllers
                     {
                         if (campo.Id == Lcamposgroup.First().Id)
                         {
-                            auxsqlcampos = "SELECT ";
+                            auxsqlcampos = "SELECT DISTINCT ";
                         }
                         if (campo.FieldOperation != "")
                         {
@@ -401,7 +401,7 @@ namespace AplicacionBase.Controllers
                     }
                     if (Lcamposgroup.Count == 0)
                     {
-                        auxsqlcampos = "SELECT * FROM ConsultaGeneral";
+                        auxsqlcampos = "SELECT DISTINCT * FROM ConsultaGeneral ";
                         auxsqlgrupos = "";
                     }
                 }                    

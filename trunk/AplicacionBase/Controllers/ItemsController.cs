@@ -23,6 +23,12 @@ namespace AplicacionBase.Controllers
               return View(items.ToList());
           }*/
 
+        #region Listado General de los Items de un Reporte
+        /// <summary>
+        /// Lista los items de un reporte, (Items de Encuesta y de Base de Datos)
+        /// </summary>
+        /// <param name="id">identificador del reporte al cual pertenecen los Items a listar</param>
+        /// <returns></returns>
         public ActionResult GeneralItems(Guid? id)
         {
             if (id != Guid.Empty && id != null)
@@ -68,6 +74,7 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        #endregion
 
         public ActionResult Index(Guid? id)
         {
