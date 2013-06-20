@@ -37,7 +37,7 @@ namespace AplicacionBase.Controllers
         {
             var posts = db.Posts.Include(p => p.User);
             pageNumber = (page ?? 1);
-            return View(posts.ToList().ToPagedList(pageNumber, pageSize));
+            return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
         }
         #endregion
 
@@ -243,6 +243,35 @@ namespace AplicacionBase.Controllers
             else post2.Autorized = -1;
             datos.Add(post2);
             return View(datos);
+        }
+
+
+        //! Atiende el resultado de hacer clic en Buscar de la vista Principal
+        /*!
+         * \param criteria Contiene las palabras clave con las que se desea hacer la busqueda
+         * \param page Elemento de control para la paginación
+         * \return La vista con el listado de vacantes encontradas para las palabras claves
+         *
+         */
+        public ActionResult Search(string criteria, int? page)
+        {
+
+            ViewBag.CurrentFilter = criteria;
+            if (criteria == null)
+            {
+                criteria = "";
+            }
+            string searchText = criteria.ToLower().Trim();
+
+            //Búsqueda
+            var posts = db.Posts.Where(p => p.Title.ToLower().Contains(criteria) || p.Abstract.Contains(criteria) ||
+               p.Content.Contains(criteria));
+
+            //Ordenar por fecha de publicación
+            var results = posts.ToList().OrderByDescending(c => c.PublicationDate);
+            pageNumber = (page ?? 1);
+            return View(results.ToPagedList(pageNumber, pageSize));
+
         }
 
 
