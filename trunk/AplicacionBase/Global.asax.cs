@@ -123,10 +123,10 @@ namespace AplicacionBase
                     var rolesPostShowPost = assembly.GetRolesMethods("PostController", "ShowPost");
 
                     //Se configuran las reglas de acceso para el controlador Post.
-                    configuration.For<PostController>(x => x.Index())
+                    configuration.For<PostController>(x => x.Index(default(int)))
                                  .RequireAnyRole(rolesPostIndex);
 
-                    configuration.For<PostController>(x => x.Indexpublic())
+                    configuration.For<PostController>(x => x.Indexpublic(default(int)))
                                  .RequireAnyRole(rolesPostIndexpublic);
 
                     configuration.For<PostController>(x => x.Create())
