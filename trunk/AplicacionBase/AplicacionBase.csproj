@@ -260,6 +260,7 @@
     <Compile Include="Models\vw_aspnet_WebPartState_Shared.cs" />
     <Compile Include="Models\vw_aspnet_WebPartState_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\postscript.js" />
     <Content Include="Content\Bootstrap\bootstrap-image-gallery.min.css" />
     <Content Include="Content\Bootstrap\bootstrap-image-gallery.min.js" />
     <Content Include="Content\Bootstrap\bootstrap-responsive.min.css" />
@@ -281,7 +282,7 @@
     <Content Include="Content\img\progressbar.gif" />
     <Content Include="Content\themes\base\images\starselected.png" />
     <Content Include="Content\themes\base\images\starunselected.png" />
-    <Content Include="Scripts\startox.js" />
+    <Content Include="Scripts\startbox.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\main.css" />

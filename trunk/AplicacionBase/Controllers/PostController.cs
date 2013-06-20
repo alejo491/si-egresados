@@ -15,7 +15,6 @@ namespace AplicacionBase.Controllers
     /// <summary>
     /// Controlador para la gestión de noticias
     /// </summary>
-   [Authorize]
     public class PostController : Controller
     {
         /// <summary>
@@ -274,9 +273,44 @@ namespace AplicacionBase.Controllers
 
         }
 
+        [HttpPost]
+        public void AutorizarPost(Guid id, int value)
+        {
+            Post post = db.Posts.Find(id);
+            post.Autorized = value;
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+            }            
+        }
+
+        [HttpPost]
+        public void PostPrincipal(Guid id, int value)
+        {
+            Post post = db.Posts.Find(id);
+            post.Main = value;
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        [HttpPost]
+        public void CambiarEstadoPost(Guid id, int value)
+        {
+            Post post = db.Posts.Find(id);
+            post.Estate = value;
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-      [HttpPost]
+        [HttpPost]
         public ActionResult Create2(AplicacionBase.Models.File uploadfile,Guid idpost)
         {
             if (ModelState.IsValid)
