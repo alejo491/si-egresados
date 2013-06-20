@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AplicacionBase.Models
 {
@@ -16,11 +18,28 @@ namespace AplicacionBase.Models
 
         public System.Guid Id { get; set; }
         public System.Guid IdUser { get; set; }
+
+        [Required]
+        [DisplayName("Titulo")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string Title { get; set; }
+
+        [Required]
+        [DisplayName("Resumen")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string Abstract { get; set; }
+
+        [Required]
+        [DisplayName("Contenido")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string Content { get; set; }
+
+        [DisplayName("Fecha de publiacion")]
         public System.DateTime PublicationDate { get; set; }
+
+        [DisplayName("Fecha de actualizacion")]
         public Nullable<System.DateTime> UpdateDate { get; set; }
+
         public int Autorized { get; set; }
         public int Main { get; set; }
         public int Estate { get; set; }
@@ -30,7 +49,6 @@ namespace AplicacionBase.Models
         public virtual ICollection<aspnet_Roles> aspnet_Roles { get; set; }
         public virtual ICollection<Like> Likes { get; set; }
         public virtual ICollection<Startbox> Startboxs { get; set; }
-
         public virtual ICollection<FilesPost> FilesPosts { get; set; }
     }
 }
