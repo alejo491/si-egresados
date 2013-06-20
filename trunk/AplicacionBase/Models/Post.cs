@@ -20,7 +20,7 @@ namespace AplicacionBase.Models
         public System.Guid IdUser { get; set; }
 
         [Required]
-        [DisplayName("Titulo")]
+        [DisplayName("Título")]
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string Title { get; set; }
 
@@ -37,7 +37,7 @@ namespace AplicacionBase.Models
         [DisplayName("Fecha de publiacion")]
         public System.DateTime PublicationDate { get; set; }
 
-        [DisplayName("Fecha de actualizacion")]
+        [DisplayName("Fecha de actualización")]
         public Nullable<System.DateTime> UpdateDate { get; set; }
 
         public int Autorized { get; set; }
