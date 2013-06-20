@@ -177,5 +177,12 @@ namespace AplicacionBase.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public int get_likes(Guid id)
+        {
+            var likes = db.Likes.SqlQuery("exec dbo.get_like '" + id + "'");
+            IList<Like> list = (IList<Like>)likes.ToList();
+            return list.Count;
+        }
     }
 }

@@ -216,14 +216,17 @@ namespace AplicacionBase.Controllers
 
             Post post = db.Posts.Find(id);
             Post post2 = new Post();
+            Post post3 = new Post();
+
             IList<Post> datos = new List<Post>();
             datos.Add(post);
 
             AplicacionBase.Controllers.LikeController lc = new LikeController();
+            AplicacionBase.Controllers.StartboxController st = new StartboxController();
             int cont = 0;
 
             IList<Like> likes = lc.Index();
-            //bool b= (Guid)Membership.GetUser().ProviderUserKey;
+            IList<Startbox> startbox = st.Index();
 
             if (Request.IsAuthenticated)
             {
@@ -235,11 +238,12 @@ namespace AplicacionBase.Controllers
                         post2.Id = l.Id;
                     }
                 }
-
                 if (cont == 1) post2.Autorized = 1;
                 else post2.Autorized= 0;
+
             }
             else post2.Autorized = -1;
+            post2.Estate = lc.get_likes(id); // guardo en numero de megusta
             datos.Add(post2);
             return View(datos);
         }
