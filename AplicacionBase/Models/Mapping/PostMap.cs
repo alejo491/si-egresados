@@ -11,8 +11,17 @@ namespace AplicacionBase.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
+            this.Property(t => t.Title)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            this.Property(t => t.Abstract)
+                .IsRequired()
+                .HasMaxLength(500);
+
             this.Property(t => t.Content)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(2000);
 
             // Table & Column Mappings
             this.ToTable("Posts");
