@@ -203,8 +203,13 @@ namespace AplicacionBase.Controllers
 
         public ActionResult ShowPosts()
         {
-            var posts = db.Posts.Include(p => p.User);
-            //var posts = db.Posts.SqlQuery("exec dbo.Post_getPostPrincipales");
+            var posts = db.Posts.SqlQuery("exec dbo.Post_getPostMain");
+            return View(posts);
+        }
+
+        public ActionResult ShowListPosts()
+        {
+            var posts = db.Posts.SqlQuery("exec dbo.Post_getPostList");
             return View(posts);
         }
 
