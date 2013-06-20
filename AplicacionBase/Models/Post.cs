@@ -21,17 +21,17 @@ namespace AplicacionBase.Models
 
         [Required]
         [DisplayName("Título")]
-        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""'']*", ErrorMessage = "El formato es incorrecto")]
         public string Title { get; set; }
 
         [Required]
         [DisplayName("Resumen")]
-        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""'']*", ErrorMessage = "El formato es incorrecto")]
         public string Abstract { get; set; }
 
         [Required]
         [DisplayName("Contenido")]
-        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""'']*", ErrorMessage = "El formato es incorrecto")]
         public string Content { get; set; }
 
         [DisplayName("Fecha de publiacion")]
