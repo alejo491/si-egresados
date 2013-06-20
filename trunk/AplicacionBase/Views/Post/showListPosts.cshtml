@@ -1,0 +1,13 @@
+﻿@model IEnumerable<AplicacionBase.Models.Post>
+@{
+    Layout = "";  
+}
+
+@foreach (var item in Model)
+{
+    <div class="views-row views-row-1 views-row-odd views-row-first">
+        <li class="postNoticias">
+	    <span class="categoriaNoticia">@item.Title | </span>
+        @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id })                                        
+    </div>
+} 

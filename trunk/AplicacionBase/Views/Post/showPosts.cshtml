@@ -2,7 +2,19 @@
 @{
     Layout = "";  
 }
-
+<script type="text/javascript"> 
+$(document).ready(function () {
+        $.ajax({
+            type : "POST",
+            url :  "@(Url.Action("ShowListPosts", "Post"))", 
+            traditional : true,
+            data : {}, 
+            success : function(data){
+                $("#view-content").html(data); 
+            }
+        });  
+}) 
+</script>
 <div id="Noticias">
     <div id="NoticiasBordeSup">
 		<div id="noticiasBordeSupIzq"></div>
@@ -71,23 +83,9 @@
                                         i++;
                                     } 
                             </div>
-                            <div class="view-content">
-                                 @foreach (var item in Model)
-                                 {
-                                      <div class="views-row views-row-1 views-row-odd views-row-first">
-                                          <li class="postNoticias">
-	                                      <span class="categoriaNoticia">@item.Title | </span>
-                                          @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id })                                        
-                                      </div>
-                                 }                             
+                            <div class="view-content" id="view-content">
+                                                             
                             </div>
-                            @*<div id="startbox">
-                                <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="calificar(1,  2)"></div>
-                                <div class="startunselected" id="star2" onmouseover="hover(2)" onmouseout="unhover()" onclick="calificar(2,  2)"></div>
-                                <div class="startunselected" id="star3" onmouseover="hover(3)" onmouseout="unhover()" onclick="calificar(3,  2)"></div>
-                                <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,  2)"></div>
-                                <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,  2)"></div>
-                            </div>*@
                             <a href="/versionP/noticias-y-actualidad" class="ebutton blue" id="btMasNoticias" title="Ver más noticias">Más noticias</a>               
                         </div>
                     </div>
