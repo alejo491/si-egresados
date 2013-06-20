@@ -28,9 +28,14 @@ namespace AplicacionBase.Controllers
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
             pageNumber = (page ?? 1);
             return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate).ToPagedList(pageNumber, pageSize));
-           // return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
+            // return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
 
+        public ActionResult Index2()
+        {
+            var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User).OrderByDescending(v => v.PublicationDate).Take(5);
+            return PartialView(vacancies.ToList());
+        }
         //! Muestra los detalles para una vacante en especial
         /*!
          * \param id Contiene el id de la vacante de la cual se desean los detalles
@@ -127,7 +132,7 @@ namespace AplicacionBase.Controllers
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
-           
+
             return View(vacancy);
         }
 
@@ -163,7 +168,7 @@ namespace AplicacionBase.Controllers
             }
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
             //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
-          
+
             return View(vacancy);
         }
 
@@ -198,11 +203,11 @@ namespace AplicacionBase.Controllers
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
-            base.Dispose(disposing); 
+            base.Dispose(disposing);
         }
 
 
-       
+
         //private System.Linq.IOrderedEnumerable<Vacancy> results;
         //private string searchText;
 
@@ -215,15 +220,16 @@ namespace AplicacionBase.Controllers
          */
         public ActionResult Search(string criteria, int? page)
         {
-       
+
             ViewBag.CurrentFilter = criteria;
-        
-            if (criteria == null) {
-               criteria = "";
+
+            if (criteria == null)
+            {
+                criteria = "";
             }
 
 
-          
+
             /*    if (criteria.ToLower().Trim().Equals(searchText))
                 {
                     pageNumber = (page ?? 1);
@@ -231,20 +237,20 @@ namespace AplicacionBase.Controllers
                 }
             */
 
-           
 
-           string searchText= criteria.ToLower().Trim();
 
-           
+            string searchText = criteria.ToLower().Trim();
+
+
             //Búsqueda
-            var vacancies= db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
+            var vacancies = db.Vacancies.Where(v => v.Charge.ToLower().Contains(criteria) || v.Description.Contains(criteria) ||
                 v.ProfessionalProfile.Contains(criteria));
 
             //Ordenar por fecha de publicación
             var results = vacancies.ToList().OrderByDescending(c => c.PublicationDate);
 
-            
-            pageNumber = (page ?? 1);            
+
+            pageNumber = (page ?? 1);
             return View(results.ToPagedList(pageNumber, pageSize));
 
         }
@@ -256,7 +262,7 @@ namespace AplicacionBase.Controllers
                 item => item.StartsWith(term, StringComparison.InvariantCultureIgnoreCase));
             return Json(filteredItems, JsonRequestBehavior.AllowGet);
         }
-      
-       
+
+
     }
 }
