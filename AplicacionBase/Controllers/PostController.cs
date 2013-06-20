@@ -8,28 +8,36 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Web.Security;
 using System.IO;
+using PagedList;
 
 namespace AplicacionBase.Controllers
 {
     /// <summary>
     /// Controlador para la gestión de noticias
     /// </summary>
+   [Authorize]
     public class PostController : Controller
     {
         /// <summary>
         /// Atributo que consulta la base de datos
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
+        /// <summary>
+        /// Atributos que permiten controlar la paginación de las vistas
+        /// </summary>
+        private int pageSize = 10;
+        private int pageNumber;
 
         #region ListarNoticiasAdministrador
         /// <summary>
         /// Muestra todas las noticias que han publicado los usuarios
         /// </summary>
         /// <returns>Retorna las noticias en el formulario</returns>
-        public ViewResult Index()
+        public ViewResult Index(int? page)
         {
             var posts = db.Posts.Include(p => p.User);
-            return View(posts.ToList());
+            pageNumber = (page ?? 1);
+            return View(posts.ToList().ToPagedList(pageNumber, pageSize));
         }
         #endregion
 
@@ -38,10 +46,11 @@ namespace AplicacionBase.Controllers
         /// Muestra todas las noticias que ha publicado el usuario
         /// </summary>
         /// <returns>Retorna las noticias en el formulario</returns>
-        public ViewResult Indexpublic()
+        public ViewResult Indexpublic(int? page)
         {
             var posts = db.Posts.Include(p => p.User);
-            return View(posts.ToList());
+            pageNumber = (page ?? 1);
+            return View(posts.ToList().ToPagedList(pageNumber, pageSize));
         }
         #endregion
 
