@@ -16,10 +16,10 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Startbox/
 
-        public ViewResult Index()
+        public IList<Startbox> Index()
         {
             var startboxs = db.Startboxs.Include(s => s.Post).Include(s => s.User);
-            return View(startboxs.ToList());
+            return (IList<Startbox>)startboxs.ToList();
         }
 
         //
