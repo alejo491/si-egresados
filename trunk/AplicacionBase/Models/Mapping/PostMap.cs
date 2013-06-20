@@ -13,15 +13,14 @@ namespace AplicacionBase.Models.Mapping
             // Properties
             this.Property(t => t.Title)
                 .IsRequired()
-                .HasMaxLength(200);
+                .HasMaxLength(100);
 
             this.Property(t => t.Abstract)
                 .IsRequired()
-                .HasMaxLength(500);
+                .HasMaxLength(300);
 
             this.Property(t => t.Content)
-                .IsRequired()
-                .HasMaxLength(2000);
+                .IsRequired();
 
             // Table & Column Mappings
             this.ToTable("Posts");
