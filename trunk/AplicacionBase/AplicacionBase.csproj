@@ -677,6 +677,7 @@
     <Content Include="Views\Bosses\DetailsForExperiences.cshtml" />
     <Content Include="Views\Post\Search.cshtml" />
     <Content Include="Views\Post\showListPosts.cshtml" />
+    <Content Include="Views\Vacancies\Index2.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
