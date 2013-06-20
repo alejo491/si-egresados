@@ -1,9 +1,7 @@
 ﻿var Position, Tamaño
 $(window).load(function () {
     Position = 1;
-    alert("llego");
     Tamaño = $("#numPostCarrucel").text();
-    alert(Tamaño);
     setInterval("Next()", 4000);
 });
 
