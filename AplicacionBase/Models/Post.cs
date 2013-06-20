@@ -19,17 +19,18 @@ namespace AplicacionBase.Models
         public System.Guid Id { get; set; }
         public System.Guid IdUser { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Título")]
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""'']*", ErrorMessage = "El formato es incorrecto")]
+        [MaxLength(100, ErrorMessage = "El título no pueder tener más de 100 caracteres")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Resumen")]
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""'']*", ErrorMessage = "El formato es incorrecto")]
         public string Abstract { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Contenido")]
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""'']*", ErrorMessage = "El formato es incorrecto")]
         public string Content { get; set; }
