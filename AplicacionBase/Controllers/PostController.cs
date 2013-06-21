@@ -27,6 +27,21 @@ namespace AplicacionBase.Controllers
         private int pageSize = 10;
         private int pageNumber;
 
+        #region ListarNoticiasGobal
+        /// <summary>
+        /// Muestra las noticias auntorizadas que han publicado los usuarios
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
+        public ViewResult GlobalIndex(int? page)
+        {
+            var posts = db.Posts.Where(i => i.Autorized == 1);
+            pageNumber = (page ?? 1);
+            return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
+        }
+        #endregion
+
+
         #region ListarNoticiasAdministrador
         /// <summary>
         /// Muestra todas las noticias que han publicado los usuarios
