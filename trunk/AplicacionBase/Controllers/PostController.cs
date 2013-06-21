@@ -231,7 +231,8 @@ namespace AplicacionBase.Controllers
             int cont = 0;
 
             IList<Like> likes = lc.Index();
-            IList<Startbox> startbox = st.Index();
+            int startbox = st.Index2(id);
+            
 
             if (Request.IsAuthenticated)
             {
@@ -249,7 +250,9 @@ namespace AplicacionBase.Controllers
             }
             else post2.Autorized = -1;
             post2.Estate = lc.get_likes(id); // guardo en numero de megusta
+            post3.Estate = startbox;      //recupero al alificacion
             datos.Add(post2);
+            datos.Add(post3);
             return View(datos);
         }
 

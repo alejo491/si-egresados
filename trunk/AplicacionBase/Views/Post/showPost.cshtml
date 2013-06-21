@@ -11,15 +11,16 @@
             <div></br>
                 @if (Model.ElementAt(1).Autorized==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
                 @if (Model.ElementAt(1).Autorized==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
-                <div class ="left"> @Model.ElementAt(1).Estate Usuarios les Gusta</div> </br></br></br>
-                <div id="startbox">
+                <div class ="left"> &nbsp&nbsp&nbsp @Model.ElementAt(1).Estate Usuarios les Gusta</div> </br></br></br>
+                
+                <div id="startbox" style = "margin-left :15px ">
                     <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="calificar(1,  2)"></div>
                     <div class="startunselected" id="star2" onmouseover="hover(2)" onmouseout="unhover()" onclick="calificar(2,  2)"></div>
                     <div class="startunselected" id="star3" onmouseover="hover(3)" onmouseout="unhover()" onclick="calificar(3,  2)"></div>
                     <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,  2)"></div>
                     <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,  2)"></div>
                 </div>
-                <div class ="left"> @Model.ElementAt(1).Estate De calificacion promedio</div> </br></br></br>
+                <div class ="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  @Model.ElementAt(2).Estate De calificacion promedio</div> </br></br></br>
             </div>
         </div>
     </div>

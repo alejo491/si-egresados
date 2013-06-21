@@ -22,6 +22,17 @@ namespace AplicacionBase.Controllers
             return (IList<Startbox>)startboxs.ToList();
         }
 
+        public int Index2(Guid id)
+        {
+            var startboxs = db.Startboxs.SqlQuery("exec dbo.get_promedio_post '" + id + "'");
+            IList<Startbox> list = (IList<Startbox>)startboxs.ToList();
+            int suma = 0;
+            foreach (Startbox l in list)
+                suma = suma+l.Qualification;
+            if (list.Count == 0) return 0;
+            else return (suma / list.Count);
+        }
+
         //
         // GET: /Startbox/Details/5
 
