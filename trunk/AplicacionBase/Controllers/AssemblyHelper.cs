@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
@@ -163,5 +164,49 @@ namespace AplicacionBase.Controllers
             }
             return roles.ToArray();
         }
+
+
+        /// <summary>
+        /// Metodo que crea el usuario administrador del sistema
+        /// </summary>
+        public void CreateAdmin()
+        {
+
+
+            if (db.aspnet_Users.Count(x=>x.UserName == "Administrador") == 0)
+            {
+                Membership.DeleteUser("Administrador");
+                Roles.DeleteRole("Administrador");
+                var i = Membership.CreateUser("Administrador", "S13P1S", "localhost@localhost.com");
+                Roles.CreateRole("Administrador");
+                var user = db.aspnet_Users.First(u => u.UserName == "Administrador");
+                var role = db.aspnet_Roles.First(r => r.RoleName == "Administrador");
+                db.SaveChanges();
+                var userrole = new aspnet_UsersInRoles(user.UserId, role.RoleId);
+                //userrole.RoleId = role.RoleId;
+                //userrole.UserId = user.UserId;                  
+                db.aspnet_UsersInRoles.Add(userrole);
+                db.SaveChanges();
+                var profile = new User();
+                profile.Id = user.UserId;
+                profile.FirstNames = "Señor";
+                profile.LastNames = "Administrador";
+                db.Users.Add(profile);
+                db.SaveChanges();
+                var metodos = db.Methods.ToList();
+                foreach (var method in metodos)
+                {
+                    RoleMethod r = new RoleMethod(role.RoleId, method.Id);
+                    db.RoleMethods.Add(r);
+                }
+                db.SaveChanges();
+            }
+                    
+               
+  
+            }
+            
+            
+        
     }
 }

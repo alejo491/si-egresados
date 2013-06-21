@@ -1,4 +1,5 @@
-﻿@using System.Collections.Specialized
+﻿@model AplicacionBase.Models.ItemData
+@using System.Collections.Specialized
 @{
     ViewBag.Title = "Crear Item a partir de datos de usuarios";
 }
@@ -373,7 +374,11 @@
                     <h3>Descripcion del item</h3>
                     <div class="c12">
                         @Html.TextArea("Sentence", htmlAttributes: new {@style = "width: 500px; height : 100px;"})
+                        <div class="alert error">                                          
+                            @Html.ValidationMessageFor(model => model.Sentence)
+                        </div>
                     </div>
+                    
                     
                         <h3>Tipo de grafico</h3>
                         <div class="c12">
@@ -382,7 +387,7 @@
                             </div>
                             <div class="c11">
                                 <div class="c12">
-                                    @Html.RadioButton("option", "Pastel") Pastel
+                                    @Html.RadioButton("option", "Pastel",true) Pastel
                                 </div>
                                 <div class="c12">
                                     @Html.RadioButton("option", "Barras") Barras
@@ -390,8 +395,11 @@
                                 <div class="c12">
                                     @Html.RadioButton("option", "Ninguno") Sin grafico
                                 </div>
-                           
+                                <div class="alert error">                                          
+                                    @Html.ValidationMessageFor(model => model.GraphicType)
+                                </div>
                             </div>
+
                             <h3>Opciones</h3>
                             <div class="c12">
                                 <div class="c2">
@@ -399,12 +407,15 @@
                                 </div>
                                 <div class="c9">
                                     @Html.TextBox("numeropagina", "")
+                                    <div class="alert error">                                          
+                                    @Html.ValidationMessageFor(model => model.ItemNumber)
+                                </div>
                                 </div>
                             </div>                  
                         </div>
                         <input type="submit" value="Guardar"/>
                     
-                        }
+                }
 
                     </div>
             
