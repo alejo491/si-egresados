@@ -119,5 +119,29 @@ namespace AplicacionBase.Controllers
             }
             return RedirectToAction("Begin", "User", new { id = g });
         }
+
+        /// <summary>
+        /// Metodo que redirecciona a la vista beguin deacuerdo al usuario del momento
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Redirect()
+        {
+            Guid g = System.Guid.Empty;
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                foreach (var e in db.aspnet_Users)
+                {
+                    if (e.UserName == HttpContext.User.Identity.Name)
+                    {
+                        g = e.UserId;
+                    }
+                }
+                return RedirectToAction("Begin", "User", new { id = g });
+            }
+            else 
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }
