@@ -40,19 +40,18 @@ namespace AplicacionBase
 
         protected void Application_Start()
         {
-
-            if (false)
-            {
-            //Cargar todos los controladores y metodos automaticamente, no se cargan los metodos si ya estan en la base de datos.
             #region Cargar controladores
             var assembly = new AssemblyHelper();
             var result = assembly.GetControllerNames();
+            assembly.CreateAdmin();
             #endregion
+            
+            
 
             
             
 
-                #region Reglas de seguridad
+            #region Reglas de seguridad
             //Reglas de configuración
             SecurityConfigurator.Configure(configuration =>
             {
@@ -86,7 +85,7 @@ namespace AplicacionBase
                     var rolesSurveysEdit = assembly.GetRolesMethods("SurveysController", "Edit");
                     var rolesSurveysDelete = assembly.GetRolesMethods("SurveysController", "Delete");
                     var rolesSurveysDeleteConfirmed = assembly.GetRolesMethods("SurveysController", "DeleteConfirmed");
-                    var rolesSurveysDetails = assembly.GetRolesMethods("SurveysController", "Detail");
+                    var rolesSurveysDetails = assembly.GetRolesMethods("SurveysController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador surveys.
@@ -115,7 +114,7 @@ namespace AplicacionBase
                     string[] rolesPostIndex = assembly.GetRolesMethods("PostController", "Index");
                     string[] rolesPostIndexpublic = assembly.GetRolesMethods("PostController", "Indexpublic");
                     var rolesPostCreate = assembly.GetRolesMethods("PostController", "Create");
-                    var rolesPostDetails = assembly.GetRolesMethods("PostController", "Detail");
+                    var rolesPostDetails = assembly.GetRolesMethods("PostController", "Details");
                     var rolesPostEdit = assembly.GetRolesMethods("PostController", "Edit");
                     var rolesPostDelete = assembly.GetRolesMethods("PostController", "Delete");
                     var rolesPostDeleteConfirmed = assembly.GetRolesMethods("PostController", "DeleteConfirmed");
@@ -154,16 +153,15 @@ namespace AplicacionBase
 
                     #region Reglas del controlador Like
                     // Se obtienen los roles que tienen acceso al controlador Like y a los métodos de este controlador.
-                    string[] rolesLikeIndex = assembly.GetRolesMethods("LikeController", "Index");
+                    //string[] rolesLikeIndex = assembly.GetRolesMethods("LikeController", "Index");
                     var rolesLikeCreate = assembly.GetRolesMethods("LikeController", "Create");
-                    var rolesLikeDetails = assembly.GetRolesMethods("LikeController", "Detail");
+                    var rolesLikeDetails = assembly.GetRolesMethods("LikeController", "Details");
                     var rolesLikeEdit = assembly.GetRolesMethods("LikeController", "Edit");
                     var rolesLikeDelete = assembly.GetRolesMethods("LikeController", "Delete");
                     var rolesLikeDeleteConfirmed = assembly.GetRolesMethods("LikeController", "DeleteConfirmed");
 
                     //Se configuran las reglas de acceso para el controlador Like.
-                    configuration.For<LikeController>(x => x.Index())
-                                 .RequireAnyRole(rolesLikeIndex);
+                    //configuration.For<LikeController>(x => x.Index()).RequireAnyRole(rolesLikeIndex);
 
                     configuration.For<LikeController>(x => x.Create(default(Guid)))
                                  .RequireAnyRole(rolesLikeCreate);
@@ -184,16 +182,15 @@ namespace AplicacionBase
 
                     #region Reglas del controlador Startbox
                     //Se obtienen los roles que tienen acceso al controlador Startbox y a los métodos de este controlador.
-                    string[] rolesStartboxIndex = assembly.GetRolesMethods("StartboxController", "Index");
+                    //string[] rolesStartboxIndex = assembly.GetRolesMethods("StartboxController", "Index");
                     var rolesStartboxCreate = assembly.GetRolesMethods("StartboxController", "Create");
-                    var rolesStartboxDetails = assembly.GetRolesMethods("StartboxController", "Detail");
+                    var rolesStartboxDetails = assembly.GetRolesMethods("StartboxController", "Details");
                     var rolesStartboxEdit = assembly.GetRolesMethods("StartboxController", "Edit");
                     var rolesStartboxDelete = assembly.GetRolesMethods("StartboxController", "Delete");
                     var rolesStartboxDeleteConfirmed = assembly.GetRolesMethods("StartboxController", "DeleteConfirmed");
 
                     //Se configuran las reglas de acceso para el controlador Startbox.
-                    configuration.For<StartboxController>(x => x.Index())
-                                 .RequireAnyRole(rolesStartboxIndex);
+                    //configuration.For<StartboxController>(x => x.Index()).RequireAnyRole(rolesStartboxIndex);
 
                     configuration.For<StartboxController>(x => x.Create())
                                  .RequireAnyRole(rolesStartboxCreate);
@@ -219,7 +216,7 @@ namespace AplicacionBase
                     var rolesAnswerChoicesEdit = assembly.GetRolesMethods("AnswerChoicesController", "Edit");
                     var rolesAnswerChoicesDelete = assembly.GetRolesMethods("AnswerChoicesController", "Delete");
                     var rolesAnswerChoicesDeleteConfirmed = assembly.GetRolesMethods("SurveysController", "DeleteConfirmed");
-                    var rolesAnswerChoicesDetails = assembly.GetRolesMethods("AnswerChoicesController", "Detail");
+                    var rolesAnswerChoicesDetails = assembly.GetRolesMethods("AnswerChoicesController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador AnswerChoices.
@@ -280,7 +277,7 @@ namespace AplicacionBase
                     var rolesItemSurveysCreate = assembly.GetRolesMethods("ItemSurveysController", "Create");
                     var rolesItemSurveysDelete = assembly.GetRolesMethods("ItemSurveysController", "Delete");
                     var rolesItemSurveysDeleteConfirmed = assembly.GetRolesMethods("ItemSurveysController", "DeleteConfirmed");
-                    var rolesItemSurveysDetails = assembly.GetRolesMethods("ItemSurveysController", "Detail");
+                    var rolesItemSurveysDetails = assembly.GetRolesMethods("ItemSurveysController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador ItemSurveys.
@@ -308,7 +305,7 @@ namespace AplicacionBase
                     var rolesAspnet_RolesEdit = assembly.GetRolesMethods("Aspnet_RolesController", "Edit");
                     var rolesAspnet_RolesDelete = assembly.GetRolesMethods("Aspnet_RolesController", "Delete");
                     var rolesAspnet_RolesDeleteConfirmed = assembly.GetRolesMethods("Aspnet_RolesController", "DeleteConfirmed");
-                    var rolesAspnet_RolesDetails = assembly.GetRolesMethods("Aspnet_RolesController", "Detail");
+                    var rolesAspnet_RolesDetails = assembly.GetRolesMethods("Aspnet_RolesController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador Aspnet_Roles.
@@ -404,7 +401,7 @@ namespace AplicacionBase
                     var rolesTopicEdit = assembly.GetRolesMethods("TopicController", "Edit");
                     var rolesTopicDelete = assembly.GetRolesMethods("TopicController", "Delete");
                     var rolesTopicDeleteConfirmed = assembly.GetRolesMethods("TopicController", "DeleteConfirmed");
-                    var rolesTopicDetails = assembly.GetRolesMethods("TopicController", "Detail");
+                    var rolesTopicDetails = assembly.GetRolesMethods("TopicController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador topic.
@@ -464,11 +461,11 @@ namespace AplicacionBase
                     #region Reglas del controlador ElectiveController
                     //Se obtienen los roles que tienen acceso al controlador  Elective y a los metodos de este controlador
                     string[] rolesElectiveIndex = assembly.GetRolesMethods("ElectiveController", "Index");
-                    var rolesElectiveCreate = assembly.GetRolesMethods("ElectiveController", "Create");
+                    //var rolesElectiveCreate = assembly.GetRolesMethods("ElectiveController", "Create");
                     var rolesElectiveEdit = assembly.GetRolesMethods("ElectiveController", "Edit");
-                    var rolesElectiveDelete = assembly.GetRolesMethods("ElectiveController", "Delete");
-                    var rolesElectiveDeleteConfirmed = assembly.GetRolesMethods("ElectiveController", "DeleteConfirmed");
-                    var rolesElectiveDetails = assembly.GetRolesMethods("ElectiveController", "Detail");
+                    //var rolesElectiveDelete = assembly.GetRolesMethods("ElectiveController", "Delete");
+                    //var rolesElectiveDeleteConfirmed = assembly.GetRolesMethods("ElectiveController", "DeleteConfirmed");
+                    var rolesElectiveDetails = assembly.GetRolesMethods("ElectiveController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador Elective.
@@ -489,11 +486,11 @@ namespace AplicacionBase
                     #region Reglas del controlador SchoolController
                     //Se obtienen los roles que tienen acceso al controlador School y a los metodos de este controlador
                     string[] rolesSchoolIndex = assembly.GetRolesMethods("SchoolController", "Index");
-                    var rolesSchoolCreate = assembly.GetRolesMethods("SchoolController", "Create");
+                    //var rolesSchoolCreate = assembly.GetRolesMethods("SchoolController", "Create");
                     var rolesSchoolEdit = assembly.GetRolesMethods("SchoolController", "Edit");
-                    var rolesSchoolDelete = assembly.GetRolesMethods("SchoolController", "Delete");
-                    var rolesSchoolDeleteConfirmed = assembly.GetRolesMethods("SchoolController", "DeleteConfirmed");
-                    var rolesSchoolDetails = assembly.GetRolesMethods("SchoolController", "Detail");
+                    //var rolesSchoolDelete = assembly.GetRolesMethods("SchoolController", "Delete");
+                    //var rolesSchoolDeleteConfirmed = assembly.GetRolesMethods("SchoolController", "DeleteConfirmed");
+                    var rolesSchoolDetails = assembly.GetRolesMethods("SchoolController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador School.
@@ -518,7 +515,7 @@ namespace AplicacionBase
                     var rolesStudyEdit = assembly.GetRolesMethods("StudyController", "Edit");
                     var rolesStudyDelete = assembly.GetRolesMethods("StudyController", "Delete");
                     var rolesStudyDeleteConfirmed = assembly.GetRolesMethods("StudyController", "DeleteConfirmed");
-                    var rolesStudyDetails = assembly.GetRolesMethods("StudyController", "Detail");
+                    var rolesStudyDetails = assembly.GetRolesMethods("StudyController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador Study.
@@ -539,11 +536,11 @@ namespace AplicacionBase
                     #region Reglas del controlador ThesisController
                     //Se obtienen los roles que tienen acceso al controlador Thesis y a los metodos de este controlador
                     string[] rolesThesisIndex = assembly.GetRolesMethods("ThesisController", "Index");
-                    var rolesThesisCreate = assembly.GetRolesMethods("ThesisController", "Create");
+                    //var rolesThesisCreate = assembly.GetRolesMethods("ThesisController", "Create");
                     var rolesThesisEdit = assembly.GetRolesMethods("ThesisController", "Edit");
-                    var rolesThesisDelete = assembly.GetRolesMethods("ThesisController", "Delete");
-                    var rolesThesiseleteConfirmed = assembly.GetRolesMethods("ThesisController", "DeleteConfirmed");
-                    var rolesThesisDetails = assembly.GetRolesMethods("ThesisController", "Detail");
+                   // var rolesThesisDelete = assembly.GetRolesMethods("ThesisController", "Delete");
+                    //var rolesThesiseleteConfirmed = assembly.GetRolesMethods("ThesisController", "DeleteConfirmed");
+                    var rolesThesisDetails = assembly.GetRolesMethods("ThesisController", "Details");
 
 
                     //Se configuran las reglas de acceso para el controlador Thesis.
@@ -803,6 +800,13 @@ namespace AplicacionBase
 
                     #endregion    
 
+                    #region Reglas de seguridad controlador Items
+
+                    string[] rolesItem = assembly.GetRolesMethods("ItemsController", "GeneralItems");
+                    configuration.For<ItemsController>(x => x.GeneralItems((default(Guid))))
+                                .RequireAnyRole(rolesItem);
+                    #endregion
+
                 #endregion
                 //****************************************************************************************************//
                     //****************************************************************************************************//
@@ -813,10 +817,10 @@ namespace AplicacionBase
 
             });
             #endregion
-                //Se añaden las reglas
-                GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
-    //            //GlobalFilters.Filters.Add(new DenyAnonymousAccessPolicyViolationHandler());
-            }
+            //Se añaden las reglas
+            GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
+    
+            
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
