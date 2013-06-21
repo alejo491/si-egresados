@@ -27,7 +27,7 @@ $(document).ready(function () {
 $(document).ready(function () {
         $.ajax({
             type : "POST",
-            url :  "@(Url.Action("UploadFile","File", new { id = Model.Id }))", // se dirige a la acción "Index" del controlado UploadFile
+            url :  "@(Url.Action("UFile","File", new { id = Model.Id }))", // se dirige a la acción "Index" del controlado UploadFile
             traditional : true,
             data : {  }, // se agregan los parametros necesarios para la funcionalidad
             success : function(data){

@@ -10,29 +10,29 @@
 <fieldset>
     <legend>File</legend>
 
-    <div class="display-label">Patch</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Path)
+    <div class="display-label">Imagen</div>
+    <div class="preview">
+        <a href=@Html.DisplayFor(model => model.Path)> <img alt="" src= @Html.DisplayFor(model => model.Path) height="200" width="200" /></a>
     </div>
-
-    <div class="display-label">Name</div>
+    
+    <div class="display-label">Nombre</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
-    <div class="display-label">Type</div>
+    <div class="display-label">Tipo</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Type)
     </div>
 
-    <div class="display-label">Size</div>
+    <div class="display-label">Tamaño en KB</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Size)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Confimar Elimianción" class="ebutton blue"/> |
+        @Html.ActionLink("Cancelar", "Regresar", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }

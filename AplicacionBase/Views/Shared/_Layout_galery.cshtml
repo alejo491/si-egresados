@@ -2,7 +2,9 @@
 @using ClientDependency.Core.Mvc
 <!DOCTYPE html>
 <html>
-	@MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath>
+	
+<head>
+    @MvcHtmlString.Create(Html.RenderCssHere(new List<IClientDependencyPath>
 												{
 													new BasicPath("Base", "~/Content/themes/base"),
 													new BasicPath("Content", "~/Content")
@@ -19,7 +21,6 @@
 	@{
 		Html.RequiresCss("Site2.css", "Content", 1);
 	}
-<head>
 	<title>@ViewBag.Title</title>
 </head>
 <body>

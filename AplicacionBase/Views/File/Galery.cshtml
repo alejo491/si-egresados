@@ -9,39 +9,51 @@
 <table>
     <tr>
         <th>
-            Patch
+            Imagen
         </th>
         <th>
-            Name
+            Nombre
         </th>
         <th>
-            Type
+            Tipo de Archivo
         </th>
         <th>
-            Size
+            Tamaño 
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            
-            <a href=@Html.DisplayFor(modelItem => item.Path)> <img alt="" src= @Html.DisplayFor(modelItem => item.Path) height="100" width="100" /></a>
+        <td style="text-align: center;">
+            <div id="gallery">
+                <a href=@Html.DisplayFor(modelItem => item.Path)> <img alt="" src= @Html.DisplayFor(modelItem => item.Path) height="100" width="100" /></a>
+            </div>   
         </td>
-        <td>
+        <td style="text-align: center;">
             @Html.DisplayFor(modelItem => item.Name)
         </td>
-        <td>
+        <td style="text-align: center;">
             @Html.DisplayFor(modelItem => item.Type)
         </td>
-        <td>
+        <td style="text-align: center;">
             @Html.DisplayFor(modelItem => item.Size)
         </td>
         <td>
-            02 @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+             @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
         </td>
     </tr>
 }
 
 </table>
+ <script type="text/javascript">
+        $(function ImageLB() {
+            $('#gallery a').lightBox({ 
+                imageLoading: '/Content/lightbox-ico-loading.gif',
+                imageBtnClose: '/Content/lightbox-btn-close.gif',
+                imageBtnPrev: '/Content/lightbox-btn-prev.gif',
+                imageBtnNext: '/Content/lightbox-btn-next.gif',
+                
+            });
+        });
+    </script>

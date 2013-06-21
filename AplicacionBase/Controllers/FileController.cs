@@ -10,7 +10,7 @@ using System.Web.Security;
 using System.IO;
 
 namespace AplicacionBase.Controllers
-{ 
+{
     public class FileController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -22,9 +22,10 @@ namespace AplicacionBase.Controllers
         {
             return View(db.Files.ToList());
         }
-        public ViewResult UploadFile(Guid Id)
+        public ViewResult UFile(Guid Id)
         {
-            return View();
+            var post = db.Posts.Find(Id);
+            return View(post);
         }
 
         public ViewResult Galery(Guid Id)
@@ -48,7 +49,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /File/Create
@@ -61,15 +62,15 @@ namespace AplicacionBase.Controllers
                 file.Id = Guid.NewGuid();
                 db.Files.Add(file);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(file);
         }
-        
+
         //
         // GET: /File/Edit/5
- 
+
         public ActionResult Edit(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
@@ -93,11 +94,17 @@ namespace AplicacionBase.Controllers
 
         //
         // GET: /File/Delete/5
- 
+
         public ActionResult Delete(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
             return View(file);
+        }
+        public ActionResult Regresar(Guid id)
+        {
+            var filepost = db.FilesPosts.SqlQuery("exec relacionfilepost '" + id + "'");
+            Guid idpost = filepost.ToList()[0].IdPost;
+            return RedirectToAction("Edit", "Post", new { id = idpost });
         }
 
         //
@@ -116,13 +123,14 @@ namespace AplicacionBase.Controllers
                 System.IO.File.Delete(filePath);
             }
             var filepost = db.FilesPosts.SqlQuery("exec relacionfilepost '" + id + "'");
+            Guid idpost = filepost.ToList()[0].IdPost;
 
             db.FilesPosts.Remove(filepost.ToList()[0]);
             db.SaveChanges();
             db.Files.Remove(file);
             db.SaveChanges();
-            
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Edit", "Post", new { id = idpost });
         }
 
         protected override void Dispose(bool disposing)
@@ -133,46 +141,46 @@ namespace AplicacionBase.Controllers
 
         /////////////////////////////////////////////////////////////////////////////////////
 
-        [HttpPost]
-        public ActionResult Create2(AplicacionBase.Models.File uploadfile,Guid idpost)
-        {
-            if (ModelState.IsValid)
-            {
-                FilesPost filepost = new FilesPost();
-
-                filepost.IdPost = idpost;
-                if (uploadfile.Type.ToString().Contains("image"))
-                {
-                    filepost.Main = 1;
-                    filepost.Type = uploadfile.Type;
-                }
-                filepost.Main = 0;
-                filepost.Type = uploadfile.Type;
-                filepost.File = uploadfile;
-                db.FilesPosts.Add(filepost);
-                db.SaveChanges();
-            }
-
-            return View();
-        }
-
+        ///////////////////////////////////////////////////////////////////////////////////////////
         private string StorageRoot
         {
             get { return Path.Combine(Server.MapPath("~/UploadFiles")); }
         }
 
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
 
+        public void Create2(AplicacionBase.Models.File uploadfile, Guid idpost)
+        {
+            //if (ModelState.IsValid)
+            //{
+                FilesPost filepost = new FilesPost();
+
+                filepost.IdPost = idpost;
+
+                if (uploadfile.Type.ToString().Contains("image"))
+                {
+                    filepost.Main = 1;
+                    filepost.Type = uploadfile.Type;
+                }
+                else
+                {
+                    filepost.Main = 0;
+                    filepost.Type = "Archivo";
+                }
+                db.Files.Add(uploadfile);
+                db.SaveChanges();
+                filepost.File = uploadfile;
+                db.FilesPosts.Add(filepost);
+                db.SaveChanges();
+            //}
+
+
+        }
 
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         //[HttpGet]
         //public void Delete(string id)
         //{
         //    var filename = id;
-
         //    var filePath = Path.Combine(Server.MapPath("~/Files"), filename);
 
         //    if (System.IO.File.Exists(filePath))
@@ -202,24 +210,16 @@ namespace AplicacionBase.Controllers
         }
 
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
-        //[HttpPost]
-        //public ActionResult UploadFiles2(FormCollection form)
-        //{
-
-        //}
-      
-        
         [HttpPost]
-        public ActionResult UploadFiles(Guid Id)
+        public ActionResult UploadFiles(Post post)
         {
             var r = new List<ViewDataUploadFilesResult>();
-
-            Guid id_pos = Id;
+            var id = post.Id;
             foreach (string file in Request.Files)
             {
                 var statuses = new List<ViewDataUploadFilesResult>();
                 var headers = Request.Headers;
-                
+
                 if (string.IsNullOrEmpty(headers["X-File-Name"]))
                 {
                     UploadWholeFile(Request, statuses);
@@ -229,26 +229,25 @@ namespace AplicacionBase.Controllers
                     UploadPartialFile(headers["X-File-Name"], Request, statuses);
                 }
                 ViewDataUploadFilesResult obj_file = new ViewDataUploadFilesResult();
-
                 for (int i = 0; i < statuses.Count; i++)
                 {
                     obj_file = statuses[i];//    if (ModelState.IsValid)
                     {
+
                         AplicacionBase.Models.File uploadfile = new AplicacionBase.Models.File();
                         uploadfile.Id = Guid.NewGuid();
                         uploadfile.Name = obj_file.name;
-                        uploadfile.Path = "/UploadFiles/"+obj_file.name.ToString();
+                        uploadfile.Path = "/UploadFiles/" + obj_file.name.ToString();
                         uploadfile.Type = obj_file.type;
                         uploadfile.Size = obj_file.size.ToString();
-                        db.Files.Add(uploadfile);
-                        db.SaveChanges();
-                        Create2(uploadfile, id_pos);
-                        
+                        Create2(uploadfile, post.Id);
+
                     }
                 }
 
                 JsonResult result = Json(statuses);
                 result.ContentType = "text/plain";
+
                 return result;
             }
 
@@ -267,7 +266,8 @@ namespace AplicacionBase.Controllers
             if (request.Files.Count != 1) throw new HttpRequestValidationException("Attempt to upload chunked file containing more than one fragment per request");
             var file = request.Files[0];
             var inputStream = file.InputStream;
-            var fullName = Path.Combine(StorageRoot,  Path.GetFileName(fileName));
+
+            var fullName = Path.Combine(StorageRoot, Path.GetFileName(fileName));
 
             using (var fs = new FileStream(fullName, FileMode.Append, FileAccess.Write))
             {
@@ -279,19 +279,16 @@ namespace AplicacionBase.Controllers
                     fs.Write(buffer, 0, l);
                     l = inputStream.Read(buffer, 0, 1024);
                 }
-
                 fs.Flush();
                 fs.Close();
             }
-
             statuses.Add(new ViewDataUploadFilesResult()
             {
                 name = fileName,
                 size = file.ContentLength,
                 type = file.ContentType,
-                url = "/Post/Download/" + fileName,
-                url_fullName = fullName,
-                delete_url = "/Post/Delete/" + fileName,
+                url = "/Home/Download/" + fileName,
+                delete_url = "/Home/Delete/" + fileName,
                 thumbnail_url = @"data:image/png;base64," + EncodeFile(fullName),
                 delete_type = "GET",
             });
@@ -304,24 +301,33 @@ namespace AplicacionBase.Controllers
             for (int i = 0; i < request.Files.Count; i++)
             {
                 var file = request.Files[i];
-                var fullPath = Path.Combine(StorageRoot,Path.GetFileName(file.FileName));
+
+                var fullPath = Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
 
                 file.SaveAs(fullPath);
-
 
                 statuses.Add(new ViewDataUploadFilesResult()
                 {
                     name = file.FileName,
                     size = file.ContentLength,
                     type = file.ContentType,
-                    url = "/Post/Download/" + file.FileName,
-                    delete_url = "/Post/Delete/" + file.FileName,
-                    url_fullName = fullPath,
+                    url = "/Home/Download/" + file.FileName,
+                    delete_url = "/Home/Delete/" + file.FileName,
                     thumbnail_url = @"data:image/png;base64," + EncodeFile(fullPath),
                     delete_type = "GET",
                 });
             }
         }
     }
-   
+
+    public class ViewDataUploadFilesResult
+    {
+        public string name { get; set; }
+        public int size { get; set; }
+        public string type { get; set; }
+        public string url { get; set; }
+        public string delete_url { get; set; }
+        public string thumbnail_url { get; set; }
+        public string delete_type { get; set; }
+    }
 }
