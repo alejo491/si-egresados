@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<AplicacionBase.Models.Boss> 
 @{
     ViewBag.Title = "Jefes Registrados";
+    var wizard = ViewBag.WizardStep;
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <h2>Jefes Registrados</h2>

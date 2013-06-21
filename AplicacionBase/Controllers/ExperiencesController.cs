@@ -14,8 +14,9 @@ namespace AplicacionBase.Controllers
         // GET: /Experiences/
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        public ActionResult Index()
+        public ActionResult Index(int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
             {
@@ -27,6 +28,7 @@ namespace AplicacionBase.Controllers
 
             }
             var IdUser = g;
+            ViewBag.UserId = IdUser;
             Guid nulo = System.Guid.Empty;
             if (g != nulo)
             {
@@ -38,8 +40,9 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Experiences/Details/5
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details(Guid id, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             Experience experience = db.Experiences.Find(id);
             Boss b = new Boss();
             foreach (var e in db.ExperiencesBosses)
@@ -58,8 +61,9 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Experiences/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
             return View();
@@ -71,6 +75,7 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult Create(Experience experience)
         {
+
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
             {
@@ -90,7 +95,7 @@ namespace AplicacionBase.Controllers
                 db.Experiences.Add(experience);
                 db.SaveChanges();
                 Session["IdExp"] = experience.Id;
-                return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id);
+                return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id+"&1");
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
@@ -101,8 +106,10 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Experiences/Edit/5
 
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(Guid id, int wizardStep = 0)
         {
+
+            ViewBag.WizardStep = wizardStep;
             Experience experience = db.Experiences.Find(id);
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
             // ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
@@ -129,8 +136,9 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Experiences/Delete/5
 
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(Guid id, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             Experience experience = db.Experiences.Find(id);
             return View(experience);
         }
@@ -139,7 +147,7 @@ namespace AplicacionBase.Controllers
         // POST: /Vacancies/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult DeleteConfirmed(Guid id, int wizardStep = 0)
         {
             Experience experience = db.Experiences.Find(id);
             ExperiencesBoss EB = new ExperiencesBoss();

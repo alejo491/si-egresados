@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Borrar Jefe";
+    var wizard = ViewBag.WizardStep;
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <h2>Borrar</h2>

@@ -2,11 +2,24 @@
 
 @{
     ViewBag.Title = "Listado de Experiencias Laborales";
+    var wizard = ViewBag.WizardStep;
+    if(wizard ==1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
+    }
 }
 <h2>Experiencias Laborales</h2>
-
+@{
+    var i = ViewBag.UserId;   
+}
 <p>
-    @Html.ActionLink("Crear Nueva Experiencia", "Create",null, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Crear Nueva Experiencia", "Create", new { id = @i, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })
+    @{
+        if (wizard != 1){
+             @Html.ActionLink("Regresar", "Begin", "User", new { id = @i }, htmlAttributes: new { @class = "ebutton blue" })
+        }
+    }
 </p>
 <table>
     <tr>
@@ -28,7 +41,8 @@
         <th>Acciones</th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Company.Name)
@@ -47,12 +61,12 @@
         </td>
         
         <td>
-            <div class = " left ">@Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit", @title = "Editar" }) &nbsp</div>  
-            <div class = " left ">@Html.ActionLink("Editar", "Edit", new { id = item.Id }) |&nbsp</div>  
-            <div class = " left ">@Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", @title = "Detalles" }) &nbsp</div>  
-            <div class = " left ">@Html.ActionLink("Ver", "Details", new { id = item.Id }) |&nbsp</div> 
-            <div class = " left ">@Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" }) &nbsp</div> 
-            <div class = " left ">@Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) &nbsp</div> 
+            <div class = " left ">@Html.ActionLink(" ", "Edit", new { id = item.Id, wizardStep = wizard }, htmlAttributes: new { @class = "btnedit", @title = "Editar" }) &nbsp</div>  
+            <div class = " left ">@Html.ActionLink("Editar", "Edit", new { id = item.Id, wizardStep = wizard }) |&nbsp</div>  
+            <div class = " left ">@Html.ActionLink(" ", "Details", new { id = item.Id, wizardStep = wizard }, htmlAttributes: new { @class = "btndetails", @title = "Detalles" }) &nbsp</div>  
+            <div class = " left ">@Html.ActionLink("Ver", "Details", new { id = item.Id, wizardStep = wizard }) |&nbsp</div> 
+            <div class = " left ">@Html.ActionLink(" ", "Delete", new { id = item.Id, wizardStep = wizard }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" }) &nbsp</div> 
+            <div class = " left ">@Html.ActionLink("Eliminar", "Delete", new { id = item.Id, wizardStep = wizard }) &nbsp</div> 
         </td>
     </tr>
 }

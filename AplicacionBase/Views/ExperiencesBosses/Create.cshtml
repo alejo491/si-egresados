@@ -2,6 +2,12 @@
 
 @{
     ViewBag.Title = "Información sobre el jefe";
+    var wizard = ViewBag.WizardStep;
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
+    }
 }
 
 <h2>Información sobre el jefe</h2>

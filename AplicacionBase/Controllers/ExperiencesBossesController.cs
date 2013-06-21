@@ -34,8 +34,9 @@ namespace AplicacionBase.Controllers
         //
         // GET: /ExperiencesBosses/Create
 
-        public ActionResult Create(Guid id)
+        public ActionResult Create(Guid id, int wizardStep = 0)
         {
+            ViewBag.WizardStep = wizardStep;
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name");
             ViewBag.IdExperiences = id;
             return View();

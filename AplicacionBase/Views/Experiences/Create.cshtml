@@ -2,7 +2,13 @@
 
 @{
     ViewBag.Title = "Agregar experiencia laboral";
-}
+   var wizard = ViewBag.WizardStep;
+    if(wizard ==1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
+    }
+    }
 
 <h1>Agregar experiencia laboral</h1>
 
