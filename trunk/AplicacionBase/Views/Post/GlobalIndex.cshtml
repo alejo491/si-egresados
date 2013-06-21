@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.PublicationDate)
             </td>
             <td>
-             @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new {  @title = "Detalles" }) 
+             @Html.ActionLink("Ir", "ShowPost", new { id = item.Id }, htmlAttributes: new { @title = "IR", @class = "ebutton blue" }) 
             </td>
             
         </tr>

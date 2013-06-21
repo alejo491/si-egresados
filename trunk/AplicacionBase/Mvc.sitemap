@@ -5,13 +5,11 @@
             enableLocalization="true">
 
   <mvcSiteMapNode title="Inicio" controller="Home" action="Index">
-    <mvcSiteMapNode title="Acerca De" controller="Home" action="About"/>
-
-
-    <mvcSiteMapNode title="Cuenta" controller="Account" action="LogOn">
+      <mvcSiteMapNode title="Acerca De" controller="Home" action="About"/>
+      <mvcSiteMapNode title="Cuenta" controller="Account" action="LogOn">
       <mvcSiteMapNode title="Registro" controller="Account" action="Register"/>
       <mvcSiteMapNode title="Cambiar Contraseña" controller="Account" action="ChangePassword"/>
-      <mvcSiteMapNode title="Cambiar Contraseña Correcta" controller="Account" action="ChangePasswordSuccess"/>
+      <mvcSiteMapNode title="Cambiar Contraseña Correcta" controller="Account" action="ChangePasswordSuccess"/>	  
     </mvcSiteMapNode>
 
     <mvcSiteMapNode title="Compañias" controller="Companies" action="Index">
@@ -154,6 +152,8 @@
     </mvcSiteMapNode>
 
 	<mvcSiteMapNode title="Noticias" controller="Post" action="Index">
+		<mvcSiteMapNode title="Ver Noticia" controller="Post" action="ShowPost"/>
+		<mvcSiteMapNode title="Ver más Noticias" controller="Post" action="GlobalIndex"/>
 		<mvcSiteMapNode title="Detalles" controller="Post" action="Details"/>
 		<mvcSiteMapNode title="Crear" controller="Post" action="Create"/>
 		<mvcSiteMapNode title="Editar" controller="Post" action="Edit"/>
