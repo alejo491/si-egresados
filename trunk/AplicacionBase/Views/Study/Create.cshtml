@@ -7,6 +7,7 @@
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
         wizard = 1;
+        ViewBag.thewizard = 1;
     }
 }
 
@@ -247,7 +248,7 @@
                 @using (Html.BeginForm())
                 {
                         <div class="editor-label">
-                            <h3>Institución</h3>
+                            <h3>Institución*</h3>
                         </div>
                         <div class="editor-field">
                              <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" />
@@ -265,7 +266,7 @@
                             </select>
                         </div>
                         <div class="editor-label">
-                            <h3>Título</h3>
+                            <h3>Título*</h3>
                         </div>
                         <div class="editor-field">
                             <input type="text" name = "Grade" id="Grade" style="width: 260px"/>
@@ -390,14 +391,14 @@
                     <div>&nbsp;</div>
                     <div>&nbsp;</div>
                     <div class="editor-label">
-                           <h3>Fecha Inicio</h3>
+                           <h3>Fecha Inicio *</h3>
                         </div>
                     <div class="editor-field">
                         <input type="text" name="txtStartDate" id="txtStartDate" placeholder = "DD/MM/AAAA" style = "width:150px" />
                             @*@Html.TextBoxFor(model => model.StartDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtStartDate" })*@
                     </div>
                     <div class="editor-label">
-                        <h3>Fecha Fin</h3>
+                        <h3>Fecha Fin *</h3>
                     </div>
                     <div class="editor-field">
                             <input type="text" name="txtEndDate" id="txtEndDate" placeholder = "DD/MM/AAAA" style = "width:150px" />
@@ -422,7 +423,9 @@
                         </div>
                         <div class="editor-field">
                              <textarea name="comentarios" rows="10" cols="40" id = "txtDescripcion">Escribe aquí la descripción de tu tesis</textarea>
-                        </div>    
+                        </div>  
+                        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
+                         
                     &nbsp
                     </div>
                         <div>

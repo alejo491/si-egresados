@@ -16,6 +16,7 @@
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
         wizard = 1;
+        ViewBag.thewizard = 1;
     }  
 }
 
@@ -99,7 +100,7 @@
         <legend>Estudio</legend>
              
         <div class="editor-label">
-            <h3>Institucion</h3>
+            <h3>Institucion *</h3>
         </div>
         <div class="editor-field">
                 @Html.EditorFor(model => model.School.Name)
@@ -118,7 +119,7 @@
         </div>
 
         <div class="editor-label">
-            <h3>Título</h3>
+            <h3>Título *</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Grade)
@@ -227,14 +228,14 @@
             }
         </div>
         <div class="editor-label">
-            <h3>Fecha Inicio</h3>
+            <h3>Fecha Inicio *</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.StartDate)
         </div>
 
         <div class="editor-label">
-            <h3>Fecha Final</h3>
+            <h3>Fecha Final *</h3>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.EndDate)
@@ -285,6 +286,7 @@
                 @Html.HiddenFor(model => model.IdUser)
                 @Html.HiddenFor(model => model.Id)
                 @Html.HiddenFor(model => model.IdSchool)
+                <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
             <div>
             &nbsp
         </div>
