@@ -42,7 +42,7 @@ namespace AplicacionBase
         {
 
             //Desactivar rapidamente seguridad de la apliación
-            if (true)
+            if (false)
             {
             
 
@@ -68,6 +68,8 @@ namespace AplicacionBase
                     configuration.For<HomeController>().Ignore();
                     configuration.For<VerifyController>().Ignore();
                     configuration.For<AccountController>().Ignore();
+                    configuration.For<UserController>(x=>x.Create()).Ignore();
+                    configuration.For<VerifyController>().Ignore();
 
                     #endregion
 
@@ -429,7 +431,7 @@ namespace AplicacionBase
                     #region Reglas del controlador UserController
                     //Se obtienen los roles que tienen acceso al controlador User y a los metodos de este controlador
                     string[] rolesUserIndex = assembly.GetRolesMethods("UserController", "Index");
-                    var rolesUserCreate = assembly.GetRolesMethods("UserController", "Create");
+                    //var rolesUserCreate = assembly.GetRolesMethods("UserController", "Create");
                     var rolesUserBegin = assembly.GetRolesMethods("UserController", "Begin");
                     var rolesUserEdit = assembly.GetRolesMethods("UserController", "Edit");
                     var rolesUserState = assembly.GetRolesMethods("UserController", "State");
@@ -441,7 +443,7 @@ namespace AplicacionBase
                     //Se configuran las reglas de acceso para el controlador User.
                     configuration.For<UserController>(x => x.Index(0)).RequireAnyRole(rolesUserIndex);
 
-                    configuration.For<UserController>(x => x.Create()).RequireAnyRole(rolesUserCreate);
+                    //configuration.For<UserController>(x => x.Create()).RequireAnyRole(rolesUserCreate);
 
                     configuration.For<UserController>(x => x.Begin(default(Guid))).RequireAnyRole(rolesUserBegin);
 
