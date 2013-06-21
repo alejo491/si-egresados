@@ -73,8 +73,16 @@ else
                 error: function () {
                     alert("Error al ingresar con tu cuenta de Facebook.");
                 },
-                success: function () {
-                    window.location.reload();
+                success: function (data) {
+                    if (data.success) {
+                        window.location.reload();
+
+                    }
+                    else {
+                        window.location.reload();
+                        alert(data.mensaje);
+                    }
+
                 }
 
             });
