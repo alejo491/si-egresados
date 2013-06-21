@@ -36,6 +36,32 @@ namespace AplicacionBase.Controllers
         {
             var posts = db.Posts.Include(p => p.User);
             pageNumber = (page ?? 1);
+            var post_basura = db.Posts.SqlQuery("exec PostBasura");
+            List<Post> list = post_basura.ToList();
+            foreach (var x in list)
+            {
+                var filepost = db.FilesPosts.SqlQuery("exec relacionfilepost '" + x.Id + "'");
+                List<FilesPost> listfp = filepost.ToList();
+                foreach (var y in listfp)
+                {
+                    AplicacionBase.Models.File file = db.Files.Find(y.IdFile);
+                    var filename = file.Name;
+                    var filePath = Path.Combine(Server.MapPath("~/UploadFiles"), filename);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    db.FilesPosts.Remove(y);
+                    db.SaveChanges();
+                    db.Files.Remove(file);
+                    db.SaveChanges();
+                }
+                db.Posts.Remove(x);
+                db.SaveChanges();
+            }
+            
+            
+
             return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
         }
         #endregion
@@ -108,7 +134,7 @@ namespace AplicacionBase.Controllers
             post.PublicationDate = DateTime.Now;
             post.Autorized = 0; //queda pendiente validar que rol tiene
             post.Main = 0;
-            post.Estate = 1;
+            post.Estate = 0;
             post.Id = Guid.NewGuid();
             post.Title = "Remplace Por el Titulo de la Noticia";
             post.Abstract = "Remplace Por el Resumen de la Noticia";
