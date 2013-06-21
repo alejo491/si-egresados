@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Crear nueva compañía";
+    var wizard = ViewBag.WizardStep;
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+    }
 }
 
 <h1>Crear</h1>
@@ -64,7 +69,7 @@
         <br/>
         <p>
             <input type="submit" value="Crear" class="ebutton blue" />&nbsp;
-            @Html.ActionLink("Volver al registro de experiencia laboral", "../Experiences/Create", null, htmlAttributes: new { @class = "ebutton blue" })
+            @Html.ActionLink("Volver al registro de experiencia laboral", "../Experiences/Create", new { wizardStep=wizard}, htmlAttributes: new { @class = "ebutton blue" })
         </p>
     </fieldset>
 }

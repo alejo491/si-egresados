@@ -54,7 +54,7 @@ namespace AplicacionBase.Controllers
                 experiencesboss.Id = Guid.NewGuid();
                 db.ExperiencesBosses.Add(experiencesboss);
                 db.SaveChanges();
-                return RedirectPermanent("/Experiences/index/");
+                return RedirectPermanent("/Experiences/index?wizardStep=1");
             }
 
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name", experiencesboss.IdBoss);

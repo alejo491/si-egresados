@@ -6,6 +6,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -21,7 +22,7 @@
     <div class="display-label">Nombre del jefe directo</div>
     <div class="display-field">
         @Html.Display("NameBoss")
-        @Html.ActionLink("Ver Contacto", "DetailsForExperiences", "Bosses", new { id= Session["IdBoss"]}, new { @class = "ebutton2 blue linkmenu" })<br />
+        @Html.ActionLink("Ver Contacto", "DetailsForExperiences", "Bosses", new { id= Session["IdBoss"], wizardStep = wizard}, new { @class = "ebutton2 blue linkmenu" })<br />
     </div>
     <div class="display-label">Descripción del trabajo</div>
     <div class="display-field">
@@ -42,8 +43,8 @@
     </div>
     <br/>
     <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })&nbsp
-    @Html.ActionLink("Volver", "Index",null, htmlAttributes: new { @class = "ebutton blue" }) 
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })&nbsp
+    @Html.ActionLink("Volver", "Index", new { wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" }) 
 </p>
 </fieldset>
 

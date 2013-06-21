@@ -44,6 +44,6 @@
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Eliminar" class="ebutton blue"/> 
-        @Html.ActionLink("Volver a la Lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" }) 
+        @Html.ActionLink("Volver a la Lista", "Index", new { wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" }) 
     </p>
 }

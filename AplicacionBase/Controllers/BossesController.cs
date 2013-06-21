@@ -33,8 +33,9 @@ namespace AplicacionBase.Controllers
         //obtener detalles del jefe desde la vista de experiences
         // GET: /Bosses/Details/5
 
-        public ActionResult DetailsForExperiences(Guid id)
+        public ActionResult DetailsForExperiences(Guid id, int wizardStep=0)
         {
+            ViewBag.wizardStep = wizardStep;
             Boss boss = db.Bosses.Find(id);
             return View(boss);
         }
@@ -45,6 +46,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Create()
         {
+           
             return View();
         }
 
@@ -65,8 +67,9 @@ namespace AplicacionBase.Controllers
             return View();
         }
 
-        public ActionResult CreateForExperienceBosses()
+        public ActionResult CreateForExperienceBosses(int wizardStep = 0)
         {
+            ViewBag.wizardStep = wizardStep;
             return View();
         }
 
@@ -82,7 +85,7 @@ namespace AplicacionBase.Controllers
                 db.Bosses.Add(boss);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente el jefe!";
-                return RedirectToAction("Create/"+Session["IdExp"], "ExperiencesBosses");
+                return RedirectToAction("Create/"+Session["IdExp"]+"?wizardStep=1", "ExperiencesBosses");
             }
 
             return View(boss);

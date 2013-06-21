@@ -72,7 +72,7 @@
         <br/>
         <p>
             <input type="submit" value="Actualizar" class ="ebutton blue"/>&nbsp
-              @Html.ActionLink("Volver a la lista", "Index",null, htmlAttributes: new { @class = "ebutton blue" })  
+              @Html.ActionLink("Volver a la lista", "Index", new { wizardStep = wizard}, htmlAttributes: new { @class = "ebutton blue" })  
         </p>
     </fieldset>
       
