@@ -8,7 +8,7 @@ namespace AplicacionBase.Models
         public System.Guid Id { get; set; }
         public System.Guid Id_Post { get; set; }
         public System.Guid Id_User { get; set; }
-        public double Qualification { get; set; }
+        public int Qualification { get; set; }
         public virtual Post Post { get; set; }
         public virtual User User { get; set; }
     }
