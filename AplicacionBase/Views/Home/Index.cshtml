@@ -13,6 +13,17 @@ $(document).ready(function () {
             }
         });  
 }) 
+$(document).ready(function () {
+        $.ajax({
+            type : "POST",
+            url :  "@(Url.Action("index2", "Vacancies"))", // se dirige a la acción "ShowPosts" del controlado Post
+            traditional : true,
+            data : {}, // se agregan los parametros necesarios para la funcionalidad
+            success : function(data){
+                $("#contenido-der").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+            }
+        });  
+}) 
 </script>
 <div class="contenido-izq">
     <div class="alert error">
@@ -23,6 +34,6 @@ $(document).ready(function () {
     </div>
     <div id="VisorNoticias"></div>
 </div>
-<div class="contenido-der">
-
+<div id="contenido-der" class="contenido-der">
+    
 </div>
