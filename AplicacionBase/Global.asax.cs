@@ -40,18 +40,19 @@ namespace AplicacionBase
 
         protected void Application_Start()
         {
-            #region Cargar controladores
+
+            //Desactivar rapidamente seguridad de la apliación
+            if (true)
+            {
+            
+
+                     #region Cargar controladores
             var assembly = new AssemblyHelper();
             var result = assembly.GetControllerNames();
             assembly.CreateAdmin();
             #endregion
             
-            
-
-            
-            
-
-            #region Reglas de seguridad
+                     #region Reglas de seguridad
             //Reglas de configuración
             SecurityConfigurator.Configure(configuration =>
             {
@@ -161,7 +162,7 @@ namespace AplicacionBase
                     var rolesLikeDeleteConfirmed = assembly.GetRolesMethods("LikeController", "DeleteConfirmed");
 
                     //Se configuran las reglas de acceso para el controlador Like.
-                    //configuration.For<LikeController>(x => x.Index()).RequireAnyRole(rolesLikeIndex);
+                    configuration.For<LikeController>(x => x.Index()).Ignore();
 
                     configuration.For<LikeController>(x => x.Create(default(Guid)))
                                  .RequireAnyRole(rolesLikeCreate);
@@ -190,7 +191,7 @@ namespace AplicacionBase
                     var rolesStartboxDeleteConfirmed = assembly.GetRolesMethods("StartboxController", "DeleteConfirmed");
 
                     //Se configuran las reglas de acceso para el controlador Startbox.
-                    //configuration.For<StartboxController>(x => x.Index()).RequireAnyRole(rolesStartboxIndex);
+                    configuration.For<StartboxController>(x => x.Index()).Ignore();
 
                     configuration.For<StartboxController>(x => x.Create())
                                  .RequireAnyRole(rolesStartboxCreate);
@@ -805,21 +806,34 @@ namespace AplicacionBase
                     string[] rolesItem = assembly.GetRolesMethods("ItemsController", "GeneralItems");
                     configuration.For<ItemsController>(x => x.GeneralItems((default(Guid))))
                                 .RequireAnyRole(rolesItem);
-                    #endregion
+
+                    configuration.For<ItemSurveysController>(x => x.SurveysList()).Ignore();
+                    configuration.For<ItemSurveysController>(x => x.QuestionsList(default(string))).Ignore();
+                    configuration.For<ItemSurveysController>(x => x.TopicsList(default(string))).Ignore();
+                    configuration.For<ItemDataController>(x => x.ListActions(default(string), default(string))).Ignore();
+                    configuration.For<ItemDataController>(x => x.ListFields()).Ignore();
+                    configuration.For<ItemDataController>(x => x.ListGroupFields()).Ignore();
+                    configuration.For<ItemDataController>(x => x.ListLogic()).Ignore();
+                    configuration.For<ItemDataController>(x => x.ListOperators(default(string), default(string))).Ignore();
+                    configuration.For<ItemDataController>(x => x.ListSearchFields()).Ignore();
+                    
 
                 #endregion
+
+                #endregion
+
                 //****************************************************************************************************//
-                    //****************************************************************************************************//
-                    //****************************************************************************************************//
-                
+                //****************************************************************************************************//
+                //****************************************************************************************************//
+
 
 
 
             });
-            #endregion
+            #endregion  
             //Se añaden las reglas
-            GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
-    
+                GlobalFilters.Filters.Add(new HandleSecurityAttribute(), 0);
+            }
             
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
