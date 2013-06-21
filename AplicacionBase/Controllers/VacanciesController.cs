@@ -18,12 +18,13 @@ namespace AplicacionBase.Controllers
         private int pageSize = 10;
         private int pageNumber;
 
-        //! Renderiza la pagina principal de vacantes
-        /*!
-         * \return La vista con el listado de vacantes sacadas de la base de datos
-         *
-         */
-        public ViewResult Index(int? page)
+        /// <summary>
+        /// Renderiza la pagina principal de vacantes
+        /// </summary>
+        /// <param name="page">Indicador de paginacion</param>
+        /// <returns>La vista con el listado de vacantes sacadas de la base de datos</returns>
+
+     ViewResult Index(int? page)
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
             pageNumber = (page ?? 1);
@@ -31,28 +32,34 @@ namespace AplicacionBase.Controllers
             // return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
 
+         /// <summary>
+         /// Renderiza el panel que contine las 5 ultimas vacantes ingresadas para ser mostradas en la página principal
+         /// </summary>
+         /// <returns>La vista con las 5 ultimas vacantes</returns>
+
         public ActionResult Index2()
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User).OrderByDescending(v => v.PublicationDate).Take(5);
             return PartialView(vacancies.ToList());
         }
-        //! Muestra los detalles para una vacante en especial
-        /*!
-         * \param id Contiene el id de la vacante de la cual se desean los detalles
-         * \return La vista con la vacante en detalle
-         *
-         */
+
+
+        /// <summary>
+        /// Muestra los detalles para una vacante en especial
+        /// </summary>
+        /// <param name="id">Contiene el id de la vacante de la cual se desean los detalles</param>
+        /// <returns>La vista con la vacante en detalle</returns>
         public ViewResult Details(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
             return View(vacancy);
         }
 
-        //! Atiende el resultado de pulsar el boton de Crear Nueva vacante en la vista principal
-        /*!
-         * \return La vista de Creacion solamente en el caso de que el usuario este loggeado
-         *
-         */
+
+        /// <summary>
+        /// Atiende el resultado de pulsar el boton de Crear Nueva vacante en la vista principal
+        /// </summary>
+        /// <returns>La vista de Creacion solamente en el caso de que el usuario este loggeado</returns>
         public ActionResult Create()
         {
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
@@ -87,36 +94,17 @@ namespace AplicacionBase.Controllers
             }
         }
 
-        //! Atiende el resultado de hacer clic en el boton de Crear Nueva desde la vista de Creacion de Vacantes
-        /*!
-         * \param vacancy Contiene los datos de la vacantes para ser llevados a la base de datos
-         * \return La vista al listado de vacantes
-         *
-         */
 
+        /// <summary>
+        /// Atiende el resultado de hacer clic en el boton de Crear Nueva desde la vista de Creacion de Vacantes
+        /// </summary>
+        /// <param name="vacancy">Contiene los datos de la vacantes para ser llevados a la base de datos</param>
+        /// <returns>La vista al listado de vacantes</returns>
         [HttpPost]
         public ActionResult Create(Vacancy vacancy)
         {
 
-            /* Guid g = System.Guid.Empty;
-             foreach (var e in db.aspnet_Users)
-             {
-
-                 if (e.UserName == HttpContext.User.Identity.Name)
-                 {
-                     g = e.UserId;
-                 }
-
-             }
-             var IdUser = g;
-
-             */
-
-
-
-
             var IdUser = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
-
 
 
             if (ModelState.IsValid)
@@ -131,17 +119,16 @@ namespace AplicacionBase.Controllers
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", vacancy.IdCompanie);
-            //ViewBag.IdUser = new SelectList(db.Users, "Id", "Id", vacancy.IdUser);
+
 
             return View(vacancy);
         }
 
-        //! Atiende el resultado de hacer clic en Editar, en las opciones de cada vacante
-        /*!
-         * \param id Contiene el id de la vacante que se desea modificar
-         * \return La vista con los datos a editar de la vacante
-         *
-         */
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Editar, en las opciones de cada vacante
+        /// </summary>
+        /// <param name="vacancy">Contiene el id de la vacante que se desea modificar</param>
+        /// <returns>La vista con los datos a editar de la vacante</returns>
         public ActionResult Edit(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
@@ -150,12 +137,12 @@ namespace AplicacionBase.Controllers
             return View(vacancy);
         }
 
-        //! Atiende el resultado de hacer clic en Editar de la vista de Edicion de vacantes
-        /*!
-         * \param vacancy Contiene los datos de la vacante a actualizar
-         * \return La vista con el listado de vacantes
-         *
-         */
+
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Editar de la vista de Edicion de vacantes
+        /// </summary>
+        /// <param name="vacancy">Contiene los datos de la vacante a actualizar</param>
+        /// <returns>La vista con el listado de vacantes</returns>
         [HttpPost]
         public ActionResult Edit(Vacancy vacancy)
         {
@@ -172,24 +159,23 @@ namespace AplicacionBase.Controllers
             return View(vacancy);
         }
 
-        //! Atiende el resultado de hacer clic en Eliminar, en las opciones de cada vacante
-        /*!
-         * \param id Contiene el id de la vacante que se desea Eliminar
-         * \return La vista de confirmación
-         *
-         */
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Eliminar, en las opciones de cada vacante
+        /// </summary>
+        /// <param name="id">Contiene el id de la vacante que se desea Eliminar</param>
+        /// <returns>La vista de confirmación</returns>
         public ActionResult Delete(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
             return View(vacancy);
         }
 
-        //! Atiende el resultado de hacer clic en Eliminar de la vista de Confirmacion de eliminacion de vacantes
-        /*!
-         * \param id Id de la vacante que se confirma se desea eliminar
-         * \return La vista con el listado de vacantes
-         *
-         */
+
+        /// <summary>
+        ///Atiende el resultado de hacer clic en Eliminar de la vista de Confirmacion de eliminacion de vacantes
+        /// </summary>
+        /// <param name="id">Id de la vacante que se confirma se desea eliminar</param>
+        /// <returns>La vista con el listado de vacantes, con la vacante confirmada ya eliminada</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -208,16 +194,12 @@ namespace AplicacionBase.Controllers
 
 
 
-        //private System.Linq.IOrderedEnumerable<Vacancy> results;
-        //private string searchText;
-
-        //! Atiende el resultado de hacer clic en Buscar de la vista Principal
-        /*!
-         * \param criteria Contiene las palabras clave con las que se desea hacer la busqueda
-         * \param page Elemento de control para la paginación
-         * \return La vista con el listado de vacantes encontradas para las palabras claves
-         *
-         */
+        /// <summary>
+        ///Atiende el resultado de hacer clic en Buscar de la vista Principal
+        /// </summary>
+        /// <param name="criteria">Contiene las palabras clave con las que se desea hacer la busquedar</param>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>El listado de vacantes encontrados con el termindo de busqueda deseado</returns>
         public ActionResult Search(string criteria, int? page)
         {
 
@@ -227,17 +209,6 @@ namespace AplicacionBase.Controllers
             {
                 criteria = "";
             }
-
-
-
-            /*    if (criteria.ToLower().Trim().Equals(searchText))
-                {
-                    pageNumber = (page ?? 1);
-                    return View(results.ToPagedList(pageNumber, pageSize));
-                }
-            */
-
-
 
             string searchText = criteria.ToLower().Trim();
 
@@ -255,6 +226,13 @@ namespace AplicacionBase.Controllers
 
         }
 
+
+
+        /// <summary>
+        ///Funcion que apoya el autocompletar de compañias desde la vista
+        /// </summary>
+        /// <param name="term">Contiene las letras con las que se quiere buscar coincidencias</param>
+        /// <returns>El listado de vacantes que coincidan con los terminos de busqueda</returns>
         public ActionResult AutocompleteCompanies(string term)
         {
             var items = (from u in db.Companies select u.Name).ToArray();
@@ -266,3 +244,18 @@ namespace AplicacionBase.Controllers
 
     }
 }
+
+
+
+
+//---------------- FRAGMENTOS DE CODIGO ANTIGUOS ---------------------
+
+/*    if (criteria.ToLower().Trim().Equals(searchText))
+    {
+        pageNumber = (page ?? 1);
+        return View(results.ToPagedList(pageNumber, pageSize));
+    }
+*/
+
+//---------------------------------------------------------------------
+

@@ -14,6 +14,12 @@ namespace AplicacionBase.Controllers
         // GET: /Experiences/
         private DbSIEPISContext db = new DbSIEPISContext();
 
+
+        /// <summary>
+        /// Renderiza la pagina principal de vacantes
+        /// </summary>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista con la página principal de experiencias</returns>
         public ActionResult Index(int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
@@ -37,9 +43,12 @@ namespace AplicacionBase.Controllers
             else return RedirectPermanent("/Account/LogOn");
         }
 
-        //
-        // GET: /Experiences/Details/5
-
+        /// <summary>
+        /// Muestra los detalles para una experiencia en especial
+        /// </summary>
+        /// <param name="id">Contiene el id de la experiencia de la cual se desean los detalles</param>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista con la experiencia en detalle</returns>
         public ActionResult Details(Guid id, int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
@@ -58,8 +67,11 @@ namespace AplicacionBase.Controllers
             return View(experience);
         }
 
-        //
-        // GET: /Experiences/Create
+        /// <summary>
+        /// Atiende el resultado de pulsar el boton de Crear Nueva experiencia en la vista principal
+        /// </summary>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista de Creacion </returns>
 
         public ActionResult Create(int wizardStep = 0)
         {
@@ -69,8 +81,11 @@ namespace AplicacionBase.Controllers
             return View();
         }
 
-        //
-        // POST: /Experiences/Create
+        /// <summary>
+        /// Atiende el resultado de hacer clic en el boton de Crear Nueva desde la vista de Creacion de Experiencias
+        /// </summary>
+        /// <param name="vacancy">Contiene los datos de la experiencia para ser llevados a la base de datos</param>
+        /// <returns>La vista al listado de experiencias</returns>
 
         [HttpPost]
         public ActionResult Create(Experience experience)
@@ -103,9 +118,12 @@ namespace AplicacionBase.Controllers
             return View(experience);
         }
 
-        //
-        // GET: /Experiences/Edit/5
-
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Editar, en las opciones de cada experiencia
+        /// </summary>
+        /// <param name="vacancy">Contiene el id de la experiencia que se desea modificar</param>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista con los datos a editar de la experiencia</returns>
         public ActionResult Edit(Guid id, int wizardStep = 0)
         {
 
@@ -116,8 +134,11 @@ namespace AplicacionBase.Controllers
             return View(experience);
         }
 
-        //
-        // POST: /Experiences/Edit/5
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Guardar Cambios de la vista de Edicion de experiencias
+        /// </summary>
+        /// <param name="vacancy">Contiene los datos de la experiencia a actualizar</param>
+        /// <returns>La vista con el listado de experiencias</returns>
 
         [HttpPost]
         public ActionResult Edit(Experience experience)
@@ -133,9 +154,12 @@ namespace AplicacionBase.Controllers
             return View(experience);
         }
 
-        //
-        // GET: /Experiences/Delete/5
-
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Eliminar, en las opciones de cada experiencia
+        /// </summary>
+        /// <param name="id">Contiene el id de la experiencia que se desea Eliminar</param>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista de confirmación</returns>
         public ActionResult Delete(Guid id, int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
@@ -143,9 +167,12 @@ namespace AplicacionBase.Controllers
             return View(experience);
         }
 
-        //
-        // POST: /Vacancies/Delete/5
-
+        /// <summary>
+        ///Atiende el resultado de hacer clic en Eliminar de la vista de Confirmacion de eliminacion de experiencias
+        /// </summary>
+        /// <param name="id">Id de la experiencia que se confirma se desea eliminar</param>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista con el listado de experiencias, con la experiencia confirmada ya eliminada</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id, int wizardStep = 0)
         {
@@ -163,7 +190,9 @@ namespace AplicacionBase.Controllers
             db.SaveChanges();
             return RedirectPermanent("/Experiences/index?wizardStep=1");
         }
-
+        /// <summary>
+        ///Dispose
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
