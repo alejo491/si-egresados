@@ -1071,7 +1071,8 @@ div .rigth
     min-width: 425px;
     width: 100%;
     height: 225px;
-    float: left;    
+    float: left;
+    overflow: hidden;    
 }
 .NodeCarrucelUnselected
 {
@@ -1080,6 +1081,7 @@ div .rigth
     height: 225px;
     float: left;    
     display: none;
+    overflow: hidden;
 }
 
 .ContentCarrucel .inner
@@ -1099,7 +1101,7 @@ div .rigth
     float: left;
     z-index: 9999999;
     min-width: 425px;
-    width: 549px;
+    width: width: 100%;
     text-align: left;
     margin-top: 180px;
     height: 45px;

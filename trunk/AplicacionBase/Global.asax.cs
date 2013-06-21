@@ -121,7 +121,7 @@ namespace AplicacionBase
                     var rolesPostEdit = assembly.GetRolesMethods("PostController", "Edit");
                     var rolesPostDelete = assembly.GetRolesMethods("PostController", "Delete");
                     var rolesPostDeleteConfirmed = assembly.GetRolesMethods("PostController", "DeleteConfirmed");
-                    var rolesPostShowPosts = assembly.GetRolesMethods("PostController", "ShowPosts");
+                    //var rolesPostShowPosts = assembly.GetRolesMethods("PostController", "ShowPosts");
                     var rolesPostShowPost = assembly.GetRolesMethods("PostController", "ShowPost");
 
                     //Se configuran las reglas de acceso para el controlador Post.
@@ -146,8 +146,7 @@ namespace AplicacionBase
                     configuration.For<PostController>(x => x.DeleteConfirmed(default(Guid)))
                                  .RequireAnyRole(rolesPostDeleteConfirmed);
 
-                    configuration.For<PostController>(x => x.ShowPosts())
-                                 .RequireAnyRole(rolesPostShowPosts);
+                    configuration.For<PostController>(x => x.ShowPosts()).Ignore();
 
                     configuration.For<PostController>(x => x.ShowPost(default(Guid)))
                                  .RequireAnyRole(rolesPostShowPost);
