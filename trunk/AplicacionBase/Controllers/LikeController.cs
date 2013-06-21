@@ -134,13 +134,15 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("showPost", "Post", new { id = post });
         }
         #endregion
-		
+
+        #region ShowPost
+        /// <summary>
+        /// Muestra en la vista Details del controlador Post los likes de una noticia
+        /// </summary>
+        /// <param name="id">Identificador del like en determinada noticia</param>
+        /// <returns>Retorna los likes para una noticia con el id correspondiente</returns>
 		public ActionResult ShowPost(Guid id)
         {
-            //Post post = db.Posts.Find(id);
-            //Guid us = (Guid)Membership.GetUser().ProviderUserKey;
-            //return View(post);
-
             Post post = db.Posts.Find(id);
             Post post2 = new Post();
             IList<Post> datos = new List<Post>();
@@ -150,7 +152,6 @@ namespace AplicacionBase.Controllers
             int cont = 0;
 
             IList<Like> likes = lc.Index();
-            //bool b= (Guid)Membership.GetUser().ProviderUserKey;
 
             if (Request.IsAuthenticated)
             {
@@ -162,7 +163,6 @@ namespace AplicacionBase.Controllers
                         post2.Id = l.Id;
                     }
                 }
-
                 if (cont == 1) post2.Autorized = 1;
                 else post2.Autorized = 0;
             }
@@ -170,7 +170,21 @@ namespace AplicacionBase.Controllers
             datos.Add(post2);
             return View(datos);
         }
+        #endregion
 
+        #region Detalles
+        /// <summary>
+        /// Obtiene los likes que se han hecho para una noticia
+        /// </summary>
+        /// <param name="id">Identificador del like en determinada noticia</param>
+        /// <returns>Retorna los likes para una noticia con el id correspondiente</returns>
+        public int get_likes(Guid id)
+        {
+            var likes = db.Likes.SqlQuery("exec dbo.get_like '" + id + "'");
+            IList<Like> list = (IList<Like>)likes.ToList();
+            return list.Count;
+        }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
@@ -178,11 +192,5 @@ namespace AplicacionBase.Controllers
             base.Dispose(disposing);
         }
 
-        public int get_likes(Guid id)
-        {
-            var likes = db.Likes.SqlQuery("exec dbo.get_like '" + id + "'");
-            IList<Like> list = (IList<Like>)likes.ToList();
-            return list.Count;
-        }
     }
 }
