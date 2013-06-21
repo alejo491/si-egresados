@@ -95,7 +95,7 @@ namespace AplicacionBase.Controllers
                 db.Experiences.Add(experience);
                 db.SaveChanges();
                 Session["IdExp"] = experience.Id;
-                return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id+"&1");
+                return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id+"?wizardStep=1");
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
@@ -161,7 +161,7 @@ namespace AplicacionBase.Controllers
             }            
             db.Experiences.Remove(experience);            
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectPermanent("/Experiences/index?wizardStep=1");
         }
 
         protected override void Dispose(bool disposing)

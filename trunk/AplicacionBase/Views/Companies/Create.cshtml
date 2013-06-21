@@ -2,6 +2,12 @@
 
 @{
     ViewBag.Title = "Crear nueva compañía";
+    var wizard = ViewBag.WizardStep;
+    if (wizard == 1)
+    {
+        Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
+    }
 }
 
 <h1>Crear</h1>

@@ -61,8 +61,9 @@ namespace AplicacionBase.Controllers
         //
         // GET: /Companies/CreateForExperience
 
-        public ActionResult CreateForExperience()
+        public ActionResult CreateForExperience(int wizardStep = 0)
         {
+            ViewBag.wizardStep = wizardStep;
             return View();
         }
 
@@ -78,7 +79,7 @@ namespace AplicacionBase.Controllers
                 db.Companies.Add(company);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente la compañía!";
-                return RedirectToAction("Create", "Experiences");
+                return RedirectPermanent("/Experiences/create?wizardStep=1");
             }
 
             return View(company);
