@@ -11,49 +11,83 @@ using System.IO;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Controlador para la gestión de archivos
+    /// </summary>
     public class FileController : Controller
     {
+        /// <summary>
+        /// Atributo que consulta la base de datos
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        //
-        // GET: /File/
-
+        #region ListarArchivos
+        /// <summary>
+        /// Muestra todos los archivos subidos por los usuarios en una noticia
+        /// </summary>
+        /// <returns>Retorna el archivo en el formulario</returns>
         public ViewResult Index()
         {
             return View(db.Files.ToList());
         }
+        #endregion
+
+        #region actualizar archivo
+        /// <summary>
+        /// Actualiza un archivo que se haya subido para una determinada noticia
+        /// </summary>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna el archivo en el formulario</returns>
         public ViewResult UFile(Guid Id)
         {
             var post = db.Posts.Find(Id);
             return View(post);
         }
+        #endregion
 
+        #region Gallery
+        /// <summary>
+        /// Muestra la gaeria de archivos subidos por los usuarios
+        /// </summary>
+        /// <returns>Retorna el archivo en el formulario</returns>
         public ViewResult Galery(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
             return View(files.ToList());
             //return View(db.Files.ToList());
         }
-        //
-        // GET: /File/Details/5
+        #endregion
 
+        #region Detalles
+        /// <summary>
+        /// Muestra los detalles del archivo
+        /// </summary>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna el archivo para el id correspondiente</returns>
         public ViewResult Details(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
             return View(file);
         }
+        #endregion
 
-        //
-        // GET: /File/Create
-
+        #region Crear archivo
+        /// <summary>
+        /// Permite subir un archivo a una nueva noticia
+        /// </summary>
+        /// <returns>Retorna la opción para subir el archivo</returns>
         public ActionResult Create()
         {
             return View();
         }
+        #endregion
 
-        //
-        // POST: /File/Create
-
+        #region Crear archivo HttpPost
+        /// <summary>
+        /// Guarda el archivo recibido en el formulario
+        /// </summary>
+        /// <param name="file">Archivo rescibido desde el formulario</param>
+        /// <returns>Retorna los archivos recibidos en el formulario</returns>
         [HttpPost]
         public ActionResult Create(AplicacionBase.Models.File file)
         {
@@ -67,19 +101,27 @@ namespace AplicacionBase.Controllers
 
             return View(file);
         }
+        #endregion
 
-        //
-        // GET: /File/Edit/5
-
+        #region Editar archivo
+        /// <summary>
+        /// Da la opción cambiar un archivo que haya sido publicado en una noticia
+        /// </summary>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna la noticia a editar</returns>
         public ActionResult Edit(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
             return View(file);
         }
+        #endregion
 
-        //
-        // POST: /File/Edit/5
-
+        #region Editar archivo HttpPost
+        /// <summary>
+        /// Guarda las modificaciones que se hayan hecho de un archivo en una noticia
+        /// </summary>
+        /// <param name="file">Archivo que se modificó y que se va a actualizar en el formulario</param>
+        /// <returns>Retorna el archivo que se modificó</returns>
         [HttpPost]
         public ActionResult Edit(AplicacionBase.Models.File file)
         {
@@ -91,25 +133,41 @@ namespace AplicacionBase.Controllers
             }
             return View(file);
         }
+        #endregion
 
-        //
-        // GET: /File/Delete/5
-
+        #region Eliminar archivo
+        /// <summary>
+        /// Da la opción de eliminar un archivo correspondiente a una noticia
+        /// </summary>
+        /// /// <param name="id">Identificador del archivo a eliminar</param>
+        /// <returns>Retorna el archivo a eliminar</returns>
         public ActionResult Delete(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
             return View(file);
         }
+        #endregion
+
+        #region regresar
+        /// <summary>
+        /// Da la opción no efectuar cambios en una noticia y regresar al listado principal
+        /// </summary>
+        /// /// <param name="id">Identificador del archivo cargado</param>
+        /// <returns>Retorna el archivo cargado</returns>
         public ActionResult Regresar(Guid id)
         {
             var filepost = db.FilesPosts.SqlQuery("exec relacionfilepost '" + id + "'");
             Guid idpost = filepost.ToList()[0].IdPost;
             return RedirectToAction("Edit", "Post", new { id = idpost });
         }
+        #endregion
 
-        //
-        // POST: /File/Delete/5
-
+        #region Eliminar archivo HttpPost
+        /// <summary>
+        /// Elimina el archivo de la noticia que corresponde al id
+        /// </summary>
+        /// <param name="id">Identificador de archivo a eliminar</param>
+        /// <returns>Retorna el resultado de la eliminación del archivo</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -132,22 +190,15 @@ namespace AplicacionBase.Controllers
 
             return RedirectToAction("Edit", "Post", new { id = idpost });
         }
+        #endregion
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-
-        /////////////////////////////////////////////////////////////////////////////////////
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        private string StorageRoot
-        {
-            get { return Path.Combine(Server.MapPath("~/UploadFiles")); }
-        }
-
-
+        #region Crear archivo en la noticia
+        /// <summary>
+        /// Guarda el archivo a subir
+        /// </summary>
+        /// <param name="File">Archivo recibido desde un formulario</param>
+        /// <param name="idpost">Id del post donde se va a crear el archivo y que se recibe desde un formulario</param>
+        /// <returns>Retorna el archivo en el formulario</returns>
         public void Create2(AplicacionBase.Models.File uploadfile, Guid idpost)
         {
             //if (ModelState.IsValid)
@@ -172,23 +223,15 @@ namespace AplicacionBase.Controllers
                 db.FilesPosts.Add(filepost);
                 db.SaveChanges();
             //}
-
-
         }
+        #endregion
 
-        //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
-        //[HttpGet]
-        //public void Delete(string id)
-        //{
-        //    var filename = id;
-        //    var filePath = Path.Combine(Server.MapPath("~/Files"), filename);
-
-        //    if (System.IO.File.Exists(filePath))
-        //    {
-        //        System.IO.File.Delete(filePath);
-        //    }
-        //}
-
+        #region descargar archivo
+        /// <summary>
+        /// Da la opción de descargar un archivo que hay sido subido
+        /// </summary>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna el archivo que se va a descargar en el formulario</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         [HttpGet]
         public void Download(string id)
@@ -208,7 +251,14 @@ namespace AplicacionBase.Controllers
             else
                 context.Response.StatusCode = 404;
         }
+        #endregion
 
+        #region actualización del archivo
+        /// <summary>
+        /// Da la opción de actualizar un archivo
+        /// </summary>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna el archivo en el formulario</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         [HttpPost]
         public ActionResult UploadFiles(Post post)
@@ -233,7 +283,6 @@ namespace AplicacionBase.Controllers
                 {
                     obj_file = statuses[i];//    if (ModelState.IsValid)
                     {
-
                         AplicacionBase.Models.File uploadfile = new AplicacionBase.Models.File();
                         uploadfile.Id = Guid.NewGuid();
                         uploadfile.Name = obj_file.name;
@@ -241,10 +290,8 @@ namespace AplicacionBase.Controllers
                         uploadfile.Type = obj_file.type;
                         uploadfile.Size = obj_file.size.ToString();
                         Create2(uploadfile, post.Id);
-
                     }
                 }
-
                 JsonResult result = Json(statuses);
                 result.ContentType = "text/plain";
 
@@ -253,12 +300,16 @@ namespace AplicacionBase.Controllers
 
             return Json(r);
         }
+        #endregion
 
-        private string EncodeFile(string fileName)
-        {
-            return Convert.ToBase64String(System.IO.File.ReadAllBytes(fileName));
-        }
-
+        #region actualizar archivo parcial en la noticia
+        /// <summary>
+        /// Actualiza el archivo en una noticia
+        /// </summary>
+        /// <param name="fileName">Nombre del archivo recibido desde un formulario</param>
+        /// <param name="request">Peticion que se hace a la BD para poder actualizar el archivo</param>
+        /// <param name="statuses">Muestra el estado del archivo</param>
+        /// <returns>Retorna la actualizacion del archivo en el formulario</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         //Credit to i-e-b and his ASP.Net uploader for the bulk of the upload helper methods - https://github.com/i-e-b/jQueryFileUpload.Net
         private void UploadPartialFile(string fileName, HttpRequestBase request, List<ViewDataUploadFilesResult> statuses)
@@ -293,7 +344,15 @@ namespace AplicacionBase.Controllers
                 delete_type = "GET",
             });
         }
+        #endregion
 
+        #region cargar todo el archivo
+        /// <summary>
+        /// Carga todo el archivo en una noticia
+        /// </summary>
+        /// <param name="request">Peticion que se hace a la BD para poder cargar el archivo</param>
+        /// <param name="statuses">Muestra el estado de la subida del archivo</param>
+        /// <returns>Retorna la actualizacion del archivo en el formulario</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         //Credit to i-e-b and his ASP.Net uploader for the bulk of the upload helper methods - https://github.com/i-e-b/jQueryFileUpload.Net
         private void UploadWholeFile(HttpRequestBase request, List<ViewDataUploadFilesResult> statuses)
@@ -318,6 +377,35 @@ namespace AplicacionBase.Controllers
                 });
             }
         }
+        #endregion
+
+        #region Raiz de almacenamiento
+        /// <summary>
+        /// Método que guarda el archivo en la carpeta UploadFiles
+        /// </summary>
+        private string StorageRoot
+        {
+            get { return Path.Combine(Server.MapPath("~/UploadFiles")); }
+        }
+        #endregion
+
+        #region Codificación de los archivos
+        /// <summary>
+        /// Método que codifica un archivo que se carga
+        /// </summary>
+        /// <param name="fileName">Archivo a codificar</param>
+        private string EncodeFile(string fileName)
+        {
+            return Convert.ToBase64String(System.IO.File.ReadAllBytes(fileName));
+        }
+        #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
     }
 
     public class ViewDataUploadFilesResult
@@ -330,4 +418,5 @@ namespace AplicacionBase.Controllers
         public string thumbnail_url { get; set; }
         public string delete_type { get; set; }
     }
+
 }
