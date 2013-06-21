@@ -5,7 +5,7 @@
 <% if (Model.IsCurrentNode && Model.SourceMetadata["HtmlHelper"].ToString() != "MvcSiteMapProvider.Web.Html.MenuHelper")  { %>
     <%=Model.Title %>
 <% } else if (Model.IsClickable) { %>
-    <a href="<%=Model.Url %>"><%=Model.Title %></a>
+    <a style="color: #009" href="<%=Model.Url %>"><%=Model.Title %></a>
 <% } else { %>
     <%=Model.Title %>
 <% } %>
