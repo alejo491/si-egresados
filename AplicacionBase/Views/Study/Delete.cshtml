@@ -8,6 +8,7 @@
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
         wizard = 1;
+        ViewBag.thewizard = 1;
     }
 }
 
@@ -41,6 +42,7 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.EndDate)
     </div>
+
 </fieldset>
 @using (Html.BeginForm()) {
     <p>

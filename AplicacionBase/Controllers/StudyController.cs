@@ -67,6 +67,7 @@ namespace AplicacionBase.Controllers
         public ViewResult Details(Guid id, Guid idUser, int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
+            ViewBag.thewizard = wizardStep;
             ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             return View(study);
@@ -84,6 +85,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Create(Guid id, int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
+            ViewBag.thewizard = wizardStep;
             ViewBag.UserId = id;
             User user = db.Users.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
@@ -106,6 +108,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Create(FormCollection form, Guid id)
         {
             ViewBag.UserId = id;
+            int wizard =0;
             var IdUser = id;
             Study study = new Study();
             Thesis Tesis = new Thesis();
@@ -132,7 +135,6 @@ namespace AplicacionBase.Controllers
                         school.Id = Guid.NewGuid();
                         school.Name = var;
                         db.Schools.Add(school);
-                        db.SaveChanges();
                         study.IdSchool = school.Id;
                     }
                 }
@@ -164,7 +166,6 @@ namespace AplicacionBase.Controllers
                             elective.Id = Guid.NewGuid();
                             elective.Name = var;
                             db.Electives.Add(elective);
-                            db.SaveChanges();
                             study.Electives.Add(elective);
                         }
                     }
@@ -197,11 +198,15 @@ namespace AplicacionBase.Controllers
                         study.Thesis = Tesis;
                     }
                 }
+                if(key.Contains("wizard"))
+                {
+                    if (form[key].ToString() == "1") { wizard = 1; }
+                }
 
             }
             db.Studies.Add(study);
             db.SaveChanges();
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = id }));
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = id, wizardStep = wizard}));
         }
         #endregion
 
@@ -217,6 +222,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Edit(Guid id, Guid idUser, int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
+            ViewBag.thewizard = wizardStep;
             ViewBag.UserId = idUser;
             Study study = db.Studies.Find(id);
             ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
@@ -246,6 +252,7 @@ namespace AplicacionBase.Controllers
         public ActionResult Edit(Guid id, Study study, FormCollection form)
         {
             ViewBag.userId = id;
+            int wizard =0;
             var last = db.Studies.Find(id);
             var s = study.School.Name;
             var flag = false;
@@ -275,6 +282,7 @@ namespace AplicacionBase.Controllers
                 {
                     last.Programs = form[key];
                 }
+                if (key.Contains("wizard")) { if (form[key].ToString() == "1") { wizard = 1; } }
                 if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") || key.Contains("Elective4") || key.Contains("Elective5"))
                 {
                     if (form[key].Length != 0)
@@ -329,7 +337,7 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
 
             }
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = last.IdUser }));
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = last.IdUser, wizardStep = wizard }));
         }
         #endregion
 
@@ -344,6 +352,7 @@ namespace AplicacionBase.Controllers
         #region Delete(id, idUser)
         public ActionResult Delete(Guid id, Guid idUser, int wizardStep = 0)
         {
+            ViewBag.thewizar = wizardStep;
             ViewBag.WizardStep = wizardStep;
             ViewBag.IdUser = idUser;
             Study study = db.Studies.Find(id);

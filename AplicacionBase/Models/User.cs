@@ -28,12 +28,12 @@ namespace AplicacionBase.Models
         public string PhoneNumber { get; set; }
 
         [Required]
-        [DisplayName("Nombres")]
+        [DisplayName("Nombres *")]
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string FirstNames { get; set; }
 
         [Required]
-        [DisplayName("Apellidos")]
+        [DisplayName("Apellidos *")]
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string LastNames { get; set; }
 
