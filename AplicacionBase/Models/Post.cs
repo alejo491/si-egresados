@@ -21,7 +21,7 @@ namespace AplicacionBase.Models
 
         [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Título")]
-        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''0-9@]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''0-9@)]*", ErrorMessage = "El formato es incorrecto")]
         
         public string Title { get; set; }
 
