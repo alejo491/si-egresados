@@ -53,17 +53,6 @@ else
             var credentials = { accessToken: response.authResponse.accessToken };
             SubmitLogin(credentials);
         });
-        FB.getLoginStatus(function (response) {
-            if (response.status === 'connected') {
-
-                //alert("Usuario loggeado en Facebook");
-            }
-            else if (response.status === 'not_authorized') { /*alert("Usuario no autorizado");*/ }
-            else {
-               // alert("Usuario no conectado con Facebook");
-             }
-
-        });
 
         function SubmitLogin(credentials) {
             $.ajax({
