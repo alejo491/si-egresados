@@ -33,6 +33,7 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public JsonResult FacebookLogin(FacebookLoginModel model)
         {
+			//Se obtiene el token del usuario logeado con su cuenta de facebook
             Session["accessToken"] = model.accessToken;
 
             WebClient client = new WebClient();
@@ -40,13 +41,13 @@ namespace AplicacionBase.Controllers
                    "https://graph.facebook.com/me?access_token=", model.accessToken));
 
             JObject jsonUserInfo = JObject.Parse(JsonResult);
-
+			//Datos personales que se desean obtener del usuario de Facebook
             string username = jsonUserInfo.Value<string>("name");
             string email = jsonUserInfo.Value<string>("email");
             string locale = jsonUserInfo.Value<string>("locale");
             string facebook_userID = jsonUserInfo.Value<string>("id");
 
-            
+            //Condición para validar si un usuario se encuentra registrado con su correo de Facebook
             System.Web.Security.MembershipUserCollection uno = Membership.FindUsersByEmail(email);
             if (uno.Count == 1)
             {
@@ -54,8 +55,9 @@ namespace AplicacionBase.Controllers
                 return Json(new { success = true });
             }
             else
-            {             
-                return Json(new { succes = false });
+            {
+                return Json(new { success = false, mensaje = "Para iniciar sesion con tu cuenta de Facebook primero debes haberte registrado en el sistema de Egresados con tu correo asociado a tu cuenta de Facebook." }, JsonRequestBehavior.AllowGet);
+
             }
 
         }
