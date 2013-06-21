@@ -1,0 +1,8 @@
+﻿@model IEnumerable<AplicacionBase.Models.File>
+
+@{
+    Layout = ""; 
+}
+@foreach (var item in Model) {
+   <img alt="" src= @Html.DisplayFor(modelItem => item.Path)/>
+}

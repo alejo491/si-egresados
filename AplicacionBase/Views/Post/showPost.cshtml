@@ -34,15 +34,7 @@
                     <div class="noticia">
                     </div>   
                 </div>                                               
-            </div>                        
-               
-            <div class="NodeCarrucelUnselected" id="Node2" > 
-                <div class="inner"> 
-                    <div class="fondo_noticia">
-                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
-                    </div>                                                
-                </div>
-            </div>              
+            </div>             
     </div>
     <div class="Controls">
         @{
@@ -50,7 +42,7 @@
             @Html.ActionLink(">>>", "", new { }, htmlAttributes: new { @class = "Next", @id = "NextCarrucel", @onclick = "Next()", @href = "javascript:void(0);" })
             
             string a;}            
-            @for (var i = 1;  i < 3; i++)
+            @for (var i = 1;  i < 2; i++)
             {
                 a = "A" + i;
                 if (i == 1)
@@ -83,4 +75,4 @@
         @Html.DisplayFor(model => model.ElementAt(0).UpdateDate)
     </div>
 </div>
-<script type="text/javascript">    create_carrucel(2);</script>
+<div id="numPostCarrucel" style="display:none">1</div>

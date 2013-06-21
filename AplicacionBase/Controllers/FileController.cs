@@ -58,6 +58,32 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+
+        #region ImageMain 
+        /// <summary>
+        /// Muestra la gaeria de archivos subidos por los usuarios
+        /// </summary>
+        /// <returns>Retorna el archivo en el formulario</returns>
+        public ViewResult ImageMain(Guid Id)
+        {
+            var files = db.Files.SqlQuery("exec url_file2 '" + Id + "'");
+            return View(files.ToList());
+            //return View(db.Files.ToList());
+        }
+        #endregion
+
+        #region CarrucelImagen
+        /// <summary>
+        /// Muestra la gaeria de archivos subidos por los usuarios
+        /// </summary>
+        /// <returns>Retorna el archivo en el formulario</returns>
+        public ViewResult CarrucelImagen(Guid Id)
+        {
+            var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
+            return View(files.ToList());
+            //return View(db.Files.ToList());
+        }
+        #endregion
         #region Detalles
         /// <summary>
         /// Muestra los detalles del archivo
