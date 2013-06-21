@@ -79,16 +79,17 @@
                         </div>
                     </div>
                     </div>
-                <div id="BreadCrumbs">
-                    @Html.MvcSiteMap().SiteMapPath()
-
-                   
-                </div>
             <div id="contenido">
-                
-                <div id="main">                    
+   
+                <div id="main"> 
+
+                    <div id="BreadCrumbs">
+                         @Html.MvcSiteMap().SiteMapPath()
+                    </div>    
+                            
                     @RenderBody()
-                </div>  
+                </div> 
+                 
             </div> 
             <div id="footer">
                 <img src="/Content/themes/base/images/sep-logo-unicauca.gif"/>
