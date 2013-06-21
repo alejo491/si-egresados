@@ -36,8 +36,18 @@ $(document).ready(function () {
                                         if(i == 1){
                                             <div class="NodeCarrucel" id=@node >
                                                 <div class="inner">
-                                                    <div class="fondo_noticia">
-                                                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
+                                                    <div id="fondo" class="fondo_noticia">
+                                                        <script>
+                                                            $.ajax({
+                                                                type : "POST",
+                                                                url :  "@(Url.Action("ImageMain","File", new { id = item.Id }))", // se dirige a la acción "Index" del controlado UploadFile
+                                                                traditional : true,
+                                                                data : {  }, // se agregan los parametros necesarios para la funcionalidad
+                                                                success : function(data){
+                                                                    $("#fondo").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+                                                                }
+                                                            });  
+                                                        </script>
                                                     </div>
                                                     <div class="noticia">
                                                         @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
@@ -50,7 +60,17 @@ $(document).ready(function () {
                                             <div class="NodeCarrucelUnselected" id=@node > 
                                                 <div class="inner"> 
                                                     <div class="fondo_noticia">
-                                                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
+                                                        <script>
+                                                            $.ajax({
+                                                                type : "POST",
+                                                                url :  "@(Url.Action("ImageMain","File", new { id = item.Id }))", // se dirige a la acción "Index" del controlado UploadFile
+                                                                traditional : true,
+                                                                data : {  }, // se agregan los parametros necesarios para la funcionalidad
+                                                                success : function(data){
+                                                                    $("#fondo").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+                                                                }
+                                                            });  
+                                                        </script>                                                        
                                                     </div>
                                                     <div class="noticia">
                                                         @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
