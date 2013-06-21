@@ -27,6 +27,7 @@
             <hr/>
             @foreach (var item in items)
             {
+                <div class="pagina">
                 <div>
                 
                     @{
@@ -40,7 +41,7 @@
                         string chart = "chart" + id;
                         string chartrender = chart + ".render();";
                         DataTable dt = item.Table;
-                        <table style="border: 1px solid black">
+                        <table>
                             <thead>
                                 <tr>
                                     @foreach (DataColumn column in dt.Columns)
@@ -70,6 +71,8 @@
                                 }
                             </tbody>
                         </table>
+                        
+                        <br />
 
                         if (item.GraphicType != "Ninguno")
                         {
@@ -94,9 +97,8 @@
                     <p>Total: @item.DataNumber </p>
                     <p align="center">Pagina @id</p>
                 </div>
-                <br/>
+                </div>
                 <hr/>
-                <br/>
             
                 //id++;
             }
