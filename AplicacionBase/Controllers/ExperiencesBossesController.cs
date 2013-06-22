@@ -28,6 +28,7 @@ namespace AplicacionBase.Controllers
         public ViewResult Details(Guid id)
         {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
+
             return View(experiencesboss);
         }
 
@@ -39,6 +40,7 @@ namespace AplicacionBase.Controllers
             ViewBag.WizardStep = wizardStep;
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name");
             ViewBag.IdExperiences = id;
+            ViewData["IdExp"] = id;
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectPermanent("/Experiences/index?wizardStep=1");
             }
-
+            
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name", experiencesboss.IdBoss);
             ViewBag.IdExperiences = experiencesboss.IdExperiences;
             return View(experiencesboss);
