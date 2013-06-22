@@ -21,18 +21,18 @@ namespace AplicacionBase.Models
 
         [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Título")]
-        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''“”0-9@°#$%/=¿?!~*|)]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''“”0-9@°#$%/=¿?!¡~*|&)-]*", ErrorMessage = "El formato es incorrecto")]
         
         public string Title { get; set; }
 
         [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Resumen")]
-        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''“”0-9@°#$%/=¿?!~*|)]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''“”0-9@°#$%/=¿?!¡~*|&)-]*", ErrorMessage = "El formato es incorrecto")]
         public string Abstract { get; set; }
 
         [Required(ErrorMessage = "El campo es obligatorio")]
         [DisplayName("Contenido")]
-        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''“”0-9@°#$%/=¿?!~*|)]*", ErrorMessage = "El formato es incorrecto")]
+        [RegularExpression(@"[(A-Za-zñÑáéíóúÁÉÍÓÚ\s,;:.""''“”0-9@°#$%/=¿?!¡~*|&)-]*", ErrorMessage = "El formato es incorrecto")]
         public string Content { get; set; }
 
         [DisplayName("Fecha de publiacion")]
