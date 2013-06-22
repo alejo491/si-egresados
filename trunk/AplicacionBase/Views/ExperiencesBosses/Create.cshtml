@@ -8,6 +8,8 @@
         Layout = "~/Views/Shared/_LayoutW.cshtml";
         wizard = 1;
     }
+    var idExp= ViewData["IdExp"];
+    
 }
 
 <h2>Información sobre el jefe</h2>
@@ -18,7 +20,8 @@
 
 
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Jefe Directo</legend>
@@ -29,7 +32,7 @@
         <div class="editor-field">
             @Html.DropDownList("IdBoss", String.Empty)
             @Html.ValidationMessageFor(model => model.IdBoss)
-            ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="/Bosses/CreateForExperienceBosses?wizardStep=1">Crear Nuevo</a>
+            ¿No aparece en la lista? &nbsp @Html.ActionLink("Nuevo", "CreateForExperienceBosses", "Bosses", new { id = idExp, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })
         </div>
         
 
@@ -53,7 +56,7 @@
             Fecha de Finalización
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.EndDate, new { id = "endDate"})
+            @Html.TextBoxFor(model => model.EndDate, new { id = "endDate" })
             @Html.ValidationMessageFor(model => model.EndDate)
         </div>
         
@@ -69,7 +72,8 @@
              <br/>
         <p>
             <input type="submit" value="Crear" class="ebutton blue"/>&nbsp
-            @Html.ActionLink("Volver", "Index",null, htmlAttributes: new { @class = "ebutton blue" })
+            
+            @*@Html.ActionLink("Volver", "Index", new { wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })*@
         </p>
     </fieldset>
 

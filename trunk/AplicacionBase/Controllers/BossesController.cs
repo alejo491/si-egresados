@@ -86,9 +86,11 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
         /// <returns>La vista de Creacion </returns>
-        public ActionResult CreateForExperienceBosses(int wizardStep = 0)
+        public ActionResult CreateForExperienceBosses(Guid id,int wizardStep = 0)
         {
             ViewBag.wizardStep = wizardStep;
+            ViewBag.idExperiencia = id;
+            Session["IdExp"] = id;
             return View();
         }
 
@@ -102,13 +104,14 @@ namespace AplicacionBase.Controllers
         [HttpPost]
         public ActionResult CreateForExperienceBosses(Boss boss)
         {
+
             if (ModelState.IsValid)
             {
                 boss.Id = Guid.NewGuid();
                 db.Bosses.Add(boss);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente el jefe!";
-                return RedirectToAction("Create/"+Session["IdExp"]+"?wizardStep=1", "ExperiencesBosses");
+                return RedirectPermanent("/ExperiencesBosses/Create/" + Session["IdExp"] + "?wizardStep=1");
             }
 
             return View(boss);
