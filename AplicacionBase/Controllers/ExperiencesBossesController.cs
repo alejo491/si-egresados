@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using System.Web.Routing;
 
 namespace AplicacionBase.Controllers
 {
@@ -59,14 +60,23 @@ namespace AplicacionBase.Controllers
         /// <param name="wizardStep">es el numero para indicar si se esta en el wizard o no</param>
         /// <returns>Retorna a la vista index de experiencias para visualizar la experiencia creada</returns>
         [HttpPost]
-        public ActionResult Create(ExperiencesBoss experiencesboss)
+        public ActionResult Create(ExperiencesBoss experiencesboss, FormCollection form)
         {
             if (ModelState.IsValid)
             {
+                int wizard = 0;
+                foreach (String key in form)
+                {
+                    if (key.Contains("wizard"))
+                    {
+                        if (form[key].ToString() == "1") { wizard = 1; }
+                    }
+                }
                 experiencesboss.Id = Guid.NewGuid();
                 db.ExperiencesBosses.Add(experiencesboss);
                 db.SaveChanges();
-                return RedirectPermanent("/Experiences/index?wizardStep=1");
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Experiences", action = "index", wizardStep = wizard }));
+                //return RedirectPermanent("/Experiences/index?wizardStep=1");
             }
             
             ViewBag.IdBoss = new SelectList(db.Bosses, "Id", "Name", experiencesboss.IdBoss);

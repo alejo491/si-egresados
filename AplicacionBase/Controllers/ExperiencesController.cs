@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Data;
+using System.Web.Routing;
 
 namespace AplicacionBase.Controllers
 {
@@ -88,7 +89,7 @@ namespace AplicacionBase.Controllers
         /// <returns>La vista al listado de experiencias</returns>
 
         [HttpPost]
-        public ActionResult Create(Experience experience)
+        public ActionResult Create(Experience experience, FormCollection form)
         {
 
             Guid g = System.Guid.Empty;
@@ -102,7 +103,7 @@ namespace AplicacionBase.Controllers
 
             }
             var IdUser = g;
-
+            int wizard = 0;
             if (ModelState.IsValid)
             {
                 experience.Id = Guid.NewGuid();
@@ -110,7 +111,14 @@ namespace AplicacionBase.Controllers
                 db.Experiences.Add(experience);
                 db.SaveChanges();
                 Session["IdExp"] = experience.Id;
-                return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id+"?wizardStep=1");
+                foreach(String key in form){
+                if (key.Contains("wizard"))
+                {
+                    if (form[key].ToString() == "1") { wizard = 1; }
+                }
+                }
+                return RedirectToAction("Create", new RouteValueDictionary(new { controller = "ExperiencesBosses", action = "Create", Id = experience.Id, wizardStep = wizard }));
+                //return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id+"?wizardStep=1");
             }
 
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
@@ -141,13 +149,22 @@ namespace AplicacionBase.Controllers
         /// <returns>La vista con el listado de experiencias</returns>
 
         [HttpPost]
-        public ActionResult Edit(Experience experience)
+        public ActionResult Edit(Experience experience, FormCollection form)
         {
+            int wizard = 0;
             if (ModelState.IsValid)
             {
                 db.Entry(experience).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectPermanent("/Experiences/Index/?wizardStep=1");
+                foreach (String key in form)
+                {
+                    if (key.Contains("wizard"))
+                    {
+                        if (form[key].ToString() == "1") { wizard = 1; }
+                    }
+                }
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Experiences", action = "Index", wizardStep = wizard }));
+                //return RedirectPermanent("/Experiences/Index/?wizardStep=1");
             }
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
             //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
@@ -174,8 +191,9 @@ namespace AplicacionBase.Controllers
         /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
         /// <returns>La vista con el listado de experiencias, con la experiencia confirmada ya eliminada</returns>
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(Guid id, int wizardStep = 0)
+        public ActionResult DeleteConfirmed(Guid id, FormCollection form)
         {
+            int wizard = 0;
             Experience experience = db.Experiences.Find(id);
             ExperiencesBoss EB = new ExperiencesBoss();
             foreach (var e in db.ExperiencesBosses)
@@ -185,10 +203,18 @@ namespace AplicacionBase.Controllers
                     EB = db.ExperiencesBosses.Find(e.Id);
                     db.ExperiencesBosses.Remove(EB);
                 }
-            }            
+            }
+            foreach (String key in form)
+            {
+                if (key.Contains("wizard"))
+                {
+                    if (form[key].ToString() == "1") { wizard = 1; }
+                }
+            }                
             db.Experiences.Remove(experience);            
             db.SaveChanges();
-            return RedirectPermanent("/Experiences/index?wizardStep=1");
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Experiences", action = "Index", wizardStep = wizard }));
+            //return RedirectPermanent("/Experiences/index?wizardStep=1");
         }
         /// <summary>
         ///Dispose

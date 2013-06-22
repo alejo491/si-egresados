@@ -6,6 +6,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -18,7 +19,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Experiencia Laboral</legend>
-
+        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
         @Html.HiddenFor(model => model.IdUser)
         @Html.HiddenFor(model => model.Id)
 

@@ -6,6 +6,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -14,6 +15,7 @@
 <fieldset>
     <legend>Jefe Laboral</legend>
 
+    <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
     <div class="display-label">Nombre del Jefe</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Boss.Name)

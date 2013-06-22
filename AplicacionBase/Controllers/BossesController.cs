@@ -102,16 +102,26 @@ namespace AplicacionBase.Controllers
         /// <param name="boss">Contiene los datos del jefe para ser llevados a la base de datos</param>
         /// <returns>La vista al listado de jefes</returns>
         [HttpPost]
-        public ActionResult CreateForExperienceBosses(Boss boss)
+        public ActionResult CreateForExperienceBosses(Boss boss, FormCollection form)
         {
 
             if (ModelState.IsValid)
             {
+                int wizard = 0;
+                foreach (String key in form)
+                {
+                    if (key.Contains("wizard"))
+                    {
+                        if (form[key].ToString() == "1") { wizard = 1; }
+                    }
+                }
                 boss.Id = Guid.NewGuid();
                 db.Bosses.Add(boss);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente el jefe!";
-                return RedirectPermanent("/ExperiencesBosses/Create/" + Session["IdExp"] + "?wizardStep=1");
+                return RedirectToAction("Create", new RouteValueDictionary(new { controller = "ExperiencesBosses", action = "Create",Id=Session["IdExp"], wizardStep = wizard }));
+
+                //return RedirectPermanent("/ExperiencesBosses/Create/" + Session["IdExp"] + "?wizardStep=1");
             }
 
             return View(boss);
