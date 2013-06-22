@@ -147,7 +147,7 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(experience).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectPermanent("/Experiences/Index/?wizardStep=1");
             }
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name", experience.IdCompanie);
             //   ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", vacancy.IdUser);
