@@ -35,6 +35,28 @@
       <mvcSiteMapNode title="Eliminar" controller="Items" action="Delete"/>
     </mvcSiteMapNode>
 
+    <mvcSiteMapNode title="Jefes" controller="Bosses" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Bosses" action="Details"/>
+      <mvcSiteMapNode title="Detalles" controller="Bosses" action="DetailsForExperiences"/>
+      <mvcSiteMapNode title="Crear" controller="Bosses" action="Create"/>
+      <mvcSiteMapNode title="Crear" controller="Bosses" action="CreateForExperienceBosses"/>
+      <mvcSiteMapNode title="Editar" controller="Bosses" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Bosses" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Experiencias" controller="Experiences" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="Experiences" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="Experiences" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Experiences" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Experiences" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Experiencias Jefe" controller="ExperiencesBosses" action="Index">
+      <mvcSiteMapNode title="Detalles" controller="ExperiencesBosses" action="Details"/>
+      <mvcSiteMapNode title="Crear" controller="ExperiencesBosses" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="ExperiencesBosses" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="ExperiencesBosses" action="Delete"/>
+    </mvcSiteMapNode>
 
     <mvcSiteMapNode title="Reporte" controller="Reports" action="Index">
       <mvcSiteMapNode title="Detalles" controller="Reports" action="Details"/>
