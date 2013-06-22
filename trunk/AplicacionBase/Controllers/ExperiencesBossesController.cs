@@ -13,8 +13,10 @@ namespace AplicacionBase.Controllers
     {
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        //
-        // GET: /ExperiencesBosses/
+        /// <summary>
+        /// Renderiza la pagina principal de Experiencias jefe directo 
+        /// </summary>
+        /// <returns>La vista con la página principal de jefes</returns>        
 
         public ViewResult Index()
         {
@@ -22,9 +24,11 @@ namespace AplicacionBase.Controllers
             return View(experiencesbosses.ToList());
         }
 
-        //
-        // GET: /ExperiencesBosses/Details/5
-
+        /// <summary>
+        /// Muestra los detalles para una experiencia jefe en especial
+        /// </summary>
+        /// <param name="id">Contiene el id de la tabla experiencesbosses que es la relacion de experiencias de la cual se desean visualizar los detalles</param>
+        /// <returns>La vista con la jefe en detalle</returns>
         public ViewResult Details(Guid id)
         {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
@@ -32,9 +36,12 @@ namespace AplicacionBase.Controllers
             return View(experiencesboss);
         }
 
-        //
-        // GET: /ExperiencesBosses/Create
-
+        /// <summary>
+        /// Atiende el resultado de pulsar el boton de Crear Nueva experiencia en la vista index de experiencias
+        /// </summary>
+        /// <param name="id">Contiene el id de la experiencia a la que se la asocia esta tabla </param>
+        /// <param name="wizardStep">Indicador de a que parte del wizard hace referencia esta funcion</param>
+        /// <returns>La vista de Creacion </returns>
         public ActionResult Create(Guid id, int wizardStep = 0)
         {
             ViewBag.WizardStep = wizardStep;
@@ -45,9 +52,12 @@ namespace AplicacionBase.Controllers
         }
 
 
-        //
-        // POST: /ExperiencesBosses/Create
-
+        /// <summary>
+        /// Se recibe crea una experienciajefe que tiene asociada una experiencia y un jefe mas las fechas de inicio de trabajo y finalizacion de trabajo
+        /// </summary>
+        /// <param name="id">Contiene el id de la experiencia a la que se la asocia esta tabla </param>
+        /// <param name="wizardStep">es el numero para indicar si se esta en el wizard o no</param>
+        /// <returns>Retorna a la vista index de experiencias para visualizar la experiencia creada</returns>
         [HttpPost]
         public ActionResult Create(ExperiencesBoss experiencesboss)
         {
@@ -64,9 +74,11 @@ namespace AplicacionBase.Controllers
             return View(experiencesboss);
         }
 
-        //
-        // GET: /ExperiencesBosses/Edit/5
-
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Editar, en la pagina de experiencia jefe
+        /// </summary>
+        /// <param name="id">Contiene el id de la experienciajefe que se desea modificar y carga los valores para ser editados</param>       
+        /// <returns>La vista con los datos a editar de la jefe</returns>
         public ActionResult Edit(Guid id)
         {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
@@ -74,10 +86,11 @@ namespace AplicacionBase.Controllers
             ViewBag.IdExperiences = new SelectList(db.Experiences, "Id", "Charge", experiencesboss.IdExperiences);
             return View(experiencesboss);
         }
-
-        //
-        // POST: /ExperiencesBosses/Edit/5
-
+        /// <summary>
+        /// Atiende el resultado de hacer clic en actualizar de la vista de Edicion de experienciajefes
+        /// </summary>
+        /// <param name="experiencesBoss">Contiene los datos del la experienciajefe a actualizar</param>
+        /// <returns>La vista con el listado de jefes</returns>
         [HttpPost]
         public ActionResult Edit(ExperiencesBoss experiencesboss)
         {
@@ -91,19 +104,24 @@ namespace AplicacionBase.Controllers
             ViewBag.IdExperiences = new SelectList(db.Experiences, "Id", "Charge", experiencesboss.IdExperiences);
             return View(experiencesboss);
         }
-
-        //
-        // GET: /ExperiencesBosses/Delete/5
-
+        
+        /// <summary>
+        /// Atiende el resultado de hacer clic en Eliminar, en las opciones de cada experienciasJefe
+        /// </summary>
+        /// <param name="id">Contiene el id de la experienciajefe que se desea Eliminar</param>        
+        /// <returns>La vista de confirmación</returns>
+        
         public ActionResult Delete(Guid id)
         {
             ExperiencesBoss experiencesboss = db.ExperiencesBosses.Find(id);
             return View(experiencesboss);
         }
 
-        //
-        // POST: /ExperiencesBosses/Delete/5
-
+        /// <summary>
+        ///Atiende el resultado de hacer clic en Eliminar de la vista de Confirmacion de eliminacion de experienciaJefe
+        /// </summary>
+        /// <param name="id">Id de la experienciaJefe que se confirma a eliminar</param>        
+        /// <returns>Retona a la vista index con la experienciaJefe ya eliminada</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
