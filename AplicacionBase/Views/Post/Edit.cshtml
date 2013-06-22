@@ -45,15 +45,15 @@ $(document).ready(function () {
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            <span style="color: black;">Título :</span>
+            @Html.LabelFor(model => model.Title)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Title)
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
-        <div class="editor-label" align="justify">
-            <span style="color: black;">Resumen :</span>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Abstract)
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Abstract, htmlAttributes: new { rows = "5%", cols = "25%" })
@@ -61,7 +61,7 @@ $(document).ready(function () {
         </div>
 
         <div class="editor-label">
-            <span style="color: black;">Contenido :</span>
+            @Html.LabelFor(model => model.Content)
         </div>
         <div class="editor-field" align="justify">
             @Html.TextAreaFor(model => model.Content, htmlAttributes: new { rows = "8%", cols = "45%" })
@@ -73,14 +73,10 @@ $(document).ready(function () {
             @Html.ValidationMessageFor(model => model.PublicationDate)
         </div>
        
-    <div id="clase2">
-    
-    </div>
-    <div id="clase3">
-    
-    </div>    
+        <div id="clase2"></div>
+        <div id="clase3"></div>
+         
     </fieldset>
-    
     <div>
         <input type="submit" value="Guardar" class="ebutton blue" />
         @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })

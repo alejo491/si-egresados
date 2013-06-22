@@ -19,44 +19,42 @@
 
 <table>
     <tr>
-        <th width = "150"  >
+        <th width = "140"  >
             Usuario
         </th>
-        <th width = "150" >
+        <th width = "200" >
             Título
         </th>
-        <th >
+        <th width = "400" >
             Resumen
         </th>
-        <th width = "185">
+        <th width = "165">
             Fecha de Publicación
         </th>
-        <th width = "185">
+        <th width = "130">
             Ir a Publicación
         </th>
-               
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
-            <td style="text-align: center;">
+            <td >
                 @Html.DisplayFor(modelItem => item.User.FirstNames)
                 @Html.DisplayFor(modelItem => item.User.LastNames)
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: justify;">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td style="text-align: justify;">
                 @Html.DisplayFor(modelItem => item.Abstract)
             </td>
-            <td>
+            <td style="text-align: center;">
                 @Html.DisplayFor(modelItem => item.PublicationDate)
             </td>
-            <td>
+            <td style="text-align: center;">
              @Html.ActionLink("Ir", "ShowPost", new { id = item.Id }, htmlAttributes: new { @title = "IR", @class = "ebutton blue" }) 
             </td>
-            
         </tr>
     }
 </table>

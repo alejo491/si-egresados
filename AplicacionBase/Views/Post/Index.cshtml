@@ -35,16 +35,16 @@
         <th width = "185">
             Fecha de Publicación
         </th>
-        <th width = "130">
+        <th width = "100">
             Autorizado
         </th>
-        <th width = "130">
+        <th width = "80">
             Principal
         </th>
-        <th width = "130">
+        <th width = "60">
             Estado
         </th>
-        <th width = "190">
+        <th width = "100">
             Acciones
         </th>        
     </tr>
@@ -52,17 +52,17 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td style="text-align: center;">
+            <td>
                 @Html.DisplayFor(modelItem => item.User.FirstNames)
                 @Html.DisplayFor(modelItem => item.User.LastNames)
             </td>
-            <td style="text-align: center;">
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td style="text-align: justify;">
                 @Html.DisplayFor(modelItem => item.Abstract)
             </td>
-            <td>
+            <td style="text-align: center;">
                 @Html.DisplayFor(modelItem => item.PublicationDate)
             </td>
             <td class="center">                
@@ -95,7 +95,7 @@
                     @Html.CheckBox("Estado", true, htmlAttributes: new { @id = "CBE" + item.Id, @onclick = "CambiarEstadoPost('" + item.Id + "')" });
                 }
             </td>
-            <td>
+            <td class="center">
                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit", @title = "Editar" }) 
                 @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", @title = "Detalles" })            
                 @Html.ActionLink(" ", "", null, htmlAttributes: new { @class = "btnmore", @title = "Más" })

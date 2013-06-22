@@ -4,24 +4,24 @@
     ViewBag.Title = "Registrar Noticia";
 }
 
+<script type="text/javascript"> 
+    $(document).ready(function () {
+            $.ajax({
+                type : "POST",
+                url :  "@(Url.Action("UFile","File", new { id = Model.Id }))", // se dirige a la acción "Index" del controlado UploadFile
+                traditional : true,
+                data : {  }, // se agregan los parametros necesarios para la funcionalidad
+                success : function(data){
+                    $("#clase3").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+                }
+            });  
+    });
+</script>
+
 <h2>Crear</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-<script type="text/javascript"> 
-$(document).ready(function () {
-        $.ajax({
-            type : "POST",
-            url :  "@(Url.Action("UFile","File", new { id = Model.Id }))", // se dirige a la acción "Index" del controlado UploadFile
-            traditional : true,
-            data : {  }, // se agregan los parametros necesarios para la funcionalidad
-            success : function(data){
-                $("#clase3").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
-            }
-        });  
-}) 
-</script>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -30,7 +30,7 @@ $(document).ready(function () {
          @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            <span style="color: black;">Título :</span>
+            @Html.LabelFor(model => model.Title)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Title)
@@ -38,7 +38,7 @@ $(document).ready(function () {
         </div>
 
         <div class="editor-label">
-            <span style="color: black;">Resumen :</span>
+            @Html.LabelFor(model => model.Abstract)
         </div>
         <div class="editor-field" align="justify">
             @Html.TextAreaFor(model => model.Abstract, htmlAttributes: new { rows="5%", cols="25%" })
@@ -46,19 +46,18 @@ $(document).ready(function () {
         </div>
 
         <div class="editor-label">
-            <span style="color: black;">Contenido :</span>
+            @Html.LabelFor(model => model.Content)
         </div>
         <div class="editor-field" align="justify">
             @Html.TextAreaFor(model => model.Content, htmlAttributes: new { rows = "8%", cols = "45%" })
             @Html.ValidationMessageFor(model => model.Content)
         </div>
-        
+
     </fieldset>
-     <div id="clase3">
-     </div>     
+    <div id="clase3"></div>
     <div>
-        @*<input type="submit" value="    Me gusta" class = "btnlike"/>*@
         <input type="submit" value="Crear Noticia" class="ebutton blue"/>
         @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
     </div>
+    
 }
