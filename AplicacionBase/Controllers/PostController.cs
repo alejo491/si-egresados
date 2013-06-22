@@ -21,15 +21,16 @@ namespace AplicacionBase.Controllers
         /// Atributo que consulta la base de datos
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
+
         /// <summary>
         /// Atributos que permiten controlar la paginación de las vistas
         /// </summary>
         private int pageSize = 10;
         private int pageNumber;
 
-        #region ListarNoticiasGobal
+        #region ListarNoticiasGlobal
         /// <summary>
-        /// Muestra las noticias auntorizadas que han publicado los usuarios
+        /// Muestra las noticias autorizadas que han publicado los usuarios
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
@@ -40,7 +41,6 @@ namespace AplicacionBase.Controllers
             return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
         }
         #endregion
-
 
         #region ListarNoticiasAdministrador
         /// <summary>
@@ -106,13 +106,9 @@ namespace AplicacionBase.Controllers
             Post post2 = new Post();
             IList<Post> datos = new List<Post>();
             datos.Add(post);
-
             AplicacionBase.Controllers.LikeController lc = new LikeController();
             int cont = 0;
-
             IList<Like> likes = lc.Index();
-            //bool b= (Guid)Membership.GetUser().ProviderUserKey;
-
             if (Request.IsAuthenticated)
             {
                 foreach (Like l in likes)
@@ -123,15 +119,10 @@ namespace AplicacionBase.Controllers
                         post2.Id = l.Id;
                     }
                 }
-
                 if (cont == 1) post2.Autorized = 1;
                 else post2.Autorized = 0;
             }
             else post2.Autorized = -1;
-
-
-
-
             datos.Add(post2);
             return View(datos);
         }
@@ -194,10 +185,7 @@ namespace AplicacionBase.Controllers
         /// <returns>Retorna la noticia a editar</returns>
         public ActionResult Edit(Guid id)
         {
-
             Post post = db.Posts.Find(id);
-
-            //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
             return View(post);
         }
         #endregion
@@ -219,7 +207,6 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            //ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", post.IdUser);
             return View(post);
         }
         #endregion
@@ -266,26 +253,18 @@ namespace AplicacionBase.Controllers
         }
 
         public ActionResult ShowPost(Guid id)
-        {
-            //Post post = db.Posts.Find(id);
-            //Guid us = (Guid)Membership.GetUser().ProviderUserKey;
-            //return View(post);
-
+        {            
+            //Guid us = (Guid)Membership.GetUser().ProviderUserKey;           
             Post post = db.Posts.Find(id);
             Post post2 = new Post();
             Post post3 = new Post();
-
             IList<Post> datos = new List<Post>();
             datos.Add(post);
-
             AplicacionBase.Controllers.LikeController lc = new LikeController();
             AplicacionBase.Controllers.StartboxController st = new StartboxController();
             int cont = 0;
-
             IList<Like> likes = lc.Index();
             int startbox = st.Index2(id);
-
-
             if (Request.IsAuthenticated)
             {
                 foreach (Like l in likes)
@@ -308,7 +287,6 @@ namespace AplicacionBase.Controllers
             return View(datos);
         }
 
-
         //! Atiende el resultado de hacer clic en Buscar de la vista Principal
         /*!
          * \param criteria Contiene las palabras clave con las que se desea hacer la busqueda
@@ -318,18 +296,15 @@ namespace AplicacionBase.Controllers
          */
         public ActionResult Search(string criteria, int? page)
         {
-
             ViewBag.CurrentFilter = criteria;
             if (criteria == null)
             {
                 criteria = "";
             }
             string searchText = criteria.ToLower().Trim();
-
             //Búsqueda
             var posts = db.Posts.Where(p => p.Title.ToLower().Contains(criteria) || p.Abstract.Contains(criteria) ||
                p.Content.Contains(criteria));
-
             //Ordenar por fecha de publicación
             var results = posts.ToList().OrderByDescending(c => c.PublicationDate);
             pageNumber = (page ?? 1);
@@ -372,6 +347,17 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
             }
         }
+
+        #region Método dispose
+        /// <summary>
+        ///Dispose
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+        #endregion
 
     }
 }
