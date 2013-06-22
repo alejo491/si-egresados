@@ -1348,3 +1348,11 @@ div .center
 {
     text-align: center;
 }
+
+.btndetails2
+{
+      background: #FFFFFF url(themes/base/images/detail.png) no-repeat 0 0;
+        min-width: 25px;
+        min-height: 25px;
+       float: right;
+}
