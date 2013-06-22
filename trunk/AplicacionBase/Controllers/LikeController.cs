@@ -57,7 +57,6 @@ namespace AplicacionBase.Controllers
             Like like = new Like();
             like.Id_Post =post;
             like.Id_User = (Guid)Membership.GetUser().ProviderUserKey;
-
             if (ModelState.IsValid)
             {
                 like.Id = Guid.NewGuid();
@@ -130,7 +129,6 @@ namespace AplicacionBase.Controllers
             Like like = db.Likes.Find(id);
             db.Likes.Remove(like);
             db.SaveChanges();
-
             return RedirectToAction("showPost", "Post", new { id = post });
         }
         #endregion
@@ -147,12 +145,9 @@ namespace AplicacionBase.Controllers
             Post post2 = new Post();
             IList<Post> datos = new List<Post>();
             datos.Add(post);
-
             AplicacionBase.Controllers.LikeController lc = new LikeController();
             int cont = 0;
-
             IList<Like> likes = lc.Index();
-
             if (Request.IsAuthenticated)
             {
                 foreach (Like l in likes)
@@ -186,11 +181,16 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        #region Método dispose
+        /// <summary>
+        ///Dispose
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
 
     }
 }

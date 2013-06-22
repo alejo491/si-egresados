@@ -91,7 +91,6 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");  
             }
-
             ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
             ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
             return View(startbox);
@@ -163,10 +162,16 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        #region Método dispose
+        /// <summary>
+        ///Dispose
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
+
     }
 }

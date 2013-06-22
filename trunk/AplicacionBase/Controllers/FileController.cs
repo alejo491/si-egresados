@@ -45,7 +45,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Gallery
+        #region Galeria de imagenes
         /// <summary>
         /// Muestra la gaeria de archivos subidos por los usuarios
         /// </summary>
@@ -58,8 +58,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-
-        #region ImageMain 
+        #region Imagen principal 
         /// <summary>
         /// Muestra la gaeria de archivos subidos por los usuarios
         /// </summary>
@@ -72,7 +71,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region CarrucelImagen
+        #region Carrucel de imagenes
         /// <summary>
         /// Muestra la gaeria de archivos subidos por los usuarios
         /// </summary>
@@ -84,6 +83,7 @@ namespace AplicacionBase.Controllers
             //return View(db.Files.ToList());
         }
         #endregion
+
         #region Detalles
         /// <summary>
         /// Muestra los detalles del archivo
@@ -174,7 +174,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region regresar
+        #region Regresar
         /// <summary>
         /// Da la opción no efectuar cambios en una noticia y regresar al listado principal
         /// </summary>
@@ -252,7 +252,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region descargar archivo
+        #region Descargar archivo
         /// <summary>
         /// Da la opción de descargar un archivo que hay sido subido
         /// </summary>
@@ -279,7 +279,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region actualización del archivo
+        #region Actualización del archivo
         /// <summary>
         /// Da la opción de actualizar un archivo
         /// </summary>
@@ -328,7 +328,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region actualizar archivo parcial en la noticia
+        #region Actualizar archivo parcial en la noticia
         /// <summary>
         /// Actualiza el archivo en una noticia
         /// </summary>
@@ -372,7 +372,7 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region cargar todo el archivo
+        #region Cargar todo el archivo
         /// <summary>
         /// Carga todo el archivo en una noticia
         /// </summary>
@@ -426,14 +426,30 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        #region Método dispose
+        /// <summary>
+        ///Dispose
+        /// </summary>
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
 
     }
 
+    #region ViewDataUploadFilesResult
+    /// <summary>
+    /// Clase para el resultado de los datos del archivo a subir
+    /// name: nombre del archivo
+    /// size: longitud del archivo
+    /// type: formato del archivo
+    /// url: enlace para el archivo
+    /// delete_url: eliminar enlace del archivo
+    /// thumbnail_url: enlace en miniatura del archivo
+    /// delete_type: eliminar formato del archivo
+    /// </summary>
     public class ViewDataUploadFilesResult
     {
         public string name { get; set; }
@@ -444,5 +460,6 @@ namespace AplicacionBase.Controllers
         public string thumbnail_url { get; set; }
         public string delete_type { get; set; }
     }
+    #endregion
 
 }
