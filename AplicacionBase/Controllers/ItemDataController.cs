@@ -442,7 +442,8 @@ namespace AplicacionBase.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Index", "Reports");
+                TempData["Success"] = "Se ha creado el Item correctamente";
+                return RedirectToAction("GeneralItems", "Items", new { id = item.IdReport });
             }
             catch(Exception e)
             {

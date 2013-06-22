@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<AplicacionBase.Models.ViewModels.ItemReportViewModel>
-
 @{
     ViewBag.Title = "Listado General de Items";
 }
 
-<h2>Listado General de Items</h2>
+<h2>Listado General de Items del Reporte @ViewBag.reporte.Description</h2>
 <div>
     @Html.ActionLink("Crear Item survey", "Create", "ItemSurveys", new { id = ViewBag.IdReport }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
     @Html.ActionLink("Crear Item Datos", "Create", "ItemData", new { id = ViewBag.IdReport }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
@@ -20,7 +19,7 @@
 <table>
     <tr>
         <th>
-            Reporte
+            Orden
         </th>
         <th>
             Descripción
@@ -34,11 +33,10 @@
         </th>
     </tr>
     
-
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Reporte)
+            @Html.DisplayFor(modelItem => item.ItemNumber)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sentence)
