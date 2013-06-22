@@ -8,6 +8,13 @@
     <div class="views-row views-row-1 views-row-odd views-row-first">
         <li class="postNoticias">
 	    <span class="categoriaNoticia">@item.Title | </span>
-        @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id })                                        
+        @if (item.Abstract.Count() >= 50)
+        {
+            @Html.ActionLink(item.Abstract.Substring(50) + "...", "showPost", new { id = item.Id }) 
+        }
+        else
+        {
+             @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }) 
+        }                              
     </div>
 } 
