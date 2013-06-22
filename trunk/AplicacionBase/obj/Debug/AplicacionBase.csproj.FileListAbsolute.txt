@@ -284,6 +284,5 @@ C:\Users\user\Desktop\si-egresados\AplicacionBase\bin\MvcSiteMapProvider.dll
 C:\Users\user\Desktop\si-egresados\AplicacionBase\bin\PagedList.dll
 C:\Users\user\Desktop\si-egresados\AplicacionBase\bin\MvcSiteMapProvider.xml
 C:\Users\user\Desktop\si-egresados\AplicacionBase\bin\PagedList.xml
-C:\Users\user\Desktop\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.csprojResolveAssemblyReference.cache
 C:\Users\user\Desktop\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\user\Desktop\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.pdb

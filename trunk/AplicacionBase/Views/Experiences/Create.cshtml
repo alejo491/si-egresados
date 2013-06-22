@@ -23,11 +23,13 @@
          <div class="editor-label">
             Compañía donde laboró
         </div>
+        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
         <div class="editor-field">
             @Html.DropDownList("IdCompanie", "")
             @Html.ValidationMessageFor(model => model.IdCompanie)
 
-            ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="../../Companies/CreateForExperience?wizardStep=1">Crear Nueva</a>
+            ¿No aparece en la lista? &nbsp @Html.ActionLink("Crear Nueva", "CreateForExperience", "Companies", new { wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })
+            
         </div>
 
         <div class="editor-label">

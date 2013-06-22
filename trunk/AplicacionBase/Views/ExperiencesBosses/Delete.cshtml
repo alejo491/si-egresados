@@ -6,6 +6,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -14,7 +15,7 @@
 <h3>Esta seguro de eliminar este registro?</h3>
 <fieldset>
     <legend>Jefe Directo</legend>
-
+    <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
     <div class="display-label">Nombre Jefe</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Boss.Name)
@@ -38,6 +39,6 @@
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Eliminar" class="ebutton blue"/> &nbsp
-        @Html.ActionLink("Volver", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
+        @Html.ActionLink("Volver", "Index", new { wizardStep = wizard}, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }

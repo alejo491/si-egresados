@@ -6,6 +6,7 @@
     if (wizard == 1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
+        wizard = 1;
     }
 }
 
@@ -20,6 +21,9 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Información del Jefe</legend>
+
+        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
+
         <p>(*) Campos Obligatorios</p>
         <TABLE BORDER=0>
             <TR>
