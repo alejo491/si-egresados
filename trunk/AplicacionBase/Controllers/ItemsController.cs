@@ -67,8 +67,8 @@ namespace AplicacionBase.Controllers
                     ListGeneralItems.Add(objReport);
                 }
                 ViewBag.IdReport = id;
-                ListGeneralItems.OrderBy(ItemReportViewModel => ItemReportViewModel.ItemNumber);
-                return View(ListGeneralItems);
+                var Listfinal = ListGeneralItems.OrderBy(ItemReportViewModel => ItemReportViewModel.ItemNumber).ToList();
+                return View(Listfinal);
             }
             else
             {
