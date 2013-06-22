@@ -87,7 +87,7 @@
       <mvcSiteMapNode title="Eliminar" controller="School" action="Delete"/>
     </mvcSiteMapNode>
 
-    <mvcSiteMapNode title="Estudio" controller="Study" action="Index">
+    <mvcSiteMapNode title="Estudios" controller="Study" action="Index">
       <mvcSiteMapNode title="Detalles" controller="Study" action="Details"/>
       <mvcSiteMapNode title="Crear" controller="Study" action="Create"/>
       <mvcSiteMapNode title="Editar" controller="Study" action="Edit"/>
@@ -148,10 +148,15 @@
 
 
     <mvcSiteMapNode title="Usuario" controller="User" action="Index">
+      <mvcSiteMapNode title="Perfil de Usuario" controller="User" action="Begin"/>
       <mvcSiteMapNode title="Detalles" controller="User" action="Details"/>
       <mvcSiteMapNode title="Crear" controller="User" action="Create"/>
       <mvcSiteMapNode title="Editar" controller="User" action="Edit"/>
       <mvcSiteMapNode title="Eliminar" controller="User" action="Delete"/>
+      <mvcSiteMapNode title="Buscar" controller="User" action="Search"/>
+      <mvcSiteMapNode title="Registro" controller="User" action="Generate"/>
+      <mvcSiteMapNode title="Estado" controller="User" action="State"/>
+      <mvcSiteMapNode title="Nuevo Usuario" controller="User" action="Register"/>
     </mvcSiteMapNode>
 
     <mvcSiteMapNode title="Usuarios Roles" controller="UserInRoles" action="Index">
