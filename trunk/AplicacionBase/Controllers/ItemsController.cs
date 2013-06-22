@@ -34,10 +34,12 @@ namespace AplicacionBase.Controllers
             if (id != Guid.Empty && id != null)
             {
                 var ListGeneralItems = new List<ItemReportViewModel>();
+                var reporte = (Report)db.Reports.Find(id);
                 var itemsurveys = db.ItemSurveys.Where(i => i.IdReport == id);
                 var itemdata = db.ItemDatas.Where(i => i.IdReport == id);
                 var ListItemData = itemdata.ToList();
                 var ListItemSurveys = itemsurveys.ToList();
+                ViewBag.reporte = reporte; 
 
                 foreach(ItemSurvey itemS in ListItemSurveys)
                 {
@@ -66,7 +68,6 @@ namespace AplicacionBase.Controllers
                 }
                 ViewBag.IdReport = id;
                 ListGeneralItems.OrderBy(ItemReportViewModel => ItemReportViewModel.ItemNumber);
-
                 return View(ListGeneralItems);
             }
             else

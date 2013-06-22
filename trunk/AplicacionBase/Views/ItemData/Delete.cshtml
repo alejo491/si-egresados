@@ -33,6 +33,6 @@
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Eliminar" class="ebutton2 blue"/>   
-        @Html.ActionLink("Regresar al Listado", "Index", new { id = Model.IdReport }, htmlAttributes: new { @class = "ebutton blue" })
+        @Html.ActionLink("Regresar al Listado", "GeneralItems", "Items", new { id = Model.IdReport }, htmlAttributes: new { @class = "ebutton blue" })
     </p>
 }
