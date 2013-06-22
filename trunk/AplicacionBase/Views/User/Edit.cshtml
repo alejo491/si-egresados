@@ -10,84 +10,70 @@
 {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>Usuario @Model.aspnet_Users.UserName</legend>
+        <legend>Usuario: @Model.aspnet_Users.UserName</legend>
+        <div>&nbsp</div>
+        <p>Los campos marcados con (*) son obligatorios</p>
         @Html.HiddenFor(model => model.Id)
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PhoneNumber)
-        </div>
+        <div class="editor-label"><h3>@Html.LabelFor(model => model.PhoneNumber)</h3> </div>
+
         <div class="editor-field">
             @Html.EditorFor(model => model.PhoneNumber)
             @Html.ValidationMessageFor(model => model.PhoneNumber)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FirstNames)
-        </div>
+
+        <div class="editor-label"><h3>@Html.LabelFor(model => model.FirstNames)</h3></div>
+        
         <div class="editor-field">
             @Html.EditorFor(model => model.FirstNames)
             @Html.ValidationMessageFor(model => model.FirstNames)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastNames)
-        </div>
+
+        <div class="editor-label"><h3>@Html.LabelFor(model => model.LastNames)</h3></div>
+       
         <div class="editor-field">
             @Html.EditorFor(model => model.LastNames)
             @Html.ValidationMessageFor(model => model.LastNames)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Address)
-        </div>
+
+        <div class="editor-label"><h3> @Html.LabelFor(model => model.Address)</h3></div>
+        
         <div class="editor-field">
             @Html.EditorFor(model => model.Address)
             @Html.ValidationMessageFor(model => model.Address)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CellphoneNumber)
-        </div>
+
+        <div class="editor-label"><h3> @Html.LabelFor(model => model.CellphoneNumber)</h3></div>
+       
         <div class="editor-field">
             @Html.EditorFor(model => model.CellphoneNumber)
             @Html.ValidationMessageFor(model => model.CellphoneNumber)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.BirthDate)
-        </div>
+
+        <div class="editor-label"><h3>@Html.LabelFor(model => model.BirthDate)</h3></div>
+        
         <div class="editor-field">
             @Html.EditorFor(model => model.BirthDate)
             @Html.ValidationMessageFor(model => model.BirthDate)
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Gender)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Gender)
+
+        <div class="editor-label"><h3>@Html.LabelFor(model => model.Gender)</h3>
             <div>
-                Masculino
-                @Html.RadioButtonFor(model => model.Gender, "M")
-            </div>
-            <div>
-                Femenino
-                @Html.RadioButtonFor(model => model.Gender, "F")
+                M @Html.RadioButtonFor(model => model.Gender, "M")                
+                F @Html.RadioButtonFor(model => model.Gender, "F")
             </div>
         </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MaritalStatus)
-        </div>
+
+        <div class="editor-label"><h3> @Html.LabelFor(model => model.MaritalStatus)</h3></div>
         <div class="editor-field">
             <div>
-                Soltero
-                @Html.RadioButtonFor(model => model.MaritalStatus, "Soltero")
+                Soltero @Html.RadioButtonFor(model => model.MaritalStatus, "Soltero")
+                Casado  @Html.RadioButtonFor(model => model.MaritalStatus, "Casado")
+                Unión Libre @Html.RadioButtonFor(model => model.MaritalStatus, "U Libre")
             </div>
-            <div>
-                Casado
-                @Html.RadioButtonFor(model => model.MaritalStatus, "Casado")
-            </div>
-            <div>
-                Unión Libre
-                @Html.RadioButtonFor(model => model.MaritalStatus, "U Libre")
-            </div>
-            <div>
-                &nbsp
-            </div>
+
+            <div>&nbsp</div>
         </div>
+
         <div>
             <input type="submit" value="Guardar" class="ebutton blue" />&nbsp
             <input type="button" value="Atrás" onclick="history.go(-1)" class="ebutton blue" />

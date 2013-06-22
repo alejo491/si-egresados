@@ -23,8 +23,8 @@ namespace AplicacionBase.Models
 
         public System.Guid Id { get; set; }
 
-        [DisplayName("Telefono")]
-        [RegularExpression(@"[0-9]{7,10}", ErrorMessage = " No tiene el formato de Telefono")]
+        [DisplayName("Teléfono")]
+        [RegularExpression(@"[0-9]{7,10}", ErrorMessage = " No tiene el formato de Teléfono")]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -37,7 +37,7 @@ namespace AplicacionBase.Models
         [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string LastNames { get; set; }
 
-        [DisplayName("Direccion")]
+        [DisplayName("Dirección")]
         public string Address { get; set; }
 
         [DisplayName("Celular")]
@@ -48,7 +48,7 @@ namespace AplicacionBase.Models
 
         public Nullable<System.DateTime> BirthDate { get; set; }
 
-        [DisplayName("Genero")]
+        [DisplayName("Género")]
         public string Gender { get; set; }
 
         [DisplayName("Estado Civil")]

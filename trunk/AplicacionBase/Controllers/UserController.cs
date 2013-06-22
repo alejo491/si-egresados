@@ -31,6 +31,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         private System.Linq.IOrderedEnumerable<User> results;
 
+        #region Página Principal Usuarios
         //
         // GET: /User/
 
@@ -38,6 +39,7 @@ namespace AplicacionBase.Controllers
         /// Método que carga la vista que contiene todos los usuarios registrados en el sistema
         /// </summary>
         /// <returns>Vista que contine todos los usuarios</returns>
+        /// <returns>Redirecciona al perfil personal del usuario</returns>
         public ActionResult Index(int? page)
         {
             Guid g = searchId();
@@ -53,7 +55,9 @@ namespace AplicacionBase.Controllers
             }
             else { return RedirectToAction("Begin", "User", new { id = g }); }
         }
+        #endregion
 
+        #region Perfil Personal del Usuario
         /// <summary>
         /// Método que carga la vista principal de un usuario
         /// </summary>
@@ -65,7 +69,9 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region Detalles de Usuario
         //
         // GET: /User/Details/5
         /// <summary>
@@ -78,7 +84,9 @@ namespace AplicacionBase.Controllers
             User user = db.Users.Find(id);
             return View(user);
         }
+        #endregion
 
+        #region Crear Usuarios
         //
         // GET: /User/Create
         /// <summary>
@@ -91,7 +99,9 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName");
             return View();
         }
+        #endregion
 
+        #region Obtener Id del usuario activo
         /// <summary>
         /// Método que obtiene el Id del usuario que esta logueado en el sistema
         /// </summary>
@@ -108,14 +118,18 @@ namespace AplicacionBase.Controllers
             }
             return g;
         }
+        #endregion
 
+        #region Almacenar Usuarios
         //
         // POST: /User/Create
         /// <summary>
         /// Guarda los datos del usuario recibidos en el formulario
         /// </summary>
         /// <param name="user">Usuario con toda su información</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al perfil de Usuario</returns>
+        /// <returns>Redirecciona al index de Wizard</returns>
+        /// <returns>Vista que despliega el formulario que permite crear los datos </returns>
         [HttpPost]
         public ActionResult Create(User user)
         {
@@ -144,7 +158,15 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region Administrar Wizard
+        /*Lineas Necesarias, para Administrar el Wizard*/
+        /// <summary>
+        /// Se cargan los pasos que son necesarios que haga un
+        /// usuario determinado
+        /// </summary>
+        /// <param name="user">Identificador único del usuario </param>
         private void StepsLoad(Guid user)
         {
             var steps = db.Steps.OrderBy(s => s.SOrder).ToList();
@@ -162,6 +184,9 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
             }
         }
+        #endregion
+
+        #region Pasos del Wizard
 
         /*Lineas Necesarias, para Administrar el Wizard*/
         /// <summary>
@@ -212,7 +237,9 @@ namespace AplicacionBase.Controllers
             }
 
         }
+        #endregion
 
+        #region Editar Usuario
         //
         // GET: /User/Edit/5
         /// <summary>
@@ -226,14 +253,18 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region Editar Usuario (Almacenar Cambios)
         //
         // POST: /User/Edit/5
         /// <summary>
         /// Guarda los cambios de la información del usuario recibidos en el formulario
         /// </summary>
         /// <param name="user">Usuario con toda su información</param>
-        /// <returns></returns>
+        /// <returns> Redirecciona al perfil personal del usuario</returns>
+        /// <returns> Redirecciona al index del usuario</returns>
+        /// <returns> Redirecciona a la vista principal del usuario con todas sus funcionalidades</returns>
         [HttpPost]
         public ActionResult Edit(User user)
         {
@@ -256,24 +287,30 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region Cambiar estado
         /// <summary>
         /// Método que carga la vista que permite modificar el estado de un usuario en el sistema
         /// </summary>
         /// <param name="id">Id del usuario</param>
-        /// <returns>Vista que da la opcion de cambiar de estado a un usuario</returns>
+        /// <returns>Vista que da la opción de cambiar de estado a un usuario</returns>
         public ActionResult State(Guid id)
         {
             User user = db.Users.Find(id);
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region Cambiar Estado (Almacenar Cambios)
         /// <summary>
         /// Guarda los cambios realizados al estado de un usuario
         /// </summary>
         /// <param name="user">Usuario con toda su información</param>
-        /// <returns></returns>
+        /// <returns> Redirecciona al index del usuario</returns>
+        ///  <returns> Redirecciona a la vista del usuario administrador</returns>
+
         [HttpPost]
         public ActionResult State(User user)
         {
@@ -287,21 +324,26 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region Registro de usuario
         /// <summary>
-        /// Método que carga la vista con el formulario para registrar un usuario en el sistema
+        /// Método que carga la vista del formulario para registrar un usuario en el sistema
         /// </summary>
-        /// <returns>Vista que despliega el formulario que permite registrar los datos</returns>
+        /// <returns>Vista que despliega el formulario de registro</returns>
         public ActionResult Register()
         {
             return View();
         }
+        #endregion
 
+        #region Registrar usuarios (Almacenar cambios)
         /// <summary>
         /// Guarda el usuario creado en el sistema
         /// </summary>
         /// <param name="model">Usuario a registrar</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al user generate para almacenar la información correspondiente al usuario</returns>
+        /// <returns>Redirecciona a la vista de registro de datos </returns>
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -323,7 +365,9 @@ namespace AplicacionBase.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region Crear Información del Usuario (Funcion Administrador) 
         /// <summary>
         /// Método que carga la vista con el formulario para crear la información personal de un usuario por parte del administrador
         /// </summary>
@@ -334,12 +378,15 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName");
             return View(user);
         }
+        #endregion
 
+        #region Crear Información del Usuario (Almacenar cambios)
         /// <summary>
         /// Guarda los datos del usuario creado por parte del administrador
         /// </summary>
         /// <param name="user">Usuario con toda su información</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al index del usuario</returns>
+        /// <returns>Muestra los usuario registrados</returns>
         [HttpPost]
         public ActionResult Generate(User user)
         {
@@ -354,12 +401,15 @@ namespace AplicacionBase.Controllers
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }
+        #endregion
 
+        #region salir
         /// <summary>
         /// Método que permite salir de la vista principal de un usuario
         /// </summary>
         /// <param name="id">Id del usuario que ingresa al sistema</param>
-        /// <returns></returns>
+        /// <returns>Redireccionar al index de usuario</returns>
+        /// <returns>Redireccionar a la pagina inicial (Home)</returns>
         public ActionResult Out(Guid id)
         {
             Guid g = System.Guid.Empty;
@@ -383,13 +433,15 @@ namespace AplicacionBase.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        #endregion
 
+        #region Buscador
         /// <summary>
         /// Método que permite buscar usuarios
         /// </summary>
         /// <param name="nameuser">Parametro de búsqueda</param>
         /// <param name="page">Número de la página</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona a la vista del buscador </returns>
         public ActionResult Search(string nameuser, int? page)
         {
             ViewBag.CurrentFilter = nameuser;
@@ -403,6 +455,7 @@ namespace AplicacionBase.Controllers
             pageNumber = (page ?? 1);
             return View(results.ToPagedList(pageNumber, pageSize));
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {
