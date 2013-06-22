@@ -11,7 +11,7 @@ using PagedList;
 
 namespace AplicacionBase.Controllers
 {
-    [Authorize]
+   
     public class VacanciesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -24,7 +24,7 @@ namespace AplicacionBase.Controllers
         /// <param name="page">Indicador de paginacion</param>
         /// <returns>La vista con el listado de vacantes sacadas de la base de datos</returns>
 
-     ViewResult Index(int? page)
+        public ViewResult Index(int? page)
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
             pageNumber = (page ?? 1);
@@ -32,10 +32,10 @@ namespace AplicacionBase.Controllers
             // return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
 
-         /// <summary>
-         /// Renderiza el panel que contine las 5 ultimas vacantes ingresadas para ser mostradas en la página principal
-         /// </summary>
-         /// <returns>La vista con las 5 ultimas vacantes</returns>
+        /// <summary>
+        /// Renderiza el panel que contine las 5 ultimas vacantes ingresadas para ser mostradas en la página principal
+        /// </summary>
+        /// <returns>La vista con las 5 ultimas vacantes</returns>
 
         public ActionResult Index2()
         {
@@ -60,6 +60,7 @@ namespace AplicacionBase.Controllers
         /// Atiende el resultado de pulsar el boton de Crear Nueva vacante en la vista principal
         /// </summary>
         /// <returns>La vista de Creacion solamente en el caso de que el usuario este loggeado</returns>
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
@@ -129,6 +130,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="vacancy">Contiene el id de la vacante que se desea modificar</param>
         /// <returns>La vista con los datos a editar de la vacante</returns>
+        [Authorize]
         public ActionResult Edit(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);
@@ -164,6 +166,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Contiene el id de la vacante que se desea Eliminar</param>
         /// <returns>La vista de confirmación</returns>
+         [Authorize]
         public ActionResult Delete(Guid id)
         {
             Vacancy vacancy = db.Vacancies.Find(id);

@@ -39,11 +39,11 @@
                 Teléfono: @Html.DisplayFor(modelItem => item.Company.Phone)<br/>
                 E-Mail: @Html.DisplayFor(modelItem => item.Company.Email)</p>
                   
-                @Html.ActionLink("Detalles", "Details", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" }) 
+                @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", title="Detalles" }) 
                 &nbsp
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit", title="Editar" })
                 &nbsp
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "ebutton blue" })
+                @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", title="Eliminar" })
             </div>
         </div>
     }
