@@ -1136,7 +1136,7 @@ background: url(themes/base/images/con-noticias-borde-izq.jpg) repeat-y top left
 #conNoticiasBordeDer {
 width: 100%;
 background: url(themes/base/images/con-noticias-borde-der.jpg) repeat-y top right;
-min-height: 550px;
+min-height: 600px;
 }
 #conNoticiasBordeInf {
 clear: both;
