@@ -627,78 +627,90 @@ namespace AplicacionBase
 
                     #endregion
 
-                    //#region Reglas de seguridad del controlador Vacancies
+                    #region Reglas de seguridad del controlador Vacancies
                     
-                    ////Se obtienen los roles que tienen acceso al controlador Vacancies y a los métodos de este controlador.
-                    //string[] rolesVacanciesIndex = assembly.GetRolesMethods("VacanciesController", "Index");
-
-                    //var rolesVacanciesCreate = assembly.GetRolesMethods("VacanciesController", "Create");
-                    //var rolesVacanciesDetails = assembly.GetRolesMethods("VacanciesController", "Details");
-                    //var rolesVacanciesEdit = assembly.GetRolesMethods("VacanciesController", "Edit");
-                    //var rolesVacanciesDelete = assembly.GetRolesMethods("VacanciesController", "Delete");
-                    //var rolesVacanciesDeleteConfirmed = assembly.GetRolesMethods("VacanciesController", "DeleteConfirmed");
-                    //var rolesVacanciesSearch = assembly.GetRolesMethods("VacanciesController", "Search");
+                    //Se obtienen los roles que tienen acceso al controlador Vacancies y a los métodos de este controlador.
+                    string[] rolesVacanciesIndex = assembly.GetRolesMethods("VacanciesController", "Index");
+                    var rolesVacanciesIndex2 = assembly.GetRolesMethods("VacanciesController", "Index2");
+                    var rolesVacanciesCreate = assembly.GetRolesMethods("VacanciesController", "Create");
+                    var rolesVacanciesDetails = assembly.GetRolesMethods("VacanciesController", "Details");
+                    var rolesVacanciesEdit = assembly.GetRolesMethods("VacanciesController", "Edit");
+                    var rolesVacanciesDelete = assembly.GetRolesMethods("VacanciesController", "Delete");
+                    var rolesVacanciesDeleteConfirmed = assembly.GetRolesMethods("VacanciesController", "DeleteConfirmed");
+                    var rolesVacanciesSearch = assembly.GetRolesMethods("VacanciesController", "Search");
                 
                     
-                    ////Se configuran las reglas de acceso para el controlador Vacancies.
+                    //Se configuran las reglas de acceso para el controlador Vacancies.
 
-                    //configuration.For<VacanciesController>(x => x.Index(default(int)))
-                    //            .RequireAnyRole(rolesVacanciesIndex);
+                   // configuration.For<VacanciesController>(x => x.Index(default(int)))
+                     //           .RequireAnyRole(rolesVacanciesIndex);
 
-                    
-                    //configuration.For<VacanciesController>(x => x.Create())
-                    //             .RequireAnyRole(rolesVacanciesCreate);
+                    configuration.For<VacanciesController>(x => x.Index(default(int)))
+                        .Ignore();
 
-                    //configuration.For<VacanciesController>(x => x.Details(default(Guid)))
-                    //              .RequireAnyRole(rolesVacanciesDetails);
+                    //configuration.For<VacanciesController>(x => x.Index2())
+                      //              .RequireAnyRole(rolesVacanciesIndex);
 
-                    //configuration.For<VacanciesController>(x => x.Edit(default(Guid)))
-                    //             .RequireAnyRole(rolesVacanciesEdit);
+                    configuration.For<VacanciesController>(x => x.Index2())
+                                 .Ignore();
 
-                    //configuration.For<VacanciesController>(x => x.Delete(default(Guid)))
-                    //             .RequireAnyRole(rolesVacanciesDelete);
+                    configuration.For<VacanciesController>(x => x.Create())
+                                .RequireAnyRole(rolesVacanciesCreate);
 
-                    //configuration.For<VacanciesController>(x => x.DeleteConfirmed(default(Guid)))
-                    //             .RequireAnyRole(rolesVacanciesDeleteConfirmed);
+                    configuration.For<VacanciesController>(x => x.Details(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesDetails);
 
-                    //configuration.For<VacanciesController>(x => x.Search(default(string), default(int)))
-                    //             .RequireAnyRole(rolesVacanciesSearch);
+                    configuration.For<VacanciesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesEdit);
+
+                    configuration.For<VacanciesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesDelete);
+
+                    configuration.For<VacanciesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesVacanciesDeleteConfirmed);
+
+                    configuration.For<VacanciesController>(x => x.Search(default(string), default(int)))
+                                 .RequireAnyRole(rolesVacanciesSearch);
               
-                    //#endregion
+                    #endregion
 
-                    //#region Reglas de seguridad del controlador Companies
+                    #region Reglas de seguridad del controlador Companies
 
-                    ////Se obtienen los roles que tienen acceso al controlador Companies y a los métodos de este controlador.
-                    //string[] rolesCompaniesIndex = assembly.GetRolesMethods("CompaniesController", "Index");
+                    //Se obtienen los roles que tienen acceso al controlador Companies y a los métodos de este controlador.
+                    string[] rolesCompaniesIndex = assembly.GetRolesMethods("CompaniesController", "Index");
 
-                    //var rolesCompaniesCreate = assembly.GetRolesMethods("CompaniesController", "Create");
-                    //var rolesCompaniesDetails = assembly.GetRolesMethods("CompaniesController", "Details");
-                    //var rolesCompaniesEdit = assembly.GetRolesMethods("CompaniesController", "Edit");
-                    //var rolesCompaniesDelete = assembly.GetRolesMethods("CompaniesController", "Delete");
-                    //var rolesCompaniesDeleteConfirmed = assembly.GetRolesMethods("CompaniesController", "DeleteConfirmed");
+                    var rolesCompaniesCreate = assembly.GetRolesMethods("CompaniesController", "Create");
+                    var rolesCompaniesCreateForExperience = assembly.GetRolesMethods("CompaniesController", "CreateForExperience");
+                    var rolesCompaniesDetails = assembly.GetRolesMethods("CompaniesController", "Details");
+                    var rolesCompaniesEdit = assembly.GetRolesMethods("CompaniesController", "Edit");
+                    var rolesCompaniesDelete = assembly.GetRolesMethods("CompaniesController", "Delete");
+                    var rolesCompaniesDeleteConfirmed = assembly.GetRolesMethods("CompaniesController", "DeleteConfirmed");
                    
-                    ////Se configuran las reglas de acceso para el controlador Companies.
+                    //Se configuran las reglas de acceso para el controlador Companies.
 
-                    //configuration.For<CompaniesController>(x => x.Index())
-                    //            .RequireAnyRole(rolesCompaniesIndex);
-
-
-                    //configuration.For<CompaniesController>(x => x.Create())
-                    //             .RequireAnyRole(rolesCompaniesCreate);
-
-                    //configuration.For<CompaniesController>(x => x.Details(default(Guid)))
-                    //              .RequireAnyRole(rolesCompaniesDetails);
-
-                    //configuration.For<CompaniesController>(x => x.Edit(default(Guid)))
-                    //             .RequireAnyRole(rolesCompaniesEdit);
-
-                    //configuration.For<CompaniesController>(x => x.Delete(default(Guid)))
-                    //             .RequireAnyRole(rolesCompaniesDelete);
-
-                    //configuration.For<CompaniesController>(x => x.DeleteConfirmed(default(Guid)))
-                    //             .RequireAnyRole(rolesCompaniesDeleteConfirmed);
+                    configuration.For<CompaniesController>(x => x.Index())
+                                .RequireAnyRole(rolesCompaniesIndex);
                     
-                    //#endregion
+                  
+                    configuration.For<CompaniesController>(x => x.Create())
+                                 .RequireAnyRole(rolesCompaniesCreate);
+
+                    configuration.For<CompaniesController>(x => x.CreateForExperience(default(int)))
+                                     .RequireAnyRole(rolesCompaniesCreateForExperience);
+
+                    configuration.For<CompaniesController>(x => x.Details(default(Guid)))
+                                  .RequireAnyRole(rolesCompaniesDetails);
+
+                    configuration.For<CompaniesController>(x => x.Edit(default(Guid)))
+                                 .RequireAnyRole(rolesCompaniesEdit);
+
+                    configuration.For<CompaniesController>(x => x.Delete(default(Guid)))
+                                 .RequireAnyRole(rolesCompaniesDelete);
+
+                    configuration.For<CompaniesController>(x => x.DeleteConfirmed(default(Guid)))
+                                 .RequireAnyRole(rolesCompaniesDeleteConfirmed);
+                    
+                    #endregion
 
                     //#region Reglas de seguridad del controlador Experiences
 
