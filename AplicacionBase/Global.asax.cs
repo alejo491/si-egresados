@@ -521,17 +521,17 @@ namespace AplicacionBase
 
 
                     //Se configuran las reglas de acceso para el controlador Study.
-                    configuration.For<StudyController>(x => x.Index(default(Guid), 0)).RequireAnyRole(rolesStudyIndex);
+                    configuration.For<StudyController>(x => x.Index( 0)).RequireAnyRole(rolesStudyIndex);
 
-                    configuration.For<StudyController>(x => x.Create(default(Guid), 0)).RequireAnyRole(rolesStudyCreate);
+                    configuration.For<StudyController>(x => x.Create( 0)).RequireAnyRole(rolesStudyCreate);
 
-                    configuration.For<StudyController>(x => x.Edit(default(Guid), default(Guid), 0)).RequireAnyRole(rolesStudyEdit);
+                    configuration.For<StudyController>(x => x.Edit(default(Guid), 0)).RequireAnyRole(rolesStudyEdit);
 
-                    configuration.For<StudyController>(x => x.Delete(default(Guid), default(Guid), 0)).RequireAnyRole(rolesStudyDelete);
+                    configuration.For<StudyController>(x => x.Delete(default(Guid),  0)).RequireAnyRole(rolesStudyDelete);
 
-                    configuration.For<StudyController>(x => x.DeleteConfirmed(default(Guid), default(Guid))).RequireAnyRole(rolesStudyDeleteConfirmed);
+                    configuration.For<StudyController>(x => x.DeleteConfirmed( default(Guid))).RequireAnyRole(rolesStudyDeleteConfirmed);
 
-                    configuration.For<StudyController>(x => x.Details(default(Guid), default(Guid), 0)).RequireAnyRole(rolesStudyDetails);
+                    configuration.For<StudyController>(x => x.Details(default(Guid), 0)).RequireAnyRole(rolesStudyDetails);
 
                     #endregion
 
