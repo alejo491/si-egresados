@@ -43,9 +43,6 @@ $(document).ready(function () {
     <fieldset>
         <legend>Noticia</legend>
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.Main)
-        @Html.HiddenFor(model => model.Autorized)
-        @Html.HiddenFor(model => model.Estate)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -82,6 +79,6 @@ $(document).ready(function () {
     </fieldset>
     <div>
         <input type="submit" value="Guardar" class="ebutton blue" />
-        @Html.ActionLink("Cancelar", "UserIndex", null, htmlAttributes: new { @class = "ebutton blue" })
+        @Html.ActionLink("Cancelar", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
     </div>
 }

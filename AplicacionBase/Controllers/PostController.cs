@@ -45,13 +45,14 @@ namespace AplicacionBase.Controllers
         #region ListarNoticiasAdministrador
         /// <summary>
         /// Muestra todas las noticias que han publicado los usuarios
+        /// limpiando antes de mostrar las noticias que no se an creado correctamente.
         /// </summary>
         /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult Index(int? page)
         {
             var posts = db.Posts.Include(p => p.User);
             pageNumber = (page ?? 1);
-            var post_basura = db.Posts.SqlQuery("exec PostBasura");
+            var post_basura = db.Posts.SqlQuery("exec PostBasura"); 
             List<Post> list = post_basura.ToList();
             foreach (var x in list)
             {
@@ -93,8 +94,6 @@ namespace AplicacionBase.Controllers
                     g = e.UserId;
                 }
             }
-            var posts = db.Posts.Where(p => (p.IdUser.Equals(g))).Include(p => p.User);
-            pageNumber = (page ?? 1);
             var post_basura = db.Posts.SqlQuery("exec PostBasura");
             List<Post> list = post_basura.ToList();
             foreach (var x in list)
@@ -118,13 +117,49 @@ namespace AplicacionBase.Controllers
                 db.Posts.Remove(x);
                 db.SaveChanges();
             }
+            var posts = db.Posts.Where(p => (p.IdUser.Equals(g))).Include(p => p.User);
+            pageNumber = (page ?? 1);
             return View(posts.ToList().ToPagedList(pageNumber, pageSize));
         }
         #endregion
 
-        #region Detalles
+        #region Detalles ADministrador
         /// <summary>
-        /// Muestra en detalle una noticia
+        /// Muestra en detalle una noticia para el usuario administrador 
+        /// </summary>
+        /// <param name="id">Identificador de la noticia</param>
+        /// <returns>Retorna el contenido de la noticia para el id correspondiente</returns>
+        public ViewResult DetailsAdmin(Guid id)
+        {
+            Post post = db.Posts.Find(id);
+            Post post2 = new Post();
+            IList<Post> datos = new List<Post>();
+            datos.Add(post);
+            AplicacionBase.Controllers.LikeController lc = new LikeController();
+            int cont = 0;
+            IList<Like> likes = lc.Index();
+            if (Request.IsAuthenticated)
+            {
+                foreach (Like l in likes)
+                {
+                    if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
+                    {
+                        cont++;
+                        post2.Id = l.Id;
+                    }
+                }
+                if (cont == 1) post2.Autorized = 1;
+                else post2.Autorized = 0;
+            }
+            else post2.Autorized = -1;
+            datos.Add(post2);
+            return View(datos);
+        }
+        #endregion
+
+        #region Detalles 
+        /// <summary>
+        /// Muestra en detalle una noticia para el usuario logueado
         /// </summary>
         /// <param name="id">Identificador de la noticia</param>
         /// <returns>Retorna el contenido de la noticia para el id correspondiente</returns>
@@ -165,6 +200,11 @@ namespace AplicacionBase.Controllers
         {
             Post post = new Post();
             post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
+            User user = db.Users.Find(post.IdUser);
+            if (user == null )
+            {
+                return RedirectToAction("Create", "User");
+            }
             post.PublicationDate = DateTime.Now;
             post.Autorized = 0; //queda pendiente validar que rol tiene
             post.Main = 0;
@@ -185,7 +225,7 @@ namespace AplicacionBase.Controllers
 
         #region Crear noticia HttpPost
         /// <summary>
-        /// Guarda la noticia que se recibe en el formulario
+        /// Guarda la noticia que se recibe en el formulario en la base de datos,
         /// </summary>
         /// <param name="post">Noticia recibida desde un formulario</param>
         /// <returns>Retorna las noticias recibidas en el formulario</returns>
@@ -194,7 +234,11 @@ namespace AplicacionBase.Controllers
         {
             post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
             post.PublicationDate = DateTime.Now;
-            post.Autorized = 0; //queda pendiente validar que rol tiene
+            post.Autorized = 0;
+            var list = Roles.GetRolesForUser();
+            foreach (var i in list) {
+                if (i == "Administrador" || i == "Publicador") { post.Autorized = 1; }
+            }
             post.Main = 0;
             post.Estate = 1;
             post.PublicationDate = DateTime.Now;
@@ -203,10 +247,74 @@ namespace AplicacionBase.Controllers
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("UserIndex", "Post", new { id = post.IdUser });
             }
             //ViewBag.IdUser = new SelectList(db.Users, "Id", "LastNames", post.IdUser);
+            return RedirectToAction("UserIndex", "Post", new { id = post.IdUser });
+        }
+        #endregion
+
+        #region Crear Admin noticia
+        /// <summary>
+        /// Permite crear una nueva noticia
+        /// </summary>
+        /// <returns>Retorna la vista para crear la noticia</returns>
+        public ActionResult CreateAdmin()
+        {
+            Post post = new Post();
+            post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
+            User user = db.Users.Find(post.IdUser);
+            if (user == null)
+            {
+                return RedirectToAction("Create", "User");
+            }
+            post.PublicationDate = DateTime.Now;
+            post.Autorized = 0; //queda pendiente validar que rol tiene
+            post.Main = 0;
+            post.Estate = 0;
+            post.Id = Guid.NewGuid();
+            post.Title = "Remplace Por el Titulo de la Noticia";
+            post.Abstract = "Remplace Por el Resumen de la Noticia";
+            post.Content = "Remplace Por el Contenido de la Noticia";
+            db.Posts.Add(post);
+            db.SaveChanges();
+            post.Title = "";
+            post.Abstract = "";
+            post.Content = "";
+
             return View(post);
+        }
+        #endregion
+
+        #region Crear noticia Administrador HttpPost
+        /// <summary>
+        /// Guarda la noticia que se recibe en el formulario en la base de datos
+        /// </summary>
+        /// <param name="post">Noticia recibida desde un formulario</param>
+        /// <returns>Retorna las noticias recibidas en el formulario</returns>
+        [HttpPost]
+        public ActionResult CreateAdmin(Post post)
+        {
+            post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
+            post.PublicationDate = DateTime.Now;
+            post.Autorized = 0;
+            var list = Roles.GetRolesForUser();
+            foreach (var i in list)
+            {
+                if (i == "Administrador" || i == "Publicador") { post.Autorized = 1; }
+            }
+            post.Main = 0;
+            post.Estate = 1;
+            post.PublicationDate = DateTime.Now;
+            post.UpdateDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Post", new { id = post.IdUser });
+            }
+            //ViewBag.IdUser = new SelectList(db.Users, "Id", "LastNames", post.IdUser);
+            return RedirectToAction("Index", "Post", new { id = post.IdUser });
         }
         #endregion
 
@@ -231,6 +339,57 @@ namespace AplicacionBase.Controllers
         /// <returns>Retorna la noticia que se editó</returns>
         [HttpPost]
         public ActionResult Edit(Post post)
+        {
+            post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
+            post.UpdateDate = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                var list = Roles.GetRolesForUser();
+                foreach (var i in list)
+                {
+                    if (i == "Administrador" || i == "Publicador")
+                    {
+                        
+                        db.Entry(post).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("UserIndex");
+                    }
+                }
+                post.Autorized = 0;
+                post.Main = 0;
+                
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("UserIndex");
+                
+                
+            }
+            return View(post);
+        }
+        #endregion
+
+        #region Editar noticia Administrador
+        /// <summary>
+        /// Da la opción de editar una noticia que ha sido guardada al adminisratrador
+        /// </summary>
+        /// <param name="id">Identificador de la noticia</param>
+        /// <returns>Retorna la noticia a editar</returns>
+        public ActionResult EditAdmin
+            (Guid id)
+        {
+            Post post = db.Posts.Find(id);
+            return View(post);
+        }
+        #endregion
+
+        #region EditarAdmin noticia HttpPost
+        /// <summary>
+        /// Guarda las modificaciones hechas por el administrador a una noticia
+        /// </summary>
+        /// <param name="post">Noticia que se modificó y que se va a actualizar en el formulario</param>
+        /// <returns>Retorna la noticia que se editó</returns>
+        [HttpPost]
+        public ActionResult EditAdmin(Post post)
         {
             post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
             post.UpdateDate = DateTime.Now;
