@@ -8,7 +8,9 @@ using AplicacionBase.Models;
 namespace AplicacionBase.Controllers
 { 
     /*Controlador Finalizado, Documentado*/
-
+    /// <summary>
+    /// Controlador Preguntas de las Encuestas
+    /// </summary>
     public class QuestionsController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -102,11 +104,6 @@ namespace AplicacionBase.Controllers
                 if (existeNumero)
                 {
                     
-                    if (question.QuestionNumber < 0)
-                    {
-                        TempData["Error2"] = "El número de pregunta no puede ser negativo";
-                        return View();
-                    }
                     db.Questions.Add(question);
                     db.SaveChanges();
                     TempData["Success"] = "Se ha creado la pregunta correctamente";
@@ -190,12 +187,6 @@ namespace AplicacionBase.Controllers
                     var question_ = db.Questions.Find(idQ);
                     var auxTopic = db.Topics.Find(idT);
                     ViewBag.Topic = auxTopic;
-
-                    if (question.QuestionNumber < 0)
-                    {
-                        TempData["Error2"] = "El número de pregunta no puede ser negativo";
-                        return View();
-                    }
 
                     if (question_ != null || auxTopic != null)
                     {

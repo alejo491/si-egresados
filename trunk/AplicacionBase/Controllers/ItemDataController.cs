@@ -107,7 +107,7 @@ namespace AplicacionBase.Controllers
 
                 if (key.StartsWith("field"))
                 {
-                    if (key.StartsWith("field") && k != "Seleccione una opcion" && k != "Año" && k != "Mes" && k != "Dia" && k != "Suma" && k != "Minimo" && k != "Maximo" && k != "Contar" && k != "Promedio")
+                    if (key.StartsWith("field") && (k.Length != 0) && k != "Año" && k != "Mes" && k != "Dia" && k != "Suma" && k != "Minimo" && k != "Maximo" && k != "Contar" && k != "Promedio")
                     {
                         Field objcampo = new Field();
                         objcampo.Id = Guid.NewGuid();
@@ -120,7 +120,7 @@ namespace AplicacionBase.Controllers
 
                     if (key.StartsWith("fieldaction") && bandcamp == 1)
                     {
-                        if( k == "Seleccione una opcion")
+                        if ((k.Length == 0))
                         {
                             ListCampos.Last().FieldOperation = "";
                         }
@@ -163,7 +163,7 @@ namespace AplicacionBase.Controllers
 
                 }
 
-                if (key.StartsWith("searchfield") && k != "Seleccione una opcion")
+                if (key.StartsWith("searchfield") && (k.Length != 0))
                 {
                     if (ListFiltros.Count == 0)
                     {
@@ -202,7 +202,7 @@ namespace AplicacionBase.Controllers
 
                 if (key.StartsWith("operator") && bandfilt == 1)
                 {
-                    if(k == "Operacion")
+                    if(k.Length == 0)
                     {
                         bandfilt = 0;
                         ListFiltros.RemoveAt(ListFiltros.Count-1);
@@ -258,7 +258,7 @@ namespace AplicacionBase.Controllers
                 {
                     auxlogic = k;
                 }
-                if (key.StartsWith("group") && k != "Seleccione una opcion")
+                if (key.StartsWith("group") && (k.Length != 0))
                 {
                     GroupOption objgrupo = new GroupOption();
                     objgrupo.Id = Guid.NewGuid();

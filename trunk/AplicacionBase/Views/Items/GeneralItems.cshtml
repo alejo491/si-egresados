@@ -4,6 +4,10 @@
 }
 
 <h2>Listado General de Items del Reporte @ViewBag.reporte.Description</h2>
+<div class="alert success">
+    @TempData["Success"]
+</div>
+<br/>
 <div>
     @Html.ActionLink("Crear Item survey", "Create", "ItemSurveys", new { id = ViewBag.IdReport }, htmlAttributes: new { @class = "ebutton blue" })&nbsp;
     @Html.ActionLink("Crear Item Datos", "Create", "ItemData", new { id = ViewBag.IdReport }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp;
@@ -12,9 +16,7 @@
 
                                                                                        
  </div>
- <div class="alert success">
-            @TempData["Success"]
-        </div>
+ 
 
 <table>
     <tr>

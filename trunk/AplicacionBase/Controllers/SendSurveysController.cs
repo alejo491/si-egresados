@@ -694,14 +694,33 @@ namespace AplicacionBase.Controllers
             ViewBag.Survey = survey;
             var message = (string)TempData["message"];
             var subject = (string)TempData["subject"];
-            var url = Url.Action("Fill", "FillSurvey", new { id });
-            ViewData["body"] = SendSurveysEmailController.PopulateBody("UserName", survey.Name, url, message);
-            TempData["message"] = message;
-            TempData["title"] = survey.Name;
-            TempData["id"] = survey.Id;
-            ViewBag.Subject = subject;
-            TempData["subject"] = subject;
-            return View();
+            var usuarios = (Dictionary<string,string>)TempData["d"];
+            TempData["d"] = usuarios;
+            if (usuarios.Count > 0)
+            {
+                var item = usuarios.First();
+                var url = Url.Action("Fill", "FillSurvey", new { @ids=id,@Email = item.Key });
+                ViewData["body"] = SendSurveysEmailController.PopulateBody(item.Value, survey.Name, url, message);
+                TempData["message"] = message;
+                TempData["title"] = survey.Name;
+                TempData["id"] = survey.Id;
+                ViewBag.Subject = subject;
+                TempData["subject"] = subject;
+                return View();
+            }
+            else
+            {
+                var url = Url.Action("Fill", "FillSurvey", new { @ids=id,@Email = "localhost@localhost"});
+                ViewData["body"] = SendSurveysEmailController.PopulateBody("UserName", survey.Name, url, message);
+                TempData["message"] = message;
+                TempData["title"] = survey.Name;
+                TempData["id"] = survey.Id;
+                ViewBag.Subject = subject;
+                TempData["subject"] = subject;
+                return View();
+            }
+
+            
         }
 
         [HttpPost]
@@ -716,7 +735,8 @@ namespace AplicacionBase.Controllers
 
 
             foreach (string item in recipients.Keys) {
-                var url = Url.Action("Fill", "FillSurvey", new { id , email = item });
+                var restourl = Url.Action("Fill", "FillSurvey", new { @ids=id , @Email = item });
+                var url = "http://localhost:54321" + restourl;
                 var body = SendSurveysEmailController.PopulateBody(recipients[item], title, url, message);
                 SendSurveysEmailController.SendHtmlFormattedEmail(item, subject, body);
             }

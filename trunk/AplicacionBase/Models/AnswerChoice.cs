@@ -37,7 +37,7 @@ namespace AplicacionBase.Models
         [Display(Name = "Número de Orden")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
-        [Range(1, double.MaxValue)]
+        [Range(0, double.MaxValue, ErrorMessage = "Tiene que ser un numero positivo")]
         public decimal AnswerNumber { get; set; }
 
         public virtual Question Question { get; set; }

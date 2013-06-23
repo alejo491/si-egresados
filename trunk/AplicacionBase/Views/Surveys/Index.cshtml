@@ -7,10 +7,11 @@
 <div class="grid">
     <div class="c12 first">
         <h2>Encuesta</h2>
+        
         <div class="alert success">@TempData["Sucess"]</div>
             <div class="alert success">@TempData["Update"]</div>
             <div class="alert success">@TempData["Remove"]</div>
-
+            <br/>
             <p>
                 @Html.ActionLink("Crear Nueva Encuesta", "Create", null, htmlAttributes: new { @class = "ebutton blue" })
             </p>

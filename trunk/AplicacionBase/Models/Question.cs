@@ -56,8 +56,7 @@ namespace AplicacionBase.Models
         [Display(Name = "Orden de Pregunta")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
-        
-        
+        [Range(1, double.MaxValue, ErrorMessage = "Tiene que ser un numero positivo")]
         public decimal QuestionNumber { get; set; }
 
         /// <summary>
@@ -66,8 +65,7 @@ namespace AplicacionBase.Models
         /// 
         [Display(Name = "¿Es Obligatorio La Pregunta?")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
-        
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]        
         public decimal IsObligatory { get; set; }
         public virtual ICollection<AnswerChoice> AnswerChoices { get; set; }
         public virtual ICollection<ExemplarsQuestion> ExemplarsQuestions { get; set; }

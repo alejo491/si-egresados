@@ -21,7 +21,7 @@ namespace AplicacionBase.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
-        [MaxLength(50, ErrorMessage = "No pueder tener mas de 50 caracteres")]
+        [MaxLength(300, ErrorMessage = "No pueder tener mas de 300 caracteres")]
         [DataType(DataType.MultilineText)]
         public string Aim { get; set; }
 
