@@ -102,14 +102,12 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ItemSurveysController.cs" />
     <Compile Include="Controllers\LikeController.cs" />
-    <Compile Include="Controllers\MethodsController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\QueryHelper.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RoleMethodsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
-    <Compile Include="Controllers\SecureControllersController.cs" />
     <Compile Include="Controllers\SendSurveysController.cs" />
     <Compile Include="Controllers\SendSurveysDbController.cs" />
     <Compile Include="Controllers\SendSurveysEmailController.cs" />
@@ -117,7 +115,6 @@
     <Compile Include="Controllers\StudyController.cs" />
     <Compile Include="Controllers\ThesisController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UsersInRolesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
@@ -127,7 +124,6 @@
     <Compile Include="Controllers\VacanciesController.cs" />
     <Compile Include="Controllers\VerifyController.cs" />
     <Compile Include="Controllers\WizardController.cs" />
-    <Compile Include="Controllers\WizardDbController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -467,21 +463,6 @@
     <Content Include="Views\SurveysTopics\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UsersInRoles\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\UsersInRoles\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\UsersInRoles\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\UsersInRoles\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\UsersInRoles\Delete.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\UsersRoles\AssignUserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -583,17 +564,7 @@
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Methods\Create.cshtml" />
-    <Content Include="Views\Methods\Delete.cshtml" />
-    <Content Include="Views\Methods\Details.cshtml" />
-    <Content Include="Views\Methods\Edit.cshtml" />
-    <Content Include="Views\Methods\Index.cshtml" />
     <Content Include="Views\RoleMethods\AssignRolesMethods.cshtml" />
-    <Content Include="Views\SecureControllers\Create.cshtml" />
-    <Content Include="Views\SecureControllers\Delete.cshtml" />
-    <Content Include="Views\SecureControllers\Details.cshtml" />
-    <Content Include="Views\SecureControllers\Edit.cshtml" />
-    <Content Include="Views\SecureControllers\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutIframe.cshtml" />
     <Content Include="Views\Shared\_LayoutSideBar.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
