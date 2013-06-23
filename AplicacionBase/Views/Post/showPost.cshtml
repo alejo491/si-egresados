@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Detalles";
 }
-<script type="text/javascript"> 
+<script type="text/javascript">     
     $(document).ready(function () {
         $.ajax({
             type : "POST",
@@ -16,6 +16,7 @@
         });  
     }) 
 </script>
+<div id="idpost" style="display:none">@Model.ElementAt(0).Id</div>
 <div class="center">
     <div class="display-field">
     

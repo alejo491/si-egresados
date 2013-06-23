@@ -23,9 +23,11 @@
                         clase = "NodeCarrucelUnselected";
                     }
                     <div class=@clase id=@node >
-                         @{fondo = "fondo" + item.Id;}
-                         <div id=@fondo class="fondo_noticia">
-                            <img alt="" src= @Html.DisplayFor(modelItem => item.Path)/>
+                        <div class="inner">
+                             @{fondo = "fondo" + item.Id;}
+                             <div id=@fondo class="fondo_noticia">
+                                <img alt="" src= @Html.DisplayFor(modelItem => item.Path)/>
+                             </div>
                          </div>
                     </div>
                     i++;
