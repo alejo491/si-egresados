@@ -74,9 +74,6 @@ namespace AplicacionBase.Controllers
                 db.Posts.Remove(x);
                 db.SaveChanges();
             }
-            
-            
-
             return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
         }
         #endregion
@@ -98,6 +95,29 @@ namespace AplicacionBase.Controllers
             }
             var posts = db.Posts.Where(p => (p.IdUser.Equals(g))).Include(p => p.User);
             pageNumber = (page ?? 1);
+            var post_basura = db.Posts.SqlQuery("exec PostBasura");
+            List<Post> list = post_basura.ToList();
+            foreach (var x in list)
+            {
+                var filepost = db.FilesPosts.SqlQuery("exec relacionfilepost '" + x.Id + "'");
+                List<FilesPost> listfp = filepost.ToList();
+                foreach (var y in listfp)
+                {
+                    AplicacionBase.Models.File file = db.Files.Find(y.IdFile);
+                    var filename = file.Name;
+                    var filePath = Path.Combine(Server.MapPath("~/UploadFiles"), filename);
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath);
+                    }
+                    db.FilesPosts.Remove(y);
+                    db.SaveChanges();
+                    db.Files.Remove(file);
+                    db.SaveChanges();
+                }
+                db.Posts.Remove(x);
+                db.SaveChanges();
+            }
             return View(posts.ToList().ToPagedList(pageNumber, pageSize));
         }
         #endregion

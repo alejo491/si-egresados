@@ -882,16 +882,16 @@ ebutton2:hover, ebutton2:active{
 .btnlike
 {
 	background: #0a256c url(themes/base/images/mg.jpg) no-repeat 0 0;
-	width: 130px;
-	height: 30px;
+	width: 108px;
+	height: 25px;
 	float: left;
 }
 
 .btnnolike
 {
 	background: #0a256c url(themes/base/images/nmg.jpg) no-repeat 0 0;
-	width: 130px;
-	height: 30px;
+	width: 108px;
+	height: 25px;
 	float: left;
 }
 
