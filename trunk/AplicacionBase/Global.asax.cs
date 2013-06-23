@@ -115,7 +115,7 @@ namespace AplicacionBase
                     #region Reglas del controlador Post
                     //Se obtienen los roles que tienen acceso al controlador Post y a los métodos de este controlador.
                     string[] rolesPostIndex = assembly.GetRolesMethods("PostController", "Index");
-                    string[] rolesPostIndexpublic = assembly.GetRolesMethods("PostController", "Indexpublic");
+                    string[] rolesPostUserIndex = assembly.GetRolesMethods("PostController", "UserIndex");
                     var rolesPostCreate = assembly.GetRolesMethods("PostController", "Create");
                     var rolesPostDetails = assembly.GetRolesMethods("PostController", "Details");
                     var rolesPostEdit = assembly.GetRolesMethods("PostController", "Edit");
@@ -128,8 +128,8 @@ namespace AplicacionBase
                     configuration.For<PostController>(x => x.Index(default(int)))
                                  .RequireAnyRole(rolesPostIndex);
 
-                    configuration.For<PostController>(x => x.Indexpublic(default(int)))
-                                 .RequireAnyRole(rolesPostIndexpublic);
+                    configuration.For<PostController>(x => x.UserIndex(default(int)))
+                                 .RequireAnyRole(rolesPostUserIndex);
 
                     configuration.For<PostController>(x => x.Create())
                                  .RequireAnyRole(rolesPostCreate);

@@ -1,21 +1,23 @@
-﻿@model PagedList.IPagedList<AplicacionBase.Models.Post> 
-           
+﻿@model PagedList.IPagedList<AplicacionBase.Models.Post>
 
 @{
-    ViewBag.Title = "Noticias";
+    ViewBag.Title = "Búsqueda de Mis Noticias";
 }
 
-<h2>Gestor de Noticias</h2>
-<div id="prueba"></div>
-<form method="get" action="/Post/Search">
-    <fieldset>
-        <legend>Buscador de noticias: </legend>
-        <div class="editor-field">
-          Buscar noticias que contengan: @Html.TextBox("criteria", ViewBag.CurrentFilter as string)&nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
+<h1>Resultados de la Búsqueda para "@ViewBag.CurrentFilter" </h1> 
+<form method="get" action="/Post/UserSearch">
+    <fieldset>        
+        <div class="editor-field">         
+           Buscar noticias que contengan :@Html.TextBox("criteria", ViewBag.CurrentFilter as string)
+            &nbsp<input type="submit" value="Buscar" class="ebutton blue" />   
         </div>
             
     </fieldset>
 </form>
+
+@if (Model.Count() != 0)
+{
+ 
 
 
 <p>
@@ -35,15 +37,15 @@
         <th width = "185">
             Fecha de Publicación
         </th>
+        <th width = "185">
+            Fecha de Actualizacion
+        </th>
         <th width = "100">
             Autorizado
-        </th>
-        <th width = "80">
-            Principal
-        </th>
-        <th width = "60">
+        </th>    
+        <th width = "100">
             Estado
-        </th>
+        </th>     
         <th width = "100">
             Acciones
         </th>        
@@ -65,30 +67,23 @@
             <td style="text-align: center;">
                 @Html.DisplayFor(modelItem => item.PublicationDate)
             </td>
-            <td class="center">                
-                @if (item.Autorized == 0)
-                {
-                    @Html.CheckBox("Autorizado", false, htmlAttributes: new { @id="CBA"+item.Id, @onclick = "AutorizarPost('" + item.Id + "')" });
-                }
-                else
-                {
-                    @Html.CheckBox("Autorizado", true, htmlAttributes: new { @id = "CBA" + item.Id, @onclick = "AutorizarPost('" + item.Id + "')" });
-                }
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.UpdateDate)
             </td>
-            <td class="center">
-                @if (item.Main == 0)
+            <td class="center">                
+                 @if (item.Autorized == 0)
                 {
-                    @Html.CheckBox("Principal", false, htmlAttributes: new { @id="CBM"+item.Id, @onclick = "PostPrincipal('" + item.Id + "')" });
+                    @Html.Label("NO");
                 }
                 else
                 {
-                    @Html.CheckBox("Principal", true, htmlAttributes: new { @id = "CBM" + item.Id, @onclick = "PostPrincipal('" + item.Id + "')" });
+                    @Html.Label("SI");
                 }
             </td>
             <td class="center">
                 @if (item.Estate == 0)
                 {
-                    @Html.CheckBox("Estado", false, htmlAttributes: new { @id="CBE"+item.Id, @onclick = "CambiarEstadoPost('" + item.Id + "')" });
+                    @Html.CheckBox("Estado", false, htmlAttributes: new { @id = "CBE" + item.Id, @onclick = "CambiarEstadoPost('" + item.Id + "')" });
                 }
                 else
                 {
@@ -97,7 +92,7 @@
             </td>
             <td class="center">
                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit", @title = "Editar" }) 
-                @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", @title = "Detalles" })
+                @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", @title = "Detalles" }) 
             </td>
             
         </tr>
@@ -138,3 +133,16 @@
 <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" 
 type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/menu.js")" type="text/javascript"></script>
+  
+}
+
+@if (Model.Count() == 0)
+{
+    <p>No hay coincidencias</p>
+}
+<br/>
+
+
+<p>    
+    @Html.ActionLink("Regresar al Listado", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
+</p>
