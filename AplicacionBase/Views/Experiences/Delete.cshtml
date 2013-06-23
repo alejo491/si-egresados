@@ -15,7 +15,7 @@
 <h3>Esta Seguro de Eliminar la Experiencia?</h3>
 <fieldset>
     <legend>Experiencia Laboral</legend>
-    <input type="hidden" name="wizard" id="wizard" value="@ViewBag.WizardStep"/>
+    
     <div class="display-label">Nombre Compañía</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Company.Name)
@@ -44,6 +44,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
+        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.WizardStep"/>
         <input type="submit" value="Eliminar" class="ebutton blue"/> 
         @Html.ActionLink("Volver a la Lista", "Index", new { wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" }) 
     </p>
