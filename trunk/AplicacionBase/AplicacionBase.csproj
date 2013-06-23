@@ -685,6 +685,7 @@
     <Content Include="Views\Post\GlobalIndex.cshtml" />
     <Content Include="Views\File\ImageMain.cshtml" />
     <Content Include="Views\File\CarrucelImage.cshtml" />
+    <Content Include="Views\Post\GlobalSearch.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

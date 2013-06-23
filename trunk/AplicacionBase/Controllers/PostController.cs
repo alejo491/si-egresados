@@ -311,6 +311,23 @@ namespace AplicacionBase.Controllers
             return View(results.ToPagedList(pageNumber, pageSize));
 
         }
+        public ActionResult GlobalSearch(string criteria, int? page)
+        {
+            ViewBag.CurrentFilter = criteria;
+            if (criteria == null)
+            {
+                criteria = "";
+            }
+            string searchText = criteria.ToLower().Trim();
+            //Búsqueda
+            var posts = db.Posts.Where(p => (p.Title.ToLower().Contains(criteria) || p.Abstract.Contains(criteria) ||
+               p.Content.Contains(criteria)) && (p.Autorized.Equals(1) && p.Estate.Equals(1)));
+            //Ordenar por fecha de publicación
+            var results = posts.ToList().OrderByDescending(c => c.PublicationDate);
+            pageNumber = (page ?? 1);
+            return View(results.ToPagedList(pageNumber, pageSize));
+
+        }
 
         [HttpPost]
         public void AutorizarPost(Guid id, int value)
