@@ -71,9 +71,9 @@
      
     @if (Model.HasPreviousPage)
     {
-        @Html.ActionLink("<<", "Index", new { page = 1 })
+        @Html.ActionLink("<<", "GlobalSearch", new { page = 1 })
         @Html.Raw(" ");
-        @Html.ActionLink("< Anterior", "Index", new { page = Model.PageNumber - 1 })
+        @Html.ActionLink("< Anterior", "GlobalSearch", new { page = Model.PageNumber - 1 })
     }
     else
     {
@@ -84,9 +84,9 @@
      
     @if (Model.HasNextPage)
     {
-        @Html.ActionLink("Siguiente>", "Index", new { page = Model.PageNumber + 1 })
+        @Html.ActionLink("Siguiente>", "GlobalSearch", new { page = Model.PageNumber + 1 })
         @Html.Raw(" ");
-        @Html.ActionLink(">>", "Index", new { page = Model.PageCount })
+        @Html.ActionLink(">>", "GlobalSearch", new { page = Model.PageCount })
     }
     else
     {
@@ -110,5 +110,5 @@ type="text/javascript"></script>
 
 
 <p>    
-    @Html.ActionLink("Regresar al Listado", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
+    @Html.ActionLink("Regresar al Listado", "GlobalIndex", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
