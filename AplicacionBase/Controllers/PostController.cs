@@ -155,6 +155,10 @@ namespace AplicacionBase.Controllers
             post.Content = "Remplace Por el Contenido de la Noticia";
             db.Posts.Add(post);
             db.SaveChanges();
+            post.Title = "";
+            post.Abstract = "";
+            post.Content = "";
+
             return View(post);
         }
         #endregion
