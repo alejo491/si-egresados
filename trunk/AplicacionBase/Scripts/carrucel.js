@@ -2,7 +2,7 @@
 $(window).load(function () {
     Position = 1;
     Tamaño = $("#numPostCarrucel").text();
-    setInterval("Next()", 4000);
+    setInterval("Next()", 7000);
 });
 
 function Next() {
