@@ -2,12 +2,12 @@
            
 
 @{
-    ViewBag.Title = "Noticias";
+    ViewBag.Title = "Mis Noticias";
 }
 
 <h2>Gestor de Noticias</h2>
 <div id="prueba"></div>
-<form method="get" action="/Post/Search">
+<form method="get" action="/Post/UserSearch">
     <fieldset>
         <legend>Buscador de noticias: </legend>
         <div class="editor-field">
@@ -16,8 +16,6 @@
             
     </fieldset>
 </form>
-
-
 <p>
     @Html.ActionLink("Nueva Noticia", "Create")
 </p>
@@ -35,15 +33,15 @@
         <th width = "185">
             Fecha de Publicación
         </th>
+        <th width = "185">
+            Fecha de Actualizacion
+        </th>
         <th width = "100">
             Autorizado
-        </th>
-        <th width = "80">
-            Principal
-        </th>
-        <th width = "60">
+        </th>    
+        <th width = "100">
             Estado
-        </th>
+        </th>     
         <th width = "100">
             Acciones
         </th>        
@@ -65,30 +63,23 @@
             <td style="text-align: center;">
                 @Html.DisplayFor(modelItem => item.PublicationDate)
             </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.UpdateDate)
+            </td>
             <td class="center">                
                 @if (item.Autorized == 0)
                 {
-                    @Html.CheckBox("Autorizado", false, htmlAttributes: new { @id="CBA"+item.Id, @onclick = "AutorizarPost('" + item.Id + "')" });
+                    @Html.Label("NO");
                 }
                 else
                 {
-                    @Html.CheckBox("Autorizado", true, htmlAttributes: new { @id = "CBA" + item.Id, @onclick = "AutorizarPost('" + item.Id + "')" });
-                }
-            </td>
-            <td class="center">
-                @if (item.Main == 0)
-                {
-                    @Html.CheckBox("Principal", false, htmlAttributes: new { @id="CBM"+item.Id, @onclick = "PostPrincipal('" + item.Id + "')" });
-                }
-                else
-                {
-                    @Html.CheckBox("Principal", true, htmlAttributes: new { @id = "CBM" + item.Id, @onclick = "PostPrincipal('" + item.Id + "')" });
+                    @Html.Label("SI");
                 }
             </td>
             <td class="center">
                 @if (item.Estate == 0)
                 {
-                    @Html.CheckBox("Estado", false, htmlAttributes: new { @id="CBE"+item.Id, @onclick = "CambiarEstadoPost('" + item.Id + "')" });
+                    @Html.CheckBox("Estado", false, htmlAttributes: new { @id = "CBE" + item.Id, @onclick = "CambiarEstadoPost('" + item.Id + "')" });
                 }
                 else
                 {

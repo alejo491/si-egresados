@@ -86,9 +86,17 @@ namespace AplicacionBase.Controllers
         /// Muestra todas las noticias que ha publicado el usuario
         /// </summary>
         /// <returns>Retorna las noticias en el formulario</returns>
-        public ViewResult Indexpublic(int? page)
+        public ViewResult UserIndex(int? page)
         {
-            var posts = db.Posts.Include(p => p.User);
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+            var posts = db.Posts.Where(p => (p.IdUser.Equals(g))).Include(p => p.User);
             pageNumber = (page ?? 1);
             return View(posts.ToList().ToPagedList(pageNumber, pageSize));
         }
@@ -297,6 +305,7 @@ namespace AplicacionBase.Controllers
          */
         public ActionResult Search(string criteria, int? page)
         {
+            
             ViewBag.CurrentFilter = criteria;
             if (criteria == null)
             {
@@ -322,7 +331,34 @@ namespace AplicacionBase.Controllers
             string searchText = criteria.ToLower().Trim();
             //Búsqueda
             var posts = db.Posts.Where(p => (p.Title.ToLower().Contains(criteria) || p.Abstract.Contains(criteria) ||
-               p.Content.Contains(criteria)) && (p.Autorized.Equals(1) && p.Estate.Equals(1)));
+               p.Content.Contains(criteria)) 
+               && (p.Autorized.Equals(1) && p.Estate.Equals(1)));
+            //Ordenar por fecha de publicación
+            var results = posts.ToList().OrderByDescending(c => c.PublicationDate);
+            pageNumber = (page ?? 1);
+            return View(results.ToPagedList(pageNumber, pageSize));
+
+        }
+
+        public ActionResult UserSearch(string criteria, int? page)
+        {
+            ViewBag.CurrentFilter = criteria;
+            if (criteria == null)
+            {
+                criteria = "";
+            }
+            string searchText = criteria.ToLower().Trim();
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+            //Búsqueda
+            var posts = db.Posts.Where(p => (p.Title.ToLower().Contains(criteria) || p.Abstract.Contains(criteria) ||
+               p.Content.Contains(criteria)) && (p.IdUser.Equals(g)));
             //Ordenar por fecha de publicación
             var results = posts.ToList().OrderByDescending(c => c.PublicationDate);
             pageNumber = (page ?? 1);
