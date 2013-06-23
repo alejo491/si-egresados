@@ -120,22 +120,24 @@
                     </div>
                     <h3>Opciones</h3>
                     <div class="c12">
-                        <div class="c2">
+                        <div class="c3">
                             <p style="font-size: 13px">Numero de Pagina</p>
                         </div>
                        <div class="editor-field">
                             @Html.TextBox("ItemNumber", "")
                             <div >                   
                         
-                        @Html.ValidationMessageFor(model => model.ItemNumber)
+                                @Html.ValidationMessageFor(model => model.ItemNumber)
                         </div>
                         </div>
-                    </div>                  
+                    </div> 
+                    <br/>                
                 </div>
-               
-                <br/>
+               <br/>
+               <br/>
+                
 
-        <p>
+        <p> <br/> <br/> <br/> <br/>
                 <input type="submit" value="Guardar" class="ebutton2 blue" />&nbsp;@Html.ActionLink("Regresar al listado", "../Items/GeneralItems", routeValues: new { id = @TempData["idr"] }, htmlAttributes: new { @class = "ebutton blue" })
                  </p>
                 

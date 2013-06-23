@@ -6,6 +6,9 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Permite realizar un Paso a Paso, al iniciar sesion el usuario 
+    /// </summary>
     public class WizardController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();

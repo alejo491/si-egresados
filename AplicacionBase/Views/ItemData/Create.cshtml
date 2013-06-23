@@ -24,7 +24,7 @@
         <text> $(function () { 
 
             $.getJSON("/ItemData/ListFields", null, function (data) {
-                var items = "<option>Seleccione una opcion</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
@@ -32,7 +32,7 @@
             });
 
             $.getJSON("/ItemData/ListSearchFields", null, function (data) {
-                var items = "<option>Seleccione una opcion</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
@@ -40,7 +40,7 @@
             });
 
              $.getJSON("/ItemData/ListGroupFields", null, function (data) {
-                var items = "<option>Seleccione una opcion</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
@@ -51,7 +51,7 @@
 
             var Param = { field: $("@searches > option:selected").attr("value") , campo: '@search'};
             $.getJSON("/ItemData/ListOperators/", Param, function (data) {
-                var items = "<option>Operacion</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
@@ -63,7 +63,7 @@
 
             var Param = { field: $("@Fields > option:selected").attr("value") , campo: '@Field'};
             $.getJSON("/ItemData/ListActions/", Param, function (data) {
-                var items = "<option>Seleccione una opcion</option>";
+                var items = "<option></option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
@@ -196,8 +196,10 @@
 <div class="grid">
 
     <div class="c12">
+        <h2>Seleccione los criterios de selección de los datos</h2>
+        <br/>
         <div class="alert error">@TempData["Error"]</div>
-       <h2>Seleccione los criterios de selección de los datos</h2>
+       
 
     </div>
 
@@ -217,7 +219,7 @@
                                 Seleccionar todos los campos @Html.CheckBox("AllFields", false)
                             </div>
                             <div class="c5">
-                                Contar registros @Html.CheckBox("CountFields", false)
+                                @*Contar registros @Html.CheckBox("CountFields", false)*@
                             </div>
                         </div>
                         <br/>

@@ -17,7 +17,7 @@ namespace AplicacionBase.Models.Mapping
 
             this.Property(t => t.Aim)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(300);
 
             // Table & Column Mappings
             this.ToTable("Surveys");

@@ -10,6 +10,7 @@
         <div class="alert success">
             @TempData["Success"]
         </div>
+        <br/>
         <p>
                 @Html.ActionLink("Asociar nuevo tema", "Create", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })
                 @Html.ActionLink("Crear nuevo tema", "Create","Topic", new { id = ViewBag.Encuesta.Id }, htmlAttributes: new { @class = "ebutton blue" })

@@ -32,7 +32,7 @@ namespace AplicacionBase.Models
         [Display(Name = "Numero de Item")]
         [Required(ErrorMessage = " ¡El campo es obligatorio y debe ser Numerico!")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:g}")]
-        [Range(1,double.MaxValue)]
+        [Range(1, double.MaxValue, ErrorMessage = "Tiene que ser un numero positivo")]
        
         public decimal ItemNumber { get; set; }
 
