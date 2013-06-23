@@ -20,7 +20,7 @@
         <th>
             Tamaño 
         </th>
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {
@@ -47,9 +47,7 @@
         <td style="text-align: center;">
             @Html.DisplayFor(modelItem => item.Size)
         </td>
-        <td>
-             @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", @title = "Eliminar" })
-        </td>
+        
     </tr>
 }
 

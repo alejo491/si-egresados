@@ -217,6 +217,13 @@ ul#menu li a:hover {
     -moz-border-radius: 4px 0 0 0;
     min-height: 750px;
 }
+#main2 {
+    padding: 30px 30px 15px 30px;
+    border-radius: 4px 0 0 0;
+    -webkit-border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    min-height: 150px;
+}
 div .contenido-izq
 {
    float:left;
@@ -468,6 +475,6 @@ div#title {
 }
 
 .preview img {
-  max-height:80px;
-  max-width:80px;
+  max-height:120px;
+  max-width:120px;
 }

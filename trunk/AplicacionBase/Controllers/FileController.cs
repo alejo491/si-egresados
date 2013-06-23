@@ -45,12 +45,25 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Galeria de imagenes
+        #region Galeria de Archivos Edit
         /// <summary>
-        /// Muestra la gaeria de archivos subidos por los usuarios
+        /// Muestra la gaeria de archivos subidos por los usuarios en la vista de Edit
         /// </summary>
         /// <returns>Retorna el archivo en el formulario</returns>
         public ViewResult Galery(Guid Id)
+        {
+            var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
+            return View(files.ToList());
+            //return View(db.Files.ToList());
+        }
+        #endregion
+
+        #region Galeria de archivos para detalles
+        /// <summary>
+        /// Muestra la galeria de archivos subidos por los usuarios en la vista de view
+        /// </summary>
+        /// <returns>Retorna el archivo en el formulario</returns>
+        public ViewResult GaleryView(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
             return View(files.ToList());
@@ -219,7 +232,7 @@ namespace AplicacionBase.Controllers
 
         #region Crear archivo en la noticia
         /// <summary>
-        /// Guarda el archivo a subir
+        /// Guarda los campos del archivo necesarios en la base de datos y asocia el archivo a la noticia correspondiente.
         /// </summary>
         /// <param name="File">Archivo recibido desde un formulario</param>
         /// <param name="idpost">Id del post donde se va a crear el archivo y que se recibe desde un formulario</param>
@@ -278,11 +291,11 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Actualización del archivo
+        #region subir Archivo de noticias.
         /// <summary>
-        /// Da la opción de actualizar un archivo
+        /// permite subir al servidor el archivo asociado a una noticia.
         /// </summary>
-        /// <param name="id">Identificador del archivo</param>
+        /// <param name="post">Objeto del tipo post</param>
         /// <returns>Retorna el archivo en el formulario</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         [HttpPost]
@@ -311,7 +324,7 @@ namespace AplicacionBase.Controllers
                         AplicacionBase.Models.File uploadfile = new AplicacionBase.Models.File();
                         uploadfile.Id = Guid.NewGuid();
                         uploadfile.Name = obj_file.name;
-                        uploadfile.Path = "/UploadFiles/" + obj_file.name.ToString();
+                        uploadfile.Path = "/UploadFiles/" + obj_file.name.ToString().Replace(" ","_").Replace("-","_"); 
                         uploadfile.Type = obj_file.type;
                         uploadfile.Size = obj_file.size.ToString();
                         Create2(uploadfile, post.Id);
@@ -327,9 +340,9 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Actualizar archivo parcial en la noticia
+        #region Subida archivo parcial 
         /// <summary>
-        /// Actualiza el archivo en una noticia
+        /// Permite cargar archivos de gran tamaño.
         /// </summary>
         /// <param name="fileName">Nombre del archivo recibido desde un formulario</param>
         /// <param name="request">Peticion que se hace a la BD para poder actualizar el archivo</param>
