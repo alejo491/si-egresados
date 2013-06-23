@@ -21,9 +21,16 @@
     
         <div class="shownoticiatitle"><h2>@Html.DisplayFor(model => model.ElementAt(0).Title)</h2>
             <div></br>
-                @if (Model.ElementAt(1).Autorized==0){@Html.ActionLink(" ", "Create", "Like", new { post = Model.ElementAt(0).Id }, htmlAttributes: new { @class = "ebutton btnlike" }) }
-                @if (Model.ElementAt(1).Autorized==1){@Html.ActionLink(" ", "DeleteConfirmed", "Like", new { post = Model.ElementAt(0).Id, id = Model.ElementAt(1).Id }, htmlAttributes: new { @class = "ebutton btnnolike" }) }
-                <div class ="left"> &nbsp&nbsp&nbsp @Model.ElementAt(1).Estate Usuarios les Gusta</div> </br></br></br>
+                @if (Model.ElementAt(1).Autorized==0){
+                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnlike", @id = "LinkLike", @onclick = "ClickLike('"+Model.ElementAt(0).Id+"', '0', '')", @href = "javascript:void(0);" })
+                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnnolike", @id = "LinknoLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '1', '"+ Model.ElementAt(1).Id+"')", @href = "javascript:void(0);", style = "display:none" })
+                }
+                @if (Model.ElementAt(1).Autorized == 1)
+                {
+                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnlike", @id = "LinkLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '0', '')", @href = "javascript:void(0);",  style = "display:none" })
+                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnnolike", @id = "LinknoLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '1', '" + Model.ElementAt(1).Id + "')", @href = "javascript:void(0);" })                    
+                }                
+                <div class ="left" id="NumLike"> &nbsp&nbsp&nbsp @Model.ElementAt(1).Estate Usuarios les Gusta</div> </br></br></br>
 
                 <div id="startbox" style = "margin-left :15px ">
                     <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="'"></div>

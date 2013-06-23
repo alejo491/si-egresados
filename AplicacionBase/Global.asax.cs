@@ -160,7 +160,7 @@ namespace AplicacionBase
                     var rolesLikeDetails = assembly.GetRolesMethods("LikeController", "Details");
                     var rolesLikeEdit = assembly.GetRolesMethods("LikeController", "Edit");
                     var rolesLikeDelete = assembly.GetRolesMethods("LikeController", "Delete");
-                    var rolesLikeDeleteConfirmed = assembly.GetRolesMethods("LikeController", "DeleteConfirmed");
+                    //var rolesLikeDeleteConfirmed = assembly.GetRolesMethods("LikeController", "DeleteConfirmed");
 
                     //Se configuran las reglas de acceso para el controlador Like.
                     configuration.For<LikeController>(x => x.Index()).Ignore();
@@ -177,8 +177,8 @@ namespace AplicacionBase
                     configuration.For<LikeController>(x => x.Delete(default(Guid)))
                                  .RequireAnyRole(rolesLikeDelete);
 
-                    configuration.For<LikeController>(x => x.DeleteConfirmed(default(Guid), default(Guid)))
-                                 .RequireAnyRole(rolesLikeDeleteConfirmed);
+                    //configuration.For<LikeController>(x => x.DeleteConfirmed(default(Guid), default(Guid)))
+                    //             .RequireAnyRole(rolesLikeDeleteConfirmed);
 
                     #endregion
 

@@ -52,7 +52,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="post">Like que se recibe desde un formulario</param>
         /// <returns>Retorna la vista para crear el like de la noticia</returns>
-        public ActionResult Create(Guid post)
+        public Guid Create(Guid post)
         {
             Like like = new Like();
             like.Id_Post =post;
@@ -63,7 +63,7 @@ namespace AplicacionBase.Controllers
                 db.Likes.Add(like);
                 db.SaveChanges();
             }
-            return RedirectToAction("showPost", "Post", new { id = post});
+            return db.Likes.First().Id;
         }
         #endregion
 
@@ -124,12 +124,14 @@ namespace AplicacionBase.Controllers
         /// <param name="post">Identificador de la noticia</param>
         /// <returns>Retorna el resultado del cambio del like</returns>
         //[HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(Guid post, Guid id)
+        public void DeleteConfirmed(Guid post, Guid id)
         {            
             Like like = db.Likes.Find(id);
-            db.Likes.Remove(like);
-            db.SaveChanges();
-            return RedirectToAction("showPost", "Post", new { id = post });
+            if (like != null)
+            {
+                db.Likes.Remove(like);
+                db.SaveChanges();
+            }
         }
         #endregion
 
@@ -181,6 +183,14 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+
+        public IList<Like> getMyLikePost(Guid idpost, Guid iduser)
+        {
+            var likes = db.Likes.Where(l => l.Id_Post.Equals(idpost) && l.Id_User.Equals(iduser))
+                .Include(l => l.Post).Include(l => l.User);
+            return (IList<Like>)likes.ToList();
+        }
+
         #region Método dispose
         /// <summary>
         ///Dispose
@@ -192,5 +202,6 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        
     }
 }
