@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Agregar experiencia laboral";
-   var wizard = ViewBag.WizardStep;
+    var wizard = ViewBag.WizardStep;
     if(wizard ==1)
     {
         Layout = "~/Views/Shared/_LayoutW.cshtml";
@@ -23,7 +23,7 @@
          <div class="editor-label">
             Compañía donde laboró
         </div>
-        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
+        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.WizardStep"/>
         <div class="editor-field">
             @Html.DropDownList("IdCompanie", "")
             @Html.ValidationMessageFor(model => model.IdCompanie)

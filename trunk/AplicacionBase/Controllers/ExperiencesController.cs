@@ -79,6 +79,7 @@ namespace AplicacionBase.Controllers
             ViewBag.WizardStep = wizardStep;
             ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
             ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
+            Session["wizardStep"] = wizardStep;
             return View();
         }
 
@@ -117,7 +118,7 @@ namespace AplicacionBase.Controllers
                     if (form[key].ToString() == "1") { wizard = 1; }
                 }
                 }
-                return RedirectToAction("Create", new RouteValueDictionary(new { controller = "ExperiencesBosses", action = "Create", Id = experience.Id, wizardStep = wizard }));
+                return RedirectToAction("Create", new RouteValueDictionary(new { controller = "ExperiencesBosses", action = "Create", Id = experience.Id, wizardStep = Session["wizardStep"] }));
                 //return RedirectPermanent("/ExperiencesBosses/Create/" + experience.Id+"?wizardStep=1");
             }
 

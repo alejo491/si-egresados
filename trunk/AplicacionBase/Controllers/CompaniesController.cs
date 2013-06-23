@@ -65,6 +65,7 @@ namespace AplicacionBase.Controllers
         public ActionResult CreateForExperience(int wizardStep = 0)
         {
             ViewBag.wizardStep = wizardStep;
+            Session["wizard"] = wizardStep;
             return View();
         }
 
@@ -88,7 +89,7 @@ namespace AplicacionBase.Controllers
                 db.Companies.Add(company);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente la compañía!";
-                return RedirectToAction("Create", new RouteValueDictionary(new { controller = "Experiences", action = "Create", wizardStep = wizard }));
+                return RedirectToAction("Create", new RouteValueDictionary(new { controller = "Experiences", action = "Create", wizardStep = Session["wizard"] }));
                 //return RedirectPermanent("/Experiences/create?wizardStep=1");
             }
 

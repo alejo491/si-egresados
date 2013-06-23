@@ -19,7 +19,7 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Experiencia Laboral</legend>
-        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
+        <input type="hidden" name="wizard" id="wizard" value="@ViewBag.WizardStep"/>
         @Html.HiddenFor(model => model.IdUser)
         @Html.HiddenFor(model => model.Id)
 
