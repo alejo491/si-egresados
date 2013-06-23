@@ -276,25 +276,21 @@ namespace AplicacionBase.Controllers
             AplicacionBase.Controllers.LikeController lc = new LikeController();
             AplicacionBase.Controllers.StartboxController st = new StartboxController();
             int cont = 0;
-            IList<Like> likes = lc.Index();
+            IList<Like> likes;
             int startbox = st.Index2(id);
+            post2.Autorized = 0;
             if (Request.IsAuthenticated)
             {
-                foreach (Like l in likes)
+                likes = lc.getMyLikePost(id, (Guid)Membership.GetUser().ProviderUserKey);
+                if (likes.Count() == 1)
                 {
-                    if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
-                    {
-                        cont++;
-                        post2.Id = l.Id;
-                    }
-                }
-                if (cont == 1) post2.Autorized = 1;
-                else post2.Autorized = 0;
-
+                    post2.Autorized = 1;
+                    post2.Id = likes.First().Id;
+                }              
             }
             else post2.Autorized = -1;
             post2.Estate = lc.get_likes(id); // guardo en numero de megusta
-            post3.Estate = startbox;      //recupero al alificacion
+            post3.Estate = startbox;      //recupero al calificacion
             datos.Add(post2);
             datos.Add(post3);
             return View(datos);
