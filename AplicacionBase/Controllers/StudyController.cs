@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Web.Security;
 using System.Web.Routing;
+using iTextSharp.text;
 
 
 namespace AplicacionBase.Controllers
@@ -36,21 +37,43 @@ namespace AplicacionBase.Controllers
         /// <param name="wizard">paso del wizard</param>
         /// <returns>Vista que contine los datos de los estudios de un usuario</returns>
         #region Index(id page)
-        public ActionResult Index(Guid id, int wizardStep = 0)
+        public ActionResult Index(int wizardStep = 0)
         {
+            //UserController u = new UserController();
             ViewBag.WizardStep = wizardStep;
-            User user = db.Users.Find(id);
+            User user = db.Users.Find(searchId());                     
             if (user != null)
             {
-               
-                ViewBag.UserId = id;
-                var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == id);
-                return View(studies.ToList());
+                var aspnetuser = db.aspnet_Users.Find(user.Id);
+                var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
+                if (roles.Contains("Administrador"))
+                {
+                    var lstudies = db.Studies;
+                    return View(lstudies.ToList());
+                }
+                else
+                {
+                    ViewBag.UserId = user.Id;
+                    var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == user.Id);
+                    return View(studies.ToList());
+                }
+                
             }
-            else
+            //return RedirectToAction("Begin", "User", new RouteValueDictionary(new { controller = "User", action = "Begin", Id = user.Id }));
+            return RedirectToAction("Index", "Home");
+        }
+
+        public Guid searchId()
+        {
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
             {
-                return RedirectToAction("Begin", "User", new RouteValueDictionary(new { controller = "User", action = "Begin", Id = id }));
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
             }
+            return g;
         }
         #endregion 
 
@@ -64,13 +87,25 @@ namespace AplicacionBase.Controllers
         /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista para consultar los datos de un estudio</returns>
         #region details(id)
-        public ViewResult Details(Guid id, Guid idUser, int wizardStep = 0)
+        public ActionResult Details(Guid id, int wizardStep = 0)
         {
-            ViewBag.WizardStep = wizardStep;
-            ViewBag.thewizard = wizardStep;
-            ViewBag.UserId = idUser;
-            Study study = db.Studies.Find(id);
-            return View(study);
+            User user = db.Users.Find(searchId());
+            if (user != null)
+            {
+                var aspnetuser = db.aspnet_Users.Find(user.Id);
+                var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
+                Study study = db.Studies.Find(id);
+                if (roles.Contains("Administrador") || study.IdUser == aspnetuser.UserId)
+                {
+                    ViewBag.WizardStep = wizardStep;
+                    ViewBag.thewizard = wizardStep;
+                    ViewBag.UserId = user.Id;
+                    return View(study);
+                }
+                return RedirectToAction("Index", "Home");
+                
+            }
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
@@ -82,16 +117,22 @@ namespace AplicacionBase.Controllers
         /// <param name="id">Id del usuario</param>
         /// <returns>Vista que despliega el formulario que permite crear los datos</returns>
         #region Create(id)
-        public ActionResult Create(Guid id, int wizardStep = 0)
+        public ActionResult Create(int wizardStep = 0)
         {
-            ViewBag.WizardStep = wizardStep;
-            ViewBag.thewizard = wizardStep;
-            ViewBag.UserId = id;
-            User user = db.Users.Find(id);
-            ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "Name");
-            ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title");
-            return View(user);
+            User user = db.Users.Find(searchId());
+            if (user != null)
+            {
+                ViewBag.WizardStep = wizardStep;
+                ViewBag.thewizard = wizardStep;
+
+                ViewBag.UserId = user.Id;
+                //User user = db.Users.Find(id);
+                ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
+                ViewBag.IdUser = new SelectList(db.Users, "Id", "Name");
+                ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title");
+                return View(user);
+            }
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
@@ -104,110 +145,125 @@ namespace AplicacionBase.Controllers
         /// <param name="id">Id del usuario</param>
         /// <returns></returns>
         [HttpPost]
-        #region create(form, id)
-        public ActionResult Create(FormCollection form, Guid id)
-        {
-            ViewBag.UserId = id;
-            int wizard =0;
-            var IdUser = id;
-            Study study = new Study();
-            Thesis Tesis = new Thesis();
-            study.IdUser = IdUser;
-            study.Id = Guid.NewGuid();
 
-            foreach (String key in form)
+        #region create(form, id)
+
+        public ActionResult Create(FormCollection form)
+        {
+            User user = db.Users.Find(searchId());
+            if (user != null)
             {
-                if (key.Contains("txtSchool"))
+                ViewBag.UserId = user.Id;
+                int wizard = 0;
+                var IdUser = user.Id;
+                Study study = new Study();
+                Thesis Tesis = new Thesis();
+                study.IdUser = IdUser;
+                study.Id = Guid.NewGuid();
+
+                foreach (String key in form)
                 {
-                    string var = form[key].ToString();
-                    bool temp = false;
-                    foreach (School school in db.Schools)
-                    {
-                        if (school.Name == var)
-                        {
-                            study.IdSchool = school.Id;
-                            temp = true;
-                        }
-                    }
-                    if (temp == false)
-                    {
-                        School school = new School();
-                        school.Id = Guid.NewGuid();
-                        school.Name = var;
-                        db.Schools.Add(school);
-                        study.IdSchool = school.Id;
-                    }
-                }
-                if (key.Contains("programas"))
-                {
-                    study.Programs = form[key];
-                }
-                if (key.Contains("Grade"))
-                {
-                    study.Grade = form[key].ToString();
-                }
-                if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") || key.Contains("Elective4") || key.Contains("Elective5"))
-                {
-                    if (form[key].Length != 0)
+                    if (key.Contains("txtSchool"))
                     {
                         string var = form[key].ToString();
                         bool temp = false;
-                        foreach (Elective elective in db.Electives)
+                        foreach (School school in db.Schools)
                         {
-                            if (elective.Name == var)
+                            if (school.Name == var)
                             {
-                                study.Electives.Add(elective);
+                                study.IdSchool = school.Id;
                                 temp = true;
                             }
                         }
                         if (temp == false)
                         {
-                            Elective elective = new Elective();
-                            elective.Id = Guid.NewGuid();
-                            elective.Name = var;
-                            db.Electives.Add(elective);
-                            study.Electives.Add(elective);
+                            School school = new School();
+                            school.Id = Guid.NewGuid();
+                            school.Name = var;
+                            db.Schools.Add(school);
+                            study.IdSchool = school.Id;
                         }
                     }
-                }
-                if (key.Contains("txtStartDate"))
-                {
-                    DateTime var = DateTime.Parse(form[key].ToString());
-                    study.StartDate = var;
-                }
-                if (key.Contains("txtEndDate"))
-                {
-                    DateTime var = DateTime.Parse(form[key].ToString());
-                    study.EndDate = var;
-                }
-                if (key.Contains("txtTesis") && form[key].Length != 0)
-                {
-                    Tesis.IdStudies = study.Id;
-                    Tesis.Title = form[key].ToString();
-                    study.Thesis = Tesis;
-                }
-                if (key.Contains("txtDescripcion") && study.Thesis != null)
-                {
-                    if (form[key].Length == 0)
+                    if (key.Contains("programas"))
                     {
+                        study.Programs = form[key];
+                    }
+                    if (key.Contains("Grade"))
+                    {
+                        study.Grade = form[key].ToString();
+                    }
+                    if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") ||
+                        key.Contains("Elective4") || key.Contains("Elective5"))
+                    {
+                        if (form[key].Length != 0)
+                        {
+                            string var = form[key].ToString();
+                            bool temp = false;
+                            foreach (Elective elective in db.Electives)
+                            {
+                                if (elective.Name == var)
+                                {
+                                    study.Electives.Add(elective);
+                                    temp = true;
+                                }
+                            }
+                            if (temp == false)
+                            {
+                                Elective elective = new Elective();
+                                elective.Id = Guid.NewGuid();
+                                elective.Name = var;
+                                db.Electives.Add(elective);
+                                study.Electives.Add(elective);
+                            }
+                        }
+                    }
+                    if (key.Contains("txtStartDate"))
+                    {
+                        DateTime var = DateTime.Parse(form[key].ToString());
+                        study.StartDate = var;
+                    }
+                    if (key.Contains("txtEndDate"))
+                    {
+                        DateTime var = DateTime.Parse(form[key].ToString());
+                        study.EndDate = var;
+                    }
+                    if (key.Contains("txtTesis") && form[key].Length != 0)
+                    {
+                        Tesis.IdStudies = study.Id;
+                        Tesis.Title = form[key].ToString();
                         study.Thesis = Tesis;
                     }
-                    else
+                    if (key.Contains("txtDescripcion") && study.Thesis != null)
                     {
-                        Tesis.Description = form[key].ToString();
-                        study.Thesis = Tesis;
+                        if (form[key].Length == 0)
+                        {
+                            study.Thesis = Tesis;
+                        }
+                        else
+                        {
+                            Tesis.Description = form[key].ToString();
+                            study.Thesis = Tesis;
+                        }
                     }
-                }
-                if(key.Contains("wizard"))
-                {
-                    if (form[key].ToString() == "1") { wizard = 1; }
-                }
+                    if (key.Contains("wizard"))
+                    {
+                        if (form[key].ToString() == "1")
+                        {
+                            wizard = 1;
+                        }
+                    }
 
+                }
+                db.Studies.Add(study);
+                db.SaveChanges();
+                return RedirectToAction("Index",
+                                        new RouteValueDictionary(
+                                            new {controller = "Study", action = "Index", Id = user.Id, wizardStep = wizard}));
             }
-            db.Studies.Add(study);
-            db.SaveChanges();
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = id, wizardStep = wizard}));
+            return RedirectToAction("Index", "Home");
+
         }
+
         #endregion
 
         //
@@ -218,24 +274,39 @@ namespace AplicacionBase.Controllers
         /// <param name="id">Id del estudio</param>
         /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista que despliega el formulario con los datos para editarlos</returns>
-        #region Edit(id)
-        public ActionResult Edit(Guid id, Guid idUser, int wizardStep = 0)
-        {
-            ViewBag.WizardStep = wizardStep;
-            ViewBag.thewizard = wizardStep;
-            ViewBag.UserId = idUser;
-            Study study = db.Studies.Find(id);
-            ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
-            ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
-            var electives = study.Electives;
-            for (int i = electives.Count; i < 5; i++)
-            {
-                electives.Add(new Elective());
-            }
 
-            return View(study);
+        #region Edit(id)
+        public ActionResult Edit(Guid id, int wizardStep = 0)
+        {
+            User user = db.Users.Find(searchId());
+            if (user != null)
+            {
+                var aspnetuser = db.aspnet_Users.Find(user.Id);
+                var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
+                Study study2 = db.Studies.Find(id);
+                if (roles.Contains("Administrador") || study2.IdUser == aspnetuser.UserId)
+                {
+                    ViewBag.WizardStep = wizardStep;
+                    ViewBag.thewizard = wizardStep;
+                    var studio = db.Studies.Find(id);
+                    ViewBag.UserId = studio.IdUser;
+                    Study study = db.Studies.Find(id);
+                    ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name", study.IdSchool);
+                    ViewBag.IdUser = new SelectList(db.Users, "Id", "PhoneNumber", study.IdUser);
+                    ViewBag.Id = new SelectList(db.Theses, "IdStudies", "Title", study.Id);
+                    var electives = study.Electives;
+                    for (int i = electives.Count; i < 5; i++)
+                    {
+                        electives.Add(new Elective());
+                    }
+
+                    return View(study);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Index", "Home");
         }
+
         #endregion
         
         //
@@ -248,98 +319,130 @@ namespace AplicacionBase.Controllers
         /// <param name="study">Estudio modificado</param>
         /// <returns></returns>
         [HttpPost]
+
         #region Edit(id, study, form)
+
         public ActionResult Edit(Guid id, Study study, FormCollection form)
         {
-            ViewBag.userId = id;
-            int wizard =0;
-            var last = db.Studies.Find(id);
-            var s = study.School.Name;
-            var flag = false;
-            var electives = study.Electives;
-            foreach (var i in db.Schools)
+            var ListaElectiva = new List<String>();
+            User user = db.Users.Find(searchId());
+            if (user != null)
             {
-                if (i.Name == study.School.Name)
+                ViewBag.userId = user.Id;
+                int wizard = 0;
+                var last = db.Studies.Find(id);
+                var s = study.School.Name;
+                var flag = false;
+                foreach (var i in db.Schools)
                 {
-                    last.IdSchool = i.Id;
-                    flag = true;
-                }
-            }
-            if (flag == false)
-            {
-                var newid = Guid.NewGuid();
-                db.Schools.Add(new School { Id = newid, Name = s });
-                db.SaveChanges();
-                last.IdSchool = newid;
-            }
-
-            last.Grade = study.Grade;
-
-            last.Electives.Clear();
-            foreach (String key in form)
-            {
-                if (key.Contains("programas"))
-                {
-                    last.Programs = form[key];
-                }
-                if (key.Contains("wizard")) { if (form[key].ToString() == "1") { wizard = 1; } }
-                if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") || key.Contains("Elective4") || key.Contains("Elective5"))
-                {
-                    if (form[key].Length != 0)
+                    if (i.Name == study.School.Name)
                     {
-                        string var = form[key].ToString();
-                        bool temp = false;
-                        foreach (Elective elective in db.Electives)
+                        last.IdSchool = i.Id;
+                        flag = true;
+                    }
+                }
+                if (flag == false)
+                {
+                    var newid = Guid.NewGuid();
+                    db.Schools.Add(new School {Id = newid, Name = s});
+                    db.SaveChanges();
+                    last.IdSchool = newid;
+                }
+
+                last.Grade = study.Grade;
+
+                last.Electives.Clear();
+                foreach (String key in form)
+                {
+                    if (key.Contains("programas"))
+                    {
+                        last.Programs = form[key];
+                    }
+                    if (key.Contains("wizard"))
+                    {
+                        if (form[key].ToString() == "1")
                         {
-                            if (elective.Name == var)
-                            {
-                                bool el2 = false;
-                                foreach (var i in last.Electives)
-                                {
-                                    if (i.Id == elective.Id) { el2 = true; }
-                                }
-                                if (el2 == false)
-                                {
-                                    last.Electives.Add(elective);
-                                }
-                                temp = true;
-                            }
+                            wizard = 1;
                         }
-                        if (temp == false)
+                    }
+                    if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") ||
+                        key.Contains("Elective4") || key.Contains("Elective5"))
+                    {
+                        if (form[key].Length != 0)
                         {
-                            Elective elective = new Elective();
-                            elective.Id = Guid.NewGuid();
-                            elective.Name = var;
-                            db.Electives.Add(elective);
-                            last.Electives.Add(elective);
+                            string var = form[key].ToString();
+
+                            ListaElectiva.Add(var);                            
                         }
                     }
                 }
+
+                last.StartDate = study.StartDate;
+                last.EndDate = study.EndDate;
+
+                Thesis tesis = new Thesis();
+                if (study.Thesis.Title != null)
+                {
+                    tesis.IdStudies = last.Id;
+                    tesis.Title = study.Thesis.Title;
+                    tesis.Description = study.Thesis.Description;
+                    if (last.Thesis != null)
+                    {
+                        db.Theses.Remove(last.Thesis);
+                    }
+                    db.Theses.Add(tesis);
+                    last.Thesis = tesis;
+                }
+
+                if (ModelState.IsValid)
+                {
+                    var  agregar = new List<Guid>();
+                    var dblista = db.Electives.ToList();
+                    foreach (string elective in ListaElectiva)
+                    {
+                        int count = dblista.Count(x => x.Name == elective);
+                        if (count == 0)
+                        {
+                            Elective elective2 = new Elective();
+                            elective2.Id = Guid.NewGuid();
+                            elective2.Name = elective;
+                            db.Electives.Add(elective2);
+                            agregar.Add(elective2.Id);
+                        }
+                        else
+                        {
+                            agregar.Add(db.Electives.First(x => x.Name == elective).Id);
+                        }
+                    }
+                    foreach (var guid in agregar)
+                    {
+                        var elect = db.Electives.Find(guid);
+                        last.Electives.Add(elect);
+                    }
+
+                    db.Entry(last).State = EntityState.Modified;
+                    db.SaveChanges();
+                    
+                    
+
+
+                }
+                return RedirectToAction("Index",
+                                        new RouteValueDictionary(
+                                            new
+                                                {
+                                                    controller = "Study",
+                                                    action = "Index",
+                                                    Id = last.IdUser,
+                                                    wizardStep = wizard
+                                                }));
             }
-
-            last.StartDate = study.StartDate;
-            last.EndDate = study.EndDate;
-
-            Thesis tesis = new Thesis();
-            if (study.Thesis.Title != null)
-            {
-                tesis.IdStudies = last.Id;
-                tesis.Title = study.Thesis.Title;
-                tesis.Description = study.Thesis.Description;
-                if (last.Thesis != null) { db.Theses.Remove(last.Thesis); }
-                db.Theses.Add(tesis);
-                last.Thesis = tesis;
-            }
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(last).State = EntityState.Modified;
-                db.SaveChanges();
-
-            }
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = last.IdUser, wizardStep = wizard }));
+            return RedirectToAction("Index", "Home");
         }
+
         #endregion
+
+        
 
         //
         // GET: /Study/Delete/5
@@ -350,13 +453,23 @@ namespace AplicacionBase.Controllers
         /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista que despliega el formulario con los datos para eliminar</returns>
         #region Delete(id, idUser)
-        public ActionResult Delete(Guid id, Guid idUser, int wizardStep = 0)
+        public ActionResult Delete(Guid id, int wizardStep = 0)
         {
-            ViewBag.thewizar = wizardStep;
-            ViewBag.WizardStep = wizardStep;
-            ViewBag.IdUser = idUser;
-            Study study = db.Studies.Find(id);
-            return View(study);
+            User user = db.Users.Find(searchId());
+            var aspnetuser = db.aspnet_Users.Find(user.Id);
+            var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
+            Study study2 = db.Studies.Find(id);
+            if (roles.Contains("Administrador") || study2.IdUser == aspnetuser.UserId)
+            {
+                ViewBag.thewizar = wizardStep;
+                ViewBag.WizardStep = wizardStep;
+                var studio = db.Studies.Find(id);
+                ViewBag.IdUser = studio.IdUser;
+
+                Study study = db.Studies.Find(id);
+                return View(study);
+            }
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
@@ -370,13 +483,25 @@ namespace AplicacionBase.Controllers
         /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         #region Delete(id, idUser)
-        public ActionResult DeleteConfirmed(Guid id, Guid idUser)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            ViewBag.UserId = idUser;
-            Study study = db.Studies.Find(id);
-            db.Studies.Remove(study);
-            db.SaveChanges();
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Study", action = "Index", Id = idUser }));
+            User user = db.Users.Find(searchId());
+            var aspnetuser = db.aspnet_Users.Find(user.Id);
+            var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
+            Study study2 = db.Studies.Find(id);
+            if (roles.Contains("Administrador") || study2.IdUser == aspnetuser.UserId)
+            {
+                var studio = db.Studies.Find(id);
+                ViewBag.UserId = studio.IdUser;
+
+                Study study = db.Studies.Find(id);
+                db.Studies.Remove(study);
+                db.SaveChanges();
+                return RedirectToAction("Index",
+                                        new RouteValueDictionary(
+                                            new {controller = "Study", action = "Index", Id = studio.IdUser}));
+            }
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 
