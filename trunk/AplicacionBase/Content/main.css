@@ -834,13 +834,14 @@ ebutton2:hover, ebutton2:active{
 .sidebarcontainer {
     background-color: #e9eaeb;
     border-radius: 10px;
+    width: 220px;
 }
 
 .sidebar {
     background-color: #ced3d9;
     border-radius: 10px;
     padding: 20px;
-    width: 80%;
+    width: 200px;
     height: 80%;
     
     
@@ -1275,7 +1276,7 @@ background: url(themes/base/images/con-noticias-inf-der.jpg) no-repeat;
 	margin-left: -60px;
 	margin-top: 20px;
 	position: absolute;
-	width: 200px;
+	width: 350px;
 	text-align: left;
 	position: absolute;
     z-index: 1;
@@ -1347,6 +1348,7 @@ div .startvalue
 div .center
 {
     text-align: center;
+    
 }
 
 .btndetails2
