@@ -1,5 +1,4 @@
-﻿@using System.Collections.Specialized
-@{
+﻿@{
     ViewBag.Title = "Crear Estudio";
     var wizard = ViewBag.WizardStep;
     //if ((string)Session["Wizard"] == "1")
@@ -82,15 +81,13 @@
 <script type="text/javascript"> 
     @for (int l = 1; l < 100; l++)
     {
-        var Fields = "#field" + l;
-        var Field = "field" + l;
-        var FieldsAction = "#fieldaction" + l;
-        var FieldsGroup = "#fieldgroup" + l;
+        var fields = "#field" + l;
+        var field = "field" + l;
+        var fieldsAction = "#fieldaction" + l;
         var searches = "#searchfield" + l;
         var search = "searchfield" + l;
         var oper = "#operator" + l;
         var groups = "#fieldgroup" + l;
-        var group = "fieldgroup" + l;
 
         <text> $(function () { 
             $.getJSON("/ItemData/ListFields", null, function (data) {
@@ -98,7 +95,7 @@
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
-                $("@Fields").html(items);
+                $("@fields").html(items);
             });
 
             $.getJSON("/ItemData/ListSearchFields", null, function (data) {
@@ -129,14 +126,14 @@
             });
         });
  
-            $("@Fields").change(function (){
-            var Param = { field: $("@Fields > option:selected").attr("value") , campo: '@Field'};
+            $("@fields").change(function (){
+            var Param = { field: $("@fields > option:selected").attr("value") , campo: '@field'};
             $.getJSON("/ItemData/ListActions/", Param, function (data) {
                 var items = "<option>Seleccione una opcion</option>";
                 $.each(data, function (i, item) {
                     items += "<option value=" + item + ">" + item + "</option>";
                 });
-                $("@FieldsAction").html(items);
+                $("@fieldsAction").html(items);
             });
         });
     });
@@ -251,8 +248,21 @@
                             <h3>Institución*</h3>
                         </div>
                         <div class="editor-field">
-                             <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" />
-                             @*@Html.ActionLink("Agregar Institución", "Create", "School", null, htmlAttributes: new { @class = "ebutton blue", @idSchool = "txtSchool" })*@
+                            <p>
+                                @if ((bool) ViewBag.Seleccionado1)
+                                {
+                                    TempData["Seleccionado"] = "true";
+                                    <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" value="@ViewBag.Seleccionado11"/>
+                                }
+                                else
+                                {
+                                    TempData["Seleccionado"] = "false";
+                                    <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" value="@ViewBag.Seleccionado11"/>
+                                    <p class="alert error">@TempData["Error1"]</p>
+                                }
+                            </p>
+                            
+                            @*@Html.ActionLink("Agregar Institución", "Create", "School", null, htmlAttributes: new { @class = "ebutton blue", @idSchool = "txtSchool" })*@
                         </div>                        
                         <div class="editor-label">
                             <h3>Programa</h3>
@@ -268,9 +278,22 @@
                         <div class="editor-label">
                             <h3>Título*</h3>
                         </div>
-                        <div class="editor-field">
-                            <input type="text" name = "Grade" id="Grade" style="width: 260px"/>
-                        </div>
+                    <div class="editor-field">
+                        <p>
+                                @if ((bool)ViewBag.Seleccionado2)
+                                {   
+                                    TempData["Seleccionado"] = "true";
+                                    <input type="text" name = "Grade" id="Grade" style="width: 260px" value="@ViewBag.Seleccionado22"/>
+                                }
+                                else
+                                {
+                                    TempData["Seleccionado"] = "false";
+                                    <input type="text" name = "Grade" id="Grade" style="width: 260px" value="@ViewBag.Seleccionado22"/>
+                                    <p class="alert error">@TempData["Error2"]</p>
+                                }
+                            </p>
+                        
+                    </div>
                         <div class="editor-label">
                             <h3>Electivas</h3>
                         </div>                    
@@ -290,10 +313,10 @@
                             </div>
                         </div>
                     
-                    string nid = "containerfield" + 2;
-                    string nid2 = "containerfield" + 3;
-                    string nid3 = "containerfield" + 4;
-                    string nid4 = "containerfield" + 5;
+                                string nid = "containerfield" + 2;
+                                string nid2 = "containerfield" + 3;
+                                string nid3 = "containerfield" + 4;
+                                string nid4 = "containerfield" + 5;
                         
                         <div id="@nid">
                             <div class="c12">
@@ -364,26 +387,26 @@
                             </div>             
                         </div>
                     
-                    for (int k = 2; k < 6; k++)
-                    {
-                        string sid = "containersearch" + k;
-                        string nextsid = "containersearch" + (k + 1);
-                        string nextsearchfield = "searchfield" + (k + 1);
-                        string searchfield = "searchfield" + k;
-                        string operatorfield = "operator" + k;
-                        string criteria = "criteria" + k;
-                        string logic = "logic" + k;
+                                for (int k = 2; k < 6; k++)
+                                {
+                                    string sid = "containersearch" + k;
+                                    string nextsid = "containersearch" + (k + 1);
+                                    string nextsearchfield = "searchfield" + (k + 1);
+                                    string searchfield = "searchfield" + k;
+                                    string operatorfield = "operator" + k;
+                                    string criteria = "criteria" + k;
+                                    string logic = "logic" + k;
                             <div id="@sid">
                                 
                             </div>   
-                    }
-                    for (int m = 2; m < 100; m++)
-                    {
-                        var group = "containergroup" + m;
-                        var grouplist = "fieldgroup" + m;
+                                }
+                                for (int m = 2; m < 100; m++)
+                                {
+                                    var group = "containergroup" + m;
+                                    var grouplist = "fieldgroup" + m;
                             <div id="@group">
                             </div>
-                    }
+                                }
                     <div>&nbsp;</div>
                     <div class="c1 first">
                         <input type="button" onClick="shownext('containerfield')" value="Agregar Electiva" class="ebutton blue"/>
@@ -394,23 +417,48 @@
                            <h3>Fecha Inicio *</h3>
                         </div>
                     <div class="editor-field">
-                        <input type="text" name="txtStartDate" id="txtStartDate" placeholder = "DD/MM/AAAA" style = "width:150px" />
-                            @*@Html.TextBoxFor(model => model.StartDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtStartDate" })*@
+                        <p>
+                                @if ((bool) ViewBag.Seleccionado3)
+                                {
+                                    TempData["Seleccionado"] = "true";
+                                    <input type="text" name="txtStartDate" id="txtStartDate" placeholder = "DD/MM/AAAA" style = "width:150px" value="@ViewBag.Seleccionado33"/>
+                                }
+                                else
+                                {
+                                    TempData["Seleccionado"] = "false";
+                                    <input type="text" name="txtStartDate" id="txtStartDate" placeholder = "DD/MM/AAAA" style = "width:150px" value="@ViewBag.Seleccionado33"/>
+                                    <p class="alert error">@TempData["Error3"]</p>
+                                }
+                            </p>
+                        
+                        @*@Html.TextBoxFor(model => model.StartDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtStartDate" })*@
                     </div>
                     <div class="editor-label">
                         <h3>Fecha Fin *</h3>
                     </div>
                     <div class="editor-field">
-                            <input type="text" name="txtEndDate" id="txtEndDate" placeholder = "DD/MM/AAAA" style = "width:150px" />
-                           @*@Html.TextBoxFor(model => model.EndDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtEndDate" })*@
-                        </div>
+                        <p>
+                                @if ((bool) ViewBag.Seleccionado4)
+                                {
+                                    TempData["Seleccionado"] = "true";
+                                    <input type="text" name="txtEndDate" id="txtEndDate" placeholder = "DD/MM/AAAA" style = "width:150px" value="@ViewBag.Seleccionado44"/>
+                                }
+                                else
+                                {
+                                    TempData["Seleccionado"] = "false";
+                                    <input type="text" name="txtEndDate" id="txtEndDate" placeholder = "DD/MM/AAAA" style = "width:150px" value="@ViewBag.Seleccionado44"/>
+                                    <p class="alert error">@TempData["Error4"]</p>
+                                }
+                            </p>
+                        @*@Html.TextBoxFor(model => model.EndDate, new { @type = "date", @placeholder = "DD/MM/AAAA", @id = "txtEndDate" })*@
+                    </div>
                     <div> 
                     @{
-                        //var n = new DateTime();
-                        //TimeSpan t = new TimeSpan();
-                        //datetime DateTime.Now.Date;
-                        //var tt = n.Subtract(n);
-                        //var b = DateTime.TryParse("12jsdajfjsdgds", out n);
+                                //var n = new DateTime();
+                                //TimeSpan t = new TimeSpan();
+                                //datetime DateTime.Now.Date;
+                                //var tt = n.Subtract(n);
+                                //var b = DateTime.TryParse("12jsdajfjsdgds", out n);
                         }
                         <div class="editor-label">
                             <h3>Tesis</h3>
@@ -422,7 +470,7 @@
                             <h3>Descripción</h3>
                         </div>
                         <div class="editor-field">
-                             <textarea name="comentarios" rows="10" cols="40" id = "txtDescripcion">Escribe aquí la descripción de tu tesis</textarea>
+                             <textarea name="comentarios" rows="10" cols="40" id = "txtDescripcion" placeholder="Escribe aquí la descripción de tu tesis"></textarea>
                         </div>  
                         <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
                          

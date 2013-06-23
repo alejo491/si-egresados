@@ -103,7 +103,19 @@
             <h3>Institucion *</h3>
         </div>
         <div class="editor-field">
-                @Html.EditorFor(model => model.School.Name)
+                 <p>
+                    @if ((bool) ViewBag.Seleccionado1)
+                    {
+                        TempData["Seleccionado"] = "true";
+                        @Html.EditorFor(model => model.School.Name)
+                    }
+                    else
+                    {
+                        TempData["Seleccionado"] = "false";
+                        @Html.EditorFor(model => model.School.Name)
+                        <p class="alert error">@TempData["Error1"]</p>
+                    }
+                </p>
         </div>    
 
         <div class="editor-label">
@@ -122,6 +134,19 @@
             <h3>Título *</h3>
         </div>
         <div class="editor-field">
+            <p>
+                    @if ((bool) ViewBag.Seleccionado2)
+                    {
+                        TempData["Seleccionado"] = "true";
+                        @Html.EditorFor(model => model.Grade)
+                    }
+                    else
+                    {
+                        TempData["Seleccionado"] = "false";
+                        @Html.EditorFor(model => model.Grade)
+                        <p class="alert error">@TempData["Error1"]</p>
+                    }
+                </p>
             @Html.EditorFor(model => model.Grade)
         </div>
         <div class="editor-label">
@@ -231,14 +256,38 @@
             <h3>Fecha Inicio *</h3>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.StartDate)
+             <p>
+                @if ((bool) ViewBag.Seleccionado3)
+                {
+                    TempData["Seleccionado"] = "true";
+                     @Html.EditorFor(model => model.StartDate)
+                }
+                else
+                {
+                    TempData["Seleccionado"] = "false";
+                     @Html.EditorFor(model => model.StartDate)
+                    <p class="alert error">@TempData["Error3"]</p>
+                }
+            </p>
         </div>
 
         <div class="editor-label">
             <h3>Fecha Final *</h3>
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.EndDate)
+             <p>
+                @if ((bool) ViewBag.Seleccionado4)
+                {
+                    TempData["Seleccionado"] = "true";
+                    @Html.EditorFor(model => model.EndDate)
+                }
+                else
+                {
+                    TempData["Seleccionado"] = "false";
+                    @Html.EditorFor(model => model.EndDate)
+                    <p class="alert error">@TempData["Error4"]</p>
+                }
+            </p>
         </div>
 
         <div> 

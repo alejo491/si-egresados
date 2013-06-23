@@ -17,7 +17,7 @@
     var i = ViewBag.UserId;   
 }
 <p>
-    @Html.ActionLink("Agregar Estudio", "Create", new { id = @i, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
+    @Html.ActionLink("Agregar Estudio", "Create", new {wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" }) &nbsp
     
     @{if (wizard != 1)
       {
