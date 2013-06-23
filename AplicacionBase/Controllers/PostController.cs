@@ -166,6 +166,7 @@ namespace AplicacionBase.Controllers
             post.Main = 0;
             post.Estate = 1;
             post.PublicationDate = DateTime.Now;
+            post.UpdateDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
