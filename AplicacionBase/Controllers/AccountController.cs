@@ -30,34 +30,53 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="model">usuario registrado en el sistema</param>
         /// <returns>true o false, dependiendo el caso</returns>
-        [HttpPost]
-        public JsonResult FacebookLogin(FacebookLoginModel model)
+         [HttpPost]
+        public JsonResult FacebookLogin(FacebookLoginModel model, User model_user)
         {
-			//Se obtiene el token del usuario logeado con su cuenta de facebook
             Session["accessToken"] = model.accessToken;
-
+            
+            
             WebClient client = new WebClient();
             string JsonResult = client.DownloadString(string.Concat(
                    "https://graph.facebook.com/me?access_token=", model.accessToken));
 
             JObject jsonUserInfo = JObject.Parse(JsonResult);
-			//Datos personales que se desean obtener del usuario de Facebook
+
             string username = jsonUserInfo.Value<string>("name");
+            string nombre = jsonUserInfo.Value<string>("first_name");
+            string apellido = jsonUserInfo.Value<string>("last_name");
+            string direccion = jsonUserInfo.Value<string>("address");
+            string genero = jsonUserInfo.Value<string>("gender");
+            string estado = jsonUserInfo.Value<string>("relationship_status");
+            DateTime fecha_nacimiento = jsonUserInfo.Value<DateTime>("birthday");
+            string telefono = jsonUserInfo.Value<string>("phone");
+            string celular = jsonUserInfo.Value<string>("mobile_phone");
             string email = jsonUserInfo.Value<string>("email");
             string locale = jsonUserInfo.Value<string>("locale");
             string facebook_userID = jsonUserInfo.Value<string>("id");
-
-            //Condición para validar si un usuario se encuentra registrado con su correo de Facebook
+            
+            
+            
             System.Web.Security.MembershipUserCollection uno = Membership.FindUsersByEmail(email);
             if (uno.Count == 1)
             {
+
+                model_user.Address = direccion;
+                model_user.BirthDate= fecha_nacimiento;
+                model_user.CellphoneNumber= celular;
+                model_user.FirstNames= nombre;
+                model_user.Gender= genero;
+                model_user.LastNames= apellido;
+                model_user.PhoneNumber= telefono;
+                model_user.MaritalStatus= estado;
+                
                 FormsAuthentication.SetAuthCookie(username, true);
-                return Json(new { success = true });
+                return Json(new { success = true});
             }
             else
             {
-                return Json(new { success = false, mensaje = "Para iniciar sesion con tu cuenta de Facebook primero debes haberte registrado en el sistema de Egresados con tu correo asociado a tu cuenta de Facebook." }, JsonRequestBehavior.AllowGet);
-
+                return Json(new { success = false, mensaje = "Para iniciar sesion con tu cuenta de facebook primero debes haberte registrado en el sistema de Egresados con tu correo asociado a tu cuenta de facebook." }, JsonRequestBehavior.AllowGet);
+                
             }
 
         }
