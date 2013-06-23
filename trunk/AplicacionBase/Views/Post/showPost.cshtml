@@ -3,7 +3,19 @@
 @{
     ViewBag.Title = "Detalles";
 }
-
+<script type="text/javascript"> 
+    $(document).ready(function () {
+        $.ajax({
+            type : "POST",
+            url :  "@(Url.Action("CarrucelImage", "File", new { id = Model.ElementAt(0).Id }))", 
+            traditional : true,
+            data : {}, 
+            success : function(data){
+                $("#carrucelshowpost").html(data); 
+            }
+        });  
+    }) 
+</script>
 <div class="center">
     <div class="display-field">
     
@@ -24,37 +36,8 @@
             </div>
         </div>
     </div>
-     <div id="carrucel-main" class="Carrucel" style = "width:50.67%">
-        <div class="ContentCarrucel" id="Content">    
-            <div class="NodeCarrucel" id="Node1" >
-                <div class="inner">
-                    <div class="fondo_noticia">
-                        <img src="/Content/themes/base/images/citacion_prueba.jpg"/>
-                    </div>
-                    <div class="noticia">
-                    </div>   
-                </div>                                               
-            </div>             
-    </div>
-    <div class="Controls">
-        @{
-            @Html.ActionLink("<<<", "", new { }, htmlAttributes: new { @class = "Back", @id = "BackCarrucel", @onclick = "Back()", @href = "javascript:void(0);" })
-            @Html.ActionLink(">>>", "", new { }, htmlAttributes: new { @class = "Next", @id = "NextCarrucel", @onclick = "Next()", @href = "javascript:void(0);" })
-            
-            string a;}            
-            @for (var i = 1;  i < 2; i++)
-            {
-                a = "A" + i;
-                if (i == 1)
-                {
-                    @Html.ActionLink(i.ToString(), "", new { }, htmlAttributes: new { @class = "ASelected", @id = a, @onclick = "goToPosition('" + i + "')", @href = "javascript:void(0);" })                                          
-                }
-                else
-                { 
-                    @Html.ActionLink(i.ToString(), "", new { }, htmlAttributes: new { @class = "Position", @id = a, @onclick = "goToPosition('" + i + "')", @href = "javascript:void(0);" })                                                                         
-                }
-            } 
-    </div>
+    <div id="carrucelshowpost">
+    
     </div>
     <br /><br />
     <div class="display-field" align="justify">
