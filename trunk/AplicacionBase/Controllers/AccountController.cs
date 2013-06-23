@@ -156,6 +156,11 @@ namespace AplicacionBase.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
+            try
+            {
+                Session["userID"] = null;
+            }
+            catch (Exception e) { }
             return RedirectToAction("Index", "Home");
         }
 

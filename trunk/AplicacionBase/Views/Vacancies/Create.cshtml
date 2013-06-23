@@ -25,19 +25,19 @@
         <div class="editor-label">
             Compañía que ofrece el cargo (seleccione una de la lista)
         </div>
-        @*<div class="editor-field">
+        <div class="editor-field">
             @Html.DropDownList("IdCompanie", "")
             @Html.ValidationMessageFor(model => model.IdCompanie)
 
             ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
-        </div>*@
+        </div>
 
-        <div class="editor-field">
+       @* <div class="editor-field">
             <input type="text" name="txtCompanie" id="txtCompanie" style = "width:150px" />
             ¿No aparece en la lista? &nbsp<a class="ebutton blue" href="../Companies/Create">Crear Nueva</a>
-        </div>
+        </div>*@
         
-        @Html.EditorFor(model => model.IdCompanie)
+      
 
         <div class="editor-label">
             Cargo ofrecido

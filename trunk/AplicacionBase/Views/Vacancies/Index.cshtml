@@ -34,7 +34,7 @@
         <h2 class="title">@Html.DisplayFor(modelItem => item.Charge) en @Html.DisplayFor(modelItem => item.Company.Name) </h2>
         <p class="meta"><small>Publicada por @Html.DisplayFor(modelItem => item.User.FirstNames)
         @Html.DisplayFor(modelItem => item.User.LastNames) el   @Html.DisplayFor(modelItem => item.PublicationDate)</small><br />
-            
+           
         <div>         
             <p>@Html.DisplayFor(modelItem => item.Description)</p>
             <p>Esta vacante cierra el @Html.DisplayFor(modelItem => item.ClosingDate)</p>  
@@ -45,9 +45,22 @@
 
             @Html.ActionLink(" ", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btndetails", title = "Ver detalles" }) 
              &nbsp
-             @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit",  title = "Editar" })
-             &nbsp
-            @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", title="Eliminar vacante" })
+
+            @try { 
+                if (item.IdUser.ToString().Equals(Session["userID"].ToString())  || Roles.GetRolesForUser().Contains("Administrador")){
+             
+                    @Html.ActionLink(" ", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btnedit",  title = "Editar" })
+                    //&nbsp
+                    Html.Display("&nbsp");
+                    @Html.ActionLink(" ", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btndelete", title="Eliminar vacante" })
+                             
+            }
+            }
+            catch (Exception e)
+            {
+            }
+            
+             
         </div>
     </div>
  

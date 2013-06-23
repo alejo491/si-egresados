@@ -71,7 +71,15 @@
                 E-Mail: @Html.DisplayFor(model => model.Company.Email)</p>
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id=Model.Id },htmlAttributes: new {@class="ebutton blue"})&nbsp;
+<p> 
+            @try {
+                if (Session["allowVacancyEdit"].ToString().Equals("true"))
+                { 
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "ebutton blue" })                
+                }
+                }
+            catch(Exception e) {}        
+             
+             &nbsp;
     @Html.ActionLink("Volver a la lista", "Index", null, htmlAttributes: new { @class = "ebutton blue" })
 </p>
