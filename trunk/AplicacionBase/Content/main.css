@@ -1350,6 +1350,11 @@ div .center
     text-align: center;
     
 }
+div .left
+{
+    float: left;
+    text-align: center;    
+}
 
 .btndetails2
 {
@@ -1357,4 +1362,17 @@ div .center
         min-width: 25px;
         min-height: 25px;
        float: right;
+}
+
+div .barra_starboxLike
+{
+    width: 100%;
+    text-align: center;
+    min-height: 40px;
+    margin-top: 10px;
+}
+div .contenidocenter
+{
+    min-width: 64%;
+    margin-left: 18%;
 }
