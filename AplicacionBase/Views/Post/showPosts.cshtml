@@ -30,76 +30,48 @@ $(document).ready(function () {
                                 @{
                                     int i = 1;
                                     string node;
-                                    string fondo;}            
+                                    string fondo;
+                                    string clase;}            
                                     @foreach (var item in Model)
                                     {
                                         node = "Node" + i;
                                         if(i == 1){
-                                            <div class="NodeCarrucel" id=@node >
-                                                <div class="inner">
-                                                    @{fondo = "fondo" + item.Id;}
-                                                   <div id=@fondo class="fondo_noticia">
-                                                        <script>
-                                                            var fondo2 = "#fondo" + "@item.Id";
-                                                            $.ajax({
-                                                                type : "POST",
-                                                                url :  "@(Url.Action("ImageMain","File", new { id = item.Id }))", // se dirige a la acción "Index" del controlado UploadFile
-                                                                traditional : true,
-                                                                data : {  }, // se agregan los parametros necesarios para la funcionalidad
-                                                                async:false,
-                                                                success : function(data){
-                                                                    $(fondo2).html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
-                                                                }
-                                                            });  
-                                                        </script>
-                                                    </div>                                                    <div class="noticia">
-                                                        @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
-                                                        @if (item.Abstract.Count() >= 50)
-                                                        {
-                                                            @Html.ActionLink(item.Abstract.Substring(50) + "...", "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" }) 
-                                                        }
-                                                        else
-                                                        {
-                                                            @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" }) 
-                                                        } 
-                                                    </div>   
-                                                </div>                                               
-                                            </div>                        
+                                            clase = "NodeCarrucel";
                                         }
-                                        else
-                                        { 
-                                            <div class="NodeCarrucelUnselected" id=@node > 
-                                                <div class="inner"> 
-                                                    @{fondo = "fondo" + item.Id;}
-                                                    <div id=@fondo class="fondo_noticia">
-                                                        <script>
-                                                            var fondo2 = "#fondo" + "@item.Id";
-                                                            $.ajax({
-                                                                type : "POST",
-                                                                url :  "@(Url.Action("ImageMain", "File", new { id = item.Id }))", // se dirige a la acción "Index" del controlado UploadFile
-                                                                traditional : true,
-                                                                data : {  }, // se agregan los parametros necesarios para la funcionalidad
-                                                                async:false,
-                                                                success : function(data){
-                                                                    $(fondo2).html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
-                                                                }
-                                                            });  
-                                                        </script>
-                                                    </div>
-                                                    <div class="noticia">
-                                                        @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
-                                                        @if (item.Abstract.Count() >= 50)
-                                                        {
-                                                            @Html.ActionLink(item.Abstract.Substring(50) + "...", "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" }) 
-                                                        }
-                                                        else
-                                                        {
-                                                            @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" }) 
-                                                        }  
-                                                    </div>                                                  
-                                                </div>
-                                            </div>                                                                                                                      
-                                        }
+                                        else{
+                                            clase = "NodeCarrucelUnselected";
+                                        }                                            
+                                        <div class=@clase id=@node >
+                                            <div class="inner">
+                                                @{fondo = "fondo" + item.Id;}
+                                                <div id=@fondo class="fondo_noticia">
+                                                    <script>
+                                                        var fondo2 = "#fondo" + "@item.Id";
+                                                        $.ajax({
+                                                            type : "POST",
+                                                            url :  "@(Url.Action("ImageMain","File", new { id = item.Id }))", // se dirige a la acción "Index" del controlado UploadFile
+                                                            traditional : true,
+                                                            data : {  }, // se agregan los parametros necesarios para la funcionalidad
+                                                            async:false,
+                                                            success : function(data){
+                                                                $(fondo2).html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+                                                            }
+                                                        });  
+                                                    </script>
+                                                </div>                                                    
+                                                <div class="noticia">
+                                                    @Html.ActionLink(item.Title, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" })<br />
+                                                    @if (item.Abstract.Count() >= 50)
+                                                    {
+                                                        @Html.ActionLink(item.Abstract.Substring(50) + "...", "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" }) 
+                                                    }
+                                                    else
+                                                    {
+                                                        @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }, htmlAttributes: new { @class = "title" }) 
+                                                    } 
+                                                </div>   
+                                            </div>                                               
+                                        </div>
                                         i++;
                                     } 
                                    

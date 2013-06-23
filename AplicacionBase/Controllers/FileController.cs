@@ -76,11 +76,10 @@ namespace AplicacionBase.Controllers
         /// Muestra la gaeria de archivos subidos por los usuarios
         /// </summary>
         /// <returns>Retorna el archivo en el formulario</returns>
-        public ViewResult CarrucelImagen(Guid Id)
+        public ViewResult CarrucelImage(Guid Id)
         {
-            var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
-            return View(files.ToList());
-            //return View(db.Files.ToList());
+            var files = db.Files.SqlQuery("exec url_file3 '" + Id + "'");
+            return View(files.ToList());           
         }
         #endregion
 

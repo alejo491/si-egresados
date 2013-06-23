@@ -286,3 +286,16 @@ C:\Users\user\Desktop\si-egresados\AplicacionBase\bin\MvcSiteMapProvider.xml
 C:\Users\user\Desktop\si-egresados\AplicacionBase\bin\PagedList.xml
 C:\Users\user\Desktop\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.dll
 C:\Users\user\Desktop\si-egresados\AplicacionBase\obj\Debug\AplicacionBase.pdb
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\AplicacionBase.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\AplicacionBase.pdb
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\ClientDependency.Core.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\ClientDependency.Core.Mvc.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\EntityFramework.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\MvcSiteMapProvider.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\PagedList.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\EntityFramework.xml
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\MvcSiteMapProvider.xml
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\bin\PagedList.xml
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\obj\Debug\AplicacionBase.dll
+C:\Users\MARCESAR\Desktop\siepis\AplicacionBase\obj\Debug\AplicacionBase.pdb
