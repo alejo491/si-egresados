@@ -28,6 +28,13 @@ namespace AplicacionBase.Controllers
         {
             var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User);
             pageNumber = (page ?? 1);
+
+            try { 
+                Session["userID"] = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
+                ;
+            }
+            catch (Exception e) { }
+                            
             return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate).ToPagedList(pageNumber, pageSize));
             // return View(vacancies.ToList().OrderByDescending(v => v.PublicationDate));
         }
@@ -39,7 +46,7 @@ namespace AplicacionBase.Controllers
 
         public ActionResult Index2()
         {
-            var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User).OrderByDescending(v => v.PublicationDate).Take(5);
+            var vacancies = db.Vacancies.Include(v => v.Company).Include(v => v.User).OrderByDescending(v => v.PublicationDate).Take(5);                  
             return PartialView(vacancies.ToList());
         }
 
@@ -51,7 +58,18 @@ namespace AplicacionBase.Controllers
         /// <returns>La vista con la vacante en detalle</returns>
         public ViewResult Details(Guid id)
         {
+            
             Vacancy vacancy = db.Vacancies.Find(id);
+            try
+            {
+                Session["allowVacancyEdit"] = "false";
+                Session["userID"] = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
+                if (vacancy.IdUser.ToString().Equals(Session["userID"].ToString()) || System.Web.Security.Roles.GetRolesForUser().Contains("Administrador"))
+                {
+                    Session["allowVacancyEdit"] = "true";
+                }
+            }
+            catch (Exception e) { }
             return View(vacancy);
         }
 
@@ -63,36 +81,39 @@ namespace AplicacionBase.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
-            ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
-            Guid g = System.Guid.Empty;
-            foreach (var e in db.aspnet_Users)
-            {
-                if (e.UserName == HttpContext.User.Identity.Name)
+           
+                ViewBag.IdCompanie = new SelectList(db.Companies, "Id", "Name");
+                ViewBag.IdUser = new SelectList(db.Users, "Id", "Id");
+                Guid g = System.Guid.Empty;
+                foreach (var e in db.aspnet_Users)
                 {
-                    g = e.UserId;
+                    if (e.UserName == HttpContext.User.Identity.Name)
+                    {
+                        g = e.UserId;
+                    }
                 }
-            }
-            var IdUser = g;
+                var IdUser = g;
 
-            bool dataUpdate = false;
-            foreach (var User in db.Users) // Se busca si el usuario ha actualizado los datos de la cuenta
-            {
-                if (User.Id == IdUser)
+                bool dataUpdate = false;
+                foreach (var User in db.Users) // Se busca si el usuario ha actualizado los datos de la cuenta
                 {
-                    dataUpdate = true;
+                    if (User.Id == IdUser)
+                    {
+                        dataUpdate = true;
+                    }
+
                 }
 
-            }
-
-            if (dataUpdate)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("ErrorDataUpdate", "Error");
-            }
+                if (dataUpdate)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("ErrorDataUpdate", "Error");
+                }
+            
+          
         }
 
 
@@ -205,7 +226,12 @@ namespace AplicacionBase.Controllers
         /// <returns>El listado de vacantes encontrados con el termindo de busqueda deseado</returns>
         public ActionResult Search(string criteria, int? page)
         {
-
+            try
+            {
+                Session["userID"] = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
+            }
+            catch (Exception e)
+            { }
             ViewBag.CurrentFilter = criteria;
 
             if (criteria == null)
