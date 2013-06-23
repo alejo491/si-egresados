@@ -30,9 +30,10 @@ namespace AplicacionBase.Controllers
         /// <param name="ids">identificador de la encuesta</param>
         /// <param name="Email">Email del encuestado</param>
         /// <returns></returns>
-        public ActionResult Fill(Guid ids, string Email)
+        public ActionResult Fill(Guid ids, string Email, int wizardStep = 0)
         {
             
+            ViewBag.WizardStep = wizardStep;
             var survey = db.Surveys.Find(ids);
             if (survey != null)
             {

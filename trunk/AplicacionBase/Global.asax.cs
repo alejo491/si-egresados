@@ -248,7 +248,7 @@ namespace AplicacionBase
 
 
                     //Se configuran las reglas de acceso para el controlador FillSurvey.
-                    configuration.For<FillSurveyController>(x => x.Fill(default(Guid), default(string)))
+                    configuration.For<FillSurveyController>(x => x.Fill(default(Guid), default(string),0))
                         .Ignore();
 
                     #endregion
