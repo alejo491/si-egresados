@@ -18,11 +18,11 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Jefe directo</legend>
-
+        <p>(*) Campos Obligatorios</p>
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            Nombre jefe
+            Nombre jefe (*)
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdBoss", String.Empty)
@@ -30,7 +30,7 @@
         </div>
 
         <div class="editor-label">
-            Chargo
+            Chargo (*)
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdExperiences", String.Empty)
@@ -38,7 +38,7 @@
         </div>
 
         <div class="editor-label">
-            Fecha Inicio
+            Fecha Inicio (*)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.StartDate, new { id = "startDate" })
@@ -46,7 +46,7 @@
         </div>
 
         <div class="editor-label">
-            Fecha Fin
+            Fecha Fin (*)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.EndDate, new { id = "endDate" })

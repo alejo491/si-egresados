@@ -25,10 +25,10 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Jefe Directo</legend>
-
+        <p>(*) Campos Obligatorios</p>
         <input type="hidden" name="wizard" id="wizard" value="@ViewBag.WizardStep"/>
         <div class="editor-label">
-            Jefe 
+            Jefe (*)
         </div>
         <div class="editor-field">
             @Html.DropDownList("IdBoss", String.Empty)
@@ -46,7 +46,7 @@
         </div>
 
         <div class="editor-label">
-            Fecha de inicio
+            Fecha de inicio (*)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.StartDate, new { id = "startDate" })
@@ -54,7 +54,7 @@
         </div>
 
         <div class="editor-label">
-            Fecha de Finalización
+            Fecha de Finalización (*)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.EndDate, new { id = "endDate" })
