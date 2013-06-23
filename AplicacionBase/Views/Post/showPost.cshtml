@@ -18,30 +18,9 @@
 </script>
 <div id="idpost" style="display:none">@Model.ElementAt(0).Id</div>
 <div class="center">
-    <div class="display-field">
-    
-        <div class="shownoticiatitle"><h2>@Html.DisplayFor(model => model.ElementAt(0).Title)</h2>
-            <div></br>
-                @if (Model.ElementAt(1).Autorized==0){
-                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnlike", @id = "LinkLike", @onclick = "ClickLike('"+Model.ElementAt(0).Id+"', '0', '')", @href = "javascript:void(0);" })
-                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnnolike", @id = "LinknoLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '1', '"+ Model.ElementAt(1).Id+"')", @href = "javascript:void(0);", style = "display:none" })
-                }
-                @if (Model.ElementAt(1).Autorized == 1)
-                {
-                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnlike", @id = "LinkLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '0', '')", @href = "javascript:void(0);",  style = "display:none" })
-                    @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnnolike", @id = "LinknoLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '1', '" + Model.ElementAt(1).Id + "')", @href = "javascript:void(0);" })                    
-                }                
-                <div class ="left" id="NumLike"> &nbsp&nbsp&nbsp @Model.ElementAt(1).Estate Usuarios les Gusta</div> </br></br></br>
-
-                <div id="startbox" style = "margin-left :15px ">
-                    <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="'"></div>
-                    <div class="startunselected" id="star2" onmouseover="hover(2)" onmouseout="unhover()" onclick="calificar()"></div>
-                    <div class="startunselected" id="star3" onmouseover="hover(3)" onmouseout="unhover()" onclick="calificar(3,   @Model.ElementAt(0).Id)"></div>
-                    <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,   @Model.ElementAt(0).Id)"></div>
-                    <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,   @Model.ElementAt(0).Id)"></div>
-                </div>
-                <div class ="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  @Model.ElementAt(2).Estate De calificacion promedio</div> </br></br></br>
-            </div>
+    <div class="display-field">    
+        <div class="shownoticiatitle">
+            <h2>@Html.DisplayFor(model => model.ElementAt(0).Title)</h2>
         </div>
     </div>
     <div id="carrucelshowpost">
@@ -65,5 +44,29 @@
         <span style="color: black;">Última Modificación :</span>
         @Html.DisplayFor(model => model.ElementAt(0).UpdateDate)
     </div>
+     <div class="barra_starboxLike">
+                <div class="contenidocenter">
+                    <div class="left">
+                        @if (Model.ElementAt(1).Autorized==0){
+                            @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnlike", @id = "LinkLike", @onclick = "ClickLike('"+Model.ElementAt(0).Id+"', '0', '')", @href = "javascript:void(0);" })
+                            @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnnolike", @id = "LinknoLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '1', '"+ Model.ElementAt(1).Id+"')", @href = "javascript:void(0);", style = "display:none" })
+                        }
+                        @if (Model.ElementAt(1).Autorized == 1)
+                        {
+                            @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnlike", @id = "LinkLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '0', '')", @href = "javascript:void(0);",  style = "display:none" })
+                            @Html.ActionLink(" ", "", new { }, htmlAttributes: new { @class = "ebutton btnnolike", @id = "LinknoLike", @onclick = "ClickLike('" + Model.ElementAt(0).Id + "', '1', '" + Model.ElementAt(1).Id + "')", @href = "javascript:void(0);" })                    
+                        } 
+                    </div>               
+                    <div class ="left" id="NumLike"> &nbsp&nbsp&nbsp @Model.ElementAt(1).Estate Usuarios les Gusta</div>
+                    <div id="startbox" class="left" style = "margin-left :15px ">
+                            <div class="startunselected" id="star1" onmouseover="hover(1)" onmouseout="unhover()" onclick="'"></div>
+                            <div class="startunselected" id="star2" onmouseover="hover(2)" onmouseout="unhover()" onclick="calificar()"></div>
+                            <div class="startunselected" id="star3" onmouseover="hover(3)" onmouseout="unhover()" onclick="calificar(3,   @Model.ElementAt(0).Id)"></div>
+                            <div class="startunselected" id="star4" onmouseover="hover(4)" onmouseout="unhover()" onclick="calificar(4,   @Model.ElementAt(0).Id)"></div>
+                            <div class="startunselected" id="star5" onmouseover="hover(5)" onmouseout="unhover()" onclick="calificar(5,   @Model.ElementAt(0).Id)"></div>
+                    </div>
+                    <div class ="left">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  @Model.ElementAt(2).Estate De calificacion promedio</div>                     
+                </div>
+            </div>
 </div>
 <div id="numPostCarrucel" style="display:none">1</div>
