@@ -14,7 +14,7 @@ namespace AplicacionBase.Models
         public System.Guid Id { get; set; }
 
         [Display(Name = "Electivas")]
-        [RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
+        //[RegularExpression(@"[A-Za-zñÑáéíóúÁÉÍÓÚ\s]*", ErrorMessage = "El formato es incorrecto")]
         public string Name { get; set; }
         public virtual ICollection<Study> Studies { get; set; }
     }
