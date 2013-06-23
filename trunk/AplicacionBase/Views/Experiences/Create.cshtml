@@ -19,9 +19,9 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Información Requerida</legend>
-         <p>Todos los campos son obligatorios</p>
+         <p>(*) Campos Obligatorios</p>
          <div class="editor-label">
-            Compañía donde laboró
+            Compañía donde laboró (*)
         </div>
         <input type="hidden" name="wizard" id="wizard" value="@ViewBag.WizardStep"/>
         <div class="editor-field">
@@ -33,7 +33,7 @@
         </div>
 
         <div class="editor-label">
-            Cargo Desempeñado
+            Cargo Desempeñado (*)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Charge)
@@ -41,7 +41,7 @@
         </div>
 
         <div class="editor-label">
-           Fecha de Inicio del contrato
+           Fecha de Inicio del contrato (*)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.StartDate, new { id = "startDate"})
@@ -49,7 +49,7 @@
         </div>
 
         <div class="editor-label">
-           Fecha de Finalización o retiro del cargo
+           Fecha de Finalización o retiro del cargo (*)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.EndDate, new { id = "endDate"})
@@ -60,11 +60,14 @@
             $(document).ready(function () {
                 $("#endDate").datepicker({ dateFormat: 'dd/mm/yy' }); ;
                 $("#startDate").datepicker({ dateFormat: 'dd/mm/yy' }); ;
+                
+
+
             });
         </script>
                
         <div class="editor-label">
-            Decripcion de la labor desempeñada
+            Decripcion de la labor desempeñada (*)
         </div>
         <div class="editor-field">
             @Html.TextAreaFor(model => model.Description, htmlAttributes: new { rows = "5%", cols = "45%" })
