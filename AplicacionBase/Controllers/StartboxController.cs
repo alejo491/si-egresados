@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AplicacionBase.Models;
+using System.Web.Security;
 
 namespace AplicacionBase.Controllers
 {
@@ -47,6 +48,19 @@ namespace AplicacionBase.Controllers
             if (list.Count == 0) return 0;
             else return (suma / list.Count);
         }
+
+
+        public Startbox myQualification(Guid idpost, Guid iduser)
+        {
+            var startboxs = db.Startboxs.Where(s => s.Id_Post.Equals(idpost) && s.Id_User.Equals(iduser));
+            if (startboxs != null)
+            {
+                IList<Startbox> list = (IList<Startbox>)startboxs.ToList();
+                if(list.Count()>0)
+                    return list.First();
+            }
+            return null; 
+        }
         #endregion
 
         #region Detalles
@@ -67,11 +81,20 @@ namespace AplicacionBase.Controllers
         /// Permite hacer dar una calificación a una determinada noticia
         /// </summary>
         /// <returns>Retorna la vista para crear la calificación de la noticia</returns>
-        public ActionResult Create()
+        [HttpPost]
+        public Guid Create(Guid idPost, int q)
         {
-            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title");
-            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber");
-            return View();
+            Startbox star = new Startbox();
+            star.Id_Post = idPost;
+            star.Id_User = (Guid)Membership.GetUser().ProviderUserKey;
+            star.Qualification = q;
+            if (ModelState.IsValid)
+            {
+                star.Id = Guid.NewGuid();
+                db.Startboxs.Add(star);
+                db.SaveChanges();
+            }
+            return star.Id;            
         }
         #endregion
 
@@ -81,20 +104,20 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="startbox">Calificación recibida desde un formulario</param>
         /// <returns>Retorna la calificación en el formulario</returns>
-        [HttpPost]
-        public ActionResult Create(Startbox startbox)
-        {
-            if (ModelState.IsValid)
-            {
-                startbox.Id = Guid.NewGuid();
-                db.Startboxs.Add(startbox);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
-            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
-            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
-            return View(startbox);
-        }
+        //[HttpPost]
+        //public ActionResult Create(Startbox startbox)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        startbox.Id = Guid.NewGuid();
+        //        db.Startboxs.Add(startbox);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");  
+        //    }
+        //    ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
+        //    ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
+        //    return View(startbox);
+        //}
         #endregion
 
         #region Editar calificación
@@ -119,17 +142,15 @@ namespace AplicacionBase.Controllers
         /// <param name="startbox">calificación que se modificó y que se va a actualizar en el formulario</param>
         /// <returns>Retorna la calificación que se modificó</returns>
         [HttpPost]
-        public ActionResult Edit(Startbox startbox)
+        public void Edit(Guid idstar, int q)
         {
+            Startbox startbox = db.Startboxs.Find(idstar);
+            startbox.Qualification = q;
             if (ModelState.IsValid)
             {
                 db.Entry(startbox).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
-            ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
-            return View(startbox);
+                db.SaveChanges();               
+            }            
         }
         #endregion
 

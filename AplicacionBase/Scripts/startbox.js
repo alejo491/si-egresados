@@ -1,21 +1,69 @@
 ﻿$(window).load(function () {
     var postid = $("#idpost").text();
     setInterval("actualizar_num_likes('"+postid+"')", 10000);
+    setInterval("actualizar_prom_start('"+postid+"')", 10000);
 });
-
+var qualification;
+var bandera;
 function hover(idstar) {
     var div;
-    for(var i = 0; i <= idstar; i++){
+    for(var i = 1; i <= idstar; i++){
         div = "#star" + i;
         $(div).attr("class", "startselected");
     }
 }
 
 function unhover() {
-    for (var i = 0; i <= 5; i++) {
+    for (var i = 1; i <= 5; i++) {
         div = "#star" + i;
-        $(div).attr("class", "startunselected");
+        if(i <= qualification)
+            $(div).attr("class", "startselecteduser");
+        else
+            $(div).attr("class", "startunselected");
     }
+}
+
+function setQualification(q,b){
+    qualification = q;
+    bandera = b;
+}
+
+function calificar(cal, postid, start){
+    if(start == "" && bandera == "0"){    
+        $.ajax({
+            type: "POST",
+            url: "/Startbox/Create", 
+            traditional: true,
+            data: {idPost:postid, q:cal},
+            async:false,
+            success : function(data){
+                for (var i = 1; i <= 5; i++) {
+                    div = "#star" + i;
+                    $(div).unbind("click");
+                    if(i=="1"){$(div).bind("click", function() {calificar('1', postid, data)});}
+                    if(i=="2"){$(div).bind("click", function() {calificar('2', postid, data)});}   
+                    if(i=="3"){$(div).bind("click", function() {calificar('3', postid, data)});}   
+                    if(i=="4"){$(div).bind("click", function() {calificar('4', postid, data)});}
+                    if(i=="5"){$(div).bind("click", function() {calificar('5', postid, data)});}                 
+                }
+                bandera = 1;
+                qualification = cal;
+                unhover();
+            }
+        });
+    }
+    if(start != "" && bandera == 1){
+        $.ajax({
+            type: "POST",
+            url: "/Startbox/Edit", 
+            traditional: true,
+            data: {idstar:start,q:cal},
+            async:false,
+        });
+        qualification = cal;
+        unhover();
+    }
+    actualizar_prom_start(postid);
 }
 
 function ClickLike(postid, tipo, like) {   
@@ -59,6 +107,17 @@ function actualizar_num_likes(postid){
             data: {id:postid},
             success : function(data){
                 $("#NumLike").html("&nbsp&nbsp&nbsp" + data + " Usuarios les Gusta");  
+            }
+        });
+}
+function actualizar_prom_start(postid){
+        $.ajax({
+            type: "POST",
+            url: "/Startbox/Index2", 
+            traditional: true,
+            data: {id:postid},
+            success : function(data){
+                $("#PromStart").html("&nbsp&nbsp&nbsp" + data + " De calificacion promedio");  
             }
         });
 }
