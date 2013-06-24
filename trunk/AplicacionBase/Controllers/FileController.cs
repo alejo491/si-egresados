@@ -71,6 +71,15 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        #region Galeria de Archivos showPost
+        
+        public ViewResult GaleryPost(Guid Id)
+        {
+            var files = db.Files.SqlQuery("exec url_file4 '" + Id + "'");
+            return View(files.ToList());
+        }
+        #endregion
+
         #region Imagen principal 
         /// <summary>
         /// Muestra la gaeria de archivos subidos por los usuarios
