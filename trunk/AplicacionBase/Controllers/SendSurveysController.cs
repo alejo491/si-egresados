@@ -7,7 +7,9 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
-   
+   /// <summary>
+   /// Controlador que se encarga de solicitar las consultas, de mostrar la vista de encuesta general, encuesta especificio y/o preview
+   /// </summary>
 
     public class SendSurveysController : Controller
     {

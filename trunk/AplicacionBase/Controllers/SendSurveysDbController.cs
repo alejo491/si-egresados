@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// La clase se encarga de acceso a la BD y realiza las consultas, para enviar encuentas
+    /// </summary>
     public static class SendSurveysDbController
     {
         private static DbSIEPISContext db = new DbSIEPISContext();
