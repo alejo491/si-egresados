@@ -14,6 +14,15 @@
                 $("#carrucelshowpost").html(data); 
             }
         });  
+         $.ajax({
+            type : "POST",
+            url :  "@(Url.Action("GaleryPost","File", new { id = Model.ElementAt(0).Id }))", // se dirige a la acción "Index" del controlado UploadFile
+            traditional : true,
+            data : {  }, // se agregan los parametros necesarios para la funcionalidad
+            success : function(data){
+                $("#Archivos").html(data); // carga el código html en el div "VisorNoticias", este código es retornado por el controlador.
+            }
+        }); 
     }) 
 </script>
 <div id="idpost" style="display:none">@Model.ElementAt(0).Id</div>
@@ -33,6 +42,7 @@
                 <div id="texto-con-formato"></div>
                 <script>DarFormato();</script>
             </div>
+            <div id = "Archivos"></div>
             <div class="display-field">
                 <span style="color: black;">Publicado por : </span>
                 @Html.DisplayFor(model => model.ElementAt(0).User.FirstNames)
