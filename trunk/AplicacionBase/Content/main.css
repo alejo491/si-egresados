@@ -1327,7 +1327,7 @@ div .startselected
 {
     width: 20px;
     height: 20px;
-    background: url(themes/base/images/starselected.png) no-repeat;
+    background: url(themes/base/images/starselected1.png) no-repeat;
     float: left;
 }
 div .startunselected
@@ -1337,7 +1337,13 @@ div .startunselected
     background: url(themes/base/images/starunselected.png) no-repeat;
     float: left;
 }
-
+div .startselecteduser
+{
+    width: 20px;
+    height: 20px;
+    background: url(themes/base/images/starselected.png) no-repeat;
+    float: left;
+}
 div .startvalue
 {
     width: 30px;

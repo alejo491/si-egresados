@@ -454,13 +454,23 @@ namespace AplicacionBase.Controllers
             datos.Add(post);
             AplicacionBase.Controllers.LikeController lc = new LikeController();
             AplicacionBase.Controllers.StartboxController st = new StartboxController();
-            int cont = 0;
             IList<Like> likes;
-            int startbox = st.Index2(id);
+            int startbox = st.Index2(id);            
             post2.Autorized = 0;
+            Startbox mystartbox = new Startbox();
             if (Request.IsAuthenticated)
             {
                 likes = lc.getMyLikePost(id, (Guid)Membership.GetUser().ProviderUserKey);
+                mystartbox = st.myQualification(id, (Guid)Membership.GetUser().ProviderUserKey);
+                if (mystartbox != null)
+                {
+                    post3.Main = mystartbox.Qualification;
+                    post3.Id = mystartbox.Id;
+                }
+                else
+                {
+                    post3.Main = 0;
+                }
                 if (likes.Count() == 1)
                 {
                     post2.Autorized = 1;
@@ -469,7 +479,7 @@ namespace AplicacionBase.Controllers
             }
             else post2.Autorized = -1;
             post2.Estate = lc.get_likes(id); // guardo en numero de megusta
-            post3.Estate = startbox;      //recupero al calificacion
+            post3.Estate = startbox;
             datos.Add(post2);
             datos.Add(post3);
             return View(datos);

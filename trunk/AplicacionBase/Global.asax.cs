@@ -185,7 +185,7 @@ namespace AplicacionBase
                     #region Reglas del controlador Startbox
                     //Se obtienen los roles que tienen acceso al controlador Startbox y a los métodos de este controlador.
                     //string[] rolesStartboxIndex = assembly.GetRolesMethods("StartboxController", "Index");
-                    var rolesStartboxCreate = assembly.GetRolesMethods("StartboxController", "Create");
+                    //var rolesStartboxCreate = assembly.GetRolesMethods("StartboxController", "Create");
                     var rolesStartboxDetails = assembly.GetRolesMethods("StartboxController", "Details");
                     var rolesStartboxEdit = assembly.GetRolesMethods("StartboxController", "Edit");
                     var rolesStartboxDelete = assembly.GetRolesMethods("StartboxController", "Delete");
@@ -194,8 +194,8 @@ namespace AplicacionBase
                     //Se configuran las reglas de acceso para el controlador Startbox.
                     configuration.For<StartboxController>(x => x.Index()).Ignore();
 
-                    configuration.For<StartboxController>(x => x.Create())
-                                 .RequireAnyRole(rolesStartboxCreate);
+                    //configuration.For<StartboxController>(x => x.Create())
+                    //             .RequireAnyRole(rolesStartboxCreate);
 
                     configuration.For<StartboxController>(x => x.Details(default(Guid)))
                                   .RequireAnyRole(rolesStartboxDetails);
