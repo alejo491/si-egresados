@@ -5,10 +5,20 @@
             enableLocalization="true">
 
   <mvcSiteMapNode title="Inicio" controller="Home" action="Index">
+      <mvcSiteMapNode title="Perfil" controller="User" action="Begin">
+       <mvcSiteMapNode title="Cambiar Contraseña" controller="Account" action="ChangePassword"/>
+      <mvcSiteMapNode title="Detalles" controller="User" action="Details"/>
+        <mvcSiteMapNode title="Estudios" controller="Study" action="Index">
+          <mvcSiteMapNode title="Detalles" controller="Study" action="Details"/>
+          <mvcSiteMapNode title="Crear" controller="Study" action="Create"/>
+          <mvcSiteMapNode title="Editar" controller="Study" action="Edit"/>
+          <mvcSiteMapNode title="Eliminar" controller="Study" action="Delete"/>
+        </mvcSiteMapNode>
+      </mvcSiteMapNode> 
       <mvcSiteMapNode title="Acerca De" controller="Home" action="About"/>
       <mvcSiteMapNode title="Cuenta" controller="Account" action="LogOn">
       <mvcSiteMapNode title="Registro" controller="Account" action="Register"/>
-      <mvcSiteMapNode title="Cambiar Contraseña" controller="Account" action="ChangePassword"/>
+     
       <mvcSiteMapNode title="Cambiar Contraseña Correcta" controller="Account" action="ChangePasswordSuccess"/>	  
     </mvcSiteMapNode>
 
@@ -87,12 +97,12 @@
       <mvcSiteMapNode title="Eliminar" controller="School" action="Delete"/>
     </mvcSiteMapNode>
 
-    <mvcSiteMapNode title="Estudios" controller="Study" action="Index">
+    <!--<mvcSiteMapNode title="Estudios" controller="Study" action="Index">
       <mvcSiteMapNode title="Detalles" controller="Study" action="Details"/>
       <mvcSiteMapNode title="Crear" controller="Study" action="Create"/>
       <mvcSiteMapNode title="Editar" controller="Study" action="Edit"/>
       <mvcSiteMapNode title="Eliminar" controller="Study" action="Delete"/>
-    </mvcSiteMapNode>
+    </mvcSiteMapNode>-->
 
     <mvcSiteMapNode title="Encuesta" controller="Surveys" action="Index">
       <mvcSiteMapNode title="Detalles" controller="Surveys" action="Details"/>
@@ -148,7 +158,7 @@
 
 
     <mvcSiteMapNode title="Usuario" controller="User" action="Index">
-      <mvcSiteMapNode title="Perfil de Usuario" controller="User" action="Begin"/>
+      <!--<mvcSiteMapNode title="Perfil" controller="User" action="Begin"/>-->
       <mvcSiteMapNode title="Detalles" controller="User" action="Details"/>
       <mvcSiteMapNode title="Crear" controller="User" action="Create"/>
       <mvcSiteMapNode title="Editar" controller="User" action="Edit"/>
@@ -156,6 +166,9 @@
       <mvcSiteMapNode title="Buscar" controller="User" action="Search"/>
       <mvcSiteMapNode title="Registro" controller="User" action="Generate"/>
       <mvcSiteMapNode title="Estado" controller="User" action="State"/>
+      
+        <mvcSiteMapNode title="Asignar Rol" controller="UsersRoles" action="AssignUserRoles"/>
+      
       <mvcSiteMapNode title="Nuevo Usuario" controller="User" action="Register"/>
     </mvcSiteMapNode>
 
@@ -166,9 +179,7 @@
       <mvcSiteMapNode title="Eliminar" controller="UserInRoles" action="Delete"/>
     </mvcSiteMapNode>
 
-    <mvcSiteMapNode title="Roles Usuario" controller="UsersRoles" action="Index">
-      <mvcSiteMapNode title="Asignar Rol" controller="UsersRoles" action="AssignUserRoles"/>
-    </mvcSiteMapNode>
+
 
     <mvcSiteMapNode title="Vacantes" controller="Vacancies" action="Index">
       <mvcSiteMapNode title="Detalles" controller="Vacancies" action="Details"/>
