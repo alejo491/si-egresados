@@ -121,9 +121,6 @@ namespace AplicacionBase.Controllers
         {
             Session["Wizard"] = "0";
 
-            /*MACHETAZO*/
-            var use = new UserController();
-
             return RedirectToAction("Begin", "User", new { id = db.aspnet_Users.First(u => u.UserName == HttpContext.User.Identity.Name).UserId });
         }
 

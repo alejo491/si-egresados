@@ -663,6 +663,7 @@
     <Content Include="Views\Post\DetailsAdmin.cshtml" />
     <Content Include="Views\File\GaleryView.cshtml" />
     <Content Include="Views\Post\CreateAdmin.cshtml" />
+    <Content Include="Views\FillSurvey\Confirm.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
