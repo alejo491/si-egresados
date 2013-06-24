@@ -186,6 +186,7 @@ namespace AplicacionBase.Controllers
                         if (form[key].ToString() == "1") { wizard = 1; }
                     }
                 }
+                TempData["Sucess"] = "Exito: Se modifico la experiencia laboral..";
                 return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Experiences", action = "Index", wizardStep = wizard }));
                 //return RedirectPermanent("/Experiences/Index/?wizardStep=1");
             }
@@ -236,6 +237,7 @@ namespace AplicacionBase.Controllers
             }                
             db.Experiences.Remove(experience);            
             db.SaveChanges();
+            TempData["Sucess"] = "Exito: Se elimino la experiencia laboral ..";
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Experiences", action = "Index", wizardStep = wizard }));
             //return RedirectPermanent("/Experiences/index?wizardStep=1");
         }

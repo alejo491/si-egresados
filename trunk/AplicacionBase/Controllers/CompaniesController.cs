@@ -89,6 +89,8 @@ namespace AplicacionBase.Controllers
                 db.Companies.Add(company);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente la compañía!";
+
+                TempData["Sucess"] = "Exito : Se creo la compañia ...";
                 return RedirectToAction("Create", new RouteValueDictionary(new { controller = "Experiences", action = "Create", wizardStep = Session["wizard"] }));
                 //return RedirectPermanent("/Experiences/create?wizardStep=1");
             }

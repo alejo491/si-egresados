@@ -9,10 +9,15 @@
         wizard = 1;
     }
 }
+
+
 <h2>Experiencias Laborales</h2>
 @{
     var i = ViewBag.UserId;   
 }
+<br />
+<div class="alert success">@TempData["Sucess"]</div>
+<br />
 <p>
     @Html.ActionLink("Crear Nueva Experiencia", "Create", new { id = @i, wizardStep = wizard }, htmlAttributes: new { @class = "ebutton blue" })
     @{
