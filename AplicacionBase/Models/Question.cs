@@ -5,6 +5,9 @@ using System.Web.Mvc;
 
 namespace AplicacionBase.Models
 {
+    /// <summary>
+    /// Clase que representa una pregunta
+    /// </summary>
     public partial class Question
     {
         /// <summary>
