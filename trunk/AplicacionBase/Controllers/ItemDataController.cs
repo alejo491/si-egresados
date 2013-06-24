@@ -409,8 +409,8 @@ namespace AplicacionBase.Controllers
 
             SQL = auxsqlcampos + auxsqlfiltros + auxsqlgrupos;
             item.SQLQuey = SQL;
-            item.GraphicType = form["option"];
-            item.ItemNumber = int.Parse(form["numeropagina"]);
+            item.GraphicType = form["GraphicType"];
+            item.ItemNumber = int.Parse(form["ItemNumber"]);
             item.Sentence = form["Sentence"];
             try
             {
