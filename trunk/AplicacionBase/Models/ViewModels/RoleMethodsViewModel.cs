@@ -4,15 +4,31 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Models.ViewModels
 {
-    
+    /// <summary>
+    /// Modelo de vista que para asignar permisos de acceso a los roles
+    /// </summary>
     public class RoleMethodsViewModel
     {
+        /// <summary>
+        /// Objeto Context para interactuar con la base de datos
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
-        //The two properties
+        
+        /// <summary>
+        /// Rol al que se le van a asignar los permisos
+        /// </summary>
         public aspnet_Roles aspnet_Role { get; private set; }       
+        
+        /// <summary>
+        /// Metodos que se van a agregar al rol
+        /// </summary>
         public Dictionary<Method, bool> MethodChecklist  { get; private set; }
 
-        //a constructor to create the above two properties upon instantiation
+        /// <summary>
+        /// Constructor de la clase
+        /// </summary>
+        /// <param name="aspnet_Role">Rol</param>
+        /// <param name="Method">Lista de metodos</param>
         public RoleMethodsViewModel(aspnet_Roles aspnet_Role, IEnumerable<Method> Method) 
         {
             this.aspnet_Role = aspnet_Role;

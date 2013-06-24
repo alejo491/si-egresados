@@ -3,15 +3,30 @@ using System.Linq;
 
 namespace AplicacionBase.Models.ViewModels
 {
-    
+    /// <summary>
+    /// Vista de modelos para agregar roles a un usuario
+    /// </summary>
     public class UsersInRolesViewModel
     {
+        /// <summary>
+        /// Objeto Context para interactuar con la base de datos
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
-        //The two properties
-        public aspnet_Users aspnet_User { get; private set; }       
+        /// <summary>
+        /// Usuario al que se le van a asignar los roles
+        /// </summary>
+        public aspnet_Users aspnet_User { get; private set; }
+       
+        /// <summary>
+        /// Lista de roles que se le van a asignar al usuario
+        /// </summary>
         public Dictionary<aspnet_Roles, bool> aspnet_RolesChecklist  { get; private set; }
 
-        //a constructor to create the above two properties upon instantiation
+       /// <summary>
+       /// Constructor de la clase
+       /// </summary>
+       /// <param name="aspnet_User">Usuario</param>
+       /// <param name="aspnet_Roles">Lista de roles</param>
         public UsersInRolesViewModel(aspnet_Users aspnet_User, IEnumerable<aspnet_Roles> aspnet_Roles) 
         {
             this.aspnet_User = aspnet_User;
