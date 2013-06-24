@@ -117,7 +117,7 @@ function actualizar_prom_start(postid){
             traditional: true,
             data: {id:postid},
             success : function(data){
-                $("#PromStart").html("&nbsp&nbsp&nbsp" + data + " De calificacion promedio");  
+                $("#PromStart").html("&nbsp&nbsp&nbsp" + data + " De calificación promedio");  
             }
         });
 }

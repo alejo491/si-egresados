@@ -183,13 +183,20 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-
+        #region getMyLikePost
+        /// <summary>
+        /// Obtiene los likes hechos por un usuario
+        /// </summary>
+        /// <param name="idpost">Identificador del post</param>
+        /// <param name="iduser">Identificador del usuario</param>
+        /// <returns>Retorna el número de likes que tiene un post</returns>
         public IList<Like> getMyLikePost(Guid idpost, Guid iduser)
         {
             var likes = db.Likes.Where(l => l.Id_Post.Equals(idpost) && l.Id_User.Equals(iduser))
                 .Include(l => l.Post).Include(l => l.User);
             return (IList<Like>)likes.ToList();
         }
+        #endregion
 
         #region Método dispose
         /// <summary>
