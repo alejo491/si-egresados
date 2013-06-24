@@ -75,6 +75,7 @@ namespace AplicacionBase.Controllers
                 experiencesboss.Id = Guid.NewGuid();
                 db.ExperiencesBosses.Add(experiencesboss);
                 db.SaveChanges();
+                TempData["Sucess"] = "Exito: Se creo la experiencia laboral ...";
                 return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Experiences", action = "index", wizardStep = wizard }));
                 //return RedirectPermanent("/Experiences/index?wizardStep=1");
             }

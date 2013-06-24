@@ -119,6 +119,7 @@ namespace AplicacionBase.Controllers
                 db.Bosses.Add(boss);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente el jefe!";
+                TempData["Sucess"] = "Exito : Se creo el jefe ...";
                 return RedirectToAction("Create", new RouteValueDictionary(new { controller = "ExperiencesBosses", action = "Create",Id=Session["IdExp"], wizardStep = wizard }));
 
                 //return RedirectPermanent("/ExperiencesBosses/Create/" + Session["IdExp"] + "?wizardStep=1");
