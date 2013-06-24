@@ -1376,3 +1376,14 @@ div .contenidocenter
     min-width: 64%;
     margin-left: 18%;
 }
+div #carrucelshowpost
+{
+    width: 450px;
+    position:relative;
+}
+
+div .imagecarrucelshowpost img
+{
+    width: 300px;       
+    height: 225px; 
+}
