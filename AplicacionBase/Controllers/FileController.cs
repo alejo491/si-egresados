@@ -21,23 +21,23 @@ namespace AplicacionBase.Controllers
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        #region ListarArchivos
+        #region Listar archivos
         /// <summary>
-        /// Muestra todos los archivos subidos por los usuarios en una noticia
+        /// Esta función se llama cuando se va(n) a agregar archivo(s) a una noticia
         /// </summary>
-        /// <returns>Retorna el archivo en el formulario</returns>
+        /// <returns>Retorna el archivo asociado a una noticia</returns>
         public ViewResult Index()
         {
             return View(db.Files.ToList());
         }
         #endregion
 
-        #region actualizar archivo
+        #region Actualizar archivo
         /// <summary>
-        /// Actualiza un archivo que se haya subido para una determinada noticia
+        /// Esta función se llama cuando se van a agregar archivos a una noticia
         /// </summary>
         /// <param name="id">Identificador del archivo</param>
-        /// <returns>Retorna el archivo en el formulario</returns>
+        /// <returns>Retorna el o los archivo(s) asociado(s) a una noticia</returns>
         public ViewResult UFile(Guid Id)
         {
             var post = db.Posts.Find(Id);
@@ -45,34 +45,38 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Galeria de Archivos Edit
+        #region Galeria de archivos
         /// <summary>
-        /// Muestra la gaeria de archivos subidos por los usuarios en la vista de Edit
+        /// Esta función se llama cuando se quiere mostrar la galeria de archivos de una noticia
         /// </summary>
-        /// <returns>Retorna el archivo en el formulario</returns>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna la galeria de archivos asociados a una noticia</returns>
         public ViewResult Galery(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
             return View(files.ToList());
-            //return View(db.Files.ToList());
         }
         #endregion
 
-        #region Galeria de archivos para detalles
+        #region Ver Galeria de archivos detalles
         /// <summary>
         /// Muestra la galeria de archivos subidos por los usuarios en la vista de view
         /// </summary>
-        /// <returns>Retorna el archivo en el formulario</returns>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna la galeria de archivos asociados a una noticia</returns>
         public ViewResult GaleryView(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file '" + Id + "'");
             return View(files.ToList());
-            //return View(db.Files.ToList());
         }
         #endregion
 
-        #region Galeria de Archivos showPost
-        
+        #region Galeria de archivos showPost
+        /// <summary>
+        /// Esta función se llama cuando se quiere mostrar la galeria de archivos subidos por los usuarios en la vista de showpost
+        /// </summary>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna la galeria de archivos asociados a una noticia</returns>
         public ViewResult GaleryPost(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file4 '" + Id + "'");
@@ -82,22 +86,23 @@ namespace AplicacionBase.Controllers
 
         #region Imagen principal 
         /// <summary>
-        /// Muestra la gaeria de archivos subidos por los usuarios
+        /// Esat función se llama cuando se quiere mostrar la gaeria de archivos asociados a una noticia
         /// </summary>
-        /// <returns>Retorna el archivo en el formulario</returns>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna el archivo asociado a una noticia</returns>
         public ViewResult ImageMain(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file2 '" + Id + "'");
             return View(files.ToList());
-            //return View(db.Files.ToList());
         }
         #endregion
 
         #region Carrucel de imagenes
         /// <summary>
-        /// Muestra la gaeria de archivos subidos por los usuarios
+        /// Esat función se llama cuando se quiere mostrar la imagen de una noticia en el carrucel de noticias
         /// </summary>
-        /// <returns>Retorna el archivo en el formulario</returns>
+        /// <param name="id">Identificador del archivo</param>
+        /// <returns>Retorna el (o los) archivo(s) asociado(s) a una noticia</returns>
         public ViewResult CarrucelImage(Guid Id)
         {
             var files = db.Files.SqlQuery("exec url_file3 '" + Id + "'");
@@ -110,7 +115,7 @@ namespace AplicacionBase.Controllers
         /// Muestra los detalles del archivo
         /// </summary>
         /// <param name="id">Identificador del archivo</param>
-        /// <returns>Retorna el archivo para el id correspondiente</returns>
+        /// <returns>Retorna el archivo asociado a la noticia</returns>
         public ViewResult Details(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
@@ -120,9 +125,9 @@ namespace AplicacionBase.Controllers
 
         #region Crear archivo
         /// <summary>
-        /// Permite subir un archivo a una nueva noticia
+        /// Esta función se llama cuando se quiere subir un archivo a una nueva noticia
         /// </summary>
-        /// <returns>Retorna la opción para subir el archivo</returns>
+        /// <returns>Un ActionResult con la vista y formulario para asociar el archivo a la noticia</returns>
         public ActionResult Create()
         {
             return View();
@@ -131,10 +136,10 @@ namespace AplicacionBase.Controllers
 
         #region Crear archivo HttpPost
         /// <summary>
-        /// Guarda el archivo recibido en el formulario
+        /// Se llama despues de que el usuario oprime el boton de Añadir Archivos...
         /// </summary>
         /// <param name="file">Archivo rescibido desde el formulario</param>
-        /// <returns>Retorna los archivos recibidos en el formulario</returns>
+        /// <returns>Retorna los archivos asociados a la noticia</returns>
         [HttpPost]
         public ActionResult Create(AplicacionBase.Models.File file)
         {
@@ -155,7 +160,7 @@ namespace AplicacionBase.Controllers
         /// Da la opción cambiar un archivo que haya sido publicado en una noticia
         /// </summary>
         /// <param name="id">Identificador del archivo</param>
-        /// <returns>Retorna la noticia a editar</returns>
+        /// <returns>Retorna la vista con el archivo a editar</returns>
         public ActionResult Edit(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
@@ -168,7 +173,7 @@ namespace AplicacionBase.Controllers
         /// Guarda las modificaciones que se hayan hecho de un archivo en una noticia
         /// </summary>
         /// <param name="file">Archivo que se modificó y que se va a actualizar en el formulario</param>
-        /// <returns>Retorna el archivo que se modificó</returns>
+        /// <returns>La redireccion a la pagina principal despues de que el objeto se modifique correctmanete</returns>
         [HttpPost]
         public ActionResult Edit(AplicacionBase.Models.File file)
         {
@@ -184,10 +189,10 @@ namespace AplicacionBase.Controllers
 
         #region Eliminar archivo
         /// <summary>
-        /// Da la opción de eliminar un archivo correspondiente a una noticia
+        /// Da la opción de eliminar un archivo correspondiente
         /// </summary>
-        /// /// <param name="id">Identificador del archivo a eliminar</param>
-        /// <returns>Retorna el archivo a eliminar</returns>
+        /// /// <param name="id">Identificador del archivo</param>
+        /// <returns>La redireccion a la vista para confirmar la operación</returns>
         public ActionResult Delete(Guid id)
         {
             AplicacionBase.Models.File file = db.Files.Find(id);
@@ -197,10 +202,10 @@ namespace AplicacionBase.Controllers
 
         #region Regresar
         /// <summary>
-        /// Da la opción no efectuar cambios en una noticia y regresar al listado principal
+        /// Da la opción para no efectuar cambios en una noticia y regresar al listado principal
         /// </summary>
-        /// /// <param name="id">Identificador del archivo cargado</param>
-        /// <returns>Retorna el archivo cargado</returns>
+        /// /// <param name="id">Identificador del archivo</param>
+        /// <returns>Redirecciona al listado de archivos</returns>
         public ActionResult Regresar(Guid id)
         {
             var filepost = db.FilesPosts.SqlQuery("exec relacionfilepost '" + id + "'");
@@ -211,10 +216,10 @@ namespace AplicacionBase.Controllers
 
         #region Eliminar archivo HttpPost
         /// <summary>
-        /// Elimina el archivo de la noticia que corresponde al id
+        /// Se llama despues de que el usuario confirma eliminar el archivo
         /// </summary>
-        /// <param name="id">Identificador de archivo a eliminar</param>
-        /// <returns>Retorna el resultado de la eliminación del archivo</returns>
+        /// <param name="id">Identificador de archivo</param>
+        /// <returns>Redirecciona al listado de noticias para la encuesta despues de que borra el objeto</returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -275,10 +280,10 @@ namespace AplicacionBase.Controllers
 
         #region Descargar archivo
         /// <summary>
-        /// Da la opción de descargar un archivo que hay sido subido
+        /// Da la opción de descargar un archivo
         /// </summary>
         /// <param name="id">Identificador del archivo</param>
-        /// <returns>Retorna el archivo que se va a descargar en el formulario</returns>
+        /// <returns>Retorna el archivo que se va a descargar</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
         [HttpGet]
         public void Download(string id)
@@ -300,9 +305,9 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region subir Archivo de noticias.
+        #region Subir archivo de noticias.
         /// <summary>
-        /// permite subir al servidor el archivo asociado a una noticia.
+        /// permite subir al servidor el archivo asociado a una noticia
         /// </summary>
         /// <param name="post">Objeto del tipo post</param>
         /// <returns>Retorna el archivo en el formulario</returns>
@@ -349,12 +354,12 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Subida archivo parcial 
+        #region Subir archivo parcial 
         /// <summary>
         /// Permite cargar archivos de gran tamaño.
         /// </summary>
         /// <param name="fileName">Nombre del archivo recibido desde un formulario</param>
-        /// <param name="request">Peticion que se hace a la BD para poder actualizar el archivo</param>
+        /// <param name="request">Petición que se hace a la BD para poder actualizar el archivo</param>
         /// <param name="statuses">Muestra el estado del archivo</param>
         /// <returns>Retorna la actualizacion del archivo en el formulario</returns>
         //DONT USE THIS IF YOU NEED TO ALLOW LARGE FILES UPLOADS
@@ -438,7 +443,7 @@ namespace AplicacionBase.Controllers
 
         #region Codificación de los archivos
         /// <summary>
-        /// Método que codifica un archivo que se carga
+        /// Método que codifica un archivo
         /// </summary>
         /// <param name="fileName">Archivo a codificar</param>
         private string EncodeFile(string fileName)
