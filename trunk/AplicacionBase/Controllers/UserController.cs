@@ -53,7 +53,10 @@ namespace AplicacionBase.Controllers
                 ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", users.ToList());
                 return View(users.ToList().ToPagedList(pageNumber, pageSize));
             }
-            else { return RedirectToAction("Begin", "User", new { id = g }); }
+            else
+            {
+                return RedirectToAction("Begin", "User", new { id = g });
+            }
         }
         #endregion
 
@@ -66,6 +69,11 @@ namespace AplicacionBase.Controllers
         public ActionResult Begin(Guid id)
         {
             User user = db.Users.Find(id);
+            if (user == null)
+            {
+                TempData["Error"] = "Primero debes Ingresar tus datos personales";
+                return RedirectToAction("Create", "User");
+            }
             ViewBag.Id = new SelectList(db.aspnet_Users, "UserId", "UserName", user.Id);
             return View(user);
         }

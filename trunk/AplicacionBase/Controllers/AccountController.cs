@@ -216,7 +216,7 @@ namespace AplicacionBase.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                         Session["firstTime"] = true; //Para Wizard
-                        return RedirectToAction("Index", "Verify");
+                        return RedirectToAction("AsignarRol", "Verify");
                     }
                     else
                     {
@@ -343,7 +343,8 @@ namespace AplicacionBase.Controllers
                 userM.ChangePassword(tem.Password, pass);
                 string body = "Hola: " + usuario + " su nueva contraseña es: " + pass + " le recomendamos cambiarla";
                 SendHtmlFormattedEmail(correo, subject, body);              
-                TempData["Email"] = "Se envió un correo a su cuenta: " + tem.Email + "  con la nueva contraseña. Verifique.";
+                TempData["Cambiobn"] = "Se envió un correo a su cuenta: " + tem.Email + "  con la nueva contraseña. Verifique.";
+                return RedirectToAction("LogOn");
             }
             return View(model);
         }

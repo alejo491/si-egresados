@@ -42,8 +42,10 @@ namespace AplicacionBase.Controllers
             //UserController u = new UserController();
             ViewBag.WizardStep = wizardStep;
             User user = db.Users.Find(searchId());                     
+            
             if (user != null)
             {
+                ViewBag.UserId = user.Id;
                 var aspnetuser = db.aspnet_Users.Find(user.Id);
                 var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
                 if (roles.Contains("Administrador"))
