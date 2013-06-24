@@ -35,6 +35,39 @@ namespace AplicacionBase.Controllers
             
             ViewBag.WizardStep = wizardStep;
             var survey = db.Surveys.Find(ids);
+            Guid iduser;
+            if (Email == null)
+            {
+                var users = db.aspnet_Users.Where(s => s.UserName == HttpContext.User.Identity.Name);
+                if (users.Any())
+                {
+                    iduser = users.First().UserId;
+                    var useremail = db.aspnet_Membership.First(x => x.UserId == iduser).Email;
+                    var lsurveyed = db.Surveyeds.Where(x => x.Email == useremail);
+                    if (lsurveyed.Any())
+                    {
+                        var surveyed = lsurveyed.First();
+                        var lexemplar = db.Exemplars.Where(x=>x.IdSurveyed == surveyed.Id).Where(x=>x.IdSurveys == ids);
+                        if (lexemplar.Any())
+                        {
+                            var exemplar = lexemplar.Any();
+                            if (wizardStep == 0)
+                            {
+                                TempData["Error"] = "Usted ya ha diligenciado esta encuesta";
+                                return RedirectToAction("Index", "Home", null);
+                            }
+                            else
+                            {
+                                TempData["Error"] = "Usted ya ha diligenciado esta encuesta";
+                                return RedirectToAction("Confirm", "FillSurvey", null);
+                            }
+
+                        }
+                    }
+                    
+                }
+                
+            }
             if (survey != null)
             {
                 var surveystopics = db.SurveysTopics.Where(st => st.IdSurveys == survey.Id).OrderBy(st => st.TopicNumber);
@@ -80,15 +113,16 @@ namespace AplicacionBase.Controllers
         /// <param name="postedForm">Formulario con la informacion que contesto el encuestado</param>
         /// <returns></returns>
         [HttpPost]
-    public ActionResult Fill(Guid ids, string Email, FormCollection postedForm)
+        public ActionResult Fill(Guid ids, string Email, FormCollection postedForm, int wizardStep = 0 )
         {
+            var w = wizardStep;
             var ListAnswerC = new List<string>();
             var ListVal = new List<string>();
             Guid iduser = Guid.Empty;
             var em = Email;
             if (em == null)
             {
-               var users = db.aspnet_Users.Where(s => s.UserName == HttpContext.User.Identity.Name);
+                var users = db.aspnet_Users.Where(s => s.UserName == HttpContext.User.Identity.Name);
                 if (users.Any())
                 {
                     iduser = users.First().UserId;
@@ -260,9 +294,21 @@ namespace AplicacionBase.Controllers
                 ListAnswerC.Clear();
                 ListVal.Clear();
             }
+            if (w==1)
+            {
+                TempData["Success"] = "¡Muchas gracias por llenar la encuesta!";
+                return RedirectToAction("Confirm", "FillSurvey", null);
+            }
             TempData["Success"] = "¡Muchas gracias por llenar la encuesta!";
             return RedirectToAction("Index", "Home");
+
         }
+
+        public ActionResult Confirm()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Guaradar encuesta contestada
