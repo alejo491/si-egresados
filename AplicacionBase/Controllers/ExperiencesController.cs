@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 using System.Data;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace AplicacionBase.Controllers
 {
@@ -34,12 +35,24 @@ namespace AplicacionBase.Controllers
                 }
 
             }
-            var IdUser = g;
-            ViewBag.UserId = IdUser;
-            Guid nulo = System.Guid.Empty;
-            if (g != nulo)
+
+            User user = db.Users.Find(g);
+            if (user != null)
             {
-                return View(db.Experiences.Where(l => l.IdUser == g));
+                var aspnetuser = db.aspnet_Users.Find(user.Id);
+                var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
+                if (roles.Contains("Administrador"))
+                {
+                    var lexperiences = db.Experiences;
+                    return View(lexperiences.ToList());
+                }
+                else
+                {
+                    ViewBag.UserId = user.Id;
+                    return View(db.Experiences.Where(l => l.IdUser == g));
+                    
+                }
+
             }
             else return RedirectPermanent("/Account/LogOn");
         }
@@ -62,9 +75,18 @@ namespace AplicacionBase.Controllers
                     b = db.Bosses.Find(e.IdBoss);
                 }
             }
+            User u = new User();
+            foreach (var exp in db.Experiences)
+            {
+                if (exp.Id == id)
+                {
+                    u = db.Users.Find(exp.IdUser);
+                }
+            }
             Session["IdBoss"] = b.Id;
             Session["IdExperience"] = id;
             ViewBag.NameBoss = b.Name;
+            ViewBag.NameUser = u.FirstNames + u.LastNames;
             return View(experience);
         }
 
