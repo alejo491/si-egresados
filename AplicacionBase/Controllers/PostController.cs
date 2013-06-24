@@ -432,21 +432,38 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        #region ShowPosts
+        /// <summary>
+        /// Muestra las noticia publicadas y autorizadas en el carrucel de noticias
+        /// </summary>
+        /// <returns>Retorna la vista con las noticias publicadas y autorizadas</returns>
         public ActionResult ShowPosts()
         {
             var posts = db.Posts.SqlQuery("exec dbo.Post_getPostMain");
             return View(posts);
         }
+        #endregion
 
+        #region ShowListPosts
+        /// <summary>
+        /// Muestra una lista de noticias que se han publicado pero no como principales
+        /// </summary>
+        /// <returns>Retorna la vista de noticias en forma de links</returns>
         public ActionResult ShowListPosts()
         {
             var posts = db.Posts.SqlQuery("exec dbo.Post_getPostList");
             return View(posts);
         }
+        #endregion
 
+        #region ShowPost
+        /// <summary>
+        /// Esta función se llama cuando se quiere mirar el contenido de un post
+        /// </summary>
+        /// <param name="id">Identificador del post</param>
+        /// <returns>Retorna el post en la vista</returns>
         public ActionResult ShowPost(Guid id)
-        {            
-            //Guid us = (Guid)Membership.GetUser().ProviderUserKey;           
+        {
             Post post = db.Posts.Find(id);
             Post post2 = new Post();
             Post post3 = new Post();
@@ -478,20 +495,21 @@ namespace AplicacionBase.Controllers
                 }              
             }
             else post2.Autorized = -1;
-            post2.Estate = lc.get_likes(id); // guardo en numero de megusta
+            post2.Estate = lc.get_likes(id);
             post3.Estate = startbox;
             datos.Add(post2);
             datos.Add(post3);
             return View(datos);
         }
+        #endregion
 
-        //! Atiende el resultado de hacer clic en Buscar de la vista Principal
-        /*!
-         * \param criteria Contiene las palabras clave con las que se desea hacer la busqueda
-         * \param page Elemento de control para la paginación
-         * \return La vista con el listado de vacantes encontradas para las palabras claves
-         *
-         */
+        #region Search
+        /// <summary>
+        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista Principal
+        /// </summary>
+        /// <param name="criteria">Contiene las palabras clave con las que se desea hacer la busqueda</param>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>Retorna la vista con el listado de noticias encontradas para las palabras claves</returns>
         public ActionResult Search(string criteria, int? page)
         {
             
@@ -510,6 +528,15 @@ namespace AplicacionBase.Controllers
             return View(results.ToPagedList(pageNumber, pageSize));
 
         }
+        #endregion
+
+        #region GlobalSearch
+        /// <summary>
+        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista de todas las noticias que puede mirar el usuario
+        /// </summary>
+        /// <param name="criteria">Contiene las palabras clave con las que se desea hacer la busqueda</param>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>Retorna la vista con el listado de noticias encontradas para las palabras claves</returns>
         public ActionResult GlobalSearch(string criteria, int? page)
         {
             ViewBag.CurrentFilter = criteria;
@@ -528,7 +555,15 @@ namespace AplicacionBase.Controllers
             return View(results.ToPagedList(pageNumber, pageSize));
 
         }
+        #endregion
 
+        #region UserSearch
+        /// <summary>
+        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista Principal del usuario
+        /// </summary>
+        /// <param name="criteria">Contiene las palabras clave con las que se desea hacer la busqueda</param>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>Retorna la vista con el listado de noticias encontradas para las palabras claves</returns>
         public ActionResult UserSearch(string criteria, int? page)
         {
             ViewBag.CurrentFilter = criteria;
@@ -554,7 +589,14 @@ namespace AplicacionBase.Controllers
             return View(results.ToPagedList(pageNumber, pageSize));
 
         }
+        #endregion
 
+        #region Autorizar post
+        /// <summary>
+        /// Esta función se llama cuando se quiere autorizar un post que ha hecho un usuario
+        /// </summary>
+        /// <param name="id">Identificador del post</param>
+        /// <param name="value">Valor que toma el post después de haberlo autorizado (0 o 1)</param>
         [HttpPost]
         public void AutorizarPost(Guid id, int value)
         {
@@ -566,7 +608,14 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
             }
         }
+        #endregion
 
+        #region PostPrincipal
+        /// <summary>
+        /// Esta función se llama cuando se quiere colocar un post como principal en el carrucel
+        /// </summary>
+        /// <param name="id">Identificador del post</param>
+        /// <param name="value">Valor que toma el post después de colocarlo como principal (0 o 1)</param>
         [HttpPost]
         public void PostPrincipal(Guid id, int value)
         {
@@ -578,7 +627,14 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
             }
         }
+        #endregion
 
+        #region Cambiar estado post
+        /// <summary>
+        /// Esta función se llama cuando se quiere que la noticia se muestre o no en el carrucel de noticias
+        /// </summary>
+        /// <param name="id">Identificador del post</param>
+        /// <param name="value">Valor que toma el post después de chulear el estado (0 o 1)</param>
         [HttpPost]
         public void CambiarEstadoPost(Guid id, int value)
         {
@@ -590,6 +646,7 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
             }
         }
+        #endregion
 
         #region Método dispose
         /// <summary>

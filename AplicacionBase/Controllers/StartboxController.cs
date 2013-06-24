@@ -98,28 +98,6 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Crear calificación HttpPost
-        /// <summary>
-        /// Guarda la calificación que se recibe en el formulario
-        /// </summary>
-        /// <param name="startbox">Calificación recibida desde un formulario</param>
-        /// <returns>Retorna la calificación en el formulario</returns>
-        //[HttpPost]
-        //public ActionResult Create(Startbox startbox)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        startbox.Id = Guid.NewGuid();
-        //        db.Startboxs.Add(startbox);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");  
-        //    }
-        //    ViewBag.Id_Post = new SelectList(db.Posts, "Id", "Title", startbox.Id_Post);
-        //    ViewBag.Id_User = new SelectList(db.Users, "Id", "PhoneNumber", startbox.Id_User);
-        //    return View(startbox);
-        //}
-        #endregion
-
         #region Editar calificación
         /// <summary>
         /// Da la opción de cambiar la calificación, ya sea con mayor o menor calificación
