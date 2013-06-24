@@ -365,7 +365,7 @@ namespace AplicacionBase.Controllers
             var file = request.Files[0];
             var inputStream = file.InputStream;
 
-            var fullName = Path.Combine(StorageRoot, Path.GetFileName(fileName));
+            var fullName = Path.Combine(StorageRoot, Path.GetFileName(fileName.ToString().Replace(" ", "_").Replace("-", "_")));
 
             using (var fs = new FileStream(fullName, FileMode.Append, FileAccess.Write))
             {
@@ -408,7 +408,7 @@ namespace AplicacionBase.Controllers
             {
                 var file = request.Files[i];
 
-                var fullPath = Path.Combine(StorageRoot, Path.GetFileName(file.FileName));
+                var fullPath = Path.Combine(StorageRoot, Path.GetFileName(file.FileName.ToString().Replace(" ", "_").Replace("-", "_")));
 
                 file.SaveAs(fullPath);
 
