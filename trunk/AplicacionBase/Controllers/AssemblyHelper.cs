@@ -177,10 +177,13 @@ namespace AplicacionBase.Controllers
             {
                 Membership.DeleteUser("Administrador");
                 Roles.DeleteRole("Administrador");
+                Roles.DeleteRole("Egresado");
                 var i = Membership.CreateUser("Administrador", "S13P1S", "localhost@localhost.com");
                 Roles.CreateRole("Administrador");
+                Roles.CreateRole("Egresado");
                 var user = db.aspnet_Users.First(u => u.UserName == "Administrador");
                 var role = db.aspnet_Roles.First(r => r.RoleName == "Administrador");
+                var egre = db.aspnet_Roles.First(r => r.RoleName == "Egresado");
                 db.SaveChanges();
                 var userrole = new aspnet_UsersInRoles(user.UserId, role.RoleId);
                 //userrole.RoleId = role.RoleId;
@@ -198,6 +201,12 @@ namespace AplicacionBase.Controllers
                 {
                     RoleMethod r = new RoleMethod(role.RoleId, method.Id);
                     db.RoleMethods.Add(r);
+                }
+
+                foreach (var method in metodos)
+                {
+                    RoleMethod r2 = new RoleMethod(egre.RoleId, method.Id);
+                    db.RoleMethods.Add(r2);
                 }
                 db.SaveChanges();
             }
