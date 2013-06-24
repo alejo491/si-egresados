@@ -16,6 +16,7 @@ namespace AplicacionBase.Models
         public System.Guid IdReport { get; set; }
         [Display(Name = "Enunciado")]
         [Required(ErrorMessage = " ¡El campo es obligatorio!")]
+        [MinLength(1, ErrorMessage = "No pueder tener mas de 300 caracteres")]
         public string Sentence { get; set; }
 
         public string SQLQuey { get; set; }

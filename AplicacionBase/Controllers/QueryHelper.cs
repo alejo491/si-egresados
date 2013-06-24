@@ -41,6 +41,9 @@ namespace AplicacionBase.Controllers
         }
     }
 
+    /// <summary>
+    /// Clase que convierte el dataset a xml
+    /// </summary>
     public static class Extensions
     {
         /// <summary>
