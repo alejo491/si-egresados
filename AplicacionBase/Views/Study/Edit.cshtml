@@ -2,14 +2,12 @@
 
 @{
     ViewBag.Title = "Editar";
-    var institucion = Model.School.Name;
-    var electivas1 = Model.Electives.Count;
+    var electivas1 = ViewBag.contadorElectivas;
     var electivas2 = electivas1 - 1;
     var electivas3 = electivas2 - 1;
     var electivas4 = electivas3 - 1;
     var electivas5 = electivas4 - 1;
-    var titulo = Model.Thesis;
-
+    var valor = ViewBag.Seleccionado3;
     var wizard = ViewBag.WizardStep;
 
     if (wizard == 1)
@@ -22,13 +20,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtStartDate").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#StartDate").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtEndDate").datepicker({ dateFormat: 'dd/mm/yy' });
+        $("#EndDate").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 
@@ -107,12 +105,12 @@
                     @if ((bool) ViewBag.Seleccionado1)
                     {
                         TempData["Seleccionado"] = "true";
-                        @Html.EditorFor(model => model.School.Name)
+                        <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" value="@ViewBag.Seleccionado11"/>
                     }
                     else
                     {
                         TempData["Seleccionado"] = "false";
-                        @Html.EditorFor(model => model.School.Name)
+                        <input type="text" name="txtSchool" id="txtSchool" style = "width:150px" value="@ViewBag.Seleccionado11"/>
                         <p class="alert error">@TempData["Error1"]</p>
                     }
                 </p>
@@ -147,7 +145,6 @@
                         <p class="alert error">@TempData["Error1"]</p>
                     }
                 </p>
-            @Html.EditorFor(model => model.Grade)
         </div>
         <div class="editor-label">
             <h3>Electivas</h3>
