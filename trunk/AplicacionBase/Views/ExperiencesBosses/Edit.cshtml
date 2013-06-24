@@ -40,6 +40,8 @@
         <div class="editor-label">
             Fecha Inicio (*)
         </div>
+        <div id="errorStartDate" class="alert error">
+        </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.StartDate, new { id = "startDate" })
             @Html.ValidationMessageFor(model => model.StartDate)
@@ -48,6 +50,8 @@
         <div class="editor-label">
             Fecha Fin (*)
         </div>
+        <div id="errorendDate" class="alert error">
+        </div>
         <div class="editor-field">
             @Html.TextBoxFor(model => model.EndDate, new { id = "endDate" })
             @Html.ValidationMessageFor(model => model.EndDate)
@@ -55,10 +59,65 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $("#startDate").datepicker({ dateFormat: 'dd/mm/yy' });
-            });
-
-            $(document).ready(function () {
                 $("#endDate").datepicker({ dateFormat: 'dd/mm/yy' });
+                $("#endDate").change(function () {
+                    var errorDate = false;
+                    var startDt = $("#startDate").val();
+                    var endDt = $("#endDate").val();
+                    var aI = startDt.substring(6, 10);
+                    var aF = endDt.substring(6, 10);
+                    if (aI <= aF) {
+                        var mI = startDt.substring(3, 5);
+                        var mF = endDt.substring(3, 5);
+                        if (mI <= mF) {
+                            var dI = startDt.substring(0, 2);
+                            var dF = endDt.substring(0, 2);
+                            if (dI > dF) {
+                                errorDate = true;
+                            }
+                        } else {
+                            errorDate = true;
+                        }
+                    } else {
+                        errorDate = true;
+                    }
+
+                    if (errorDate) {
+                        $('<p>').text('La fecha fin debe ser posterior a la fecha inicio').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
+                        $("#endDate").val("");
+                    }
+                });
+
+                $("#startDate").change(function () {
+                    var errorDate = false;
+                    var startDt = $("#startDate").val();
+                    var endDt = $("#endDate").val();
+                    if (endDt != "") {
+                        var aI = startDt.substring(6, 10);
+                        var aF = endDt.substring(6, 10);
+                        if (aI <= aF) {
+                            var mI = startDt.substring(3, 5);
+                            var mF = endDt.substring(3, 5);
+                            if (mI <= mF) {
+                                var dI = startDt.substring(0, 2);
+                                var dF = endDt.substring(0, 2);
+                                if (dI > dF) {
+                                    errorDate = true;
+                                }
+                            } else {
+                                errorDate = true;
+                            }
+                        } else {
+                            errorDate = true;
+                        }
+
+                        if (errorDate) {
+                            $('<p>').text('La fecha inicio debe ser posterior a la fecha fin').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
+                            $("#startDate").val("");
+                        }
+                    }
+                });
+
             });
     </script>
     <br/>
