@@ -8,14 +8,22 @@
 <fieldset>
     <legend>Usuario: @Model.aspnet_Users.UserName</legend>
 
-    <div class="display-label"><h3>Teléfono:@Html.DisplayFor(model => model.PhoneNumber) </h3></div>
-    <div class="display-label"><h3>Nombres: @Html.DisplayFor(model => model.FirstNames)</h3></div>
-    <div class="display-label"><h3> Apellidos:  @Html.DisplayFor(model => model.LastNames)</h3></div>
-    <div class="display-label"><h3> Dirección:  @Html.DisplayFor(model => model.Address)</h3></div>
-    <div class="display-label"><h3> Celular:  @Html.DisplayFor(model => model.CellphoneNumber)</h3></div>
-    <div class="display-label"><h3> Fecha de Nacimiento:  @Html.DisplayFor(model => model.BirthDate)</h3></div>
-    <div class="display-label"><h3> Género:  @Html.DisplayFor(model => model.Gender)</h3></div>
-    <div class="display-label"><h3> Estado Civil:  @Html.DisplayFor(model => model.MaritalStatus)</h3></div>
+    <div class="display-label">Teléfono:</div>
+    <div class="display-field">@Html.DisplayFor(model => model.PhoneNumber)</div>
+    <div class="display-label">Nombres: </div>
+    <div class="display-field">@Html.DisplayFor(model => model.FirstNames)</div>
+    <div class="display-label">Apellidos:  </div>
+    <div class="display-field">@Html.DisplayFor(model => model.LastNames)</div>
+    <div class="display-label">Dirección:  </div>
+    <div class="display-field">@Html.DisplayFor(model => model.Address)</div>
+    <div class="display-label">Celular:  </div>
+    <div class="display-field">@Html.DisplayFor(model => model.CellphoneNumber)</div>
+    <div class="display-label">Fecha de Nacimiento:  </div>
+    <div class="display-field">@Html.DisplayFor(model => model.BirthDate)</div>
+    <div class="display-label">Género:  </div>
+    <div class="display-field">@Html.DisplayFor(model => model.Gender)</div>
+    <div class="display-label">Estado Civil:  </div>
+    <div class="display-field">@Html.DisplayFor(model => model.MaritalStatus)</div>
 
     <div>&nbsp</div>
 

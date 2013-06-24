@@ -54,6 +54,34 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Create", "User");
         }
 
+        public ActionResult AsignarRol()
+        {
+            Guid g = System.Guid.Empty;
+            Guid role = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+            foreach (var e in db.aspnet_Roles)
+            {
+                if (e.RoleName == "Egresado")
+                {
+                    role = e.RoleId;
+                }
+            }
+
+            if (role != System.Guid.Empty)
+            {
+                var userrole = new aspnet_UsersInRoles(g, role);
+                db.aspnet_UsersInRoles.Add(userrole);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
         /// <summary>
         /// Metodo que ayuda al crear información personal del usuario
         /// </summary>
