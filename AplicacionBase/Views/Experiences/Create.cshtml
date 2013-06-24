@@ -78,18 +78,12 @@
                             var dI = startDt.substring(0, 2);
                             var dF = endDt.substring(0, 2);
                             if (dI > dF) {
-                                //                                $('<p>').text('La fecha de finalizacion debe ser posterior a la fecha de inicio').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
-                                //                                $("#endDate").val("");
                                 errorDate = true;
                             }
                         } else {
-                            //                            $('<p>').text('La fecha de finalizacion debe ser posterior a la fecha de inicio').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
-                            //                            $("#endDate").val("");
                             errorDate = true;
                         }
                     } else {
-                        //                        $('<p>').text('La fecha de finalizacion debe ser posterior a la fecha de inicio').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
-                        //                        $("#endDate").val("");
                         errorDate = true;
                     }
 
@@ -112,19 +106,13 @@
                             if (mI <= mF) {
                                 var dI = startDt.substring(0, 2);
                                 var dF = endDt.substring(0, 2);
-                                if (dI > dF) {
-                                    //                                    $('<p>').text('La fecha de inicio debe ser anterior a la fecha de finalizacion').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
-                                    //                                    $("#startDate").val("");
+                                if (dI > dF) {                                    
                                     errorDate = true;
                                 }
-                            } else {
-                                //                                $('<p>').text('La fecha  de inicio debe ser posterior a la fecha de finalizacion').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
-                                //                                $("#startDate").val("");
+                            } else {                                
                                 errorDate = true;
                             }
-                        } else {
-                            //                            $('<p>').text('La fecha de inicio debe ser posterior a la fecha de finalizacion').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
-                            //                            $("#startDate").val("");
+                        } else {                            
                             errorDate = true;
                         }
 
