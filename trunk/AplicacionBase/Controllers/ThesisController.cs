@@ -8,7 +8,10 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
-{ 
+{
+    /// <summary>
+    /// Clase controlador que permite gestión de Tesis.
+    /// </summary>
     public class ThesisController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -64,7 +67,8 @@ namespace AplicacionBase.Controllers
         /// Guarda los cambios de la información de la tesis recibidos en el formulario
         /// </summary>
         /// <param name="school">Tesis a editar</param>
-        /// <returns></returns>
+        /// <returns> Redirecciona al inicio</returns>
+        /// <returns> Redirecciona a la vista de editar la tesis</returns>
         [HttpPost]
         #region Edit(thesis)
         public ActionResult Edit(Thesis thesis)
