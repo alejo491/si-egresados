@@ -8,7 +8,10 @@ using System.Web.Mvc;
 using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
-{ 
+{
+    /// <summary>
+    /// Clase controlador que permite gestión de electivas.
+    /// </summary>
     public class ElectiveController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
@@ -18,7 +21,7 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Método que carga la vista que contiene todas las electivas registradas en el sistema
         /// </summary>
-        /// <returns>Vista que contine los datos de las escuelas</returns>
+        /// <returns>Vista que contine los datos de las instituciones</returns>
         #region Index()
         public ViewResult Index()
         {
@@ -62,7 +65,8 @@ namespace AplicacionBase.Controllers
         /// Guarda los cambios de la información de la electiva recibidos en el formulario
         /// </summary>
         /// <param name="elective">Electiva a editar</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al inicio</returns>
+        /// <returns>Redirecciona a la vista de electivas</returns>
         [HttpPost]
         #region Edit(elective)
         public ActionResult Edit(Elective elective)

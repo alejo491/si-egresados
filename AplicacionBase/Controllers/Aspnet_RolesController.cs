@@ -9,58 +9,66 @@ using AplicacionBase.Models;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Clase controlador que permite gestión de roles.
+    /// </summary>
     public class Aspnet_RolesController : Controller
     {
         private DbSIEPISContext db = new DbSIEPISContext();
 
-        #region Listar Roles
+        
         //
         // GET: /Aspnet_Roles/
         /// <summary>
         /// Muestra los Roles existentes y da la opcion de modificarles los permisos
         /// </summary>
-        /// <returns></returns>
+        /// <returns> Muestra la vista de roles</returns>
+        #region Listar Roles
         public ViewResult Index()
         {
             var aspnet_roles = db.aspnet_Roles.Include(a => a.aspnet_Applications);
             return View(aspnet_roles.ToList());
         }
         #endregion
-        #region Detalles
+        
         //
         // GET: /Aspnet_Roles/Details/5
         /// <summary>
         /// Muesta en detalle los Roles
         /// </summary>
         /// <param name="id">Identificador del Rol</param>
-        /// <returns></returns>
+        /// <returns>Muestra la vista de roles del usuario</returns>
+        #region Detalles
         public ViewResult Details(Guid id)
         {
             aspnet_Roles aspnet_roles = db.aspnet_Roles.Find(id);
             return View(aspnet_roles);
         }
         #endregion
-        #region Crear Rol
+       
         //
         // GET: /Aspnet_Roles/Create
         /// <summary>
         /// Opcion para crear u nuevo Rol
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Redirecciona a la vista del rol creado</returns>
+        #region Crear Rol
         public ActionResult Create()
         {
             // ViewBag.ApplicationId = new SelectList(db.aspnet_Applications, "ApplicationId", "ApplicationName");
             return View();
         }
         #endregion
-        #region Crear Rol HTTPPost
+        
         //
         // POST: /Aspnet_Roles/Create
         /// <summary>
         /// Guarda un Rol recibido desde URL
         /// </summary>
         /// <param name="aspnet_roles">Recibe un Rol para ser guardado</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al index</returns>
+        /// <returns>Redirecciona a la vista de roles</returns>
+        #region Crear Rol HTTPPost
         [HttpPost]
         public ActionResult Create(aspnet_Roles aspnet_roles)
         {
@@ -79,14 +87,18 @@ namespace AplicacionBase.Controllers
             return View(aspnet_roles);
         }
         #endregion
-        #region Editar Roles
+
+        
         //
         // GET: /Aspnet_Roles/Edit/5
         /// <summary>
         /// Da la opcion para editar un Rol
         /// </summary>
         /// <param name="id">Identifiacador del Rol a Editar</param>
-        /// <returns></returns>
+        /// <returns>Muestra la vista de los roles</returns>
+        /// <returns>Redirecciona al inicio</returns>
+        /// <returns>Redirecciona al inicio</returns>
+        #region Editar Roles
         public ActionResult Edit(Guid id)
         {
             /* aspnet_Roles aspnet_roles = db.aspnet_Roles.Find(id);
@@ -111,14 +123,17 @@ namespace AplicacionBase.Controllers
             }
         }
         #endregion
-        #region Editartar Roles HttpPost
+
+        
         //
         // POST: /Aspnet_Roles/Edit/5
         /// <summary>
         /// Guarda las modificaciones del Rol Que se recibe mediante un formulario
         /// </summary>
         /// <param name="aspnet_roles">Rol recibido par guardar los cambios</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al inicio</returns>
+        /// <returns>Muestra la vista de usuarios con el mensaje de rol cambiado</returns>
+        #region Editar Roles HttpPost
         [HttpPost]
         public ActionResult Edit(aspnet_Roles aspnet_roles)
         {
@@ -133,28 +148,32 @@ namespace AplicacionBase.Controllers
             return View(aspnet_roles);
         }
         #endregion
-        #region Eliminar Roles
+
+       
         //
         // GET: /Aspnet_Roles/Delete/5
         /// <summary>
         /// Da la opcionm de eliminar un Rol
         /// </summary>
         /// <param name="id">Identificador del Rol a Eliminar</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona a la vista usuarios registrados</returns>
+        #region Eliminar Roles
         public ActionResult Delete(Guid id)
         {
             aspnet_Roles aspnet_roles = db.aspnet_Roles.Find(id);
             return View(aspnet_roles);
         }
         #endregion
-        #region Eliminar Roles HttpPost
+
+        
         //
         // POST: /Aspnet_Roles/Delete/5
         /// <summary>
         /// Elimina El rol que corresponda al identificador
         /// </summary>
         /// <param name="id">Identificador del Rol a Eliminar</param>
-        /// <returns></returns>
+        /// <returns>Redirecciona al inicio</returns>
+        #region Eliminar Roles HttpPost
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(Guid id)
         {
@@ -165,11 +184,13 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Index");
         }
         #endregion
-     
+
+        #region Dispose
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
     }
 }

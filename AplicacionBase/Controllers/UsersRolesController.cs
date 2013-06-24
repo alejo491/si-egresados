@@ -22,6 +22,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del usuario al que se le van a asignar los roles</param>
         /// <returns>Vista para agregar los roles al usuario</returns>
+        #region Asignar Roles
         public ActionResult AssignUserRoles(Guid id)
         {
             var aspnet_User = db.aspnet_Users.Find(id);
@@ -37,13 +38,15 @@ namespace AplicacionBase.Controllers
             }
 
         }
+        #endregion
 
         /// <summary>
         /// Metodo POST del formulario
         /// </summary>
         /// <param name="id">Id del usuario al que se le van a asignar los roles</param>
         /// <param name="postedForm">Contiene todos los datos del formulario</param>
-        /// <returns>Redireccion al listado de usuarios</returns>
+        /// <returns>Redirecciona al listado de usuarios</returns>
+        #region Asignar Roles (Guardar cambios)
         [HttpPost]
         public ActionResult AssignUserRoles(Guid id, FormCollection postedForm)
         {
@@ -61,12 +64,14 @@ namespace AplicacionBase.Controllers
             TempData["Success"] = "Se han asignado los roles al usuario correctamente";
             return RedirectToAction("Index", "User");
         }
+        #endregion
 
         /// <summary>
         /// Metodo que reasigna los roles de un usuario especifico
         /// </summary>
         /// <param name="aspnet_User">Usuario al que se le van a cambiar los roles</param>
         /// <param name="aspnet_RolesToAdd">Roles que se le van a asignar al usuario</param>
+        #region Reasignar Roles
         public void Reassignaspnet_Roles(aspnet_Users aspnet_User, List<aspnet_Roles> aspnet_RolesToAdd)
         {           
             foreach (var cat in db.aspnet_Roles)
@@ -87,8 +92,9 @@ namespace AplicacionBase.Controllers
                 db.aspnet_UsersInRoles.Add(auxUsersInrole);
             }
 
-        
-            
+
+
         }
+        #endregion
     }
 }

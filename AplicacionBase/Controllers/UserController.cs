@@ -31,7 +31,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         private System.Linq.IOrderedEnumerable<User> results;
 
-        #region Página Principal Usuarios
+       
         //
         // GET: /User/
 
@@ -40,6 +40,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <returns>Vista que contine todos los usuarios</returns>
         /// <returns>Redirecciona al perfil personal del usuario</returns>
+        #region Página Principal Usuarios
         public ActionResult Index(int? page)
         {
             Guid g = searchId();
@@ -59,13 +60,13 @@ namespace AplicacionBase.Controllers
             }
         }
         #endregion
-
-        #region Perfil Personal del Usuario
+        
         /// <summary>
         /// Método que carga la vista principal de un usuario
         /// </summary>
         /// <param name="id">Id del usuario que ingresa al sistema</param>
         /// <returns>Vista principal de un usuario con todas sus opciones</returns>
+        #region Perfil Personal del Usuario
         public ActionResult Begin(Guid id)
         {
             User user = db.Users.Find(id);
@@ -78,8 +79,7 @@ namespace AplicacionBase.Controllers
             return View(user);
         }
         #endregion
-
-        #region Detalles de Usuario
+       
         //
         // GET: /User/Details/5
         /// <summary>
@@ -87,20 +87,21 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del usuario</param>
         /// <returns>Vista para consultar los datos de un usuario</returns>
+        #region Detalles de Usuario
         public ViewResult Details(Guid id)
         {
             User user = db.Users.Find(id);
             return View(user);
         }
         #endregion
-
-        #region Crear Usuarios
+       
         //
         // GET: /User/Create
         /// <summary>
         /// Método que carga la vista con el formulario para crear la información personal de un usuario
         /// </summary>
         /// <returns>Vista que despliega el formulario que permite crear los datos</returns>
+        #region Crear Usuarios
         public ActionResult Create()
         {
             ViewBag.UserName = HttpContext.User.Identity.Name;
@@ -108,12 +109,12 @@ namespace AplicacionBase.Controllers
             return View();
         }
         #endregion
-
-        #region Obtener Id del usuario activo
+      
         /// <summary>
         /// Método que obtiene el Id del usuario que esta logueado en el sistema
         /// </summary>
         /// <returns>Id del usuario</returns>
+        #region Obtener Id del usuario activo
         public Guid searchId()
         {
             Guid g = System.Guid.Empty;
@@ -127,8 +128,7 @@ namespace AplicacionBase.Controllers
             return g;
         }
         #endregion
-
-        #region Almacenar Usuarios
+    
         //
         // POST: /User/Create
         /// <summary>
@@ -138,6 +138,7 @@ namespace AplicacionBase.Controllers
         /// <returns>Redirecciona al perfil de Usuario</returns>
         /// <returns>Redirecciona al index de Wizard</returns>
         /// <returns>Vista que despliega el formulario que permite crear los datos </returns>
+        #region Almacenar Usuarios
         [HttpPost]
         public ActionResult Create(User user)
         {
@@ -167,14 +168,14 @@ namespace AplicacionBase.Controllers
             return View(user);
         }
         #endregion
-
-        #region Administrar Wizard
+       
         /*Lineas Necesarias, para Administrar el Wizard*/
         /// <summary>
         /// Se cargan los pasos que son necesarios que haga un
         /// usuario determinado
         /// </summary>
         /// <param name="user">Identificador único del usuario </param>
+        #region Administrar Wizard
         private void StepsLoad(Guid user)
         {
             var steps = db.Steps.OrderBy(s => s.SOrder).ToList();
@@ -193,13 +194,12 @@ namespace AplicacionBase.Controllers
             }
         }
         #endregion
-
-        #region Pasos del Wizard
-
+    
         /*Lineas Necesarias, para Administrar el Wizard*/
         /// <summary>
         /// Se Crean los pasos del Wizard
         /// </summary>
+        #region Pasos del Wizard
         private void CreateSteps(Guid id)
         {
             var db = new DbSIEPISContext();
@@ -352,8 +352,7 @@ namespace AplicacionBase.Controllers
 
         }
         #endregion
-
-        #region Editar Usuario
+       
         //
         // GET: /User/Edit/5
         /// <summary>
@@ -361,6 +360,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del usuario</param>
         /// <returns>Vista que despliega el formulario con los datos para editarlos</returns>
+        #region Editar Usuario
         public ActionResult Edit(Guid id)
         {
             User user = db.Users.Find(id);
@@ -368,8 +368,7 @@ namespace AplicacionBase.Controllers
             return View(user);
         }
         #endregion
-
-        #region Editar Usuario (Almacenar Cambios)
+                
         //
         // POST: /User/Edit/5
         /// <summary>
@@ -379,6 +378,7 @@ namespace AplicacionBase.Controllers
         /// <returns> Redirecciona al perfil personal del usuario</returns>
         /// <returns> Redirecciona al index del usuario</returns>
         /// <returns> Redirecciona a la vista principal del usuario con todas sus funcionalidades</returns>
+        #region Editar Usuario (Almacenar Cambios)
         [HttpPost]
         public ActionResult Edit(User user)
         {
@@ -403,12 +403,13 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Cambiar estado
+       
         /// <summary>
         /// Método que carga la vista que permite modificar el estado de un usuario en el sistema
         /// </summary>
         /// <param name="id">Id del usuario</param>
         /// <returns>Vista que da la opción de cambiar de estado a un usuario</returns>
+        #region Cambiar estado
         public ActionResult State(Guid id)
         {
             User user = db.Users.Find(id);
@@ -417,14 +418,14 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Cambiar Estado (Almacenar Cambios)
+       
         /// <summary>
         /// Guarda los cambios realizados al estado de un usuario
         /// </summary>
         /// <param name="user">Usuario con toda su información</param>
         /// <returns> Redirecciona al index del usuario</returns>
         ///  <returns> Redirecciona a la vista del usuario administrador</returns>
-
+        #region Cambiar Estado (Almacenar Cambios)
         [HttpPost]
         public ActionResult State(User user)
         {
@@ -439,25 +440,25 @@ namespace AplicacionBase.Controllers
             return View(user);
         }
         #endregion
-
-        #region Registro de usuario
+       
         /// <summary>
         /// Método que carga la vista del formulario para registrar un usuario en el sistema
         /// </summary>
         /// <returns>Vista que despliega el formulario de registro</returns>
+        #region Registro de usuario
         public ActionResult Register()
         {
             return View();
         }
         #endregion
-
-        #region Registrar usuarios (Almacenar cambios)
+        
         /// <summary>
         /// Guarda el usuario creado en el sistema
         /// </summary>
         /// <param name="model">Usuario a registrar</param>
         /// <returns>Redirecciona al user generate para almacenar la información correspondiente al usuario</returns>
         /// <returns>Redirecciona a la vista de registro de datos </returns>
+        #region Registrar usuarios (Almacenar cambios)
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -481,11 +482,12 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Crear Información del Usuario (Funcion Administrador) 
+        
         /// <summary>
         /// Método que carga la vista con el formulario para crear la información personal de un usuario por parte del administrador
         /// </summary>
         /// <returns>Vista que despliega el formulario que permite crear los datos</returns>
+        #region Crear Información del Usuario (Funcion Administrador)
         public ActionResult Generate(Guid id)
         {
             User user = db.Users.Find(id);
@@ -494,13 +496,14 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Crear Información del Usuario (Almacenar cambios)
+        
         /// <summary>
         /// Guarda los datos del usuario creado por parte del administrador
         /// </summary>
         /// <param name="user">Usuario con toda su información</param>
         /// <returns>Redirecciona al index del usuario</returns>
         /// <returns>Muestra los usuario registrados</returns>
+        #region Crear Información del Usuario (Almacenar cambios)
         [HttpPost]
         public ActionResult Generate(User user)
         {
@@ -517,13 +520,14 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region salir
+       
         /// <summary>
         /// Método que permite salir de la vista principal de un usuario
         /// </summary>
         /// <param name="id">Id del usuario que ingresa al sistema</param>
         /// <returns>Redireccionar al index de usuario</returns>
         /// <returns>Redireccionar a la pagina inicial (Home)</returns>
+        #region salir
         public ActionResult Out(Guid id)
         {
             Guid g = System.Guid.Empty;
@@ -549,13 +553,14 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Buscador
+       
         /// <summary>
         /// Método que permite buscar usuarios
         /// </summary>
         /// <param name="nameuser">Parametro de búsqueda</param>
         /// <param name="page">Número de la página</param>
         /// <returns>Redirecciona a la vista del buscador </returns>
+        #region Buscador
         public ActionResult Search(string nameuser, int? page)
         {
             ViewBag.CurrentFilter = nameuser;
@@ -571,11 +576,13 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        #region Dispose
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+        #endregion
 
     }
 }

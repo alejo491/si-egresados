@@ -21,7 +21,9 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Metodo que ayuda al direccionamiento a la hora de autenticarse en el sistema
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Redirecciona al perfil de usuario</returns>
+        /// <returns>Redirecciona al index del wizard</returns>
+        /// <returns>Redirecciona a crear usuario</returns>
         public ActionResult Index()
         {
             Guid g = System.Guid.Empty;
@@ -85,7 +87,8 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Metodo que ayuda al crear información personal del usuario
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Redirecciona a editar el usuario </returns>
+        /// <returns>Redirecciona a crear un usuario </returns>
         public ActionResult Edit()
         {
             Guid g = System.Guid.Empty;
@@ -134,7 +137,7 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Metodo que ayuda al direccionamiento dependiendo del usuario
         /// </summary>
-        /// <returns>A la vista principal del Usuario</returns>
+        /// <returns>Redirecciona a la vista principal del Usuario</returns>
         public ActionResult Out() 
         {
             Guid g = System.Guid.Empty;
@@ -149,9 +152,10 @@ namespace AplicacionBase.Controllers
         }
 
         /// <summary>
-        /// Metodo que redirecciona a la vista beguin deacuerdo al usuario del momento
+        /// Metodo que redirecciona a la vista begin deacuerdo al usuario del momento
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Redirecciona hacia el perfil de usuario</returns>
+        /// <returns>Redirecciona al inicio</returns>
         public ActionResult Redirect()
         {
             Guid g = System.Guid.Empty;
