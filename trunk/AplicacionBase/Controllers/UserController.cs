@@ -205,6 +205,112 @@ namespace AplicacionBase.Controllers
             };
             db.Surveys.Add(survey);
             db.SaveChanges();
+            var topicempleo = new Topic
+                {
+                    Id = Guid.NewGuid(),
+                    Description = "Encuesta de empleo"
+                    
+                };
+            db.Topics.Add(topicempleo);
+            db.SaveChanges();
+            var question1 = new Question()
+                {
+                    Id = Guid.NewGuid(),
+                    IdTopic = topicempleo.Id,
+                    Sentence =  "¿Tiene empleo actualmente?",
+                    Type = "Unica",
+                    QuestionNumber = 1,
+                    IsObligatory = 0,
+                };
+            db.Questions.Add(question1);
+            var question2 = new Question()
+            {
+                Id = Guid.NewGuid(),
+                IdTopic = topicempleo.Id,
+                Sentence = "¿Cuanto trabajo en su ultimo empleo?",
+                Type = "Multiple",
+                QuestionNumber = 1,
+                IsObligatory = 0,
+            };
+            db.Questions.Add(question2);
+            db.SaveChanges();
+
+            var answerchoice1 = new AnswerChoice
+                {
+                    Id = Guid.NewGuid(),
+                    AnswerNumber = 1,
+                    IdQuestion = question1.Id,
+                    NumericValue = 10,
+                    Sentence = "Si",
+                    Type = "Normal"
+
+                };
+            db.AnswerChoices.Add(answerchoice1);
+            var answerchoice2 = new AnswerChoice
+            {
+                Id = Guid.NewGuid(),
+                AnswerNumber = 2,
+                IdQuestion = question1.Id,
+                NumericValue = 20,
+                Sentence = "No",
+                Type = "Normal"
+
+            };
+            db.AnswerChoices.Add(answerchoice2);
+
+            var answerchoice3 = new AnswerChoice
+            {
+                Id = Guid.NewGuid(),
+                AnswerNumber = 3,
+                IdQuestion = question2.Id,
+                NumericValue = 5,
+                Sentence = "No he tenido mi primer empleo",
+                Type = "Normal"
+
+            };
+            db.AnswerChoices.Add(answerchoice3);
+
+            var answerchoice4 = new AnswerChoice
+            {
+                Id = Guid.NewGuid(),
+                AnswerNumber = 3,
+                IdQuestion = question2.Id,
+                NumericValue = 7,
+                Sentence = "Menos de un año",
+                Type = "Normal"
+
+            };
+            db.AnswerChoices.Add(answerchoice4);
+
+            var answerchoice5 = new AnswerChoice
+            {
+                Id = Guid.NewGuid(),
+                AnswerNumber = 4,
+                IdQuestion = question2.Id,
+                NumericValue = 10,
+                Sentence = "Entre 1 y 2 años",
+                Type = "Normal"
+
+            };
+            db.AnswerChoices.Add(answerchoice5);
+
+            var answerchoice6 = new AnswerChoice
+            {
+                Id = Guid.NewGuid(),
+                AnswerNumber = 5,
+                IdQuestion = question2.Id,
+                NumericValue = 10,
+                Sentence = "Otro",
+                Type = "Con texto"
+
+            };
+            db.AnswerChoices.Add(answerchoice6);
+
+            db.SaveChanges();
+
+            var topicsurvey = new SurveysTopic{IdSurveys =  survey.Id, IdTopic = topicempleo.Id, TopicNumber = 1};
+            db.SurveysTopics.Add(topicsurvey);
+            db.SaveChanges();
             var count = 0;
 
             while (count < 3)

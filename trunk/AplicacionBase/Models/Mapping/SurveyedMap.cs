@@ -17,7 +17,7 @@ namespace AplicacionBase.Models.Mapping
 
             this.Property(t => t.Email)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(100);
 
             this.Property(t => t.Type)
                 .IsRequired()
