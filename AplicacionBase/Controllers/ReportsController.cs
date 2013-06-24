@@ -233,7 +233,7 @@ namespace AplicacionBase.Controllers
                     //int n = 0;
                     var labels = new List<string>();
                     var vals = new List<List<int>>();
-                    if (dt.Rows.Count > 0)
+                    if (dt.Rows.Count >= 2)
                     {
                         int m = dt.Rows.Count;
                         int n = dt.Rows[0].ItemArray.Length;
@@ -251,12 +251,13 @@ namespace AplicacionBase.Controllers
                                 if (int.TryParse(ob.ToString(), out value))
                                 {
                                     valores[fila, indice] = value;
+                                    indice++;
                                 }
                                 else
                                 {
                                     label += ob.ToString() + " ";
                                 }
-                                indice++;
+                                
                             }
                             fila++;
                             labels.Add(label);
@@ -264,18 +265,20 @@ namespace AplicacionBase.Controllers
 
 
                         var l = new List<Dictionary<string, int>>();
-                        for (int i = 0; i < n; i++)
-                        {
-                            var d1 = new Dictionary<string, int>();
-                            for (int j = 0; j < m; j++)
+
+                       // foreach (var label in labels)
+                        //{
+                            for (int i = 0; i < n; i++)
                             {
-                                foreach (var label in labels)
+                                var d1 = new Dictionary<string, int>();
+                                for (int j = 0; j < m; j++)
                                 {
-                                    d1.Add(label, valores[i, j]);
+                                    d1.Add(labels[j], valores[j, i]);
+
                                 }
+                                l.Add(d1);
                             }
-                            l.Add(d1);
-                        }
+                        //}
 
                         item.DataNumber = 0;
                         item.GraphicType = itemsData.GraphicType;
@@ -302,7 +305,7 @@ namespace AplicacionBase.Controllers
 
             }
 
-            var il = items.OrderBy(ite => ite.DataNumber).ToList();
+            var il = items.OrderBy(ite => ite.ItemNumber).ToList();
             ViewBag.Items = il;
             /*var itemSurvey = db.ItemSurveys.Find(id);
             
