@@ -303,7 +303,7 @@
                                     <p style="font-size: 12px">Electiva 1</p>
                                 </div>
                                 <div class="c3">
-                                    <input type="text" name="txtElective1" id="txtElective" style = "width:150px" />
+                                    <input type="text" name="txtElective1" id="txtElective" style = "width:150px" value="@ViewBag.Electiva1"/>
                                     @*@Html.DropDownList("field1", new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
                                 </div>
                                 <div class="c3">
@@ -324,7 +324,7 @@
                                     <p style="font-size: 12px">Electiva 2</p>
                                 </div>
                                 <div class="c3">
-                                    <input type="text" name="txtElective2" id="txtElective2" style = "width:150px" />
+                                    <input type="text" name="txtElective2" id="txtElective2" style = "width:150px" value="@ViewBag.Electiva2"/>
                                     @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
                                 </div>
                                 <div class="c3">
@@ -341,7 +341,7 @@
                                     <p style="font-size: 12px">Electiva 3</p>
                                 </div>
                                 <div class="c3">
-                                    <input type="text" name="txtElective3" id="txtElective3" style = "width:150px" />
+                                    <input type="text" name="txtElective3" id="txtElective3" style = "width:150px" value="@ViewBag.Electiva3"/>
                                     @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
                                 </div>
                                 <div class="c3">
@@ -358,7 +358,7 @@
                                     <p style="font-size: 12px">Electiva 4</p>
                                 </div>
                                 <div class="c3">
-                                    <input type="text" name="txtElective4" id="txtElective4" style = "width:150px" />
+                                    <input type="text" name="txtElective4" id="txtElective4" style = "width:150px" value="@ViewBag.Electiva4"/>
                                     @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
                                 </div>
                                 <div class="c3">
@@ -375,7 +375,7 @@
                                     <p style="font-size: 12px">Electiva 5</p>
                                 </div>
                                 <div class="c3">
-                                    <input type="text" name="txtElective5" id="txtElective5" style = "width:150px" />
+                                    <input type="text" name="txtElective5" id="txtElective5" style = "width:150px" value="@ViewBag.Electiva5"/>
                                     @*@Html.DropDownList("field" + i, new SelectList(new ListDictionary()), htmlAttributes: new { @class = "classfield" })*@
                                 </div>
                                 <div class="c3">
@@ -464,13 +464,13 @@
                             <h3>Tesis</h3>
                         </div>
                         <div class="editor-field">
-                             <input type="text" name="txtTesis" id="txtTesis" style = "width:150px" />
+                             <input type="text" name="txtTesis" id="txtTesis" style = "width:150px" value="@ViewBag.Tesis"/>
                         </div>
                         <div class="editor-label">
                             <h3>Descripción</h3>
                         </div>
                         <div class="editor-field">
-                             <textarea name="comentarios" rows="10" cols="40" id = "txtDescripcion" placeholder="Escribe aquí la descripción de tu tesis"></textarea>
+                             <textarea name="comentarios" rows="10" cols="40" id = "txtDescripcion" placeholder="Escribe aquí la descripción de tu tesis">@ViewBag.Descripcion</textarea>
                         </div>  
                         <input type="hidden" name="wizard" id="wizard" value="@ViewBag.thewizard"/>
                          
