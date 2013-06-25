@@ -9,6 +9,11 @@ using System.Configuration;
 
 namespace AplicacionBase.Controllers
 {
+    /// <summary>
+    /// Esta encargada de contruir el cuerpo del correo electrónico y
+    /// de enviar un correo electrónico basado en unas configuraciones previas en el 
+    /// web.config
+    /// </summary>
     public static class SendSurveysEmailController
     {
 

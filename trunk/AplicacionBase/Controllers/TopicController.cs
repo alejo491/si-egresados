@@ -11,6 +11,10 @@ namespace AplicacionBase.Controllers
 { 
     public class TopicController : Controller
     {
+        /// <summary>
+        /// Se encarga de los procesos relacionados con los temas
+        /// de las encuestas; acciones tales como: crear, ver, eliminar, editar y listar
+        /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
 
         //
