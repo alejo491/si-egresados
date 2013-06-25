@@ -114,100 +114,117 @@ namespace AplicacionBase
 
                     #region Reglas del controlador Post
                     //Se obtienen los roles que tienen acceso al controlador Post y a los métodos de este controlador.
-                    string[] rolesPostIndex = assembly.GetRolesMethods("PostController", "Index");
-                    string[] rolesPostUserIndex = assembly.GetRolesMethods("PostController", "UserIndex");
-                    var rolesPostCreate = assembly.GetRolesMethods("PostController", "Create");
-                    var rolesPostDetails = assembly.GetRolesMethods("PostController", "Details");
-                    var rolesPostEdit = assembly.GetRolesMethods("PostController", "Edit");
-                    var rolesPostDelete = assembly.GetRolesMethods("PostController", "Delete");
-                    var rolesPostDeleteConfirmed = assembly.GetRolesMethods("PostController", "DeleteConfirmed");
-                    //var rolesPostShowPosts = assembly.GetRolesMethods("PostController", "ShowPosts");
-                    var rolesPostShowPost = assembly.GetRolesMethods("PostController", "ShowPost");
+                    //REGLAS ADMINISTRADOR
+                    //string[] rolesPostIndex = assembly.GetRolesMethods("PostController", "Index");
+                    //var rolesPostDetailsAdmin = assembly.GetRolesMethods("PostController", "DetailsAdmin");
+                    //var rolesPostCreateAdmin = assembly.GetRolesMethods("PostController", "CreateAdmin");
+                    //var rolesPostEditAdmin = assembly.GetRolesMethods("PostController", "EditAdmin");
+                    //var rolesPostSearch = assembly.GetRolesMethods("PostController", "Search");
+                    //var rolesPostAutorizarPost = assembly.GetRolesMethods("PostController", "AutorizarPost");
+                    //var rolesPostPostPrincipal = assembly.GetRolesMethods("PostController", "PostPrincipal");
+                    //var rolesPostCambiarEstadoPost = assembly.GetRolesMethods("PostController", "CambiarEstadoPost");
 
+                    //REGLAS USUARIO
+                    //string[] rolesPostUserIndex = assembly.GetRolesMethods("PostController", "UserIndex");
+                    //var rolesPostDetails = assembly.GetRolesMethods("PostController", "Details");
+                    //var rolesPostCreate = assembly.GetRolesMethods("PostController", "Create");                    
+                    //var rolesPostEdit = assembly.GetRolesMethods("PostController", "Edit");
+                    //var rolesPostUserSearch = assembly.GetRolesMethods("PostController", "UserSearch");
+                    //var rolesPostUserFilter = assembly.GetRolesMethods("PostController", "UserFilter");
+                    
                     //Se configuran las reglas de acceso para el controlador Post.
-                    configuration.For<PostController>(x => x.Index(default(int)))
-                                 .RequireAnyRole(rolesPostIndex);
+                    //REGLAS ADMINISTRADOR
+                    //configuration.For<PostController>(x => x.Index(default(int)))
+                    //             .RequireAnyRole(rolesPostIndex);
 
-                    configuration.For<PostController>(x => x.UserIndex(default(int)))
-                                 .RequireAnyRole(rolesPostUserIndex);
+                    //configuration.For<PostController>(x => x.DetailsAdmin(default(Guid)))
+                    //              .RequireAnyRole(rolesPostDetailsAdmin);
 
-                    configuration.For<PostController>(x => x.Create())
-                                 .RequireAnyRole(rolesPostCreate);
+                    //configuration.For<PostController>(x => x.CreateAdmin())
+                    //                 .RequireAnyRole(rolesPostCreateAdmin);
 
-                    configuration.For<PostController>(x => x.Details(default(Guid)))
-                                  .RequireAnyRole(rolesPostDetails);
+                    //configuration.For<PostController>(x => x.EditAdmin(default(Guid)))
+                    //                 .RequireAnyRole(rolesPostEditAdmin);
 
-                    configuration.For<PostController>(x => x.Edit(default(Guid)))
-                                 .RequireAnyRole(rolesPostEdit);
+                    //configuration.For<PostController>(x => x.Search(default(string), default(int)))
+                    //                     .RequireAnyRole(rolesPostSearch);
 
-                    configuration.For<PostController>(x => x.Delete(default(Guid)))
-                                 .RequireAnyRole(rolesPostDelete);
+                    //configuration.For<PostController>(x => x.AutorizarPost(default(Guid), default(int)))
+                    //                      .RequireAnyRole(rolesPostAutorizarPost);
 
-                    configuration.For<PostController>(x => x.DeleteConfirmed(default(Guid)))
-                                 .RequireAnyRole(rolesPostDeleteConfirmed);
+                    //configuration.For<PostController>(x => x.PostPrincipal(default(Guid), default(int)))
+                    //                      .RequireAnyRole(rolesPostPostPrincipal);
 
+                    //configuration.For<PostController>(x => x.CambiarEstadoPost(default(Guid), default(int)))
+                    //                          .RequireAnyRole(rolesPostCambiarEstadoPost);
+
+                    //REGLAS USUARIO
+                    //configuration.For<PostController>(x => x.UserIndex(default(int)))
+                    //             .RequireAnyRole(rolesPostUserIndex);
+
+                    //configuration.For<PostController>(x => x.Details(default(Guid)))
+                    //              .RequireAnyRole(rolesPostDetails);
+
+                    //configuration.For<PostController>(x => x.Create())
+                    //              .RequireAnyRole(rolesPostCreate);
+
+                    //configuration.For<PostController>(x => x.Edit(default(Guid)))
+                    //             .RequireAnyRole(rolesPostEdit);
+
+                    //configuration.For<PostController>(x => x.UserSearch(default(string), default(int)))
+                    //             .RequireAnyRole(rolesPostUserSearch);
+
+                    //configuration.For<PostController>(x => x.UserFilter(default(List<string>), default(int)))
+                    //                 .RequireAnyRole(rolesPostUserFilter);
+
+                    //REGLAS PUBLICAS
                     configuration.For<PostController>(x => x.ShowPosts()).Ignore();
-
-                    configuration.For<PostController>(x => x.ShowPost(default(Guid)))
-                                 .RequireAnyRole(rolesPostShowPost);
+                    //configuration.For<PostController>(x => x.ShowListPosts()).Ignore();
+                    configuration.For<PostController>(x => x.ShowPost(default(Guid))).Ignore();
+                    //configuration.For<PostController>(x => x.GlobalIndex(default(int))).Ignore();
+                    //configuration.For<PostController>(x => x.GlobalSearch(default(string), default(int))).Ignore();
+                    //configuration.For<PostController>(x => x.GlobalFilter(default(List<string>), default(int))).Ignore();
+                    
 
                     #endregion
 
                     #region Reglas del controlador Like
                     // Se obtienen los roles que tienen acceso al controlador Like y a los métodos de este controlador.
-                    //string[] rolesLikeIndex = assembly.GetRolesMethods("LikeController", "Index");
-                    var rolesLikeCreate = assembly.GetRolesMethods("LikeController", "Create");
-                    var rolesLikeDetails = assembly.GetRolesMethods("LikeController", "Details");
-                    var rolesLikeEdit = assembly.GetRolesMethods("LikeController", "Edit");
-                    var rolesLikeDelete = assembly.GetRolesMethods("LikeController", "Delete");
+                    //var rolesLikeCreate = assembly.GetRolesMethods("LikeController", "Create");
                     //var rolesLikeDeleteConfirmed = assembly.GetRolesMethods("LikeController", "DeleteConfirmed");
+                    //var rolesLikeget_likes = assembly.GetRolesMethods("LikeController", "get_likes");
+                    //var rolesLikegetMyLikePost = assembly.GetRolesMethods("LikeController", "getMyLikePost");
+                    //var rolesLikeNum_likes = assembly.GetRolesMethods("LikeController", "Num_likes");
 
-                    //Se configuran las reglas de acceso para el controlador Like.
-                    configuration.For<LikeController>(x => x.Index()).Ignore();
+                    //Se configuran las reglas de acceso para el controlador Like.                    
 
-                    configuration.For<LikeController>(x => x.Create(default(Guid)))
-                                 .RequireAnyRole(rolesLikeCreate);
-
-                    configuration.For<LikeController>(x => x.Details(default(Guid)))
-                                  .RequireAnyRole(rolesLikeDetails);
-
-                    configuration.For<LikeController>(x => x.Edit(default(Guid)))
-                                 .RequireAnyRole(rolesLikeEdit);
-
-                    configuration.For<LikeController>(x => x.Delete(default(Guid)))
-                                 .RequireAnyRole(rolesLikeDelete);
+                    //configuration.For<LikeController>(x => x.Create(default(Guid)))
+                    //              .RequireAnyRole(rolesLikeCreate);
 
                     //configuration.For<LikeController>(x => x.DeleteConfirmed(default(Guid), default(Guid)))
                     //             .RequireAnyRole(rolesLikeDeleteConfirmed);
 
+                    //configuration.For<LikeController>(x => x.get_likes(default(Guid)))
+                    //             .RequireAnyRole(rolesLikeget_likes);
+
+                    //configuration.For<LikeController>(x => x.getMyLikePost(default(Guid), default(Guid)))
+                    //                 .RequireAnyRole(rolesLikeget_likes);
+
+                    //configuration.For<LikeController>(x => x.Num_likes(default(Guid)))
+                    //                     .RequireAnyRole(rolesLikeNum_likes);
+                    
                     #endregion
 
                     #region Reglas del controlador Startbox
                     //Se obtienen los roles que tienen acceso al controlador Startbox y a los métodos de este controlador.
                     //string[] rolesStartboxIndex = assembly.GetRolesMethods("StartboxController", "Index");
                     //var rolesStartboxCreate = assembly.GetRolesMethods("StartboxController", "Create");
-                    var rolesStartboxDetails = assembly.GetRolesMethods("StartboxController", "Details");
-                    var rolesStartboxEdit = assembly.GetRolesMethods("StartboxController", "Edit");
-                    var rolesStartboxDelete = assembly.GetRolesMethods("StartboxController", "Delete");
-                    var rolesStartboxDeleteConfirmed = assembly.GetRolesMethods("StartboxController", "DeleteConfirmed");
+                    //var rolesStartboxDetails = assembly.GetRolesMethods("StartboxController", "Details");
+                    //var rolesStartboxEdit = assembly.GetRolesMethods("StartboxController", "Edit");
+                    //var rolesStartboxDelete = assembly.GetRolesMethods("StartboxController", "Delete");
+                    //var rolesStartboxDeleteConfirmed = assembly.GetRolesMethods("StartboxController", "DeleteConfirmed");
 
-                    //Se configuran las reglas de acceso para el controlador Startbox.
-                    configuration.For<StartboxController>(x => x.Index()).Ignore();
-
-                    //configuration.For<StartboxController>(x => x.Create())
-                    //             .RequireAnyRole(rolesStartboxCreate);
-
-                    configuration.For<StartboxController>(x => x.Details(default(Guid)))
-                                  .RequireAnyRole(rolesStartboxDetails);
-
-                    configuration.For<StartboxController>(x => x.Edit(default(Guid)))
-                                 .RequireAnyRole(rolesStartboxEdit);
-
-                    configuration.For<StartboxController>(x => x.Delete(default(Guid)))
-                                 .RequireAnyRole(rolesStartboxDelete);
-
-                    configuration.For<StartboxController>(x => x.DeleteConfirmed(default(Guid)))
-                                 .RequireAnyRole(rolesStartboxDeleteConfirmed);
+                    
 
                     #endregion
 

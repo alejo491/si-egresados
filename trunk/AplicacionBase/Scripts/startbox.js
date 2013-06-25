@@ -114,7 +114,7 @@ function actualizar_num_likes(postid){
 function actualizar_prom_start(postid){
         $.ajax({
             type: "POST",
-            url: "/Startbox/Index2", 
+            url: "/Startbox/Index", 
             traditional: true,
             data: {id:postid},
             success : function(data){

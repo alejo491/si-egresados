@@ -20,19 +20,9 @@ namespace AplicacionBase.Controllers
         /// Atributo que consulta la base de datos
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
+       
 
-        #region Listar archivos
-        /// <summary>
-        /// Esta función se llama cuando se va(n) a agregar archivo(s) a una noticia
-        /// </summary>
-        /// <returns>Retorna el archivo asociado a una noticia</returns>
-        public ViewResult Index()
-        {
-            return View(db.Files.ToList());
-        }
-        #endregion
-
-        #region Actualizar archivo
+        #region Subir Archivo
         /// <summary>
         /// Esta función se llama cuando se van a agregar archivos a una noticia
         /// </summary>
@@ -107,83 +97,6 @@ namespace AplicacionBase.Controllers
         {
             var files = db.Files.SqlQuery("exec url_file3 '" + Id + "'");
             return View(files.ToList());           
-        }
-        #endregion
-
-        #region Detalles
-        /// <summary>
-        /// Muestra los detalles del archivo
-        /// </summary>
-        /// <param name="id">Identificador del archivo</param>
-        /// <returns>Retorna el archivo asociado a la noticia</returns>
-        public ViewResult Details(Guid id)
-        {
-            AplicacionBase.Models.File file = db.Files.Find(id);
-            return View(file);
-        }
-        #endregion
-
-        #region Crear archivo
-        /// <summary>
-        /// Esta función se llama cuando se quiere subir un archivo a una nueva noticia
-        /// </summary>
-        /// <returns>Un ActionResult con la vista y formulario para asociar el archivo a la noticia</returns>
-        public ActionResult Create()
-        {
-            return View();
-        }
-        #endregion
-
-        #region Crear archivo HttpPost
-        /// <summary>
-        /// Se llama despues de que el usuario oprime el boton de Añadir Archivos...
-        /// </summary>
-        /// <param name="file">Archivo rescibido desde el formulario</param>
-        /// <returns>Retorna los archivos asociados a la noticia</returns>
-        [HttpPost]
-        public ActionResult Create(AplicacionBase.Models.File file)
-        {
-            if (ModelState.IsValid)
-            {
-                file.Id = Guid.NewGuid();
-                db.Files.Add(file);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(file);
-        }
-        #endregion
-
-        #region Editar archivo
-        /// <summary>
-        /// Da la opción cambiar un archivo que haya sido publicado en una noticia
-        /// </summary>
-        /// <param name="id">Identificador del archivo</param>
-        /// <returns>Retorna la vista con el archivo a editar</returns>
-        public ActionResult Edit(Guid id)
-        {
-            AplicacionBase.Models.File file = db.Files.Find(id);
-            return View(file);
-        }
-        #endregion
-
-        #region Editar archivo HttpPost
-        /// <summary>
-        /// Guarda las modificaciones que se hayan hecho de un archivo en una noticia
-        /// </summary>
-        /// <param name="file">Archivo que se modificó y que se va a actualizar en el formulario</param>
-        /// <returns>La redireccion a la pagina principal despues de que el objeto se modifique correctmanete</returns>
-        [HttpPost]
-        public ActionResult Edit(AplicacionBase.Models.File file)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(file).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(file);
         }
         #endregion
 
