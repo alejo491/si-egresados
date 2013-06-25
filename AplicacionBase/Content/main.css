@@ -1393,3 +1393,36 @@ div .imagecarrucelshowpost img
     width: 300px;       
     height: 225px; 
 }
+
+div .comentariosMain
+{
+    width:100%;
+}
+.commentArea
+{
+    cols: 70;
+    rows:  3;
+}
+div #comments
+{
+    border: solid 1px #ccc;
+    width: 56%;
+    margin-left: 22%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #ccc;
+    text-align: center;
+    max-height: 300px;
+    overflow: auto;
+}
+div #comments .comentario
+{
+    border: solid 1px #ccc;    
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px #ccc;
+    text-align: justify;
+}
+div #comments img
+{
+    width: 30px;
+    
+}

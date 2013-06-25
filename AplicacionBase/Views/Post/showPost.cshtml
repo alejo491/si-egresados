@@ -110,6 +110,20 @@
                         <div class ="left" id="PromStart">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  @Model.ElementAt(2).Estate De calificación promedio</div>                     
                     </div>
                 </div>
+                @if (Model.ElementAt(1).Autorized != -1)
+                {
+                    <div id="commentsPost" class="comentariosMain">
+                            @Html.TextArea("comment", @htmlAttributes: new { @class = "commentArea", cols = "70", rows = "5" });
+                            <br /><a href="javascript:void(0)" class="ebutton blue" id="btComentar" title="Comentar" onclick="Comentar('@Model.ElementAt(0).Id')">Comentar</a> 
+                            <div>
+                                <div id="comments">
+                                    <div id="loading"><img src="../../Content/themes/base/images/loadingAzul.gif" /></div>
+                                </div> 
+                            </div>
+                           @* <div class="comentario"><a href="javascript:void(0)" class="ebutton blue" id="btComentar" title="Comentar" onclick="vermas()">Ver Más Comentarios</a> </div>*@
+                    </div>
+                }
+                
           </div>
 </div>
 <div id="numPostCarrucel" style="display:none">1</div>
