@@ -172,5 +172,15 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        public ActionResult Calificacion(Guid id)
+        {
+            var startboxs = db.Startboxs.SqlQuery("exec dbo.get_promedio_post '" + id + "'");
+            IList<Startbox> list = (IList<Startbox>)startboxs.ToList();
+            int suma = 0;
+            foreach (Startbox l in list)
+                suma = suma + l.Qualification;
+            if (list.Count == 0) return View(suma);
+            else return View(suma / list.Count);
+        }
     }
 }

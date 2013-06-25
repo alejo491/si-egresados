@@ -2,9 +2,10 @@
 @{
     Layout = "";  
 }
-
+@{int cont = 0;}
 @foreach (var item in Model)
 {
+    cont = cont + 1;
     <div class="views-row views-row-1 views-row-odd views-row-first">
         <li class="postNoticias">
 	    <span class="categoriaNoticia">@item.Title | </span>
@@ -14,7 +15,40 @@
         }
         else
         {
-             @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id }) 
+        @Html.ActionLink(item.Abstract, "showPost", new { id = item.Id })
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                $.ajax({
+                    type : "POST",
+                    url :  "@(Url.Action("Num_likes", "like", new { id = item.Id }))",
+                    traditional : true,
+                    data : {},
+                    async : true,
+                    success : function(data){
+                    $("#@item.Id").html(data);
+                    }
+                });
+                })
+            </script>
+                       
+            <div class="like" id="@item.Id">like</div>
+            
+            <script type="text/javascript">
+                $(document).ready(function() {
+                $.ajax({
+                    type : "POST",
+                    url :  "@(Url.Action("Calificacion", "startbox", new { id = item.Id }))",
+                    traditional : true,
+                    data : {},
+                    async : true,
+                    success : function(data){
+                    $("#@cont").html(data);
+                    }
+                });
+                })
+            </script>
+            <div class="cal" id="@cont">calificacion</div> 
         }                              
     </div>
 } 

@@ -209,6 +209,12 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
+        public ActionResult Num_likes(Guid id)
+        {
+            var likes = db.Likes.SqlQuery("exec dbo.get_like '" + id + "'");
+            IList<Like> list = (IList<Like>)likes.ToList();
+            return View(list.Count);
+        }
         
     }
 }
