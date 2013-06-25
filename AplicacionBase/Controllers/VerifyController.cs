@@ -56,6 +56,10 @@ namespace AplicacionBase.Controllers
             return RedirectToAction("Create", "User");
         }
 
+        /// <summary>
+        /// Metodo que asigna el rol de Egresado al usuario que acaba de registrarse
+        /// </summary>
+        /// <returns>Redirecciona al index de este controlador</returns>
         public ActionResult AsignarRol()
         {
             Guid g = System.Guid.Empty;
@@ -138,7 +142,7 @@ namespace AplicacionBase.Controllers
         /// Metodo que ayuda al direccionamiento dependiendo del usuario
         /// </summary>
         /// <returns>Redirecciona a la vista principal del Usuario</returns>
-        public ActionResult Out() 
+        public ActionResult Out()
         {
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
@@ -170,7 +174,7 @@ namespace AplicacionBase.Controllers
                 }
                 return RedirectToAction("Begin", "User", new { id = g });
             }
-            else 
+            else
             {
                 return RedirectToAction("Index", "Home");
             }
