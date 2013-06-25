@@ -668,16 +668,24 @@ namespace AplicacionBase.Controllers
             if (Filtros[0].Equals("Mas Likes"))
             {
                 var posts = db.Posts.SqlQuery("exec Noticias_MasLikes_User '" + g + "'");
-                var results = posts.ToList().OrderByDescending(c => c.Main);
-                pageNumber = (page ?? 1);
-                return View(results.ToPagedList(pageNumber, pageSize));
+                if (posts != null)
+                {
+                    var results = posts.ToList().OrderByDescending(c => c.Main);
+                    pageNumber = (page ?? 1);
+                    return View(results.ToPagedList(pageNumber, pageSize));
+                }
+                return View();
             }
             if (Filtros[0].Equals("Mas Votadas"))
             {
                 var posts = db.Posts.SqlQuery("exec Noticias_MasVotadas_User '" + g + "'");
-                var results = posts.ToList().OrderByDescending(c => c.Main);
-                pageNumber = (page ?? 1);
-                return View(results.ToPagedList(pageNumber, pageSize));
+                if (posts != null)
+                {
+                    var results = posts.ToList().OrderByDescending(c => c.Main);
+                    pageNumber = (page ?? 1);
+                    return View(results.ToPagedList(pageNumber, pageSize));
+                }
+                return View();
             }
             return View();
 
