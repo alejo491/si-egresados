@@ -126,6 +126,27 @@ namespace AplicacionBase.Controllers
         public ActionResult Create(Vacancy vacancy)
         {
 
+            string nombreCompania = Request.Params[0];
+
+            Company Comp = null;
+
+            if (nombreCompania != null)
+            {
+                foreach (var e in db.Companies)
+                {
+                    if (e.Name == nombreCompania)
+                    {
+                        Comp = e;
+                    }
+                }
+            }
+
+            if (Comp == null)
+            {
+                TempData["alertMessage"] = "Error: Compañia Inexistente";
+                return View();             
+            }
+
             var IdUser = db.aspnet_Users.Where(u => u.UserName.Equals(HttpContext.User.Identity.Name)).First().UserId;
 
 
@@ -134,6 +155,7 @@ namespace AplicacionBase.Controllers
                 vacancy.Id = Guid.NewGuid();
                 vacancy.IdUser = IdUser;
                 vacancy.PublicationDate = DateTime.Now;
+                vacancy.Company = Comp;
                 db.Vacancies.Add(vacancy);
                 db.SaveChanges();
                 TempData["Create"] = "Se ha ingresado correctamente la vacante !";
