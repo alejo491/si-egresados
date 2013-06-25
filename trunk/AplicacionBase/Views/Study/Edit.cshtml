@@ -18,6 +18,110 @@
     }  
 }
 
+@*validar las fechas*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#EndDate").change(function () {
+            var errorDate = false;
+            var startDt = $("#StartDate").val();
+            var endDt = $("#EndDate").val();
+            var aI = startDt.substring(6, 10);
+            var aF = endDt.substring(6, 10);
+            if (aI <= aF) {
+                var mI = startDt.substring(3, 5);
+                var mF = endDt.substring(3, 5);
+                if (mI <= mF) {
+                    var dI = startDt.substring(0, 2);
+                    var dF = endDt.substring(0, 2);
+                    if (dI >= dF) {
+                        errorDate = true;
+                    }
+                } else { errorDate = true; }
+            } else { errorDate = true; }
+            if (errorDate) {
+                $('<p>').text('¡La Fecha Inicio no puede ser mayor a la fecha final!').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
+                $("#EndDate").val("");
+            }
+        });
+
+        $("#StartDate").change(function () {
+            var errorDate = false;
+            var startDt = $("#StartDate").val();
+            var endDt = $("#EndDate").val();
+            if (endDt != "") {
+                var aI = startDt.substring(6, 10);
+                var aF = endDt.substring(6, 10);
+                if (aI <= aF) {
+                    var mI = startDt.substring(3, 5);
+                    var mF = endDt.substring(3, 5);
+                    if (mI <= mF) {
+                        var dI = startDt.substring(0, 2);
+                        var dF = endDt.substring(0, 2);
+                        if (dI >= dF) { errorDate = true; }
+                    } else { errorDate = true; }
+                } else { errorDate = true; }
+                if (errorDate) {
+                    $('<p>').text('¡La Fecha Inicio no puede ser mayor a la fecha final!').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
+                    $("#StartDate").val("");
+                }
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#StartDate").change(function () {
+            var now = new Date();
+            var errorDate = false;
+            var startDt = $("#StartDate").val();
+            var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
+            var aI = startDt.substring(0, 4);
+            var aF = endDt.substring(5, 10);
+            if (aI <= aF) {
+                var mI = startDt.substring(5, 7);
+                var mF = endDt.substring(3, 4);
+                if (mI <= mF) {
+                    var dI = startDt.substring(8, 10);
+                    var dF = endDt.substring(0, 2);
+                    if (dI > dF) { errorDate = true; }
+                } else { errorDate = true; }
+            } else { errorDate = true; }
+            if (errorDate) {
+                $('<p>').text('la fecha de inicio no puede ser mayor a la fecha actual').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
+                $("#StartDate").val("");
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#EndDate").change(function () {
+            var now = new Date();
+            var errorDate = false;
+            var startDt = $("#EndDate").val();
+            var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
+            var aI = startDt.substring(0, 4);
+            var aF = endDt.substring(5, 10);
+            if (aI <= aF) {
+                var mI = startDt.substring(5, 7);
+                var mF = endDt.substring(3, 4);
+                if (mI <= mF) {
+                    var dI = startDt.substring(8, 10);
+                    var dF = endDt.substring(0, 2);
+                    if (dI > dF) { errorDate = true; }
+                } else { errorDate = true; }
+            } else { errorDate = true; }
+            if (errorDate) {
+                $('<p>').text('la fecha de fin no puede ser mayor a la fecha actual').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
+                $("#EndDate").val("");
+            }
+        });
+    });
+</script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function () {
         $("#StartDate").datepicker({ dateFormat: 'dd/mm/yy' });
@@ -258,12 +362,14 @@
                 {
                     TempData["Seleccionado"] = "true";
                      @Html.EditorFor(model => model.StartDate)
+                     <div class="alert error" id="errorStartDate"></div>
                 }
                 else
                 {
                     TempData["Seleccionado"] = "false";
                      @Html.EditorFor(model => model.StartDate)
                     <p class="alert error">@TempData["Error3"]</p>
+                    <div class="alert error" id="errorStartDate"></div>
                 }
             </p>
         </div>
@@ -273,16 +379,18 @@
         </div>
         <div class="editor-field">
              <p>
-                @if ((bool) ViewBag.Seleccionado4)
+                @if ((bool)ViewBag.Seleccionado4)
                 {
                     TempData["Seleccionado"] = "true";
                     @Html.EditorFor(model => model.EndDate)
+                    <div class="alert error" id="errorendDate"></div>
                 }
                 else
                 {
                     TempData["Seleccionado"] = "false";
                     @Html.EditorFor(model => model.EndDate)
                     <p class="alert error">@TempData["Error4"]</p>
+                    <div class="alert error" id="errorendDate"></div>
                 }
             </p>
         </div>

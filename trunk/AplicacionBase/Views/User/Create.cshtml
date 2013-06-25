@@ -4,24 +4,33 @@
 }
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtBirtDate").datepicker();
+        $("#txtBirtDate").datepicker({ dateFormat: 'dd/mm/yy' });
     });
 </script>
 
 <script type="text/javascript">
-    $(txtBirtDate).change(function() {
-        var cumpleaños = $("#txtBirtDate").val();
-        var actual = new Date();
-        if (actual.getFullYear() <= cumpleaños.getFullYear()) 
-        {
-            if (actual.getMonth() <= cumpleaños.getMonth()) 
-            {
-                if (cumpleaños.getDay() > actual.getDay()) {
-                    alert("La fecha de cumplaeños no puede ser mayor a la actual");
-                    $("#txtBirtDate").val("");
-                }
+    $(document).ready(function () {
+        $("#txtBirtDate").change(function () {
+            var now = new Date();
+            var errorDate = false;
+            var startDt = $("#txtBirtDate").val();
+            var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
+            var aI = startDt.substring(0, 4);
+            var aF = endDt.substring(5, 10);
+            if (aI <= aF) {
+                var mI = startDt.substring(5, 7);
+                var mF = endDt.substring(3, 4);
+                if (mI <= mF) {
+                    var dI = startDt.substring(8, 10);
+                    var dF = endDt.substring(0, 2);
+                    if (dI > dF) {errorDate = true;}
+                } else {errorDate = true;}
+            } else {errorDate = true;}
+            if (errorDate) {
+                $('<p>').text('Su fecha  de cumpleaños no debe ser posterior a la fecha actual').appendTo('#ErrorBirthDate').hide(20000, function () { $(this).remove(); });
+                $("#txtBirtDate").val("");
             }
-        }
+        });
     });
 </script>
 
@@ -77,8 +86,10 @@
            <h3> @Html.LabelFor(model => model.BirthDate)</h3>
         </div>
         <div class="editor-field">
-            @Html.TextBox("txtBirtDate", "", new { @type = "date", @placeholder = "MM/DD/AAAA" })
+            @*@Html.EditorFor(model => model.BirthDate)*@
+            @Html.TextBox("txtBirtDate", "", new { @type = "date", @placeholder = "DD/MM/AAAA" })
         </div>
+        <div class="alert error" id = "ErrorBirthDate"></div>
         <div class="editor-label">
            <h3> @Html.LabelFor(model => model.Gender)</h3>
             <div>
