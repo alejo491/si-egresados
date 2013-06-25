@@ -59,6 +59,10 @@
                 <input type="submit" value="Registrar" class="ebutton blue" />&nbsp
                 @Html.ActionLink("Cancelar", "Index", "", null, htmlAttributes: new { @class = "ebutton blue" })
             </div>
+            <div>
+            <fb:login-button perms="email,user_checkins" autologoutlink="true">O registrate con tu cuenta de Facebook</fb:login-button>
+            <div id="fb-root" style="display: inline; margin-right: 60px">
+            </div>
         </fieldset>
     </div>
 }
