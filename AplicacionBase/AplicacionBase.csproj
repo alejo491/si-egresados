@@ -90,6 +90,7 @@
     <Compile Include="Controllers\Aspnet_RolesController.cs" />
     <Compile Include="Controllers\AssemblyHelper.cs" />
     <Compile Include="Controllers\BossesController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ElectiveController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -672,6 +673,7 @@
     <Content Include="Views\File\GaleryPost.cshtml" />
     <Content Include="Views\Startbox\Calificacion.cshtml" />
     <Content Include="Views\Like\Num_likes.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
