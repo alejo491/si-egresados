@@ -22,10 +22,11 @@ namespace AplicacionBase.Controllers
         /// Atributo que consulta la base de datos.
         /// </summary>
         private DbSIEPISContext db = new DbSIEPISContext();
+
         /// <summary>
         /// Atributos que permite controlar la paginación de las vistas.
         /// </summary>
-       
+
         //
         // GET: /Study/
 
@@ -36,13 +37,14 @@ namespace AplicacionBase.Controllers
         /// <param name="page">Paginación</param>
         /// <param name="wizard">paso del wizard</param>
         /// <returns>Vista que contine los datos de los estudios de un usuario</returns>
+
         #region Index(id page)
         public ActionResult Index(int wizardStep = 0)
         {
             //UserController u = new UserController();
             ViewBag.WizardStep = wizardStep;
-            User user = db.Users.Find(searchId());                     
-            
+            User user = db.Users.Find(searchId());
+
             if (user != null)
             {
                 ViewBag.UserId = user.Id;
@@ -56,10 +58,14 @@ namespace AplicacionBase.Controllers
                 else
                 {
                     ViewBag.UserId = user.Id;
-                    var studies = db.Studies.Include(s => s.School).Include(s => s.User).Include(s => s.Thesis).Where(s => s.IdUser == user.Id);
+                    var studies =
+                        db.Studies.Include(s => s.School)
+                          .Include(s => s.User)
+                          .Include(s => s.Thesis)
+                          .Where(s => s.IdUser == user.Id);
                     return View(studies.ToList());
                 }
-                
+
             }
             //return RedirectToAction("Begin", "User", new RouteValueDictionary(new { controller = "User", action = "Begin", Id = user.Id }));
             return RedirectToAction("Index", "Home");
@@ -82,7 +88,8 @@ namespace AplicacionBase.Controllers
             }
             return g;
         }
-        #endregion 
+
+        #endregion
 
         //
         // GET: /Study/Details/5
@@ -93,6 +100,7 @@ namespace AplicacionBase.Controllers
         /// <param name="idUser">Id del usuario</param>
         /// <param name="wizardStep">paso del wizard</param>
         /// <returns>Vista para consultar los datos de un estudio</returns>
+
         #region details(id)
         public ActionResult Details(Guid id, int wizardStep = 0)
         {
@@ -110,10 +118,11 @@ namespace AplicacionBase.Controllers
                     return View(study);
                 }
                 return RedirectToAction("Index", "Home");
-                
+
             }
             return RedirectToAction("Index", "Home");
         }
+
         #endregion
 
         //
@@ -123,6 +132,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="id">Id del usuario</param>
         /// <returns>Vista que despliega el formulario que permite crear los datos</returns>
+
         #region Create(id)
         public ActionResult Create(int wizardStep = 0)
         {
@@ -139,6 +149,13 @@ namespace AplicacionBase.Controllers
                 ViewBag.Seleccionado33 = "";
                 ViewBag.Seleccionado4 = false;
                 ViewBag.Seleccionado44 = "";
+                ViewBag.Electiva1 = "";
+                ViewBag.Electiva2 = "";
+                ViewBag.Electiva3 = "";
+                ViewBag.Electiva4 = "";
+                ViewBag.Electiva5 = "";
+                ViewBag.Thesis = "";
+                ViewBag.Descripcion = "";
                 ViewBag.UserId = user.Id;
                 ViewBag.IdSchool = new SelectList(db.Schools, "Id", "Name");
                 ViewBag.IdUser = new SelectList(db.Users, "Id", "Name");
@@ -147,6 +164,7 @@ namespace AplicacionBase.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
         #endregion
 
         //
@@ -167,7 +185,7 @@ namespace AplicacionBase.Controllers
             TempData["Error2"] = "El campo Titulo es obligatorio";
             TempData["Error3"] = "El campo Fecha Inicio es obligatorio";
             TempData["Error4"] = "El campo Fecha Fin es obligatorio";
-   
+
             User user = db.Users.Find(searchId());
             if (user != null)
             {
@@ -178,7 +196,7 @@ namespace AplicacionBase.Controllers
                 Thesis tesis = new Thesis();
                 study.IdUser = IdUser;
                 study.Id = Guid.NewGuid();
-                var selected= new Dictionary<string,string>();
+                var selected = new Dictionary<string, string>();
                 bool continuar = false;
                 bool continuar2 = false;
                 bool continuar3 = false;
@@ -188,12 +206,21 @@ namespace AplicacionBase.Controllers
 
                 foreach (String key in form)
                 {
+                    ViewBag.Electiva1 = form["txtElective1"];
+                    ViewBag.Electiva2 = form["txtElective2"];
+                    ViewBag.Electiva3 = form["txtElective3"];
+                    ViewBag.Electiva4 = form["txtElective4"];
+                    ViewBag.Electiva5 = form["txtElective5"];
+                    ViewBag.Tesis = form["txtTesis"];
+                    ViewBag.Descripcion = form["comentarios"];
                     var k = form[key];
                     if (continuar && continuar2 && continuar3 && continuar4)
                     {
                         break;
                     }
+
                     #region Validar campos vacios
+
                     switch (key)
                     {
                         case "txtSchool":
@@ -270,10 +297,13 @@ namespace AplicacionBase.Controllers
                             break;
                     }
                 }
-#endregion
-                    if (continuar && continuar2 && continuar3 && continuar4)
-                    {
-                        #region Validar fechas erroneas
+
+                #endregion
+
+                if (continuar && continuar2 && continuar3 && continuar4)
+                {
+                    #region Validar fechas erroneas
+
                     if (fechaDesde >= DateTime.Now)
                     {
                         TempData["Error3"] = "¡La Fecha Inicio no pueden ser mayor al dia actual!";
@@ -292,111 +322,113 @@ namespace AplicacionBase.Controllers
                         ViewBag.Seleccionado4 = false;
                         continuar3 = false;
                     }
+
                     #endregion
-                        if (continuar3 && continuar4)
+
+                    if (continuar3 && continuar4)
+                    {
+                        foreach (string key in form)
                         {
-                            foreach(string key in form)
+                            if (key.Contains("txtSchool"))
                             {
-                                if (key.Contains("txtSchool"))
+                                string var = form[key];
+                                bool temp = false;
+                                foreach (School school in db.Schools)
+                                {
+                                    if (school.Name == var)
+                                    {
+                                        study.IdSchool = school.Id;
+                                        temp = true;
+                                    }
+                                }
+                                if (!temp)
+                                {
+                                    School school = new School();
+                                    school.Id = Guid.NewGuid();
+                                    school.Name = var;
+                                    db.Schools.Add(school);
+                                    study.IdSchool = school.Id;
+                                }
+                            }
+                            if (key.Contains("programas"))
+                            {
+                                study.Programs = form[key];
+                            }
+                            if (key.Contains("Grade"))
+                            {
+                                study.Grade = form[key];
+                            }
+                            if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") ||
+                                key.Contains("Elective4") || key.Contains("Elective5"))
+                            {
+                                if (form[key].Length != 0)
                                 {
                                     string var = form[key];
                                     bool temp = false;
-                                    foreach (School school in db.Schools)
+                                    foreach (Elective elective in db.Electives)
                                     {
-                                        if (school.Name == var)
+                                        if (elective.Name == var)
                                         {
-                                            study.IdSchool = school.Id;
+                                            study.Electives.Add(elective);
                                             temp = true;
                                         }
                                     }
                                     if (!temp)
                                     {
-                                        School school = new School();
-                                        school.Id = Guid.NewGuid();
-                                        school.Name = var;
-                                        db.Schools.Add(school);
-                                        study.IdSchool = school.Id;
+                                        Elective elective = new Elective();
+                                        elective.Id = Guid.NewGuid();
+                                        elective.Name = var;
+                                        db.Electives.Add(elective);
+                                        study.Electives.Add(elective);
                                     }
                                 }
-                                if (key. Contains("programas"))
+                            }
+                            if (key.Contains("txtStartDate"))
+                            {
+                                DateTime var = DateTime.Parse(form[key]);
+                                study.StartDate = var;
+                            }
+                            if (key.Contains("txtEndDate"))
+                            {
+                                DateTime var = DateTime.Parse(form[key]);
+                                study.EndDate = var;
+                            }
+                            if (key.Contains("txtTesis") && form[key].Length != 0)
+                            {
+                                tesis.IdStudies = study.Id;
+                                tesis.Title = form[key];
+                                study.Thesis = tesis;
+                            }
+                            if (key.Contains("comentarios") && study.Thesis != null)
+                            {
+                                if (form[key].Length == 0)
                                 {
-                                    study.Programs = form[key];
-                                }
-                                if (key. Contains("Grade"))
-                                {
-                                    study.Grade = form[key];
-                                }
-                                if (key. Contains("Elective1") || key. Contains("Elective2") || key. Contains("Elective3") ||
-                                    key. Contains("Elective4") || key. Contains("Elective5"))
-                                {
-                                    if (form[key].Length != 0)
-                                    {
-                                        string var = form[key];
-                                        bool temp = false;
-                                        foreach (Elective elective in db.Electives)
-                                        {
-                                            if (elective.Name == var)
-                                            {
-                                                study.Electives.Add(elective);
-                                                temp = true;
-                                            }
-                                        }
-                                        if (!temp)
-                                        {
-                                            Elective elective = new Elective();
-                                            elective.Id = Guid.NewGuid();
-                                            elective.Name = var;
-                                            db.Electives.Add(elective);
-                                            study.Electives.Add(elective);
-                                        }
-                                    }
-                                }
-                                if (key. Contains("txtStartDate"))
-                                {
-                                    DateTime var = DateTime.Parse(form[key]);
-                                    study.StartDate = var;
-                                }
-                                if (key. Contains("txtEndDate"))
-                                {
-                                    DateTime var = DateTime.Parse(form[key]);
-                                    study.EndDate = var;
-                                }
-                                if (key. Contains("txtTesis") && form[key].Length != 0)
-                                {
-                                    tesis.IdStudies = study.Id;
-                                    tesis.Title = form[key];
                                     study.Thesis = tesis;
                                 }
-                                if (key. Contains("txtDescripcion") && study.Thesis != null)
+                                else
                                 {
-                                    if (form[key].Length == 0)
-                                    {
-                                        study.Thesis = tesis;
-                                    }
-                                    else
-                                    {
-                                        study.Thesis.Description = form[key];
-                                        tesis.Description = form[key];
-                                        study.Thesis = tesis;
-                                    }
+                                    study.Thesis.Description = form[key];
+                                    tesis.Description = form[key];
+                                    study.Thesis = tesis;
                                 }
-                                if (key. Contains("wizard"))
-                                {
-                                    if (form[key] == "1")
-                                    {
-                                        wizard = 1;
-                                    }
-                                }
-
                             }
-                            db.Studies.Add(study);
-                            db.SaveChanges();
-                            return RedirectToAction("Index",new RouteValueDictionary(new{controller = "Study",action = "Index", user.Id,wizardStep = wizard}));
+                            if (key.Contains("wizard"))
+                            {
+                                if (form[key] == "1")
+                                {
+                                    wizard = 1;
+                                }
+                            }
+
                         }
+                        db.Studies.Add(study);
+                        db.SaveChanges();
+                        TempData["Exito"] = "Estudio Creado con éxito";
+                        return RedirectToAction("Index",new RouteValueDictionary(new{controller = "Study",action = "Index",user.Id,wizardStep = wizard}));
+                    }
                 }
             }
             return View();
-
         }
 
         #endregion
@@ -427,14 +459,15 @@ namespace AplicacionBase.Controllers
                 ViewBag.Seleccionado33 = study2.StartDate.ToString();
                 ViewBag.Seleccionado4 = true;
                 ViewBag.Seleccionado44 = study2.EndDate.ToString();
+                
                 var aspnetuser = db.aspnet_Users.Find(user.Id);
                 var roles = Roles.GetRolesForUser(aspnetuser.UserName).ToList();
-                
+
                 if (roles.Contains("Administrador") || study2.IdUser == aspnetuser.UserId)
                 {
                     ViewBag.WizardStep = wizardStep;
                     ViewBag.thewizard = wizardStep;
-                    
+
                     var studio = db.Studies.Find(id);
                     ViewBag.UserId = studio.IdUser;
                     Study study = db.Studies.Find(id);
@@ -455,7 +488,7 @@ namespace AplicacionBase.Controllers
         }
 
         #endregion
-        
+
         //
         // POST: /Study/Edit/5
         /// <summary>
@@ -475,6 +508,7 @@ namespace AplicacionBase.Controllers
             TempData["Error2"] = "El campo Titulo es obligatorio";
             TempData["Error3"] = "El campo Fecha Inicio es obligatorio";
             TempData["Error4"] = "El campo Fecha Fin es obligatorio";
+            var last = db.Studies.Find(id);
             var listaElectiva = new List<String>();
             bool continuar = false;
             bool continuar2 = false;
@@ -536,10 +570,10 @@ namespace AplicacionBase.Controllers
                             }
                             else
                             {
-                            ViewBag.Seleccionado3 = true;
-                            ViewBag.Seleccionado33 = k;
-                            fechaDesde = DateTime.Parse(k);
-                            continuar3 = true;
+                                ViewBag.Seleccionado3 = true;
+                                ViewBag.Seleccionado33 = k;
+                                fechaDesde = DateTime.Parse(k);
+                                continuar3 = true;
                             }
                         }
                         break;
@@ -575,7 +609,7 @@ namespace AplicacionBase.Controllers
             {
                 #region Validar fechas erroneas
 
-                if (fechaDesde > DateTime.Now)
+                if (fechaDesde >= DateTime.Now)
                 {
                     TempData["Error3"] = "¡La Fecha Inicio no pueden ser mayor al dia actual!";
                     ViewBag.Seleccionado3 = false;
@@ -587,7 +621,7 @@ namespace AplicacionBase.Controllers
                     ViewBag.Seleccionado4 = false;
                     continuar4 = false;
                 }
-                if (fechaDesde > fechaHasta)
+                if (fechaDesde >= fechaHasta)
                 {
                     TempData["Error4"] = "¡La Fecha Inicio no puede ser mayor a la fecha final!";
                     ViewBag.Seleccionado4 = false;
@@ -597,18 +631,17 @@ namespace AplicacionBase.Controllers
                 #endregion
 
                 if (continuar3 && continuar4)
-                {
-                    foreach (string key in form)
+                { 
+                    User user = db.Users.Find(searchId());
+                    if (user != null)
                     {
-                        if (key.Contains("txtSchool"))
+                        ViewBag.userId = user.Id;
+                        int wizard = 0;
+                        foreach (string key in form)
                         {
-                            string var = form[key];
-                            User user = db.Users.Find(searchId());
-                            if (user != null)
+                            if (key.Contains("txtSchool"))
                             {
-                                ViewBag.userId = user.Id;
-                                int wizard = 0;
-                                var last = db.Studies.Find(id);
+                                string var = form[key];
                                 var s = form[key];
                                 var flag = false;
                                 foreach (var i in db.Schools)
@@ -619,38 +652,66 @@ namespace AplicacionBase.Controllers
                                         flag = true;
                                     }
                                 }
-                                if (flag == false)
+                                if (!flag)
                                 {
                                     var newid = Guid.NewGuid();
                                     db.Schools.Add(new School {Id = newid, Name = s});
                                     db.SaveChanges();
                                     last.IdSchool = newid;
                                 }
-
-                                last.Grade = study.Grade;
-
-                                last.Electives.Clear();
-                                if (key.Contains("programas"))
+                            }
+                            last.Grade = study.Grade;
+                            if (key.Contains("programas"))
+                            {
+                                last.Programs = form[key];
+                            }
+                            if (key.Contains("wizard"))
+                            {
+                                if (form[key] == "1")
                                 {
-                                    last.Programs = form[key];
+                                    wizard = 1;
                                 }
-                                if (key.Contains("wizard"))
+                            }
+                            if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") ||
+                                key.Contains("Elective4") || key.Contains("Elective5"))
+                            {
+                                if (form[key].Length != 0)
                                 {
-                                    if (form[key] == "1")
+                                    string var = form[key];
+                                    bool temp = false;
+                                    foreach (Elective elective in db.Electives)
                                     {
-                                        wizard = 1;
+                                        if (elective.Name == var)
+                                        {
+                                            bool el2 = false;
+                                            foreach (var i in last.Electives)
+                                            {
+                                                if (i.Id == elective.Id)
+                                                {
+                                                    el2 = true;
+                                                }
+                                            }
+                                            if (el2 == false)
+                                            {
+                                                last.Electives.Add(elective);
+                                            }
+                                            temp = true;
+                                        }
+                                    }
+                                    if (temp == false)
+                                    {
+                                        Elective elective = new Elective();
+                                        elective.Id = Guid.NewGuid();
+                                        elective.Name = var;
+                                        db.Electives.Add(elective);
+                                        last.Electives.Add(elective);
                                     }
                                 }
-                                if (key.Contains("Elective1") || key.Contains("Elective2") || key.Contains("Elective3") ||
-                                    key.Contains("Elective4") || key.Contains("Elective5"))
-                                {
-                                    if (form[key].Length != 0)
-                                    {
-                                        listaElectiva.Add(var);
-                                    }
-                                }
-                                last.StartDate = study.StartDate;
-                                last.EndDate = study.EndDate;
+                            }
+                            last.StartDate = study.StartDate;
+                            last.EndDate = study.EndDate;
+                            if (key.Contains("Thesis.Title"))
+                            {
                                 Thesis tesis = new Thesis();
                                 if (study.Thesis.Title != null)
                                 {
@@ -664,39 +725,24 @@ namespace AplicacionBase.Controllers
                                     db.Theses.Add(tesis);
                                     last.Thesis = tesis;
                                 }
-                                if (ModelState.IsValid)
+                                else
                                 {
-                                    var agregar = new List<Guid>();
-                                    var dblista = db.Electives.ToList();
-                                    foreach (string elective in listaElectiva)
+                                    if (last.Thesis != null)
                                     {
-                                        int count = dblista.Count(x => x.Name == elective);
-                                        if (count == 0)
-                                        {
-                                            Elective elective2 = new Elective();
-                                            elective2.Id = Guid.NewGuid();
-                                            elective2.Name = elective;
-                                            db.Electives.Add(elective2);
-                                            agregar.Add(elective2.Id);
-                                        }
-                                        else
-                                        {
-                                            agregar.Add(db.Electives.First(x => x.Name == elective).Id);
-                                        }
+                                        db.Theses.Remove(last.Thesis);
+                                        last.Thesis = null;
                                     }
-                                    foreach (var guid in agregar)
-                                    {
-                                        var elect = db.Electives.Find(guid);
-                                        last.Electives.Add(elect);
-                                    }
-
-                                    db.Entry(last).State = EntityState.Modified;
-                                    db.SaveChanges();
                                 }
-                                TempData["Exito"] = "Se ha editado el estudio correctamente";
-                                return RedirectToAction("Index",new RouteValueDictionary(new{controller = "Study",action = "Index",Id = last.IdUser,wizardStep = wizard}));
                             }
                         }
+                        if (ModelState.IsValid)
+                        {
+                            db.Entry(last).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                        }
+                        TempData["Exito"] = "Se ha editado el estudio correctamente";
+                        return RedirectToAction("Index",new RouteValueDictionary(new{controller = "Study",action = "Index",Id = last.IdUser,wizardStep = wizard}));
                     }
                     return View();
                 }
@@ -704,7 +750,7 @@ namespace AplicacionBase.Controllers
             return View();
         }
 
-        #endregion
+    #endregion
 
         
 
@@ -760,9 +806,8 @@ namespace AplicacionBase.Controllers
                 Study study = db.Studies.Find(id);
                 db.Studies.Remove(study);
                 db.SaveChanges();
-                return RedirectToAction("Index",
-                                        new RouteValueDictionary(
-                                            new {controller = "Study", action = "Index", Id = studio.IdUser}));
+                TempData["Exito"] = "Se Elimino el estudio correctamente";
+                return RedirectToAction("Index",new RouteValueDictionary(new {controller = "Study", action = "Index", Id = studio.IdUser}));
             }
             return RedirectToAction("Index", "Home");
         }
