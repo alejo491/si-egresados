@@ -5,7 +5,7 @@
 @using System.Xml
 @using AplicacionBase.Models.ViewModels
 @{
-    ViewBag.Title = "Vista previa de reporte";
+    ViewBag.Title = @ViewBag.ReportName;
     List<ItemReportViewModel> items = ViewBag.Items;
     int id = 0;
     int t = 0;
