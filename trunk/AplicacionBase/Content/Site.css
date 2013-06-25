@@ -215,7 +215,7 @@ ul#menu li a:hover {
     border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
-    min-height: 750px;
+    min-height: 1000px;
 }
 #main2 {
     padding: 30px 30px 15px 30px;
