@@ -6,21 +6,37 @@
 
   <mvcSiteMapNode title="Inicio" controller="Home" action="Index">
       <mvcSiteMapNode title="Perfil" controller="User" action="Begin">
-       <mvcSiteMapNode title="Cambiar Contraseña" controller="Account" action="ChangePassword"/>
-      <mvcSiteMapNode title="Detalles" controller="User" action="Details"/>
-        <mvcSiteMapNode title="Estudios" controller="Study" action="Index">
-          <mvcSiteMapNode title="Detalles" controller="Study" action="Details"/>
-          <mvcSiteMapNode title="Crear" controller="Study" action="Create"/>
-          <mvcSiteMapNode title="Editar" controller="Study" action="Edit"/>
-          <mvcSiteMapNode title="Eliminar" controller="Study" action="Delete"/>
-        </mvcSiteMapNode>
+          <mvcSiteMapNode title="Cambiar Contraseña" controller="Account" action="ChangePassword"/>
+          <mvcSiteMapNode title="Detalles" controller="User" action="Details"/>
+          <mvcSiteMapNode title="Estudios" controller="Study" action="Index">
+			  <mvcSiteMapNode title="Detalles" controller="Study" action="Details"/>
+			  <mvcSiteMapNode title="Crear" controller="Study" action="Create"/>
+			  <mvcSiteMapNode title="Editar" controller="Study" action="Edit"/>
+			  <mvcSiteMapNode title="Eliminar" controller="Study" action="Delete"/>
+          </mvcSiteMapNode>
+		  <!--Accesos para gestion de mis noticias-->
+		  <mvcSiteMapNode title="Mis Noticias" controller="Post" action="UserIndex"><!--Usuario-->
+			  <mvcSiteMapNode title="Crear" controller="Post" action="Create"/><!--Usuario-->
+			  <mvcSiteMapNode title="Editar" controller="Post" action="Edit"/><!--Usuario-->
+			  <mvcSiteMapNode title="Detalles" controller="Post" action="Details"/><!--Usuario-->
+			  <mvcSiteMapNode title="Resultados Busqueda" controller="Post" action="UserSearch"/><!--Usuario-->
+			  <mvcSiteMapNode title="Resultados Filtrado" controller="Post" action="UserFilter"/><!--Usuario-->
+		  </mvcSiteMapNode>
+		  <!--Accesos para gestion de mis noticias-->
+		  <mvcSiteMapNode title="Gestionar Noticias" controller="Post" action="Index"><!--Administrador-->
+			  <mvcSiteMapNode title="Crear" controller="Post" action="CreateAdmin"/><!--Administrador-->
+			  <mvcSiteMapNode title="Detalles" controller="Post" action="DetailsAdmin"/><!--Administrador-->
+			  <mvcSiteMapNode title="Editar" controller="Post" action="EditAdmin"/><!--Administrador-->
+			  <mvcSiteMapNode title="Resultados Busqueda" controller="Post" action="Search"/>
+			  <!--Administrador-->
+		  </mvcSiteMapNode>
       </mvcSiteMapNode> 
       <mvcSiteMapNode title="Acerca De" controller="Home" action="About"/>
       <mvcSiteMapNode title="Cuenta" controller="Account" action="LogOn">
       <mvcSiteMapNode title="Registro" controller="Account" action="Register"/>
      
       <mvcSiteMapNode title="Cambiar Contraseña Correcta" controller="Account" action="ChangePasswordSuccess"/>	  
-    </mvcSiteMapNode>
+	</mvcSiteMapNode>
 
     <mvcSiteMapNode title="Compañias" controller="Companies" action="Index">
       <mvcSiteMapNode title="Detalles" controller="Companies" action="Details"/>
@@ -189,15 +205,14 @@
       <mvcSiteMapNode title="Buscar" controller="Vacancies" action="Search"/>
     </mvcSiteMapNode>
 
-	<mvcSiteMapNode title="Noticias" controller="Post" action="Index">
-		<mvcSiteMapNode title="Ver Noticia" controller="Post" action="ShowPost"/>
-		<mvcSiteMapNode title="Ver más Noticias" controller="Post" action="GlobalIndex"/>
-		<mvcSiteMapNode title="Detalles" controller="Post" action="Details"/>
-		<mvcSiteMapNode title="Crear" controller="Post" action="Create"/>
-		<mvcSiteMapNode title="Editar" controller="Post" action="Edit"/>
-		<mvcSiteMapNode title="Eliminar" controller="Post" action="Delete"/>
+	<!--Migas de pan Gestón de Noticias-->
+	<mvcSiteMapNode title="Ver Noticia" controller="Post" action="ShowPost"/>
+	<mvcSiteMapNode title="Ver Noticias" controller="Post" action="GlobalIndex">
+		<mvcSiteMapNode title="Noticia" controller="Post" action="ShowPost"/>
+		<mvcSiteMapNode title="Búscar" controller="Post" action="GlobalSearch"/>
 	</mvcSiteMapNode>
-	<mvcSiteMapNode title="Noticias" controller="Post" action="Indexpublic"/>
+
+<!--Fin migas de pan Gestión de noticias-->
 
   </mvcSiteMapNode>
 

@@ -38,7 +38,7 @@ namespace AplicacionBase.Controllers
         /// </summary>
         /// <param name="post">commentario que se recibe desde un formulario</param>
         /// <returns>Retorna la vista para crear el comentario de la noticia</returns>
-        public void Create(Guid id, string text)
+        public ActionResult Create(Guid id, string text)
         {
             Comment comment = new Comment();
             comment.IdPost = id;
@@ -51,6 +51,7 @@ namespace AplicacionBase.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
             }
+            return null;
         }
         #endregion
     }

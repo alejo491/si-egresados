@@ -32,8 +32,8 @@ namespace AplicacionBase.Controllers
         /// <summary>
         /// Muestra las noticias autorizadas que han publicado los usuarios
         /// </summary>
-        /// <param name="page"></param>
-        /// <returns></returns>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult GlobalIndex(int? page)
         {
             List<string> criteria = new List<string>() { "Mostrar Todas", "Mas Likes", "Mas Votadas" };
@@ -47,13 +47,12 @@ namespace AplicacionBase.Controllers
         #region ListarNoticiasAdministrador
         /// <summary>
         /// Muestra todas las noticias que han publicado los usuarios
-        /// limpiando antes de mostrar las noticias que no se an creado correctamente.
+        /// limpiando antes de mostrar las noticias que no se han creado correctamente.
         /// </summary>
+        /// <param name="page">Elemento de control para la paginación</param>
         /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult Index(int? page)
         {
-            List<string> criteria = new List<string>() { "Mostar Todas", "Mas Likes", "Mas Votadas" };
-            ViewBag.Filtros = new SelectList(criteria);
             var posts = db.Posts.Include(p => p.User);
             pageNumber = (page ?? 1);
             var post_basura = db.Posts.SqlQuery("exec PostBasura"); 
@@ -85,21 +84,16 @@ namespace AplicacionBase.Controllers
 
         #region ListarNoticiasUsuario
         /// <summary>
-        /// Muestra todas las noticias que ha publicado el usuario
+        /// Muestra todas las noticias que ha publicado el usuario autenticado
         /// </summary>
+        /// <param name="page">Elemento de control para la paginación</param>
         /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult UserIndex(int? page)
         {
             List<string> criteria = new List<string>() { "Mostrar Todas", "Mas Likes", "Mas Votadas" };
             ViewBag.Filtros = new SelectList(criteria);
             Guid g = System.Guid.Empty;
-            foreach (var e in db.aspnet_Users)
-            {
-                if (e.UserName == HttpContext.User.Identity.Name)
-                {
-                    g = e.UserId;
-                }
-            }
+            g = (Guid)Membership.GetUser().ProviderUserKey;
             var post_basura = db.Posts.SqlQuery("exec PostBasura");
             List<Post> list = post_basura.ToList();
             foreach (var x in list)
@@ -125,11 +119,11 @@ namespace AplicacionBase.Controllers
             }
             var posts = db.Posts.Where(p => (p.IdUser.Equals(g))).Include(p => p.User);
             pageNumber = (page ?? 1);
-            return View(posts.ToList().ToPagedList(pageNumber, pageSize));
+            return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
         }
         #endregion
 
-        #region Detalles ADministrador
+        #region Detalles Administrador
         /// <summary>
         /// Muestra en detalle una noticia para el usuario administrador 
         /// </summary>
@@ -138,27 +132,8 @@ namespace AplicacionBase.Controllers
         public ViewResult DetailsAdmin(Guid id)
         {
             Post post = db.Posts.Find(id);
-            Post post2 = new Post();
             IList<Post> datos = new List<Post>();
             datos.Add(post);
-            AplicacionBase.Controllers.LikeController lc = new LikeController();
-            int cont = 0;
-            IList<Like> likes = lc.Index();
-            if (Request.IsAuthenticated)
-            {
-                foreach (Like l in likes)
-                {
-                    if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
-                    {
-                        cont++;
-                        post2.Id = l.Id;
-                    }
-                }
-                if (cont == 1) post2.Autorized = 1;
-                else post2.Autorized = 0;
-            }
-            else post2.Autorized = -1;
-            datos.Add(post2);
             return View(datos);
         }
         #endregion
@@ -172,34 +147,15 @@ namespace AplicacionBase.Controllers
         public ViewResult Details(Guid id)
         {
             Post post = db.Posts.Find(id);
-            Post post2 = new Post();
             IList<Post> datos = new List<Post>();
             datos.Add(post);
-            AplicacionBase.Controllers.LikeController lc = new LikeController();
-            int cont = 0;
-            IList<Like> likes = lc.Index();
-            if (Request.IsAuthenticated)
-            {
-                foreach (Like l in likes)
-                {
-                    if (l.Id_Post == id && l.Id_User == (Guid)Membership.GetUser().ProviderUserKey)
-                    {
-                        cont++;
-                        post2.Id = l.Id;
-                    }
-                }
-                if (cont == 1) post2.Autorized = 1;
-                else post2.Autorized = 0;
-            }
-            else post2.Autorized = -1;
-            datos.Add(post2);
             return View(datos);
         }
         #endregion
 
         #region Crear noticia
         /// <summary>
-        /// Permite crear una nueva noticia
+        /// Permite crear una nueva noticia para un usuario registrado
         /// </summary>
         /// <returns>Retorna la vista para crear la noticia</returns>
         public ActionResult Create()
@@ -209,10 +165,11 @@ namespace AplicacionBase.Controllers
             User user = db.Users.Find(post.IdUser);
             if (user == null )
             {
+                TempData["Error"] = "Primero debes Ingresar tus datos personales para Registrar Noticia";
                 return RedirectToAction("Create", "User");
             }
             post.PublicationDate = DateTime.Now;
-            post.Autorized = 0; //queda pendiente validar que rol tiene
+            post.Autorized = 0; 
             post.Main = 0;
             post.Estate = 0;
             post.Id = Guid.NewGuid();
@@ -231,7 +188,7 @@ namespace AplicacionBase.Controllers
 
         #region Crear noticia HttpPost
         /// <summary>
-        /// Guarda la noticia que se recibe en el formulario en la base de datos,
+        /// Guarda la noticia que se recibe en el formulario en la base de datos
         /// </summary>
         /// <param name="post">Noticia recibida desde un formulario</param>
         /// <returns>Retorna las noticias recibidas en el formulario</returns>
@@ -239,7 +196,6 @@ namespace AplicacionBase.Controllers
         public ActionResult Create(Post post)
         {
             post.IdUser = (Guid)Membership.GetUser().ProviderUserKey;
-            post.PublicationDate = DateTime.Now;
             post.Autorized = 0;
             var list = Roles.GetRolesForUser();
             foreach (var i in list) {
@@ -262,7 +218,7 @@ namespace AplicacionBase.Controllers
 
         #region Crear Admin noticia
         /// <summary>
-        /// Permite crear una nueva noticia
+        /// Permite crear una nueva noticia al administrador
         /// </summary>
         /// <returns>Retorna la vista para crear la noticia</returns>
         public ActionResult CreateAdmin()
@@ -272,10 +228,11 @@ namespace AplicacionBase.Controllers
             User user = db.Users.Find(post.IdUser);
             if (user == null)
             {
+                TempData["Error"] = "Primero debes Ingresar tus datos personales para Registrar Noticia";
                 return RedirectToAction("Create", "User");
             }
             post.PublicationDate = DateTime.Now;
-            post.Autorized = 0; //queda pendiente validar que rol tiene
+            post.Autorized = 0; 
             post.Main = 0;
             post.Estate = 0;
             post.Id = Guid.NewGuid();
@@ -326,7 +283,7 @@ namespace AplicacionBase.Controllers
 
         #region Editar noticia
         /// <summary>
-        /// Da la opción de editar una noticia que ha sido guardada
+        /// Da la opción de editar una noticia que ha sido guardada por un usuario
         /// </summary>
         /// <param name="id">Identificador de la noticia</param>
         /// <returns>Retorna la noticia a editar</returns>
@@ -362,13 +319,10 @@ namespace AplicacionBase.Controllers
                     }
                 }
                 post.Autorized = 0;
-                post.Main = 0;
                 
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("UserIndex");
-                
-                
             }
             return View(post);
         }
@@ -376,12 +330,11 @@ namespace AplicacionBase.Controllers
 
         #region Editar noticia Administrador
         /// <summary>
-        /// Da la opción de editar una noticia que ha sido guardada al adminisratrador
+        /// Da la opción a el administrador de editar una noticia que ha sido guardada en el sistema por cualquier usuario
         /// </summary>
         /// <param name="id">Identificador de la noticia</param>
         /// <returns>Retorna la noticia a editar</returns>
-        public ActionResult EditAdmin
-            (Guid id)
+        public ActionResult EditAdmin(Guid id)
         {
             Post post = db.Posts.Find(id);
             return View(post);
@@ -409,38 +362,9 @@ namespace AplicacionBase.Controllers
         }
         #endregion
 
-        #region Eliminar noticia
-        /// <summary>
-        /// Da la opción de eliminar una noticia
-        /// </summary>
-        /// /// <param name="id">Identificador de la noticia</param>
-        /// <returns>Retorna la noticia a eliminar</returns>
-        public ActionResult Delete(Guid id)
-        {
-            Post post = db.Posts.Find(id);
-            return View(post);
-        }
-        #endregion
-
-        #region Eliminar noticia HttpPost
-        /// <summary>
-        /// Elimina la noticia que corresponde al id
-        /// </summary>
-        /// <param name="id">Identificador de la noticia</param>
-        /// <returns>Retorna el resultado de la eliminación de la noticia</returns>
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(Guid id)
-        {
-            Post post = db.Posts.Find(id);
-            db.Posts.Remove(post);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        #endregion
-
         #region ShowPosts
         /// <summary>
-        /// Muestra las noticia publicadas y autorizadas en el carrucel de noticias
+        /// Muestra las noticia publicadas y autorizadas en el carrucel de noticias de la pagina principal
         /// </summary>
         /// <returns>Retorna la vista con las noticias publicadas y autorizadas</returns>
         public ActionResult ShowPosts()
@@ -464,7 +388,7 @@ namespace AplicacionBase.Controllers
 
         #region ShowPost
         /// <summary>
-        /// Esta función se llama cuando se quiere mirar el contenido de un post
+        /// Esta función se llama cuando se quiere mirar el contenido de una noticia
         /// </summary>
         /// <param name="id">Identificador del post</param>
         /// <returns>Retorna el post en la vista</returns>
@@ -478,7 +402,7 @@ namespace AplicacionBase.Controllers
             AplicacionBase.Controllers.LikeController lc = new LikeController();
             AplicacionBase.Controllers.StartboxController st = new StartboxController();
             IList<Like> likes;
-            int startbox = st.Index2(id);            
+            int startbox = st.Index(id);            
             post2.Autorized = 0;
             Startbox mystartbox = new Startbox();
             if (Request.IsAuthenticated)
@@ -498,7 +422,13 @@ namespace AplicacionBase.Controllers
                 {
                     post2.Autorized = 1;
                     post2.Id = likes.First().Id;
-                }              
+                }
+                Guid g = (Guid)Membership.GetUser().ProviderUserKey;
+                User user2 = db.Users.Find(g);
+                if (user2 == null)
+                {
+                    post2.Autorized = -2;
+                }
             }
             else post2.Autorized = -1;
             post2.Estate = lc.get_likes(id);
@@ -511,7 +441,7 @@ namespace AplicacionBase.Controllers
 
         #region Search
         /// <summary>
-        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista Principal
+        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista de gestionar noticias del administrador
         /// </summary>
         /// <param name="criteria">Contiene las palabras clave con las que se desea hacer la busqueda</param>
         /// <param name="page">Elemento de control para la paginación</param>
@@ -538,7 +468,7 @@ namespace AplicacionBase.Controllers
 
         #region GlobalSearch
         /// <summary>
-        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista de todas las noticias que puede mirar el usuario
+        /// Esta función atiende el resultado de hacer clic en el boton Buscar de la vista de todas las noticias que puede mirar cualquier usuario
         /// </summary>
         /// <param name="criteria">Contiene las palabras clave con las que se desea hacer la busqueda</param>
         /// <param name="page">Elemento de control para la paginación</param>

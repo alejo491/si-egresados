@@ -106,9 +106,9 @@
      
     @if (Model.HasPreviousPage)
     {
-        @Html.ActionLink("<<", "UserIndex", new { page = 1 })
+        @Html.ActionLink("<<", "UserFilter", new { page = 1 })
         @Html.Raw(" ");
-        @Html.ActionLink("< Anterior", "UserIndex", new { page = Model.PageNumber - 1 })
+        @Html.ActionLink("< Anterior", "UserFilter", new { page = Model.PageNumber - 1 })
     }
     else
     {
@@ -119,9 +119,9 @@
      
     @if (Model.HasNextPage)
     {
-        @Html.ActionLink("Siguiente>", "UserIndex", new { page = Model.PageNumber + 1 })
+        @Html.ActionLink("Siguiente>", "UserFilter", new { page = Model.PageNumber + 1 })
         @Html.Raw(" ");
-        @Html.ActionLink(">>", "UserIndex", new { page = Model.PageCount })
+        @Html.ActionLink(">>", "UserFilter", new { page = Model.PageCount })
     }
     else
     {
