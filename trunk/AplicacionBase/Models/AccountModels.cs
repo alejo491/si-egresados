@@ -37,7 +37,9 @@ namespace AplicacionBase.Models
         [Compare("NewPassword", ErrorMessage = "La nueva contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
     }
-
+    /// <summary>
+    /// Acceso al token de Facebook
+    /// </summary>
     public class FacebookLoginModel
     {
         public string accessToken { get; set; }
