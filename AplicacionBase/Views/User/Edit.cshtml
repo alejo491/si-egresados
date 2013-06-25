@@ -2,6 +2,40 @@
 @{
     ViewBag.Title = "Editar";
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#BirthDate").datepicker({ dateFormat: 'dd/mm/yy' });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#BirthDate").change(function () {
+            var now = new Date();
+            var errorDate = false;
+            var startDt = $("#BirthDate").val();
+            var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
+            var aI = startDt.substring(0, 4);
+            var aF = endDt.substring(5, 10);
+            if (aI <= aF) {
+                var mI = startDt.substring(5, 7);
+                var mF = endDt.substring(3, 4);
+                if (mI <= mF) {
+                    var dI = startDt.substring(8, 10);
+                    var dF = endDt.substring(0, 2);
+                    if (dI > dF) { errorDate = true; }
+                } else { errorDate = true; }
+            } else { errorDate = true; }
+            if (errorDate) {
+                $('<p>').text('Su fecha  de cumpleaños no debe ser posterior a la fecha actual').appendTo('#ErrorBirthDate').hide(20000, function () { $(this).remove(); });
+               
+                $("#BirthDate").val("");
+            }
+        });
+    });
+</script>
+
+
 <h2>
     Editar Información Personal</h2>
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -55,7 +89,7 @@
             @Html.EditorFor(model => model.BirthDate)
             @Html.ValidationMessageFor(model => model.BirthDate)
         </div>
-
+        <div class="alert error" id = "ErrorBirthDate"></div>
         <div class="editor-label"><h3>@Html.LabelFor(model => model.Gender)</h3>
             <div>
                 @Html.RadioButtonFor(model => model.Gender, "M")

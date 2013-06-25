@@ -390,6 +390,7 @@ namespace AplicacionBase.Controllers
                 db.SaveChanges();
                 if (Name == user.aspnet_Users.UserName)
                 {
+                    TempData["NewPassword"] = "¡Datos modificados Correctamente!";
                     return RedirectToAction("Begin", "User", new { id = g });
                 }
                 else
