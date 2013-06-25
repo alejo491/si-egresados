@@ -62,15 +62,9 @@ else
                 error: function () {
                     alert("Error al ingresar con tu cuenta de Facebook.");
                 },
-                success: function (data) {
-                    if (data.success) {
-                        window.location.reload();
+                success: function () {
 
-                    }
-                    else {
-                        window.location.reload();
-                        alert(data.mensaje);
-                    }
+                    window.location.reload();
 
                 }
 
