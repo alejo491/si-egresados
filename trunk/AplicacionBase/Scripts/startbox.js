@@ -2,6 +2,7 @@
     var postid = $("#idpost").text();
     setInterval("actualizar_num_likes('"+postid+"')", 10000);
     setInterval("actualizar_prom_start('"+postid+"')", 10000);
+    setInterval("MostrarComentarios('"+postid+"')", 10000);
 });
 var qualification;
 var bandera;
@@ -120,4 +121,30 @@ function actualizar_prom_start(postid){
                 $("#PromStart").html("&nbsp&nbsp&nbsp" + data + " De calificación promedio");  
             }
         });
+}
+
+function Comentar(postid){
+    var comentario = $("#comment").val();
+    $.ajax({
+            type: "POST",
+            url: "/Comment/Create", 
+            traditional: true,
+            data: {id:postid, text:comentario}            
+        });
+    //$("#comments").prepend('<div class="comentario">'+comentario+'</div>');
+    $("#comment").val("");
+    MostrarComentarios(postid);
+}
+function MostrarComentarios(postid){
+    $("#loading").css("display", "block");  
+    $.ajax({
+        type: "POST",
+        url: "/Comment/Index", 
+        traditional: true,
+        data: {id:postid},     
+        success : function(data){
+            $("#loading").css("display", "none");  
+            $("#comments").html(data);  
+        }  
+    });     
 }
