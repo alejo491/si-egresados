@@ -674,6 +674,8 @@
     <Content Include="Views\Startbox\Calificacion.cshtml" />
     <Content Include="Views\Like\Num_likes.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Post\GlobalFilter.cshtml" />
+    <Content Include="Views\Post\UserFilter.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

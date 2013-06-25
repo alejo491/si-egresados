@@ -36,6 +36,8 @@ namespace AplicacionBase.Controllers
         /// <returns></returns>
         public ViewResult GlobalIndex(int? page)
         {
+            List<string> criteria = new List<string>() { "Mostrar Todas", "Mas Likes", "Mas Votadas" };
+            ViewBag.Filtros = new SelectList(criteria);
             var posts = db.Posts.Where(i => i.Autorized == 1);
             pageNumber = (page ?? 1);
             return View(posts.ToList().OrderByDescending(c => c.PublicationDate).ToPagedList(pageNumber, pageSize));
@@ -50,6 +52,8 @@ namespace AplicacionBase.Controllers
         /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult Index(int? page)
         {
+            List<string> criteria = new List<string>() { "Mostar Todas", "Mas Likes", "Mas Votadas" };
+            ViewBag.Filtros = new SelectList(criteria);
             var posts = db.Posts.Include(p => p.User);
             pageNumber = (page ?? 1);
             var post_basura = db.Posts.SqlQuery("exec PostBasura"); 
@@ -86,6 +90,8 @@ namespace AplicacionBase.Controllers
         /// <returns>Retorna las noticias en el formulario</returns>
         public ViewResult UserIndex(int? page)
         {
+            List<string> criteria = new List<string>() { "Mostrar Todas", "Mas Likes", "Mas Votadas" };
+            ViewBag.Filtros = new SelectList(criteria);
             Guid g = System.Guid.Empty;
             foreach (var e in db.aspnet_Users)
             {
@@ -587,6 +593,93 @@ namespace AplicacionBase.Controllers
             var results = posts.ToList().OrderByDescending(c => c.PublicationDate);
             pageNumber = (page ?? 1);
             return View(results.ToPagedList(pageNumber, pageSize));
+
+        }
+        #endregion
+
+        #region GlobalFilter
+        /// <summary>
+        /// Esta función atiende el resultado de hacer clic en el boton Filtrar de la vista Principal de Noticias
+        /// </summary>
+        /// <param name="Filtros">Contiene el criterio de filtrado seleccionado desde el fomulario</param>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>Retorna la vista con el listado de noticias filtradas bajo el criterio</returns>
+        public ActionResult GlobalFilter(List<string> Filtros, int? page)
+        {
+
+            ViewBag.CurrentFilter = Filtros[0];
+            if (Filtros[0].Equals("Mostrar Todas"))
+            {
+                return RedirectToAction("GlobalIndex", "Post");
+            }
+
+            if (Filtros[0].Equals("Mas Likes"))
+            {
+                var posts = db.Posts.SqlQuery("exec Noticias_MasLikes");
+                if (posts != null)
+                {
+                    var results = posts.ToList().OrderByDescending(c => c.Main);
+                    pageNumber = (page ?? 1);
+                    return View(results.ToPagedList(pageNumber, pageSize));
+                }
+                return View();
+            }
+            if (Filtros[0].Equals("Mas Votadas"))
+            {
+                var posts = db.Posts.SqlQuery("exec Noticias_MasVotadas");
+                if (posts != null)
+                {
+                    var results = posts.ToList().OrderByDescending(c => c.Main);
+                    pageNumber = (page ?? 1);
+                    return View(results.ToPagedList(pageNumber, pageSize));
+                }
+                return View();
+            }
+            return View();
+
+        }
+        #endregion
+
+        #region UserFilter
+        /// <summary>
+        /// Esta función atiende el resultado de hacer clic en el boton Filtrar de la vista Principal de Noticias del usuario
+        /// </summary>
+        /// <param name="Filtros">Contiene el criterio de filtrado seleccionado desde el fomulario</param>
+        /// <param name="page">Elemento de control para la paginación</param>
+        /// <returns>Retorna la vista con el listado de noticias filtradas bajo el criterio y pertenecientes al usuario</returns>
+        public ActionResult UserFilter(List<string> Filtros, int? page)
+        {
+
+            ViewBag.CurrentFilter = Filtros[0];
+            Guid g = System.Guid.Empty;
+            foreach (var e in db.aspnet_Users)
+            {
+                if (e.UserName == HttpContext.User.Identity.Name)
+                {
+                    g = e.UserId;
+                }
+            }
+
+            if (Filtros[0].Equals("Mostrar Todas"))
+            {
+                return RedirectToAction("UserIndex", "Post");
+            }
+
+            if (Filtros[0].Equals("Mas Likes"))
+            {
+                var posts = db.Posts.SqlQuery("exec Noticias_MasLikes_User '" + g + "'");
+                var results = posts.ToList().OrderByDescending(c => c.Main);
+                pageNumber = (page ?? 1);
+                return View(results.ToPagedList(pageNumber, pageSize));
+            }
+            if (Filtros[0].Equals("Mas Votadas"))
+            {
+                var posts = db.Posts.SqlQuery("exec Noticias_MasVotadas_User '" + g + "'");
+                var results = posts.ToList().OrderByDescending(c => c.Main);
+                pageNumber = (page ?? 1);
+                return View(results.ToPagedList(pageNumber, pageSize));
+            }
+            return View();
 
         }
         #endregion
