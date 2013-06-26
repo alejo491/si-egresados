@@ -56,83 +56,14 @@
             @Html.TextBoxFor(model => model.EndDate, new { id = "endDate" })
             @Html.ValidationMessageFor(model => model.EndDate)
         </div>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#startDate").datepicker({ dateFormat: 'dd/mm/yy' });
-                $("#endDate").datepicker({ dateFormat: 'dd/mm/yy' });
-                $("#endDate").change(function () {
-                    var errorDate = false;
-                    var startDt = $("#startDate").val();
-                    var endDt = $("#endDate").val();
-                    var aI = startDt.substring(6, 10);
-                    var aF = endDt.substring(6, 10);
-                    if (aI > aF) {
-                        errorDate = true;
-                    } else {
-                        if (aI == aF) {
-                            var mI = startDt.substring(3, 5);
-                            var mF = endDt.substring(3, 5);
-                            if (mI > mF) {
-                                errorDate = true;
-                            } else {
-                                if (mI == mF) {
-                                    var dI = startDt.substring(0, 2);
-                                    var dF = endDt.substring(0, 2);
-                                    if (dI >= dF) {
-                                        errorDate = true;
-                                    }
-                                } else {
-                                    errorDate = false;
-                                }
-                            }
-                        } else {
-                            errorDate = false;
-                        }
-                    }
-
-                    if (errorDate) {
-                        $('<p>').text('La fecha de finalizacion debe ser posterior a la fecha de inicio').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
-                        $("#endDate").val("");
-                    }
-                    var now = new Date();
-                    var errorDate = false;
-                    var startDt = $("#endDate").val();
-                    var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
-                    var aI = startDt.substring(6, 10);
-                    var aF = endDt.substring(5, 10);
-                    if (aI > aF) {
-                        errorDate = true;
-                    } else {
-                        if (aI == aF) {
-                            var mI = startDt.substring(3, 5);
-                            var mF = endDt.substring(3, 4);
-                            if (mI > mF) {
-                                errorDate = true;
-                            } else {
-                                if (mI == mF) {
-                                    var dI = startDt.substring(8, 10);
-                                    var dF = endDt.substring(0, 2);
-                                    if (dI > dF) {
-                                        errorDate = true;
-                                    } else {
-                                        errorDate = false;
-                                    }
-                                } else {
-                                    errorDate = false;
-                                }
-                            }
-                        }
-                    } if (errorDate) {
-                        $('<p>').text('La fecha de Finalizacion  no debe ser posterior a la fecha de actual').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
-                        $("#startDate").val("");
-                    }
-                });
-
-                $("#startDate").change(function () {
-                    var errorDate = false;
-                    var startDt = $("#startDate").val();
-                    var endDt = $("#endDate").val();
-                    if (endDt != "") {
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#endDate").datepicker({ dateFormat: 'dd/mm/yy' }); ;
+                    $("#startDate").datepicker({ dateFormat: 'dd/mm/yy' }); ;
+                    $("#endDate").change(function () {
+                        var errorDate = false;
+                        var startDt = $("#startDate").val();
+                        var endDt = $("#endDate").val();
                         var aI = startDt.substring(6, 10);
                         var aF = endDt.substring(6, 10);
                         if (aI > aF) {
@@ -158,61 +89,100 @@
                                 errorDate = false;
                             }
                         }
+
                         if (errorDate) {
-                            $('<p>').text('La fecha de inicio debe ser posterior a la fecha de finalizacion').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
-                            $("#startDate").val("");
+                            $('<p>').text('La fecha de finalizacion debe ser posterior a la fecha de inicio').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
+                            $("#endDate").val("");
                         }
-                    } else {
                         var now = new Date();
                         var errorDate = false;
-                        var startDt = $("#startDate").val();
+                        var startDt = $("#endDate").val();
                         var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
                         var aI = startDt.substring(6, 10);
                         var aF = endDt.substring(5, 10);
-                        if (aI <= aF) {
+                        if (aI == aF) {
                             var mI = startDt.substring(3, 5);
                             var mF = endDt.substring(3, 4);
                             if (mI <= mF) {
-                                var dI = startDt.substring(8, 10);
+                                var dI = startDt.substring(0, 2);
                                 var dF = endDt.substring(0, 2);
-                                if (dI > dF) {
+                                if (dI > dF) { errorDate = true; }
+                            } else { errorDate = true; }
+                        } else {
+                            if (aI > aF) {
+                                errorDate = true;
+                            }
+                        }
+                        if (errorDate) {
+                            $('<p>').text('la fecha de inicio no puede ser mayor a la fecha actual').appendTo('#errorendDate').hide(20000, function () { $(this).remove(); });
+                            $("#endDate").val("");
+                        }
 
-                                    if (aI > aF) {
+                    });
+
+                    $("#startDate").change(function () {
+                        var errorDate = false;
+                        var startDt = $("#startDate").val();
+                        var endDt = $("#endDate").val();
+                        if (endDt != "") {
+                            var aI = startDt.substring(6, 10);
+                            var aF = endDt.substring(6, 10);
+                            if (aI > aF) {
+                                errorDate = true;
+                            } else {
+                                if (aI == aF) {
+                                    var mI = startDt.substring(3, 5);
+                                    var mF = endDt.substring(3, 5);
+                                    if (mI > mF) {
                                         errorDate = true;
                                     } else {
-                                        if (aI == aF) {
-                                            var mI = startDt.substring(3, 5);
-                                            var mF = endDt.substring(3, 5);
-                                            if (mI > mF) {
+                                        if (mI == mF) {
+                                            var dI = startDt.substring(0, 2);
+                                            var dF = endDt.substring(0, 2);
+                                            if (dI >= dF) {
                                                 errorDate = true;
-                                            } else {
-                                                if (mI == mF) {
-                                                    var dI = startDt.substring(0, 2);
-                                                    var dF = endDt.substring(0, 2);
-                                                    if (dI >= dF) {
-                                                        errorDate = true;
-                                                    }
-                                                } else {
-                                                    errorDate = false;
-                                                }
                                             }
                                         } else {
                                             errorDate = false;
                                         }
                                     }
-
+                                } else {
+                                    errorDate = false;
                                 }
                             }
+                            if (errorDate) {
+                                $('<p>').text('La fecha de inicio debe ser posterior a la fecha de finalizacion').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
+                                $("#startDate").val("");
+                            }
+                        } else {
+                            var now = new Date();
+                            var errorDate = false;
+                            var startDt = $("#startDate").val();
+                            var endDt = now.getDate() + "-" + now.getMonth() + "-" + now.getFullYear();
+                            var aI = startDt.substring(6, 10);
+                            var aF = endDt.substring(5, 10);
+                            if (aI == aF) {
+                                var mI = startDt.substring(3, 5);
+                                var mF = endDt.substring(3, 4);
+                                if (mI <= mF) {
+                                    var dI = startDt.substring(0, 2);
+                                    var dF = endDt.substring(0, 2);
+                                    if (dI > dF) { errorDate = true; }
+                                } else { errorDate = true; }
+                            } else {
+                                if (aI > aF) {
+                                    errorDate = true;
+                                }
+                            }
+                            if (errorDate) {
+                                $('<p>').text('la fecha de inicio no puede ser mayor a la fecha actual').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
+                                $("#startDate").val("");
+                            }
                         }
-                        if (errorDate) {
-                            $('<p>').text('La fecha de inicio  no debe ser posterior a la fecha de actual').appendTo('#errorStartDate').hide(20000, function () { $(this).remove(); });
-                            $("#startDate").val("");
-                        }
-                    }
+
+                    });
 
                 });
-
-            });
         </script>
 
     <br/>
