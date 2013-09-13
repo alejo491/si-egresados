@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DesktopBuildPackageLocation>..\..\..\..\Desktop\AplicacionBase.zip</DesktopBuildPackageLocation>
+    <DeployIisAppPath>Default Web Site/AplicacionBase</DeployIisAppPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +34,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DeployIisAppPath>AplicacionBase</DeployIisAppPath>
+    <PackageAsSingleFile>true</PackageAsSingleFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClientDependency.Core">
@@ -285,6 +289,9 @@
     <Content Include="Content\themes\base\images\starselected.png" />
     <Content Include="Content\themes\base\images\starunselected.png" />
     <Content Include="Scripts\startbox.js" />
+    <Content Include="Views\ItemData\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\main.css" />
@@ -570,7 +577,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\RoleMethods\AssignRolesMethods.cshtml" />
-    <Content Include="Views\Shared\_LayoutIframe.cshtml" />
     <Content Include="Views\Shared\_LayoutSideBar.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
@@ -624,7 +630,6 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
     <Content Include="Views\Items\GeneralItems.cshtml" />
-    <Content Include="Views\ItemData\Crear.cshtml" />
     <Content Include="Views\ItemData\Create.cshtml" />
     <Content Include="Views\Post\showPost.cshtml" />
     <Content Include="Views\File\Delete.cshtml" />
