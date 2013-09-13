@@ -42,15 +42,16 @@ namespace AplicacionBase
         {
 
             //Desactivar rapidamente seguridad de la apliación
-            if (false)
-            {
-            
-
-                     #region Cargar controladores
+            #region Cargar controladores
             var assembly = new AssemblyHelper();
             var result = assembly.GetControllerNames();
             assembly.CreateAdmin();
             #endregion
+            if (false)
+            {
+            
+
+                    
             
                      #region Reglas de seguridad
             //Reglas de configuración
