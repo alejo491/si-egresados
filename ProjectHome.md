@@ -1,0 +1,1 @@
+Sistema de Información para la gestión de egresados
